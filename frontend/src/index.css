@@ -1,0 +1,40 @@
+body {
+  margin: 0;
+  --color-black: #0b0c10;
+  --color-darkblue: #0e2a47;
+  --color-red: #e4002b;
+  --color-white: #ffffff;
+  --color-muted: #8b98a5;
+  --theme-bg: var(--color-black);
+  --theme-accent: var(--color-red);
+  --theme-accent-2: var(--color-darkblue);
+  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.bg-theme { background-color: var(--theme-bg) !important; }
+.text-theme { color: var(--theme-accent-2); }
+.btn-theme { background-color: var(--theme-accent); border-color: var(--theme-accent); }
+.btn-theme:hover { background-color: #c00023; border-color: #c00023; }
+
+/* Product card hover */
+.product-card .product-thumb {
+  background: #0f0f13;
+}
+.product-card img { transition: transform .35s ease; display: block; width: 100%; height: 220px; object-fit: cover; }
+.product-card:hover img { transform: scale(1.06); }
+.product-card .product-actions {
+  position: absolute; inset: auto 0 10px 0; justify-content: center; opacity: 0; transform: translateY(8px); transition: all .25s ease; }
+.product-card:hover .product-actions { opacity: 1; transform: translateY(0); }
+.product-card del { color: var(--color-muted); }
+.product-card .badge { letter-spacing: .5px; }
+
+/* Footer */
+footer a { color: #cdd7e1; text-decoration: none; }
+footer a:hover { color: var(--color-white); }
