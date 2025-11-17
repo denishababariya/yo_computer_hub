@@ -1,8 +1,10 @@
 import './App.css';
+import './styles/x_main.css';
 import { Routes, Route } from 'react-router-dom';
 import AppNavbar from './components/Navbar';
 import AppFooter from './components/Footer';
 import Home from './pages/Home';
+import HomeMain from './pages/HomeMain';
 import Shop from './pages/Shop';
 import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/Cart';
@@ -11,6 +13,11 @@ import Wishlist from './pages/Wishlist';
 import Blog from './pages/Blog';
 import Contact from './pages/Contact';
 import Product360Viewer from './pages/Product360Viewer';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import ForgotPassword from './pages/ForgotPassword';
+import VerifyOTP from './pages/VerifyOTP';
+import ResetPassword from './pages/ResetPassword';
 
 function App() {
   return (
@@ -18,7 +25,8 @@ function App() {
       <AppNavbar />
       <main className="flex-fill">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<HomeMain />} />
+          <Route path="/home" element={<Home />} />
 
           <Route path="/shop" element={<Shop />} />
           <Route path="/shop/:id" element={<ProductDetails />} />
@@ -27,8 +35,16 @@ function App() {
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="*" element={<Home />} />
           <Route path="/360" element={<Product360Viewer />} />
+
+          {/* Authentication Routes */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/verify-otp" element={<VerifyOTP />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+
+          <Route path="*" element={<HomeMain />} />
 
         </Routes>
       </main>

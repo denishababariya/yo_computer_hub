@@ -1,0 +1,453 @@
+/* ============================================
+   X_MAIN CUSTOM STYLES - Responsive Design
+   Minimum width: 320px
+   ============================================ */
+
+/* Top Bar Styles */
+.x_main-topbar {
+  font-size: 0.75rem;
+  padding: 0.5rem 0;
+}
+
+/* Hero Banner Styles */
+.x_main-hero {
+  min-height: 60vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.x_main-hero h1 {
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+/* Category Cards */
+.x_main-category-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.x_main-category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Brand Cards */
+.x_main-brand-card {
+  transition: all 0.3s ease;
+}
+
+.x_main-brand-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+.x_main-brand-card img:hover {
+  filter: grayscale(0%);
+}
+
+/* Featured Products */
+.x_main-featured-card {
+  transition: transform 0.3s ease;
+}
+
+.x_main-featured-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Promo Card */
+.x_main-promo-card {
+  transition: transform 0.3s ease;
+}
+
+.x_main-promo-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Feature Cards */
+.x_main-feature-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.x_main-feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Review Cards */
+.x_main-review-card {
+  transition: transform 0.3s ease;
+}
+
+.x_main-review-card:hover {
+  transform: translateY(-3px);
+}
+
+.x_main-review-video {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.x_main-review-video:hover {
+  transform: scale(1.02);
+}
+
+/* News Cards */
+.x_main-news-card {
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.x_main-news-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Community Images */
+.x_main-community-image {
+  cursor: pointer;
+}
+
+.x_main-community-image:hover {
+  transform: scale(1.05);
+}
+
+/* ============================================
+   RESPONSIVE BREAKPOINTS
+   ============================================ */
+
+/* Extra Small devices (phones, 320px and up) */
+@media (min-width: 320px) {
+  .x_main-hero h1 {
+    font-size: 1.5rem;
+  }
+
+  .x_main-hero .lead {
+    font-size: 1rem;
+  }
+
+  .x_main-topbar {
+    font-size: 0.7rem;
+    padding: 0.4rem 0;
+  }
+
+  .x_main-hero {
+    min-height: 50vh;
+    padding: 2rem 0;
+  }
+
+  /* Category cards */
+  .x_main-top-categories .row {
+    margin: 0 -0.25rem;
+  }
+
+  .x_main-top-categories .col-6 {
+    padding: 0.25rem;
+  }
+
+  /* Promo banners */
+  .x_main-promo-banners .col-md-6 {
+    margin-bottom: 1rem;
+  }
+
+  /* Best sellers tabs */
+  .x_main-best-sellers .nav-tabs {
+    flex-wrap: wrap;
+    font-size: 0.875rem;
+  }
+
+  .x_main-best-sellers .nav-tabs .nav-link {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  /* Brand cards */
+  .x_main-popular-brands .col-6 {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Featured products */
+  .x_main-featured-products .col-md-4 {
+    margin-bottom: 1rem;
+  }
+
+  /* Special offer countdown */
+  .x_main-special-offer .display-6 {
+    font-size: 1.5rem;
+  }
+
+  .x_main-special-offer .small {
+    font-size: 0.7rem;
+  }
+
+  /* ROG banner */
+  .x_main-rog-banner .display-5 {
+    font-size: 1.5rem;
+  }
+
+  .x_main-rog-banner .fs-3 {
+    font-size: 1.25rem;
+  }
+
+  /* Service features */
+  .x_main-service-features .bi {
+    font-size: 2rem;
+  }
+
+  /* Customer review */
+  .x_main-customer-review .col-md-8,
+  .x_main-customer-review .col-md-4 {
+    margin-bottom: 1rem;
+  }
+
+  /* Latest news */
+  .x_main-latest-news .col-lg-3 {
+    margin-bottom: 1rem;
+  }
+
+  /* Community images */
+  .x_main-join-community .col-4 {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+  .x_main-hero h1 {
+    font-size: 2rem;
+  }
+
+  .x_main-hero .lead {
+    font-size: 1.25rem;
+  }
+
+  .x_main-hero {
+    min-height: 55vh;
+  }
+
+  .x_main-topbar {
+    font-size: 0.75rem;
+  }
+
+  .x_main-best-sellers .nav-tabs {
+    font-size: 0.9rem;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .x_main-hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .x_main-hero .lead {
+    font-size: 1.5rem;
+  }
+
+  .x_main-hero {
+    min-height: 60vh;
+  }
+
+  .x_main-promo-banners .col-md-6 {
+    margin-bottom: 0;
+  }
+
+  .x_main-best-sellers .nav-tabs {
+    font-size: 1rem;
+  }
+
+  .x_main-special-offer .display-6 {
+    font-size: 2rem;
+  }
+
+  .x_main-rog-banner .display-5 {
+    font-size: 2rem;
+  }
+
+  .x_main-service-features .bi {
+    font-size: 2.5rem;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .x_main-hero h1 {
+    font-size: 3rem;
+  }
+
+  .x_main-hero .lead {
+    font-size: 1.75rem;
+  }
+
+  .x_main-hero {
+    min-height: 65vh;
+  }
+
+  .x_main-special-offer .display-6 {
+    font-size: 2.5rem;
+  }
+
+  .x_main-rog-banner .display-5 {
+    font-size: 2.5rem;
+  }
+
+  .x_main-service-features .bi {
+    font-size: 3rem;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .x_main-hero h1 {
+    font-size: 3.5rem;
+  }
+
+  .x_main-hero {
+    min-height: 70vh;
+  }
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+.x_main-home {
+  overflow-x: hidden;
+}
+
+/* Section spacing */
+.x_main-top-categories,
+.x_main-promo-banners,
+.x_main-best-sellers,
+.x_main-popular-brands,
+.x_main-featured-products,
+.x_main-special-offer,
+.x_main-rog-banner,
+.x_main-popular-products,
+.x_main-service-features,
+.x_main-customer-review,
+.x_main-latest-news,
+.x_main-join-community {
+  width: 100%;
+}
+
+/* Text overflow handling */
+.x_main-news-card h6,
+.x_main-review-card p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+/* Image optimization */
+.x_main-category-card img,
+.x_main-brand-card img,
+.x_main-featured-card img,
+.x_main-news-card img,
+.x_main-community-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Button spacing on mobile */
+@media (max-width: 575px) {
+  .x_main-hero .btn,
+  .x_main-special-offer .btn,
+  .x_main-rog-banner .btn {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .x_main-featured-card .btn {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+}
+
+/* Container padding on mobile */
+@media (max-width: 575px) {
+  .x_main-top-categories .container,
+  .x_main-promo-banners .container,
+  .x_main-best-sellers .container,
+  .x_main-popular-brands .container,
+  .x_main-featured-products .container,
+  .x_main-special-offer .container,
+  .x_main-rog-banner .container,
+  .x_main-popular-products .container,
+  .x_main-service-features .container,
+  .x_main-customer-review .container,
+  .x_main-latest-news .container,
+  .x_main-join-community .container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
+
+/* Fix for very small screens (320px) */
+@media (max-width: 374px) {
+  .x_main-hero h1 {
+    font-size: 1.25rem;
+  }
+
+  .x_main-hero .lead {
+    font-size: 0.9rem;
+  }
+
+  .x_main-topbar {
+    font-size: 0.65rem;
+    padding: 0.35rem 0;
+  }
+
+  .x_main-special-offer .display-6 {
+    font-size: 1.25rem;
+  }
+
+  .x_main-special-offer .small {
+    font-size: 0.65rem;
+  }
+
+  .x_main-rog-banner .display-5 {
+    font-size: 1.25rem;
+  }
+
+  .x_main-service-features .bi {
+    font-size: 1.75rem;
+  }
+
+  .x_main-best-sellers .nav-tabs .nav-link {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Animation for countdown timer */
+@keyframes countdownPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.x_main-special-offer .bg-dark {
+  animation: countdownPulse 2s ease-in-out infinite;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus states for accessibility */
+.x_main-category-card:focus,
+.x_main-brand-card:focus,
+.x_main-featured-card:focus,
+.x_main-news-card:focus,
+.x_main-community-image:focus {
+  outline: 2px solid var(--color-red);
+  outline-offset: 2px;
+}
+
