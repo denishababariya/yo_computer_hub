@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Card, Pagination } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import '../styles/x_app.css';
 
 const blogPosts = [
   {
@@ -61,7 +62,7 @@ function Blog() {
   const currentPosts = blogPosts.slice(startIndex, startIndex + postsPerPage);
 
   return (
-    <Container className="py-5">
+    <Container className="py-5 x_blog">
       <div className="text-center mb-5">
         <h1 className="display-5 fw-bold mb-3">Latest Blog Posts</h1>
         <p className="text-muted">Stay updated with the latest gaming news and reviews</p>
@@ -83,13 +84,6 @@ function Blog() {
                 >
                   <div 
                     className="position-absolute top-0 start-0 p-2"
-                    style={{
-                      background: 'rgba(228, 0, 43, 0.9)',
-                      color: 'white',
-                      fontSize: '0.75rem',
-                      fontWeight: 'bold',
-                      borderRadius: '0 0 4px 0'
-                    }}
                   >
                     {post.category}
                   </div>
@@ -98,25 +92,13 @@ function Blog() {
               <Card.Body className="p-4">
                 <Card.Title 
                   className="fw-bold mb-2"
-                  style={{ 
-                    fontSize: '1rem',
-                    lineHeight: '1.4',
-                    color: '#333',
-                    minHeight: '3rem',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    display: '-webkit-box',
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: 'vertical'
-                  }}
                 >
                   <Link to={`/blog/${post.id}`} className="text-dark text-decoration-none">
                     {post.title}
                   </Link>
                 </Card.Title>
                 <Card.Text 
-                  className="text-muted small mb-2"
-                  style={{ fontSize: '0.85rem' }}
+                  className="text-muted small mb-2 date"
                 >
                   {post.date}
                 </Card.Text>
@@ -136,7 +118,7 @@ function Blog() {
                 </Card.Text>
                 <Link 
                   to={`/blog/${post.id}`} 
-                  className="text-danger text-decoration-none fw-semibold small"
+                  className="read-more-link"
                 >
                   Read More <i className="bi bi-arrow-right ms-1"></i>
                 </Link>
@@ -152,7 +134,6 @@ function Blog() {
           <Pagination.Prev 
             disabled={currentPage === 1}
             onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-            style={{ cursor: currentPage === 1 ? 'not-allowed' : 'pointer' }}
           />
           {[...Array(totalPages)].map((_, index) => {
             const page = index + 1;
@@ -161,7 +142,6 @@ function Blog() {
                 key={page}
                 active={page === currentPage}
                 onClick={() => setCurrentPage(page)}
-                style={{ cursor: 'pointer' }}
               >
                 {page}
               </Pagination.Item>
@@ -170,7 +150,6 @@ function Blog() {
           <Pagination.Next 
             disabled={currentPage === totalPages}
             onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-            style={{ cursor: currentPage === totalPages ? 'not-allowed' : 'pointer' }}
           />
         </Pagination>
       </div>

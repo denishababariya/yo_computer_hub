@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Card, Form, Button, Alert } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import { authAPI } from '../services/api';
+import { setToken, setUser } from '../utils/auth';
+import PasswordInput from '../components/PasswordInput';
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -24,23 +27,21 @@ function Login() {
     setError('');
     setLoading(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      // Mock authentication
-      if (formData.email && formData.password) {
-        // Store user data in localStorage
-        localStorage.setItem('user', JSON.stringify({
-          email: formData.email,
-          loggedIn: true
-        }));
-        setLoading(false);
+    try {
+      const response = await authAPI.login(formData);
+      if (response.success) {
+        setToken(response.token);
+        setUser(response.user);
         navigate('/');
         window.location.reload();
       } else {
-        setError('Please fill in all fields');
-        setLoading(false);
+        setError(response.message || 'Login failed');
       }
-    }, 1000);
+    } catch (err) {
+      setError(err.message || 'Login failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -74,18 +75,14 @@ function Login() {
                   />
                 </Form.Group>
 
-                <Form.Group className="mb-3">
-                  <Form.Label className="fw-semibold">Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    name="password"
-                    placeholder="Enter your password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
-                    style={{ borderRadius: '8px', padding: '0.75rem' }}
-                  />
-                </Form.Group>
+                <PasswordInput
+                  label="Password"
+                  name="password"
+                  placeholder="Enter your password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
 
                 <div className="d-flex justify-content-between align-items-center mb-4">
                   <Form.Check

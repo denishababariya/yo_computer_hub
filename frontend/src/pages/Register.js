@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Card, Form, Button, Alert } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import { authAPI } from '../services/api';
+import { setToken, setUser } from '../utils/auth';
+import PasswordInput from '../components/PasswordInput';
 
 function Register() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     password: '',
     confirmPassword: ''
   });
@@ -39,26 +43,27 @@ function Register() {
       return;
     }
 
-    // Simulate API call
-    setTimeout(() => {
-      // Mock registration
-      if (formData.name && formData.email && formData.password) {
-        // Store user data in localStorage
-        localStorage.setItem('user', JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          loggedIn: true
-        }));
-        setLoading(false);
-        // Trigger storage event for navbar update
-        window.dispatchEvent(new Event('storage'));
+    try {
+      const response = await authAPI.register({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        password: formData.password
+      });
+
+      if (response.success) {
+        setToken(response.token);
+        setUser(response.user);
         navigate('/');
-        setTimeout(() => window.location.reload(), 100);
+        window.location.reload();
       } else {
-        setError('Please fill in all fields');
-        setLoading(false);
+        setError(response.message || 'Registration failed');
       }
-    }, 1000);
+    } catch (err) {
+      setError(err.message || 'Registration failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -106,33 +111,37 @@ function Register() {
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                  <Form.Label className="fw-semibold">Password</Form.Label>
+                  <Form.Label className="fw-semibold">Phone Number</Form.Label>
                   <Form.Control
-                    type="password"
-                    name="password"
-                    placeholder="Create a password"
-                    value={formData.password}
+                    type="tel"
+                    name="phone"
+                    placeholder="Enter your phone number"
+                    value={formData.phone}
                     onChange={handleChange}
-                    required
                     style={{ borderRadius: '8px', padding: '0.75rem' }}
                   />
-                  <Form.Text className="text-muted">
-                    Password must be at least 6 characters
-                  </Form.Text>
                 </Form.Group>
 
-                <Form.Group className="mb-4">
-                  <Form.Label className="fw-semibold">Confirm Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    name="confirmPassword"
-                    placeholder="Confirm your password"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                    required
-                    style={{ borderRadius: '8px', padding: '0.75rem' }}
-                  />
-                </Form.Group>
+                <PasswordInput
+                  label="Password"
+                  name="password"
+                  placeholder="Create a password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+                <Form.Text className="text-muted d-block mb-3">
+                  Password must be at least 6 characters
+                </Form.Text>
+
+                <PasswordInput
+                  label="Confirm Password"
+                  name="confirmPassword"
+                  placeholder="Confirm your password"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  required
+                />
 
                 <Form.Group className="mb-4">
                   <Form.Check

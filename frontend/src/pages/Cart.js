@@ -1,15 +1,17 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectCartItems } from '../store';
-import { Container, Table, Button, Form } from 'react-bootstrap';
+import { Container, Table, Button, Form, Alert } from 'react-bootstrap';
 import { setQty, removeFromCart, clearCart } from '../store/cartSlice';
 import { Link } from 'react-router-dom';
+import { isAuthenticated } from '../utils/auth';
 
 function Cart() {
   const items = useSelector(selectCartItems);
   const dispatch = useDispatch();
   const entries = Object.entries(items);
   const subtotal = entries.reduce((s, [, { product, qty }]) => s + product.price * qty, 0);
+  const userAuthenticated = isAuthenticated();
 
   return (
     <Container className="py-4">
@@ -56,9 +58,19 @@ function Cart() {
             <Button variant="outline-secondary" onClick={() => dispatch(clearCart())}>Clear cart</Button>
             <div className="h5 mb-0">Subtotal: ${subtotal.toFixed(2)} CAD</div>
           </div>
+          {!userAuthenticated && (
+            <Alert variant="info" className="mt-3">
+              <i className="bi bi-info-circle me-2"></i>
+              <strong>Please log in to proceed with checkout.</strong>
+            </Alert>
+          )}
           <div className="mt-3 d-flex gap-2">
             <Button as={Link} to="/shop" variant="dark">Continue Shopping</Button>
-            <Button as={Link} to="/checkout" variant="danger">Checkout</Button>
+            {userAuthenticated ? (
+              <Button as={Link} to="/checkout" variant="danger">Checkout</Button>
+            ) : (
+              <Button as={Link} to="/login" variant="danger">Login to Checkout</Button>
+            )}
           </div>
         </>
       )}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Button, Badge } from 'react-bootstrap';
+import { Card, Button, Badge, Toast, ToastContainer } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../store/cartSlice';
@@ -9,18 +9,16 @@ import { selectWishlistIds } from '../store';
 function ProductCard({ product }) {
   const dispatch = useDispatch();
   const wishlist = useSelector(selectWishlistIds);
-  const wished = wishlist.includes(product.id);
+  const productId = product._id || product.id;
+  const wished = wishlist.includes(productId);
   const [showActions, setShowActions] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState('');
 
-  const onSale = product.compareAtPrice && product.compareAtPrice > product.price;
+  const onSale = product.originalPrice && product.originalPrice > product.price;
   const rating = product.rating || 0;
-  const reviews = product.reviews || 0;
-  const inStock = product.inStock !== undefined ? product.inStock : true;
-  
-  // Calculate discount percentage
-  const discountPercent = onSale 
-    ? Math.round(((product.compareAtPrice - product.price) / product.compareAtPrice) * 100)
-    : 0;
+  const reviews = product.reviews?.length || 0;
+  const inStock = product.stock > 0;
   
   // Render star rating with red stars
   const renderStars = () => {
@@ -60,7 +58,7 @@ function ProductCard({ product }) {
   const handleWishlist = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    dispatch(toggleWishlist(product.id));
+    dispatch(toggleWishlist(productId));
   };
 
   const handleCompare = (e) => {
@@ -74,8 +72,12 @@ function ProductCard({ product }) {
     e.preventDefault();
     e.stopPropagation();
     // Quick view functionality
-    window.open(`/shop/${product.id}`, '_blank');
+    window.open(`/shop/${productId}`, '_blank');
   };
+
+  const discountPercent = onSale 
+    ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
+    : 0;
 
   return (
     <Card 
@@ -159,7 +161,7 @@ function ProductCard({ product }) {
         </div>
 
         {/* Product Image */}
-        <Link to={`/shop/${product.id}`} className="d-block h-100">
+        <Link to={`/shop/${productId}`} className="d-block h-100">
           <img 
             src={product.image} 
             alt={product.name}
@@ -209,7 +211,17 @@ function ProductCard({ product }) {
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              dispatch(addToCart({ id: product.id, product, qty: 1 }));
+              dispatch(addToCart({ id: productId, product, qty: 1 }));
+              // Remove from wishlist if product is in wishlist
+              if (wished) {
+                dispatch(toggleWishlist(productId));
+                setNotificationMessage(`${product.name} added to cart and removed from wishlist`);
+              } else {
+                setNotificationMessage(`${product.name} added to cart`);
+              }
+              setShowNotification(true);
+              // Auto-hide notification after 3 seconds
+              setTimeout(() => setShowNotification(false), 3000);
             }}
             className="w-100 fw-semibold"
             style={{ 
@@ -258,7 +270,7 @@ function ProductCard({ product }) {
                   ${product.price.toFixed(2)}
                 </div>
                 <del className="text-muted small" style={{ fontSize: '0.85rem' }}>
-                  ${product.compareAtPrice?.toFixed(2)}
+                  ${product.originalPrice?.toFixed(2)}
                 </del>
               </>
             ) : (
@@ -288,6 +300,16 @@ function ProductCard({ product }) {
           )}
         </div>
       </Card.Body>
+
+      {/* Toast Notification */}
+      <ToastContainer position="top-end" className="p-3" style={{ position: 'fixed', zIndex: 9999 }}>
+        <Toast show={showNotification} onClose={() => setShowNotification(false)} delay={3000} autohide>
+          <Toast.Header closeButton style={{ backgroundColor: '#e4002b', color: 'white' }}>
+            <strong className="me-auto">Cart Updated</strong>
+          </Toast.Header>
+          <Toast.Body>{notificationMessage}</Toast.Body>
+        </Toast>
+      </ToastContainer>
     </Card>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Card, Form, Button, Alert } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import PasswordInput from '../components/PasswordInput';
 
 function ResetPassword() {
   const [formData, setFormData] = useState({
@@ -77,34 +78,26 @@ function ResetPassword() {
               )}
 
               <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-3">
-                  <Form.Label className="fw-semibold">New Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    name="password"
-                    placeholder="Enter your new password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
-                    style={{ borderRadius: '8px', padding: '0.75rem' }}
-                  />
-                  <Form.Text className="text-muted">
-                    Password must be at least 6 characters
-                  </Form.Text>
-                </Form.Group>
+                <PasswordInput
+                  label="New Password"
+                  name="password"
+                  placeholder="Enter your new password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+                <Form.Text className="text-muted d-block mb-3">
+                  Password must be at least 6 characters
+                </Form.Text>
 
-                <Form.Group className="mb-4">
-                  <Form.Label className="fw-semibold">Confirm New Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    name="confirmPassword"
-                    placeholder="Confirm your new password"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                    required
-                    style={{ borderRadius: '8px', padding: '0.75rem' }}
-                  />
-                </Form.Group>
+                <PasswordInput
+                  label="Confirm New Password"
+                  name="confirmPassword"
+                  placeholder="Confirm your new password"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  required
+                />
 
                 <Button
                   type="submit"

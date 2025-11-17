@@ -3,34 +3,34 @@ import { Navbar, Nav, Container, Badge, Form, InputGroup, Button, Dropdown } fro
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectCartCount, selectWishlistCount } from '../store';
+import { getUser, logout } from '../utils/auth';
 
 function AppNavbar() {
   const cartCount = useSelector(selectCartCount);
   const wishCount = useSelector(selectWishlistCount);
   const [searchQuery, setSearchQuery] = useState('');
   const [language, setLanguage] = useState('English');
+  const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const checkAuth = () => {
-      const user = localStorage.getItem('user');
-      setIsLoggedIn(user && JSON.parse(user).loggedIn);
+      const currentUser = getUser();
+      setUser(currentUser);
+      setIsLoggedIn(!!currentUser);
     };
     checkAuth();
-    // Check auth state on localStorage changes
     window.addEventListener('storage', checkAuth);
     return () => window.removeEventListener('storage', checkAuth);
   }, []);
 
-  // Check auth on component mount and when navigating
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const user = localStorage.getItem('user');
-      setIsLoggedIn(user && JSON.parse(user).loggedIn);
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+  const handleLogout = () => {
+    logout();
+    setUser(null);
+    setIsLoggedIn(false);
+    window.location.reload();
+  };
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -153,10 +153,25 @@ function AppNavbar() {
 
             {/* Icons */}
             <Nav className="d-flex align-items-center gap-3">
-              {isLoggedIn ? (
-                <Nav.Link as={Link} to="/account" className="text-white p-1" title="Account">
-                  <i className="bi bi-person" style={{ fontSize: '1.2rem' }}></i>
-                </Nav.Link>
+              {isLoggedIn && user ? (
+                <Dropdown className="text-white">
+                  <Dropdown.Toggle 
+                    variant="dark" 
+                    className="border-0 bg-transparent text-white d-flex align-items-center"
+                    style={{ fontSize: '1rem' }}
+                    id="user-dropdown"
+                  >
+                    <i className="bi bi-person" style={{ fontSize: '1.2rem' }}></i>
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Header>{user.name || user.email}</Dropdown.Header>
+                    <Dropdown.Divider />
+                    <Dropdown.Item as={Link} to="/account">My Account</Dropdown.Item>
+                    <Dropdown.Item as={Link} to="/orders">My Orders</Dropdown.Item>
+                    <Dropdown.Divider />
+                    <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
               ) : (
                 <Nav.Link as={Link} to="/login" className="text-white p-1" title="Login">
                   <i className="bi bi-person" style={{ fontSize: '1.2rem' }}></i>

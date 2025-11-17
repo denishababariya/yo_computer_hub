@@ -84,3 +84,12 @@ code {
 /* Footer */
 footer a { color: #cdd7e1; text-decoration: none; }
 footer a:hover { color: var(--color-white); }
+
+
+/* font style */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Rajdhani", sans-serif;
+}
