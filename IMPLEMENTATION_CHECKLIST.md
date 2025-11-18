@@ -21,7 +21,7 @@
 - ✅ Category filter with dynamic options
 - ✅ Price range filter (min-max sliders)
 - ✅ Sort options (Popular, Low-High, High-Low)
-- ✅ Red theme (#de3431) applied
+- ✅ Red theme (#5588c9) applied
 - ✅ Bootstrap blue colors removed
 - ✅ Fully responsive (mobile, tablet, desktop)
 
@@ -147,7 +147,7 @@ npm start
 
 ### Colors Check
 ```
-✓ Red theme (#de3431) used for:
+✓ Red theme (#5588c9) used for:
   - Eye icon active state
   - Filter buttons
   - Price range slider
@@ -322,7 +322,7 @@ For issues, check:
    - ✅ Desktop: Sticky sidebar with all filters
    - ✅ Mobile: Offcanvas with responsive design
    - ✅ Category, Price Range, and Sort filters
-   - ✅ Red theme (#de3431) throughout
+   - ✅ Red theme (#5588c9) throughout
    - ✅ Real-time filtering with no page reload
 
 **Ready for production! 🚀**

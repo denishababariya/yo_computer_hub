@@ -52,7 +52,7 @@ function FilterOffcanvas({ show, onHide, categories, onFilterChange, products })
     <Offcanvas show={show} onHide={onHide} placement="start" className="custom-offcanvas">
       <Offcanvas.Header closeButton style={{ borderBottom: '2px solid #f0f0f0' }}>
         <Offcanvas.Title className="fw-bold" style={{ fontSize: '1.3rem', color: '#333' }}>
-          <i className="bi bi-funnel me-2" style={{ color: '#de3431' }}></i>
+          <i className="bi bi-funnel me-2" style={{ color: '#5588c9' }}></i>
           Filters
         </Offcanvas.Title>
       </Offcanvas.Header>
@@ -196,7 +196,7 @@ function FilterOffcanvas({ show, onHide, categories, onFilterChange, products })
             onClick={onHide}
             style={{
               borderRadius: '8px',
-              backgroundColor: '#de3431',
+              backgroundColor: '#5588c9',
               border: 'none',
               color: 'white'
             }}

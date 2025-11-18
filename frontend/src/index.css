@@ -2,7 +2,7 @@ body {
   margin: 0;
   --color-black: #0b0c10;
   --color-darkblue: #0e2a47;
-  --color-red: #e4002b;
+  --color-red: #5588c9;
   --color-white: #ffffff;
   --color-muted: #8b98a5;
   --theme-bg: var(--color-black);
@@ -74,7 +74,7 @@ code {
 /* Product card interactive buttons */
 .product-card .btn-light:hover {
   background-color: rgba(228, 0, 43, 0.1) !important;
-  color: #e4002b !important;
+  color: #5588c9 !important;
 }
 
 .product-card .btn-light:focus {

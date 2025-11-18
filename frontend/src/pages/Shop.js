@@ -26,12 +26,11 @@ function Shop() {
         
         if (response.success && response.data && Array.isArray(response.data) && response.data.length > 0) {
           setProducts(response.data);
-          // Calculate max price from products
           const maxPrice = Math.max(...response.data.map(p => p.price || 0));
-          setFilters(prev => ({ 
-            ...prev, 
+          setFilters(prev => ({
+            ...prev,
             priceMin: 0,
-            priceMax: maxPrice + 100 
+            priceMax: Math.ceil(maxPrice + 100)
           }));
           setError('');
         } else {
@@ -50,11 +49,25 @@ function Shop() {
     fetchProducts();
   }, []);
 
-  const categories = ['All', ...new Set(products.map(p => p.category))];
-  const maxPrice = Math.max(...products.map(p => p.price || 0), 10000);
+  const categories = ['All', ...Array.from(new Set(products.map(p => p.category).filter(Boolean)))];
+  const priceCeiling = products.length > 0
+    ? Math.ceil(Math.max(...products.map(p => p.price || 0)) + 100)
+    : 1000;
 
   const handleFilterChange = (newFilters) => {
-    setFilters(newFilters);
+    const merged = { ...filters, ...newFilters };
+    let min = typeof merged.priceMin === 'number' ? merged.priceMin : 0;
+    let max = typeof merged.priceMax === 'number' ? merged.priceMax : priceCeiling;
+    if (min < 0) min = 0;
+    if (max > priceCeiling) max = priceCeiling;
+    if (min > max) {
+      if (newFilters.priceMin !== undefined) {
+        max = min;
+      } else {
+        min = max;
+      }
+    }
+    setFilters({ ...merged, priceMin: min, priceMax: max });
   };
 
   const filtered = useMemo(() => {
@@ -99,12 +112,12 @@ function Shop() {
               <p className="text-muted mb-0">Showing {filtered.length} products</p>
             </div>
             <Button
-              variant="outline-danger"
+              variant="outline-primary"
               onClick={() => setShowFilters(true)}
               className="d-md-none fw-semibold"
               style={{
-                borderColor: '#de3431',
-                color: '#de3431',
+                borderColor: '#0d6efd',
+                color: '#0d6efd',
                 borderRadius: '8px',
                 padding: '0.5rem 1.5rem'
               }}
@@ -128,7 +141,7 @@ function Shop() {
             top: '20px'
           }}>
             <h5 className="fw-bold mb-3" style={{ color: '#333', textTransform: 'uppercase', fontSize: '0.95rem', letterSpacing: '0.5px' }}>
-              <i className="bi bi-funnel me-2" style={{ color: '#de3431' }}></i>
+              <i className="bi bi-funnel me-2" style={{ color: '#0d6efd' }}></i>
               Filter & Sort
             </h5>
             <hr />
@@ -165,9 +178,9 @@ function Shop() {
                 </div>
                 <Form.Range
                   min={0}
-                  max={maxPrice}
+                  max={priceCeiling}
                   value={filters.priceMin}
-                  onChange={(e) => handleFilterChange({ ...filters, priceMin: parseInt(e.target.value) })}
+                  onChange={(e) => handleFilterChange({ priceMin: parseInt(e.target.value) })}
                   className="price-range-slider"
                 />
               </div>
@@ -178,9 +191,9 @@ function Shop() {
                 </div>
                 <Form.Range
                   min={filters.priceMin}
-                  max={maxPrice}
+                  max={priceCeiling}
                   value={filters.priceMax}
-                  onChange={(e) => handleFilterChange({ ...filters, priceMax: parseInt(e.target.value) })}
+                  onChange={(e) => handleFilterChange({ priceMax: parseInt(e.target.value) })}
                   className="price-range-slider"
                 />
               </div>
@@ -191,7 +204,7 @@ function Shop() {
                 <input
                   type="number"
                   value={filters.priceMin}
-                  onChange={(e) => handleFilterChange({ ...filters, priceMin: parseInt(e.target.value) || 0 })}
+                  onChange={(e) => handleFilterChange({ priceMin: Math.min(Math.max(parseInt(e.target.value) || 0, 0), priceCeiling) })}
                   placeholder="$100"
                   style={{ borderRadius: '4px', padding: '0.5rem 0.75rem' }}
                 />
@@ -199,7 +212,7 @@ function Shop() {
                 <input
                   type="number"
                   value={filters.priceMax}
-                  onChange={(e) => handleFilterChange({ ...filters, priceMax: parseInt(e.target.value) || maxPrice })}
+                  onChange={(e) => handleFilterChange({ priceMax: Math.min(Math.max(parseInt(e.target.value) || priceCeiling, 0), priceCeiling) })}
                   placeholder="$500"
                   style={{ borderRadius: '4px', padding: '0.5rem 0.75rem' }}
                 />
@@ -220,7 +233,7 @@ function Shop() {
                     name="sort"
                     value="popular"
                     checked={filters.sort === 'popular'}
-                    onChange={() => handleFilterChange({ ...filters, sort: 'popular' })}
+                    onChange={() => handleFilterChange({ sort: 'popular' })}
                   />
                   <label htmlFor="sort-popular">Popular</label>
                 </div>
@@ -231,7 +244,7 @@ function Shop() {
                     name="sort"
                     value="price-asc"
                     checked={filters.sort === 'price-asc'}
-                    onChange={() => handleFilterChange({ ...filters, sort: 'price-asc' })}
+                    onChange={() => handleFilterChange({ sort: 'price-asc' })}
                   />
                   <label htmlFor="sort-price-asc">Price: Low to High</label>
                 </div>
@@ -242,7 +255,7 @@ function Shop() {
                     name="sort"
                     value="price-desc"
                     checked={filters.sort === 'price-desc'}
-                    onChange={() => handleFilterChange({ ...filters, sort: 'price-desc' })}
+                    onChange={() => handleFilterChange({ sort: 'price-desc' })}
                   />
                   <label htmlFor="sort-price-desc">Price: High to Low</label>
                 </div>
@@ -255,7 +268,7 @@ function Shop() {
         <Col md={9} xs={12}>
           {loading ? (
             <div className="text-center py-5">
-              <Spinner animation="border" variant="danger" />
+              <Spinner animation="border" variant="primary" />
               <p className="mt-3 text-muted">Loading products...</p>
             </div>
           ) : (
@@ -271,11 +284,11 @@ function Shop() {
                   <i className="bi bi-inbox" style={{ fontSize: '3rem', color: '#ccc' }}></i>
                   <p className="text-muted mt-3 fs-5">No products found matching your filters</p>
                   <Button
-                    variant="outline-danger"
+                    variant="outline-primary"
                     onClick={() => handleFilterChange({
                       category: 'All',
                       priceMin: 0,
-                      priceMax: 10000,
+                      priceMax: priceCeiling,
                       sort: 'popular'
                     })}
                     className="mt-2"

@@ -121,7 +121,7 @@ Password: mypassword  [👁️/]
 ### Styling & Theme
 
 #### Colors
-- **Primary Red:** `#de3431` (brand color)
+- **Primary Red:** `#5588c9` (brand color)
 - **Background:** Light gray `#f8f9fa`
 - **Text:** Dark gray `#333` (headings), `#555` (labels)
 - **Borders:** Light gray `#e0e0e0`
@@ -129,12 +129,12 @@ Password: mypassword  [👁️/]
 #### Custom CSS
 ```css
 /* Range Slider */
-- Accent color: #de3431
+- Accent color: #5588c9
 - Thumb: Red circle with shadow
 - Hover effect: Enlarges and adds glow
 
 /* Checkboxes/Radios */
-- Accent color: #de3431
+- Accent color: #5588c9
 - Hover effect: Text turns red and bold
 
 /* Offcanvas */
@@ -350,7 +350,7 @@ Optional features to consider:
 
 - All components use Bootstrap 5 styling
 - Custom CSS removes default blue primary color
-- Red theme (#de3431) applied throughout
+- Red theme (#5588c9) applied throughout
 - Fully responsive design for all screen sizes
 - Accessibility features included (keyboard support, labels)
 - No external dependencies added

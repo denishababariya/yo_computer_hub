@@ -75,7 +75,7 @@ function AppNavbar() {
                     top: '-2px', 
                     left: '50%', 
                     transform: 'translateX(-50%)',
-                    color: '#e4002b',
+                    color: '#5588c9',
                     fontSize: '0.6em'
                   }}
                 >
@@ -221,7 +221,7 @@ function AppNavbar() {
                   fontSize: '0.8rem',
                   transition: 'color 0.2s ease'
                 }}
-                onMouseEnter={(e) => e.target.style.color = '#e4002b'}
+                onMouseEnter={(e) => e.target.style.color = '#5588c9'}
                 onMouseLeave={(e) => e.target.style.color = '#333'}
               >
                 {category}

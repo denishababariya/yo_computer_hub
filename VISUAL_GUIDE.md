@@ -194,7 +194,7 @@ Normal:
 [👁️]  <- Gray, size 1x
 
 Hover:
-[👁️ → ↗️]  <- Red (#de3431), size 1.15x, scale up
+[👁️ → ↗️]  <- Red (#5588c9), size 1.15x, scale up
 ```
 
 ---
@@ -203,7 +203,7 @@ Hover:
 
 ### Theme Colors
 ```
-Primary Red:    #de3431  (All active states, icons, highlights)
+Primary Red:    #5588c9  (All active states, icons, highlights)
 White:          #ffffff  (Backgrounds, text on dark)
 Light Gray:     #f8f9fa  (Sidebar background, input backgrounds)
 Dark Gray:      #333333  (Headings)
@@ -214,7 +214,7 @@ Muted Gray:     #888888  (Helper text)
 
 ### No Bootstrap Blue!
 ❌ Bootstrap Primary Blue (#007bff) - NOT used
-✅ Custom Red Theme (#de3431) - Applied throughout
+✅ Custom Red Theme (#5588c9) - Applied throughout
 
 ---
 
@@ -288,7 +288,7 @@ Muted Gray:     #888888  (Helper text)
 - ✅ Real-time sorting
 - ✅ Desktop sticky sidebar
 - ✅ Mobile offcanvas
-- ✅ Red theme (#de3431)
+- ✅ Red theme (#5588c9)
 - ✅ Responsive design
 - ✅ No API overhead (client-side filtering)
 
