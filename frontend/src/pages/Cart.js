@@ -38,32 +38,49 @@ function Cart() {
                 <tr key={id}>
                   <td>{product.name}</td>
                   <td>${product.price.toFixed(2)}</td>
-                  <td style={{maxWidth:120}}>
+
+                  {/* ===== UPDATED WIDTH HERE ===== */}
+                  <td style={{ maxWidth: 70 }}>
                     <Form.Control
                       type="number"
                       min={0}
                       value={qty}
-                      onChange={(e) => dispatch(setQty({ id, qty: parseInt(e.target.value || 0, 10) }))}
+                      style={{ width: "70px" }}   // 👈 reduced width
+                      onChange={(e) =>
+                        dispatch(setQty({ id, qty: parseInt(e.target.value || 0, 10) }))
+                      }
                     />
                   </td>
+
                   <td>${(product.price * qty).toFixed(2)}</td>
                   <td>
-                    <Button variant="outline-danger" size="sm" onClick={() => dispatch(removeFromCart(id))}>Remove</Button>
+                    <Button
+                      variant="outline-danger"
+                      size="sm"
+                      onClick={() => dispatch(removeFromCart(id))}
+                    >
+                      Remove
+                    </Button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </Table>
+
           <div className="d-flex justify-content-between align-items-center">
-            <Button variant="outline-secondary" onClick={() => dispatch(clearCart())}>Clear cart</Button>
+            <Button variant="outline-secondary" onClick={() => dispatch(clearCart())}>
+              Clear cart
+            </Button>
             <div className="h5 mb-0">Subtotal: ${subtotal.toFixed(2)} CAD</div>
           </div>
+
           {!userAuthenticated && (
             <Alert variant="info" className="mt-3">
               <i className="bi bi-info-circle me-2"></i>
               <strong>Please log in to proceed with checkout.</strong>
             </Alert>
           )}
+
           <div className="mt-3 d-flex gap-2">
             <Button as={Link} to="/shop" variant="dark">Continue Shopping</Button>
             {userAuthenticated ? (

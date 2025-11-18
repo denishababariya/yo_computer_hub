@@ -21,6 +21,10 @@ import VerifyOTP from './pages/VerifyOTP';
 import ResetPassword from './pages/ResetPassword';
 import Showmore from './pages/Showmore';
 import ComputerAccessoriesSlider from './pages/ComputerAccessoriesSlider';
+import Terms from './pages/Terms';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import FAQ from './pages/FAQ';
+import HelpCenter from './pages/HelpCenter';
 
 function App() {
   return (
@@ -40,6 +44,10 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/360" element={<Product360Viewer />} />
           <Route path="/showmore" element={<Showmore />} />
+          <Route path="/term" element={<Terms />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/helpcenter" element={<HelpCenter />} />
+          <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           <Route path="/ComputerAccessoriesSlider" element={<ComputerAccessoriesSlider />} />
 
           {/* Authentication Routes */}

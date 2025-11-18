@@ -30,7 +30,7 @@
 
 /* Theme helpers */
 .btn-danger { background-color: var(--color-red); border-color: var(--color-red); }
-.btn-danger:hover { background-color: #c00023; border-color: #c00023; }
+.btn-danger:hover { background-color: var(--color-red); border-color: var(--color-red); }
 .btn-primary { background-color: var(--color-darkblue); border-color: var(--color-darkblue); }
 .btn-primary:hover { filter: brightness(1.1); }
 .navbar-dark .navbar-brand, .navbar-dark .nav-link { color: var(--color-white); }

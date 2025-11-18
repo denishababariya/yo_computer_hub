@@ -27,12 +27,12 @@ function HomeMain() {
       <PopularBrands />
       <FeaturedProducts />
       <SpecialOffer />
-      <ROGStrixBanner />
       <PopularProducts />
+      <ROGStrixBanner />
       <ServiceFeatures />
       <CustomerReview />
-      <LatestNews />
-      <JoinCommunity />
+      {/* <LatestNews /> */}
+      {/* <JoinCommunity /> */}
     </div>
   );
 }

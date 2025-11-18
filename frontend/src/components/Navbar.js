@@ -10,7 +10,7 @@ function Navbar4() {
  
           {/* LOGO */}
           <Link to="/" className="z_nav_logo fw-bold fs-3 text-white">
-            LOGO
+            <img src={require("../img/logo3.png")} style={{width:'50px'}}></img>
           </Link>
  
           {/* NAV LINKS */}
