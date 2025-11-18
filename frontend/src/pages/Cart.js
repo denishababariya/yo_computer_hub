@@ -6,6 +6,9 @@ import { setQty, removeFromCart, clearCart } from '../store/cartSlice';
 import { Link } from 'react-router-dom';
 import { isAuthenticated } from '../utils/auth';
 
+import emptyCart from '../img/ecart.png';
+
+
 function Cart() {
   const items = useSelector(selectCartItems);
   const dispatch = useDispatch();
@@ -15,11 +18,31 @@ function Cart() {
 
   return (
     <Container className="py-4">
-      <h1 className="mb-3">Cart</h1>
+      <h2 className="text-center mb-3 xyz_subtitle">YOUR CART</h2>
       {entries.length === 0 ? (
-        <div>
-          <p>Your cart is empty.</p>
-          <Button as={Link} to="/shop" variant="dark">Go Shopping</Button>
+        <div className="wishlist-empty text-center d-flex flex-column align-items-center justify-content-center">
+
+          {/* IMAGE */}
+          <img
+            src={emptyCart}
+            alt="Empty cart"
+            className="empty-icon mb-4"
+            style={{
+              width: '200px',
+              height: '200px',
+              objectFit: 'contain',
+              opacity: 0.7,
+            }}
+          />
+
+          {/* TEXT */}
+          <p className="empty-text" style={{ fontSize: '1.4rem', fontWeight: '600' }}>
+            Your cart is empty.
+          </p>
+           <Button as={Link} to="/shop" variant="dark">
+            Go Shopping
+          </Button>
+
         </div>
       ) : (
         <>

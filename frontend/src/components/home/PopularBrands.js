@@ -3,68 +3,40 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 function PopularBrands() {
   const brands = [
-    {
-      name: 'MSI',
-      logo: 'https://logos-world.net/wp-content/uploads/2020/09/MSI-Logo.png',
-      url: '/shop?brand=msi'
-    },
-    {
-      name: 'Corsair',
-      logo: 'https://logos-world.net/wp-content/uploads/2021/09/Corsair-Logo.png',
-      url: '/shop?brand=corsair'
-    },
-    {
-      name: 'NVIDIA',
-      logo: 'https://logos-world.net/wp-content/uploads/2020/11/NVIDIA-Logo.png',
-      url: '/shop?brand=nvidia'
-    },
-    {
-      name: 'Logitech',
-      logo: 'https://logos-world.net/wp-content/uploads/2020/04/Logitech-Logo.png',
-      url: '/shop?brand=logitech'
-    },
-    {
-      name: 'AMD',
-      logo: 'https://logos-world.net/wp-content/uploads/2021/03/AMD-Logo.png',
-      url: '/shop?brand=amd'
-    }
+    { name: "MSI", url: "https://placehold.co/100x40/FFFFFF/000000?text=MSI" },
+    { name: "CORSAIR", url: "https://placehold.co/120x40/FFFFFF/000000?text=CORSAIR" },
+    { name: "NVIDIA", url: "https://placehold.co/130x40/FFFFFF/000000?text=NVIDIA" },
+    { name: "LOGITECH", url: "https://placehold.co/140x40/FFFFFF/000000?text=LOGITECH" },
+    { name: "AMD", url: "https://placehold.co/110x40/FFFFFF/000000?text=AMD" },
+    { name: "INTEL", url: "https://placehold.co/110x40/FFFFFF/000000?text=INTEL" },
+    { name: "SAMSUNG", url: "https://placehold.co/130x40/FFFFFF/000000?text=SAMSUNG" },
   ];
+
+
+  const scrollBrands = [...brands, ...brands];
 
   return (
     <section className="x_main-popular-brands py-5">
       <Container>
         <div className="text-center mb-4">
-          <h2 className="text-danger fw-bold mb-3" style={{ fontSize: '2rem', letterSpacing: '2px' }}>
+          <h2 className="text-danger fw-bold mb-3" style={{ letterSpacing: '2px' }}>
             SHOP BY POPULAR BRANDS
           </h2>
         </div>
-        <Row className="g-3 g-md-4 align-items-center justify-content-center">
-          {brands.map((brand, index) => (
-            <Col key={index} xs={6} sm={4} md={4} lg={2} xl={2}>
-              <div 
-                className="d-flex align-items-center justify-content-center p-4 bg-white border rounded shadow-sm h-100 x_main-brand-card"
-                style={{ minHeight: '100px', transition: 'all 0.3s ease' }}
+        <div className="brand-slider py-3">
+          <div className="brand-track">
+            {scrollBrands.map((brand, index) => (
+
+              <div
+                className="brand-item m-2 d-flex align-items-center justify-content-center bg-white border rounded shadow-sm  x_main-brand-card"           
               >
-                <img 
-                  src={brand.logo} 
-                  alt={brand.name}
-                  className="img-fluid"
-                  style={{ 
-                    maxHeight: '60px', 
-                    maxWidth: '100%', 
-                    objectFit: 'contain',
-                    filter: 'grayscale(100%)',
-                    transition: 'all 0.3s ease'
-                  }}
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    e.target.parentElement.innerHTML = `<span class="text-muted fw-bold">${brand.name}</span>`;
-                  }}
+                <img
+                  src={brand.url} alt={brand.name}
                 />
               </div>
-            </Col>
-          ))}
-        </Row>
+            ))}
+          </div>
+        </div>
       </Container>
     </section>
   );

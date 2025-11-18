@@ -1,17 +1,18 @@
 import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import img1 from '../../img/pngtree-a-isolated-wirless-mechanical-keyboard-on-white-background-png-image_15836493.png';
+import img1 from '../../img/wcamt.png';
 import img2 from '../../img/head.png';
 import img3 from '../../img/remote.png';
 import img4 from '../../img/mousetc.png';
+import './HeroSlide.css';
 
 
 
 function TopCategories() {
   const categories = [
     {
-      name: 'Gaming Keyboards',
+      name: 'Webcam',
       image: img1, // Example image
     },  
     {     
@@ -30,11 +31,10 @@ function TopCategories() {
 
   return (
     <section className="x_main-top-categories py-5">
-      <div className="App" style={{background: "linear-gradient( 135deg, #1a1a1a 0%, #2d2d2d 100%)"
- , backgroundSize: 'cover', backgroundAttachment: 'fixed',  padding: '50px 0',
+      <div className="App" style={{ backgroundSize: 'cover', backgroundAttachment: 'fixed',  padding: '50px 0',
    }}>
         <div className="container">
-          <h2 className="text-center text-white mb-5 category-title">SHOP BY CATEGORIES</h2>
+          <h2 className="text-center text-white mb-5 xyz_subtitle">SHOP BY CATEGORIES</h2>
           <div className="row justify-content-center">
             {categories.map((category, index) => (
               <div key={index} className="col-lg-3 col-md-6 col-sm-10 mb-4">

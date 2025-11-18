@@ -2,10 +2,11 @@ import React from 'react';
 import { Container, Card, Carousel } from 'react-bootstrap';
 
 function CustomerReview() {
-  const reviews = [
+    const reviews = [
     {
       id: 1,
-      text: "Amazing quality and fast shipping! The gaming headset exceeded my expectations. The sound quality is crystal clear and the build is solid. Highly recommend!",
+      image: "https://randomuser.me/api/portraits/men/32.jpg",
+      text: "Amazing quality and fast shipping! The gaming headset exceeded my expectations.",
       author: "John Smith",
       date: "January 15, 2024",
       rating: 5,
@@ -13,7 +14,8 @@ function CustomerReview() {
     },
     {
       id: 2,
-      text: "Best gaming mouse I've ever used. The precision and comfort are outstanding. The RGB lighting is a nice touch. Worth every penny!",
+      image: "https://randomuser.me/api/portraits/women/44.jpg",
+      text: "Best gaming mouse I've ever used. The precision and comfort are outstanding.",
       author: "Sarah Johnson",
       date: "January 20, 2024",
       rating: 5,
@@ -21,7 +23,8 @@ function CustomerReview() {
     },
     {
       id: 3,
-      text: "Excellent keyboard with great tactile feedback. The mechanical switches feel amazing and the build quality is top-notch. Very satisfied with my purchase!",
+      image: "https://randomuser.me/api/portraits/men/11.jpg",
+      text: "Excellent keyboard with great tactile feedback. Very satisfied!",
       author: "Michael Chen",
       date: "January 25, 2024",
       rating: 5,
@@ -29,7 +32,8 @@ function CustomerReview() {
     },
     {
       id: 4,
-      text: "Outstanding customer service and product quality. The monitor arrived quickly and works perfectly. The colors are vibrant and the refresh rate is smooth.",
+      image: "https://randomuser.me/api/portraits/women/66.jpg",
+      text: "Monitor arrived quickly and works perfectly. Colors are vibrant!",
       author: "Emily Davis",
       date: "February 1, 2024",
       rating: 5,
@@ -37,7 +41,8 @@ function CustomerReview() {
     },
     {
       id: 5,
-      text: "Great value for money! The graphics card performs exceptionally well. I can run all my games at max settings without any issues. Highly recommended!",
+      image: "https://randomuser.me/api/portraits/men/77.jpg",
+      text: "Great value for money! The graphics card performs exceptionally well.",
       author: "David Wilson",
       date: "February 5, 2024",
       rating: 5,
@@ -45,7 +50,8 @@ function CustomerReview() {
     },
     {
       id: 6,
-      text: "Perfect controller for my gaming setup. The wireless connection is stable and the battery life is impressive. Comfortable to hold for long sessions.",
+      image: "https://randomuser.me/api/portraits/women/12.jpg",
+      text: "Perfect controller for my gaming setup. Wireless is stable.",
       author: "Jessica Martinez",
       date: "February 10, 2024",
       rating: 5,
@@ -55,8 +61,8 @@ function CustomerReview() {
 
   const renderStars = (rating) => {
     return Array.from({ length: 5 }, (_, i) => (
-      <span 
-        key={i} 
+      <span
+        key={i}
         className={i < rating ? 'text-warning' : 'text-muted'}
         style={{ fontSize: '1.2rem' }}
       >
@@ -81,11 +87,11 @@ function CustomerReview() {
           </h2>
           <p className="text-muted">See what our customers are saying about us</p>
         </div>
-        
-        <Carousel 
-          fade 
-          interval={4000} 
-          indicators 
+
+        <Carousel
+          fade
+          interval={4000}
+          indicators
           controls
           className="review-carousel"
         >
@@ -95,8 +101,14 @@ function CustomerReview() {
                 {slideReviews.map(review => (
                   <div key={review.id} className="col-12 col-md-6">
                     <Card className="h-100 border-0 shadow-sm x_main-review-card">
-                      <Card.Body className="p-4 p-md-5">
-                        <div className="mb-3">
+                      <Card.Body className="p-2 p-md-5">
+                        <div className="d-flex align-items-center mb-3">
+                          <img
+                            src={review.image}
+                            alt={review.author}
+                            className="rounded-circle me-3"
+                            style={{ width: '60px', height: '60px', objectFit: 'cover' }}
+                          />
                           {renderStars(review.rating)}
                         </div>
                         <p className="mb-4 text-muted" style={{ fontSize: '1rem', lineHeight: '1.6' }}>
@@ -134,22 +146,22 @@ function CustomerReview() {
           
           .review-carousel .carousel-indicators {
             bottom: -50px;
-            margin-bottom: 0;
+            margin-bottom: 1.5rem;
           }
           
           .review-carousel .carousel-indicators button {
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background-color: rgba(220, 53, 69, 0.3);
-            border: 2px solid rgba(220, 53, 69, 0.5);
+            background-color: #5587c9da;
+            border: 2px solid #5588c9a6;
             margin: 0 5px;
             transition: all 0.3s ease;
           }
           
           .review-carousel .carousel-indicators button.active {
-            background-color: #dc3545;
-            border-color: #dc3545;
+            background-color: #5588c9;
+            border-color: #5588c9;
             width: 30px;
             border-radius: 5px;
           }
@@ -160,7 +172,7 @@ function CustomerReview() {
             height: 45px;
             top: 50%;
             transform: translateY(-50%);
-            background-color: rgba(220, 53, 69, 0.1);
+            background-color: #5588c92e;
             border-radius: 50%;
             backdrop-filter: blur(10px);
             opacity: 0.8;
@@ -169,7 +181,7 @@ function CustomerReview() {
           
           .review-carousel .carousel-control-prev:hover,
           .review-carousel .carousel-control-next:hover {
-            background-color: rgba(220, 53, 69, 0.2);
+            background-color: #ccd8e5;
             opacity: 1;
           }
           
@@ -185,7 +197,8 @@ function CustomerReview() {
           .review-carousel .carousel-control-next-icon {
             width: 18px;
             height: 18px;
-            filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+            filter: invert(59%) sepia(14%) saturate(1923%) hue-rotate(185deg) brightness(93%) contrast(90%);
+
           }
           
           .x_main-review-card {
