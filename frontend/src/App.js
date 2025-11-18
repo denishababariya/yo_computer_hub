@@ -21,6 +21,7 @@ import VerifyOTP from './pages/VerifyOTP';
 import ResetPassword from './pages/ResetPassword';
 import Showmore from './pages/Showmore';
 import ComputerAccessoriesSlider from './pages/ComputerAccessoriesSlider';
+import AboutUs from './pages/AboutUs';
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomeMain />} />
           <Route path="/home" element={<Home />} />
-
+          <Route path="/about" element={<AboutUs />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/shop/:id" element={<ProductDetails />} />
           <Route path="/cart" element={<Cart />} />
