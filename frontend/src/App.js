@@ -19,7 +19,6 @@ import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 import VerifyOTP from './pages/VerifyOTP';
 import ResetPassword from './pages/ResetPassword';
-import Showmore from './pages/Showmore';
 import ComputerAccessoriesSlider from './pages/ComputerAccessoriesSlider';
 import "../src/styles/x_app.css";
 import CategoryTab from './components/CategoryTab';
@@ -48,7 +47,6 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/360" element={<Product360Viewer />} />
-          <Route path="/showmore" element={<Showmore />} />
           <Route path="/term" element={<Terms />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/helpcenter" element={<HelpCenter />} />
