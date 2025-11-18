@@ -21,17 +21,20 @@ import VerifyOTP from './pages/VerifyOTP';
 import ResetPassword from './pages/ResetPassword';
 import Showmore from './pages/Showmore';
 import ComputerAccessoriesSlider from './pages/ComputerAccessoriesSlider';
+import CategoryTab from './components/CategoryTab';
+import MyAccount from './pages/MyAccount';
 
 function App() {
   return (
     <div className="d-flex flex-column min-vh-100">
       <AppNavbar />
+      <CategoryTab />
       <main className="flex-fill">
         <Routes>
           <Route path="/" element={<HomeMain />} />
           <Route path="/home" element={<Home />} />
 
-          <Route path="/shop" element={<Shop />} />
+          <Route path="/" element={<Shop />} />
           <Route path="/shop/:id" element={<ProductDetails />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
@@ -41,6 +44,7 @@ function App() {
           <Route path="/360" element={<Product360Viewer />} />
           <Route path="/showmore" element={<Showmore />} />
           <Route path="/ComputerAccessoriesSlider" element={<ComputerAccessoriesSlider />} />
+          <Route path="/account" element={<MyAccount />} />
 
           {/* Authentication Routes */}
           <Route path="/login" element={<Login />} />
