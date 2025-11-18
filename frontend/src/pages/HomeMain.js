@@ -13,12 +13,14 @@ import ServiceFeatures from '../components/home/ServiceFeatures';
 import CustomerReview from '../components/home/CustomerReview';
 import LatestNews from '../components/home/LatestNews';
 import JoinCommunity from '../components/home/JoinCommunity';
+import HeroSlide from '../components/home/HeroSlide';
 
 function HomeMain() {
   return (
     <div className="x_main-home">
-      <TopBar />
-      <HeroBanner />
+      {/* <TopBar /> */}
+      {/* <HeroBanner /> */}
+      <HeroSlide></HeroSlide>
       <TopCategories />
       <PromoBanners />
       <BestSellers />

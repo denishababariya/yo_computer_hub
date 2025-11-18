@@ -192,7 +192,7 @@ function AppFooter() {
           cursor: 'pointer',
           transition: 'background-color 0.3s ease'
         }}
-        onMouseEnter={(e) => e.target.style.backgroundColor = '#e4002b'}
+        onMouseEnter={(e) => e.target.style.backgroundColor = '#5588c9'}
         onMouseLeave={(e) => e.target.style.backgroundColor = '#333'}
         title="Scroll to top"
       >

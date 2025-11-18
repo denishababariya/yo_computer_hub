@@ -118,7 +118,7 @@ function ProductCard({ product }) {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              backgroundColor: wished ? '#e4002b' : 'rgba(255,255,255,0.9)',
+              backgroundColor: wished ? '#5588c9' : 'rgba(255,255,255,0.9)',
               color: wished ? 'white' : '#666'
             }}
             onClick={handleWishlist}
@@ -228,7 +228,7 @@ function ProductCard({ product }) {
               borderRadius: '6px',
               fontSize: '0.875rem',
               padding: '0.5rem 1rem',
-              backgroundColor: '#e4002b',
+              backgroundColor: '#5588c9',
               border: 'none'
             }}
           >
@@ -304,7 +304,7 @@ function ProductCard({ product }) {
       {/* Toast Notification */}
       <ToastContainer position="top-end" className="p-3" style={{ position: 'fixed', zIndex: 9999 }}>
         <Toast show={showNotification} onClose={() => setShowNotification(false)} delay={3000} autohide>
-          <Toast.Header closeButton style={{ backgroundColor: '#e4002b', color: 'white' }}>
+          <Toast.Header closeButton style={{ backgroundColor: '#5588c9', color: 'white' }}>
             <strong className="me-auto">Cart Updated</strong>
           </Toast.Header>
           <Toast.Body>{notificationMessage}</Toast.Body>

@@ -1,6 +1,6 @@
 /* Blog Page Styling */
 .x_blog {
-  --primary-red: #de3431;
+  --primary-red: #5588c9;
   --text-white: #ffffff;
   --text-light: #888888;
   --text-black: #000;
@@ -264,8 +264,8 @@
 }
 
 .filter-check input[type="radio"]:checked + label::before {
-  border-color: #de3431;
-  background-color: #de3431;
+  border-color: #5588c9;
+  background-color: #5588c9;
   box-shadow: none;
 }
 
@@ -302,8 +302,8 @@
 }
 
 .filter-check input[type="checkbox"]:checked + label::before {
-  background: #de3431;
-  border-color: #de3431;
+  background: #5588c9;
+  border-color: #5588c9;
   box-shadow: none;
 }
 
@@ -357,7 +357,7 @@
   outline: none;
   -webkit-appearance: none;
   appearance: none;
-  background: linear-gradient(to right, #de3431 0%, #de3431 0%, #ddd 0%, #ddd 100%);
+  background: linear-gradient(to right, #5588c9 0%, #5588c9 0%, #ddd 0%, #ddd 100%);
   background-size: 100% 100%;
   background-repeat: no-repeat;
   cursor: pointer;
@@ -392,7 +392,7 @@
 }
 
 .price-range-slider input[type="range"]::-webkit-slider-thumb:active {
-  border-color: #de3431;
+  border-color: #5588c9;
   box-shadow: 0 1px 3px rgba(222, 52, 49, 0.3);
 }
 
@@ -405,7 +405,7 @@
 }
 
 .price-range-slider input[type="range"]::-moz-range-progress {
-  background: #de3431;
+  background: #5588c9;
   height: 5px;
   border-radius: 5px;
 }
@@ -427,7 +427,7 @@
 }
 
 .price-range-slider input[type="range"]::-moz-range-thumb:active {
-  border-color: #de3431;
+  border-color: #5588c9;
   box-shadow: 0 1px 3px rgba(222, 52, 49, 0.3);
 }
 
@@ -459,7 +459,7 @@
 
 .price-input-wrapper input[type="number"]:focus {
   outline: none;
-  border-color: #de3431;
+  border-color: #5588c9;
   box-shadow: 0 0 0 2px rgba(222, 52, 49, 0.1);
 }
 
@@ -485,7 +485,7 @@
 }
 
 .password-input-eye:hover {
-  color: #de3431;
+  color: #5588c9;
   transform: translateY(-50%) scale(1.15);
 }
 
@@ -495,7 +495,7 @@
 }
 
 .input-group .form-control:focus {
-  border-color: #de3431;
+  border-color: #5588c9;
   box-shadow: 0 0 0 0.2rem rgba(222, 52, 49, 0.25);
 }
 
@@ -509,7 +509,7 @@
 
 .input-group-text:hover {
   background-color: #e9ecef;
-  color: #de3431;
+  color: #5588c9;
 }
 
 .input-group-text i {
@@ -518,7 +518,7 @@
 }
 
 .input-group-text:hover i {
-  color: #de3431;
+  color: #5588c9;
 }
 
 /* Shop Page Responsive */
@@ -555,7 +555,7 @@
   }
 
   .filter-sidebar::-webkit-scrollbar-thumb {
-    background: #de3431;
+    background: #5588c9;
     border-radius: 10px;
   }
 

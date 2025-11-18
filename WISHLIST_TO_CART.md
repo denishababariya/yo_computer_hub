@@ -79,7 +79,7 @@ onClick={(e) => {
 ```javascript
 <ToastContainer position="top-end" className="p-3" style={{ position: 'fixed', zIndex: 9999 }}>
   <Toast show={showNotification} onClose={() => setShowNotification(false)} delay={3000} autohide>
-    <Toast.Header closeButton style={{ backgroundColor: '#e4002b', color: 'white' }}>
+    <Toast.Header closeButton style={{ backgroundColor: '#5588c9', color: 'white' }}>
       <strong className="me-auto">Cart Updated</strong>
     </Toast.Header>
     <Toast.Body>{notificationMessage}</Toast.Body>
@@ -118,7 +118,7 @@ onClick={(e) => {
 ## Toast Notification Features
 
 - **Position:** Top-right corner of screen
-- **Color:** Red (#e4002b) header with white text
+- **Color:** Red (#5588c9) header with white text
 - **Duration:** Automatically closes after 3 seconds
 - **Dismissible:** User can close manually by clicking X
 - **Z-Index:** 9999 (appears above all other content)
