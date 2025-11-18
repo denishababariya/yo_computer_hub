@@ -1,38 +1,61 @@
 import React from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import '../styles/z_style.css';
 
 function Contact() {
   return (
-    <Container className="py-4">
-      <h1 className="mb-3">Contact Us</h1>
-      <Row>
-        <Col md={6}>
-          <Form>
-            <Form.Group className="mb-2">
-              <Form.Label>Name</Form.Label>
-              <Form.Control placeholder="Your name" />
-            </Form.Group>
-            <Form.Group className="mb-2">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" placeholder="you@example.com" />
-            </Form.Group>
-            <Form.Group className="mb-2">
-              <Form.Label>Message</Form.Label>
-              <Form.Control as="textarea" rows={5} placeholder="How can we help?" />
-            </Form.Group>
-            <Button variant="primary">Send</Button>
-          </Form>
-        </Col>
-        <Col md={6}>
-          <div className="p-3 bg-light rounded h-100">
-            <h5>Yo Computer Hub</h5>
-            <p className="mb-1">Toronto, Canada</p>
-            <p className="mb-1">support@yocomputerhub.example</p>
-            <p>Mon–Fri 9am–6pm</p>
+    <div className="z_contact_bg">
+      <div className="container">
+        <div className="z_contact_heading">Contact</div>
+        <div className="z_contact_content">
+          <div className="z_contact_left">
+            <div className="z_contact_btn_group">
+              <button className="z_contact_btn_active">Retail Enquiries</button>
+            </div>
+            <div className="z_contact_address">
+              <div>416.781.9105</div>
+              <div>240 Spinnaker Way</div>
+              <div>Units 2-6</div>
+              <div>Concord, ON Canada</div>
+              <div>L4K 4P9</div>
+            </div>
           </div>
-        </Col>
-      </Row>
-    </Container>
+          <form className="z_contact_form">
+            <div className="z_contact_row">
+              <div className="z_contact_field">
+                <label>Name</label>
+                <input type="text" className="z_contact_input" />
+              </div>
+              <div className="z_contact_field">
+                <label>Company</label>
+                <input type="text" className="z_contact_input" />
+              </div>
+            </div>
+            <div className="z_contact_row">
+              <div className="z_contact_field">
+                <label>Email</label>
+                <input type="email" className="z_contact_input" />
+              </div>
+              <div className="z_contact_field">
+                <label>Phone</label>
+                <input type="text" className="z_contact_input" />
+              </div>
+            </div>
+            <div className="z_contact_field_full">
+              <label>Want to know more? Drop us a line!</label>
+              <textarea className="z_contact_textarea" rows={2}></textarea>
+            </div>
+            <div className="z_contact_form_footer">
+              <button className="z_contact_send_btn">
+                <span className="z_contact_send_icon">
+                  <span className="z_contact_send_dot"></span>
+                </span>
+                Send
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 }
 

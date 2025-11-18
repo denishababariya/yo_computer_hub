@@ -22,11 +22,14 @@ import ResetPassword from './pages/ResetPassword';
 import Showmore from './pages/Showmore';
 import ComputerAccessoriesSlider from './pages/ComputerAccessoriesSlider';
 import "../src/styles/x_app.css";
+import CategoryTab from './components/CategoryTab';
+import MyAccount from './pages/MyAccount';
 
 function App() {
   return (
     <div className="d-flex flex-column min-vh-100">
       <AppNavbar />
+      <CategoryTab />
       <main className="flex-fill">
         <Routes>
           <Route path="/" element={<HomeMain />} />
@@ -42,6 +45,7 @@ function App() {
           <Route path="/360" element={<Product360Viewer />} />
           <Route path="/showmore" element={<Showmore />} />
           <Route path="/ComputerAccessoriesSlider" element={<ComputerAccessoriesSlider />} />
+          <Route path="/account" element={<MyAccount />} />
 
           {/* Authentication Routes */}
           <Route path="/login" element={<Login />} />
