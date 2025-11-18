@@ -1,91 +1,55 @@
 import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import img1 from '../../img/pngtree-a-isolated-wirless-mechanical-keyboard-on-white-background-png-image_15836493.png';
+import img2 from '../../img/head.png';
+import img3 from '../../img/remote.png';
+import img4 from '../../img/mousetc.png';
+
+
 
 function TopCategories() {
   const categories = [
     {
-      id: 1,
-      name: 'Gaming Controllers',
-      image: 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?q=80&w=800&auto=format&fit=crop',
-      link: '/shop?category=controllers'
-    },
-    {
-      id: 2,
+      name: 'Gaming Keyboards',
+      image: img1, // Example image
+    },  
+    {     
       name: 'Gaming Mouse',
-      image: 'https://images.unsplash.com/photo-1527814050087-3793815479db?q=80&w=800&auto=format&fit=crop',
-      link: '/shop?category=mouse'
+      image: img4, // Example image
     },
     {
-      id: 3,
-      name: 'Gaming Chairs',
-      image: 'https://images.unsplash.com/photo-1549497538-303791108f95?q=80&w=800&auto=format&fit=crop',
-      link: '/shop?category=chairs'
+      name: 'Headphones',
+      image: img2, // Example image
     },
     {
-      id: 4,
-      name: 'Gaming Headsets',
-      image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop',
-      link: '/shop?category=headsets'
+      name: 'Gaming Controllers',
+      image: img3, // Example image
     },
-    {
-      id: 5,
-      name: 'Keyboards',
-      image: 'https://images.unsplash.com/photo-1541140532154-b024d705b90a?q=80&w=800&auto=format&fit=crop',
-      link: '/shop?category=keyboards'
-    },
-    {
-      id: 6,
-      name: 'Accessories',
-      image: 'https://images.unsplash.com/photo-1593508512255-86ab42a8e620?q=80&w=800&auto=format&fit=crop',
-      link: '/shop?category=accessories'
-    }
   ];
 
   return (
     <section className="x_main-top-categories py-5">
-      <Container>
-        <div className="text-center mb-4">
-          <h2 className="text-danger fw-bold mb-2" style={{ fontSize: '2rem', letterSpacing: '2px' }}>
-            TOP CATEGORIES
-          </h2>
-        </div>
-        <Row className="g-3 g-md-4">
-          {categories.map((category) => (
-            <Col key={category.id} xs={6} sm={6} md={4} lg={4} xl={2}>
-              <Card className="h-100 border-0 shadow-sm overflow-hidden x_main-category-card">
-                <div 
-                  className="position-relative overflow-hidden"
-                  style={{ 
-                    aspectRatio: '1',
-                    backgroundImage: `url(${category.image})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center'
-                  }}
-                >
-                  <div 
-                    className="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end p-3"
-                    style={{
-                      background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)'
-                    }}
-                  >
-                    <h6 className="text-white fw-bold mb-2">{category.name}</h6>
-                    <Button 
-                      as={Link} 
-                      to={category.link} 
-                      size="sm" 
-                      variant="danger"
-                      className="align-self-start"
-                    >
-                      Shop Now
-                    </Button>
+      <div className="App" style={{background: "linear-gradient( 135deg, #1a1a1a 0%, #2d2d2d 100%)"
+ , backgroundSize: 'cover', backgroundAttachment: 'fixed',  padding: '50px 0',
+   }}>
+        <div className="container">
+          <h2 className="text-center text-white mb-5 category-title">SHOP BY CATEGORIES</h2>
+          <div className="row justify-content-center">
+            {categories.map((category, index) => (
+              <div key={index} className="col-lg-3 col-md-6 col-sm-10 mb-4">
+                <div className="category-card" >
+                  <div className="category-image-container" >
+                    <img src={category.image} alt={category.name} className="img-fluid category-image" />
                   </div>
+                  <h5 className="category-name">{category.name}</h5>
+                  <a href="#" className="shop-now-link">Shop Now <span className="arrow-icon">&#8594;</span></a>
                 </div>
-              </Card>
-            </Col>
-          ))}
-        </Row>
-      </Container>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
