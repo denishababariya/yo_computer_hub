@@ -7,7 +7,55 @@ const products = [
     currency: 'CAD',
     brand: 'AMD',
     category: 'CPU',
-    image: 'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?q=80&w=800&auto=format&fit=crop',
+
+    // 👇 NEW: MEDIA ARRAY (1 VIDEO + 10 IMAGES)
+    media: [
+      {
+        type: "video",
+        url: "https://youtu.be/jJpHcGujOfk?si=rXw0ZV-Cw15ORMD1"
+      },
+      {
+        type: "image",
+        url: "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?q=80&w=800"
+      },
+      {
+        type: "image",
+        url: "https://images.unsplash.com/photo-1518773553398-650c184e0bb3?q=80&w=800"
+      },
+      {
+        type: "image",
+        url: "https://images.unsplash.com/photo-1587202372775-98927b9f4d00?q=80&w=800"
+      },
+      {
+        type: "image",
+        url: "https://images.unsplash.com/photo-1543248939-ff40856f65d4?q=80&w=800"
+      },
+      {
+        type: "image",
+        url: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800"
+      },
+      {
+        type: "image",
+        url: "https://images.unsplash.com/photo-1591488320449-011701bb6704?q=80&w=800"
+      },
+      {
+        type: "image",
+        url: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=800"
+      },
+      {
+        type: "image",
+        url: "https://images.unsplash.com/photo-1587204924781-4b3baf4a9b5d?q=80&w=800"
+      },
+      {
+        type: "image",
+        url: "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?q=80&w=800"
+      },
+      {
+        type: "image",
+        url: "https://images.unsplash.com/photo-1517059224940-d4af9eec41e5?q=80&w=800"
+      },
+    ],
+
     description: '6-Core 12-Thread unlocked desktop processor for gaming and productivity.',
     rating: 4.6,
     reviews: 86,

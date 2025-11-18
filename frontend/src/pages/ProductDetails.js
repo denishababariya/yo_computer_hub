@@ -1,9 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Container, Row, Col, Button, Spinner, Alert } from 'react-bootstrap';
+import { Container, Row, Col, Button, Spinner, Alert, Carousel } from 'react-bootstrap';
+import products from '../data/products';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../store/cartSlice';
 import { productAPI } from '../services/api';
+
+function getYouTubeEmbed(url) {
+  // Convert ANY YouTube link into EMBED URL
+  try {
+    const u = new URL(url);
+
+    if (u.hostname.includes("youtu.be")) {
+      return `https://www.youtube.com/embed/${u.pathname.replace("/", "")}`;
+    }
+
+    if (u.hostname.includes("youtube.com")) {
+      const videoID = u.searchParams.get("v");
+      if (videoID) return `https://www.youtube.com/embed/${videoID}`;
+    }
+  } catch (e) {}
+
+  // Fallback
+  const match = url.match(/(?:v=|youtu\.be\/)([A-Za-z0-9_-]+)/);
+  if (match) return `https://www.youtube.com/embed/${match[1]}`;
+
+  return null;
+}
 
 function ProductDetails() {
   const { id } = useParams();
@@ -44,8 +67,10 @@ function ProductDetails() {
   if (error || !product) {
     return (
       <Container className="py-5">
-        <Alert variant="danger">{error || 'Product not found'}</Alert>
-        <Button as={Link} to="/shop" variant="dark" className="mt-3">Back to Shop</Button>
+        <h2>Product not found</h2>
+        <Button as={Link} to="/shop" variant="dark" className="mt-3">
+          Back to Shop
+        </Button>
       </Container>
     );
   }
@@ -53,29 +78,75 @@ function ProductDetails() {
   return (
     <Container className="py-4">
       <Row className="g-4">
+        {/* LEFT SIDE SLIDER */}
         <Col md={6}>
-          <img src={product.image} alt={product.name} className="img-fluid rounded shadow" />
+          <Carousel>
+            {product.media?.map((item, index) => {
+              const youtubeEmbed = item.type === "video" ? getYouTubeEmbed(item.url) : null;
+
+              return (
+                <Carousel.Item key={index}>
+                  <div className="Z_Slider_Wrapper">
+
+                    {/* YOUTUBE VIDEO */}
+                    {item.type === "video" && youtubeEmbed ? (
+                      <iframe
+                        className="Z_Slider_iframe"
+                        src={youtubeEmbed}
+                        title="product-video"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      ></iframe>
+                    ) : null}
+
+                    {/* NORMAL MP4 VIDEO */}
+                    {item.type === "video" && !youtubeEmbed ? (
+                      <video
+                        src={item.url}
+                        className="Z_Slider_video"
+                        controls
+                        muted
+                        playsInline
+                      />
+                    ) : null}
+
+                    {/* IMAGE */}
+                    {item.type === "image" && (
+                      <img
+                        src={item.url}
+                        className="Z_Slider_img"
+                        alt={product.name}
+                      />
+                    )}
+                  </div>
+                </Carousel.Item>
+              );
+            })}
+          </Carousel>
         </Col>
+
+        {/* RIGHT SIDE DETAILS */}
         <Col md={6}>
           <h1 className="h3">{product.name}</h1>
-          <div className="text-muted mb-2">{product.category}</div>
-          <div className="h4 text-danger mb-3">${product.price.toFixed(2)}</div>
+          <div className="text-muted mb-2">{product.brand} · {product.category}</div>
+
+          <div className="h4 text-theme mb-3">
+            ${product.price.toFixed(2)} {product.currency}
+          </div>
+
           <p>{product.description}</p>
 
-          {product.specifications && Object.keys(product.specifications).length > 0 && (
-            <>
-              <h6>Specifications:</h6>
-              <ul className="mb-3">
-                {Object.entries(product.specifications).map(([key, value]) => (
-                  <li key={key}><strong>{key}:</strong> {value}</li>
-                ))}
-              </ul>
-            </>
-          )}
-
           <div className="d-flex gap-2">
-            <Button variant="danger" onClick={() => dispatch(addToCart({ id: product._id || product.id, product, qty: 1 }))}>Add to Cart</Button>
-            <Button as={Link} to="/checkout" variant="primary">Buy Now</Button>
+            <Button
+              variant="danger"
+              onClick={() => dispatch(addToCart({ id: product.id, product, qty: 1 }))}
+            >
+              Add to Cart
+            </Button>
+
+            <Button as={Link} to="/checkout" variant="primary">
+              Buy Now
+            </Button>
           </div>
         </Col>
       </Row>

@@ -1,5 +1,6 @@
 import './App.css';
 import './styles/x_main.css';
+import './styles/z_style.css';
 import { Routes, Route } from 'react-router-dom';
 import AppNavbar from './components/Navbar';
 import AppFooter from './components/Footer';
@@ -18,6 +19,8 @@ import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 import VerifyOTP from './pages/VerifyOTP';
 import ResetPassword from './pages/ResetPassword';
+import Showmore from './pages/Showmore';
+import ComputerAccessoriesSlider from './pages/ComputerAccessoriesSlider';
 
 function App() {
   return (
@@ -36,6 +39,8 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/360" element={<Product360Viewer />} />
+          <Route path="/showmore" element={<Showmore />} />
+          <Route path="/ComputerAccessoriesSlider" element={<ComputerAccessoriesSlider />} />
 
           {/* Authentication Routes */}
           <Route path="/login" element={<Login />} />
