@@ -30,7 +30,7 @@
 
 .x_blog .card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 12px 24px rgba(222, 52, 49, 0.2) !important;
+  box-shadow: 0 12px 24px rgba(85, 136, 201, 0.2) !important;
 }
 
 /* Category Badge Styling */
@@ -137,7 +137,7 @@
   background-color: var(--primary-red);
   border-color: var(--primary-red);
   color: var(--text-white);
-  box-shadow: 0 4px 12px rgba(222, 52, 49, 0.3);
+  box-shadow: 0 4px 12px rgba(85, 136, 201, 0.3);
 }
 
 .x_blog .page-item.active .page-link:hover {

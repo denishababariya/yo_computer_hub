@@ -12,7 +12,7 @@ function Navbar4() {
       <Container>
         <div className="d-flex align-items-center justify-content-between">
           <Link to="/" className="z_nav_logo fw-bold fs-3 text-white">
-            LOGO
+            <img src={require("../img/logo3.png")} style={{width:'50px'}}></img>
           </Link>
           <Nav className="z_nav_items d-none d-lg-flex">
             <NavLink to="/" className="z_nav_link">HOME</NavLink>

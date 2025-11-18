@@ -196,7 +196,7 @@ function AppFooter() {
         onMouseLeave={(e) => e.target.style.backgroundColor = '#333'}
         title="Scroll to top"
       >
-        <i className="bi bi-chevron-up" style={{ fontSize: '1.2rem' }}></i>
+        <i className="bi bi-chevron-up bg-transparent" style={{ fontSize: '1.2rem' }}></i>
       </button>
     </footer>
   );

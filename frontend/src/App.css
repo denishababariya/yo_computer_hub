@@ -29,33 +29,12 @@
 }
 
 /* Theme helpers */
-.btn-danger {
-  background-color: var(--color-red);
-  border-color: var(--color-red);
-}
-
-.btn-danger:hover {
-  background-color: #3267ab;
-  border-color: #3267ab;
-}
-
-.btn-primary {
-  background-color: var(--color-darkblue);
-  border-color: var(--color-darkblue);
-}
-
-.btn-primary:hover {
-  filter: brightness(1.1);
-}
-
-.navbar-dark .navbar-brand,
-.navbar-dark .nav-link {
-  color: var(--color-white);
-}
-
-.navbar-dark .nav-link.active {
-  color: var(--color-red);
-}
+.btn-danger { background-color: var(--color-red); border-color: var(--color-red); }
+.btn-danger:hover { background-color: var(--color-red); border-color: var(--color-red); }
+.btn-primary { background-color: var(--color-darkblue); border-color: var(--color-darkblue); }
+.btn-primary:hover { filter: brightness(1.1); }
+.navbar-dark .navbar-brand, .navbar-dark .nav-link { color: var(--color-white); }
+.navbar-dark .nav-link.active { color: var(--color-red); }
 
 @keyframes App-logo-spin {
   from {
