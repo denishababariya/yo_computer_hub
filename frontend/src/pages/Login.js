@@ -32,6 +32,8 @@ function Login() {
       if (response.success) {
         setToken(response.token);
         setUser(response.user);
+        // Store userId for MyAccount page
+        localStorage.setItem('userId', response.user.id);
         navigate('/');
         window.location.reload();
       } else {
@@ -98,7 +100,7 @@ function Login() {
                 <Button
                   type="submit"
                   variant="danger"
-                  className="w-100 py-2 fw-semibold"
+                  className="w-100 py-2 fw-semibold text-dark"
                   disabled={loading}
                   style={{ borderRadius: '8px', fontSize: '1rem' }}
                 >

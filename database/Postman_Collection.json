@@ -1,0 +1,429 @@
+{
+  "info": {
+    "name": "YO Computer Hub API",
+    "description": "API collection for YO Computer Hub e-commerce platform",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Get All Products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:9000/api/products",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9000",
+              "path": ["api", "products"]
+            }
+          }
+        },
+        {
+          "name": "Get Products by Category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:9000/api/products?category=cat_001",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9000",
+              "path": ["api", "products"],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "cat_001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Single Product",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:9000/api/products/prod_001",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9000",
+              "path": ["api", "products", "prod_001"]
+            }
+          }
+        },
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"New Product\",\n  \"category\": \"cat_001\",\n  \"price\": 299,\n  \"originalPrice\": 399,\n  \"discount\": 25,\n  \"rating\": 4.5,\n  \"reviews\": 100,\n  \"description\": \"Product description\",\n  \"image\": \"https://via.placeholder.com/400\",\n  \"stock\": 20,\n  \"brand\": \"Brand Name\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:9000/api/products",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9000",
+              "path": ["api", "products"]
+            }
+          }
+        },
+        {
+          "name": "Update Product",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"price\": 349,\n  \"stock\": 25\n}"
+            },
+            "url": {
+              "raw": "http://localhost:9000/api/products/prod_001",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9000",
+              "path": ["api", "products", "prod_001"]
+            }
+          }
+        },
+        {
+          "name": "Delete Product",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:9000/api/products/prod_001",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9000",
+              "path": ["api", "products", "prod_001"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "Get All Categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:9000/api/categories",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9000",
+              "path": ["api", "categories"]
+            }
+          }
+        },
+        {
+          "name": "Get Single Category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:9000/api/categories/cat_001",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9000",
+              "path": ["api", "categories", "cat_001"]
+            }
+          }
+        },
+        {
+          "name": "Create Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"New Category\",\n  \"slug\": \"new-category\",\n  \"description\": \"Category description\",\n  \"image\": \"https://via.placeholder.com/300\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:9000/api/categories",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9000",
+              "path": ["api", "categories"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Jay Patel\",\n  \"email\": \"jay@example.com\",\n  \"password\": \"password123\",\n  \"phone\": \"+91 98765 43210\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:9000/api/auth/register",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9000",
+              "path": ["api", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"jay@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:9000/api/auth/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9000",
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_TOKEN_HERE"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:9000/api/auth/logout",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9000",
+              "path": ["api", "auth", "logout"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User Account",
+      "item": [
+        {
+          "name": "Get User Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_TOKEN_HERE"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:9000/api/users/profile/USER_ID",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9000",
+              "path": ["api", "users", "profile", "USER_ID"]
+            }
+          }
+        },
+        {
+          "name": "Update User Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_TOKEN_HERE"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Name\",\n  \"phone\": \"+91 98765 43210\",\n  \"dob\": \"1998-05-12\",\n  \"gender\": \"Male\",\n  \"avatar\": \"data:image/jpeg;base64,...\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:9000/api/users/profile/USER_ID",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9000",
+              "path": ["api", "users", "profile", "USER_ID"]
+            }
+          }
+        },
+        {
+          "name": "Get User Orders",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_TOKEN_HERE"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:9000/api/users/orders/USER_ID",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9000",
+              "path": ["api", "users", "orders", "USER_ID"]
+            }
+          }
+        },
+        {
+          "name": "Get User Addresses",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_TOKEN_HERE"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:9000/api/users/addresses/USER_ID",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9000",
+              "path": ["api", "users", "addresses", "USER_ID"]
+            }
+          }
+        },
+        {
+          "name": "Add Address",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_TOKEN_HERE"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Home\",\n  \"address\": \"203, Sunrise Avenue, Ahmedabad\",\n  \"phone\": \"+91 98765 43210\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:9000/api/users/addresses/USER_ID",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9000",
+              "path": ["api", "users", "addresses", "USER_ID"]
+            }
+          }
+        },
+        {
+          "name": "Update Address",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_TOKEN_HERE"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Office\",\n  \"address\": \"2nd Floor, Tech Park\",\n  \"phone\": \"+91 91234 56789\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:9000/api/users/addresses/USER_ID/ADDRESS_ID",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9000",
+              "path": ["api", "users", "addresses", "USER_ID", "ADDRESS_ID"]
+            }
+          }
+        },
+        {
+          "name": "Delete Address",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_TOKEN_HERE"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:9000/api/users/addresses/USER_ID/ADDRESS_ID",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9000",
+              "path": ["api", "users", "addresses", "USER_ID", "ADDRESS_ID"]
+            }
+          }
+        },
+        {
+          "name": "Get Complete Account Data",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_TOKEN_HERE"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:9000/api/users/account/USER_ID",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "9000",
+              "path": ["api", "users", "account", "USER_ID"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

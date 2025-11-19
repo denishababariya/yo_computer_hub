@@ -1,6 +1,10 @@
-import React, { useState } from "react";
-import { FaCamera } from "react-icons/fa";
-import { FiEdit2 } from "react-icons/fi";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FiEdit2 } from 'react-icons/fi';
+import { FaCamera } from 'react-icons/fa';
+import { userAPI } from '../services/userAPI';
+import { authAPI } from '../services/api';
+import { logout as logoutAuth } from '../utils/auth';
 
 const navTabs = [
   { name: "MY PROFILE", key: "profile" },
@@ -10,13 +14,13 @@ const navTabs = [
 ];
 
 const initialProfile = {
-  avatar: "https://randomuser.me/api/portraits/men/32.jpg",
-  name: "Jay Patel",
-  email: "jay.patel@email.com",
-  phone: "+91 98765 43210",
-  dob: "1998-05-12",
-  gender: "Male",
-  address: "203, Sunrise Avenue, Ahmedabad, Gujarat, India"
+  avatar: "",
+  // name: "Jay Patel",
+  // email: "jay.patel@email.com",
+  // phone: "+91 98765 43210",
+  // dob: "1998-05-12",
+  // gender: "Male",
+  // address: "203, Sunrise Avenue, Ahmedabad, Gujarat, India"
 };
 
 const dummyOrders = [
@@ -73,35 +77,100 @@ const dummyAddresses = [
 ];
 
 function MyAccount() {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("profile");
   const [showLogout, setShowLogout] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [showAddressForm, setShowAddressForm] = useState(false);
   const [profile, setProfile] = useState(initialProfile);
   const [editProfile, setEditProfile] = useState(initialProfile);
-  const [addresses, setAddresses] = useState(dummyAddresses);
+  const [orders, setOrders] = useState([]);
+  const [addresses, setAddresses] = useState([]);
   const [editingAddressIdx, setEditingAddressIdx] = useState(null);
   const [addressForm, setAddressForm] = useState({ name: '', address: '', phone: '' });
+  const [loading, setLoading] = useState(false);
+
+  // Get userId from localStorage (set during login)
+  const userId = localStorage.getItem('userId') || 'demo-user-id';
+
+  // Fetch user data on component mount
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  const fetchUserData = async () => {
+    try {
+      setLoading(true);
+      const response = await userAPI.getCompleteAccountData(userId);
+      
+      if (response.success && response.data) {
+        setProfile(response.data.profile);
+        setEditProfile(response.data.profile);
+        setOrders(response.data.orders || []);
+        setAddresses(response.data.addresses || []);
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleEditChange = e => {
     setEditProfile({ ...editProfile, [e.target.name]: e.target.value });
   };
 
-  const handleEditSave = () => {
-    setProfile(editProfile);
-    setShowEdit(false);
+  const handleEditSave = async () => {
+    try {
+      const response = await userAPI.updateProfile(userId, editProfile);
+      if (response.success) {
+        setProfile(response.data);
+        setShowEdit(false);
+        alert('Profile updated successfully');
+      }
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      alert('Failed to update profile');
+    }
   };
 
   const handleCameraClick = () => {
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = 'image/*';
-    input.onchange = (e) => {
+    input.onchange = async (e) => {
       const file = e.target.files[0];
       if (file) {
+        // Validate file size (max 5MB)
+        if (file.size > 5 * 1024 * 1024) {
+          alert('Image size should be less than 5MB');
+          return;
+        }
+
         const reader = new FileReader();
-        reader.onload = (event) => {
-          setProfile({ ...profile, avatar: event.target.result });
+        reader.onload = async (event) => {
+          const imageData = event.target.result;
+          
+          // Update edit profile state
+          setEditProfile({ ...editProfile, avatar: imageData });
+          
+          // Update main profile state
+          setProfile({ ...profile, avatar: imageData });
+          
+          // Save to backend immediately
+          try {
+            const updatedProfileData = {
+              ...profile,
+              avatar: imageData
+            };
+            const response = await userAPI.updateProfile(userId, updatedProfileData);
+            if (response.success) {
+              alert('Profile picture updated successfully');
+            }
+          } catch (error) {
+            console.error('Error updating avatar:', error);
+            alert('Failed to update profile picture');
+          }
         };
         reader.readAsDataURL(file);
       }
@@ -125,25 +194,45 @@ function MyAccount() {
     setShowAddressForm(true);
   };
 
-  const handleDeleteAddress = (idx) => {
-    setAddresses(addresses.filter((_, i) => i !== idx));
+  const handleDeleteAddress = async (idx) => {
+    try {
+      const addressId = addresses[idx]._id;
+      const response = await userAPI.deleteAddress(userId, addressId);
+      if (response.success) {
+        setAddresses(response.data);
+        alert('Address deleted successfully');
+      }
+    } catch (error) {
+      console.error('Error deleting address:', error);
+      alert('Failed to delete address');
+    }
   };
 
-  const handleSaveAddress = () => {
+  const handleSaveAddress = async () => {
     if (!addressForm.name.trim() || !addressForm.address.trim() || !addressForm.phone.trim()) {
       alert('Please fill all required fields');
       return;
     }
 
-    if (editingAddressIdx !== null) {
-      const updatedAddresses = [...addresses];
-      updatedAddresses[editingAddressIdx] = addressForm;
-      setAddresses(updatedAddresses);
-    } else {
-      setAddresses([...addresses, addressForm]);
+    try {
+      let response;
+      if (editingAddressIdx !== null) {
+        const addressId = addresses[editingAddressIdx]._id;
+        response = await userAPI.updateAddress(userId, addressId, addressForm);
+      } else {
+        response = await userAPI.addAddress(userId, addressForm);
+      }
+
+      if (response.success) {
+        setAddresses(response.data);
+        setShowAddressForm(false);
+        setAddressForm({ name: '', address: '', phone: '' });
+        alert(editingAddressIdx !== null ? 'Address updated successfully' : 'Address added successfully');
+      }
+    } catch (error) {
+      console.error('Error saving address:', error);
+      alert('Failed to save address');
     }
-    setShowAddressForm(false);
-    setAddressForm({ name: '', address: '', phone: '' });
   };
 
   return (
@@ -252,11 +341,11 @@ function MyAccount() {
                   <>
                     <div className="z_acc_tab_heading">MY ORDER</div>
                     <div className="z_order_card">
-                      {dummyOrders.length === 0 ? (
+                      {orders.length === 0 ? (
                         <div className="z_order_empty">No orders yet. Start shopping now!</div>
                       ) : (
                         <div className="z_order_list">
-                          {dummyOrders.map(order => (
+                          {orders.map(order => (
                             <div className="z_order_item_card" key={order.id}>
                               <div className="z_order_header">
                                 <div className="z_order_id_date">
@@ -368,7 +457,28 @@ function MyAccount() {
           <div className="z_logout_modal">
             <div className="z_logout_modal_title">Are you sure you want to logout?</div>
             <div className="z_logout_modal_actions">
-              <button className="z_logout_btn z_logout_confirm" onClick={() => {/* handle logout */ }}>Logout</button>
+              <button 
+                className="z_logout_btn z_logout_confirm" 
+                onClick={async () => {
+                  try {
+                    // Call logout API
+                    await authAPI.logout();
+                    
+                    // Clear local auth data
+                    logoutAuth();
+                    
+                    // Redirect to login
+                    navigate('/login');
+                  } catch (error) {
+                    console.error('Logout error:', error);
+                    // Even if API fails, clear local data and redirect
+                    logoutAuth();
+                    navigate('/login');
+                  }
+                }}
+              >
+                Logout
+              </button>
               <button className="z_logout_btn z_logout_cancel" onClick={() => setShowLogout(false)}>Cancel</button>
             </div>
           </div>

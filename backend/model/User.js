@@ -1,6 +1,29 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
+const addressSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  address: {
+    type: String,
+    required: true
+  },
+  phone: {
+    type: String,
+    required: true
+  },
+  isDefault: {
+    type: Boolean,
+    default: false
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+});
+
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -19,6 +42,17 @@ const userSchema = new mongoose.Schema({
   phone: {
     type: String
   },
+  dob: {
+    type: String
+  },
+  gender: {
+    type: String,
+    enum: ['Male', 'Female', 'Other']
+  },
+  avatar: {
+    type: String,
+    default: 'https://randomuser.me/api/portraits/men/32.jpg'
+  },
   address: {
     type: String
   },
@@ -31,7 +65,12 @@ const userSchema = new mongoose.Schema({
   zipCode: {
     type: String
   },
+  addresses: [addressSchema],
   createdAt: {
+    type: Date,
+    default: Date.now
+  },
+  updatedAt: {
     type: Date,
     default: Date.now
   }

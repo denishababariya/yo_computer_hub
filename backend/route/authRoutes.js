@@ -120,4 +120,18 @@ router.put('/profile/:userId', async (req, res) => {
   }
 });
 
+// Logout
+router.post('/logout', async (req, res) => {
+  try {
+    // Logout is primarily handled on frontend by removing token
+    // Backend just confirms the logout action
+    res.json({
+      success: true,
+      message: 'Logout successful'
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 module.exports = router;
