@@ -93,14 +93,6 @@ const AboutUs = () => {
 
 	return (
 		<div className="bg-dark-theme text-light-gray">
-			{/* Hero Section - Added to be fully contained in the component */}
-			{/* <div className="hero-section">
-				<Container>
-					<h1 className="hero-title">About Us</h1>
-					<p className="hero-subtitle">Your Trusted Partner in Premium Tech</p>
-				</Container>
-			</div> */}
-
 			{/* Our Story Section */}
 			<div className='story-section' >
 				<Container className="py-5">

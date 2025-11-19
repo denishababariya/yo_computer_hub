@@ -1,46 +1,60 @@
-/* Blog Page Styling */
-.x_blog {
-  --primary-red: #5588c9;
+/* Blog Page Styling (Dark Theme) */
+.x_blog_dark_theme {
+  --primary-blue: #5588c9; /* Accent Blue */
+  --bg-dark: #282828; /* Dark Background */
+  --card-dark: #2a2a2a; /* Slightly Lighter Card Background */
   --text-white: #ffffff;
-  --text-light: #888888;
-  --text-black: #000;
+  --text-light: #cccccc; /* Light Gray Text */
+  --text-muted: #888888; /* Muted Gray Text */
+  --border-gray: #444444; /* Border/Divider Gray */
+
+  background-color: var(--bg-dark);
+  color: var(--text-light);
 }
 
 /* Blog Title Styling */
-.x_blog h1 {
-  color: var(--text-black);
+.x_blog_dark_theme h1 {
+  color: var(--text-white);
   font-weight: 700;
   margin-bottom: 1.5rem;
   transition: color 0.3s ease;
 }
 
-.x_blog h1:hover {
-  color: var(--primary-red);
-}
-
 /* Blog Card Styling */
-.x_blog .card {
+.x_blog_card {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: none;
-  background-color: var(--text-white);
+  border: 1px solid var(--border-gray) !important;
+  background-color: #343434 !important;
   border-radius: 12px !important;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Stronger shadow for contrast */
 }
 
-.x_blog .card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 12px 24px rgba(85, 136, 201, 0.2) !important;
+.x_blog_card:hover {
+  transform: translateY(-5px);
+  border: 1px solid #758dab8c !important;
+}
+
+/* Card Image Container */
+.x_card_image_container {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16/9;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.5s ease;
+}
+
+.x_blog_card:hover .x_card_image_container {
+  transform: scale(1.03);
 }
 
 /* Category Badge Styling */
-.x_blog .card .position-relative {
-  transition: all 0.3s ease;
-  border-radius: 0;
-}
-
-.x_blog .card .position-absolute {
-  background: var(--primary-red) !important;
+.x_card_category_badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--primary-blue) !important;
   color: var(--text-white);
   font-size: 0.7rem;
   font-weight: 700;
@@ -49,48 +63,56 @@
   border-radius: 0 0 8px 0;
   padding: 0.6rem 0.8rem;
 }
+.x_blog_details .x_card_category_badge {
+  border-radius: 0 0px 0px 0;
+}
 
 /* Card Body Text Styling */
-.x_blog .card-body {
+.x_card_body {
   padding: 1.5rem;
 }
 
-.x_blog .card-title {
-  color: var(--text-black);
+.x_card_title {
+  color: var(--text-white);
   font-weight: 800;
   transition: color 0.3s ease;
   line-height: 1.3;
-  min-height: auto;
   font-size: 1.1rem;
   margin-bottom: 0.75rem;
 }
 
-.x_blog .card-title a {
-  color: var(--text-black);
+.x_card_title_link {
+  color: var(--text-white);
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
-.x_blog .card-title a:hover {
-  color: var(--primary-red);
+.x_card_title_link:hover {
+  color: var(--primary-blue);
 }
 
-.x_blog .card-text {
+.x_card_excerpt {
   color: var(--text-light);
   font-size: 0.9rem;
   line-height: 1.6;
   margin-bottom: 1rem;
+  /* Truncation styles */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
-.x_blog .card-text.date {
-  color: var(--text-light);
+.x_card_date {
+  color: var(--text-muted) !important;
   font-size: 0.85rem;
   margin-bottom: 0.75rem;
 }
 
 /* Read More Link Styling */
-.x_blog .read-more-link {
-  color: var(--primary-red);
+.x_read_more_link {
+  color: var(--primary-blue);
   text-decoration: none;
   font-weight: 700;
   font-size: 0.95rem;
@@ -98,23 +120,37 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  position: relative; /* Needed for underline effect */
 }
 
-.x_blog .read-more-link:hover {
-  color: var(--text-black);
-  gap: 0.8rem;
+/* Underline (hidden by default) */
+.x_read_more_link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px; /* distance from text */
+  right: 0; /* start from right */
+  width: 0; /* hidden */
+  height: 1px;
+  background: var(--primary-blue);
+  transition: width 0.4s ease, left 0.4s ease;
+}
+
+/* Hover effect: underline expands from RIGHT → LEFT */
+.x_read_more_link:hover::after {
+  width: 100%;
+  left: 0;
 }
 
 /* Pagination Styling */
-.x_blog .pagination {
-  gap: 0.75rem;
+.x_pagination {
+  gap: 0.5rem;
   margin-top: 3rem;
 }
 
-.x_blog .page-link {
-  color: var(--text-black);
-  background-color: transparent;
-  border: 2px solid #e0e0e0;
+.x_pagination .page-link {
+  color: var(--text-light);
+  background-color: var(--card-dark);
+  border: 2px solid var(--border-gray);
   transition: all 0.3s ease;
   font-weight: 600;
   min-width: 44px;
@@ -126,87 +162,42 @@
   padding: 0;
 }
 
-.x_blog .page-link:hover {
+.x_pagination .page-link:hover {
   color: var(--text-white);
-  background-color: var(--primary-red);
-  border-color: var(--primary-red);
+  background-color: var(--primary-blue);
+  border-color: var(--primary-blue);
   transform: scale(1.08);
 }
 
-.x_blog .page-item.active .page-link {
-  background-color: var(--primary-red);
-  border-color: var(--primary-red);
+.x_pagination .page-item.active .page-link {
+  background-color: var(--primary-blue);
+  border-color: var(--primary-blue);
   color: var(--text-white);
-  box-shadow: 0 4px 12px rgba(85, 136, 201, 0.3);
+  box-shadow: 0 4px 12px rgba(85, 136, 201, 0.4);
 }
 
-.x_blog .page-item.active .page-link:hover {
-  background-color: var(--primary-red);
-  border-color: var(--primary-red);
-  transform: scale(1.08);
-}
-
-.x_blog .page-item.disabled .page-link {
-  color: #ccc;
-  border-color: #e0e0e0;
+.x_pagination .page-item.disabled .page-link {
+  color: var(--text-muted);
+  border-color: #333333;
   cursor: not-allowed;
-  background-color: #f5f5f5;
+  background-color: #222222;
 }
 
-.x_blog .page-item.disabled .page-link:hover {
-  color: #ccc;
-  background-color: #f5f5f5;
-  border-color: #e0e0e0;
+.x_pagination .page-item.disabled .page-link:hover {
+  color: var(--text-muted);
+  background-color: #222222;
+  border-color: #333333;
   transform: scale(1);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .x_blog h1 {
+  .x_blog_dark_theme h1 {
     font-size: 1.75rem;
   }
 
-  .x_blog .card-title {
+  .x_card_title {
     font-size: 1rem;
-  }
-
-  .x_blog .page-link {
-    min-width: 40px;
-    height: 40px;
-    font-size: 0.9rem;
-  }
-
-  .x_blog .pagination {
-    gap: 0.5rem;
-  }
-}
-
-@media (max-width: 576px) {
-  .x_blog h1 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .x_blog .card-title {
-    font-size: 0.95rem;
-  }
-
-  .x_blog .card-body {
-    padding: 1.25rem;
-  }
-
-  .x_blog .page-link {
-    min-width: 36px;
-    height: 36px;
-    font-size: 0.8rem;
-  }
-
-  .x_blog .read-more-link {
-    font-size: 0.9rem;
-  }
-
-  .x_blog .pagination {
-    gap: 0.4rem;
   }
 }
 
@@ -246,7 +237,7 @@
 
 /* Custom radio button styling - Modern clean design */
 .filter-check input[type="radio"] + label::before {
-  content: '';
+  content: "";
   display: inline-block;
   width: 18px;
   height: 18px;
@@ -270,7 +261,7 @@
 }
 
 .filter-check input[type="radio"]:checked + label::after {
-  content: '';
+  content: "";
   display: inline-block;
   width: 5px;
   height: 5px;
@@ -285,7 +276,7 @@
 
 /* Custom checkbox styling */
 .filter-check input[type="checkbox"] + label::before {
-  content: '';
+  content: "";
   display: inline-block;
   width: 18px;
   height: 18px;
@@ -308,7 +299,7 @@
 }
 
 .filter-check input[type="checkbox"]:checked + label::after {
-  content: '✓';
+  content: "✓";
   display: inline-block;
   color: #fff;
   font-size: 12px;
@@ -357,7 +348,13 @@
   outline: none;
   -webkit-appearance: none;
   appearance: none;
-  background: linear-gradient(to right, #5588c9 0%, #5588c9 0%, #ddd 0%, #ddd 100%);
+  background: linear-gradient(
+    to right,
+    #5588c9 0%,
+    #5588c9 0%,
+    #ddd 0%,
+    #ddd 100%
+  );
   background-size: 100% 100%;
   background-repeat: no-repeat;
   cursor: pointer;
@@ -564,9 +561,7 @@
   }
 }
 
-
 /* -------------------- Top category ------------------------ */
-
 
 .category-title {
   font-weight: bold;
@@ -591,7 +586,7 @@
 }
 
 .category-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -600,7 +595,7 @@
   background-position: 12%;
   background-image: url("http://img.freepik.com/premium-vector/black-abstract-texture-geometric-background_67845-972.jpg?semt=ais_hybrid&w=740&q=80");
   /* background: linear-gradient(45deg, rgba(138, 43, 226, 0.2), rgba(255, 0, 255, 0.2)); */
-   filter: blur(5px);
+  filter: blur(5px);
   -webkit-filter: blur(5px);
   z-index: 0;
   border-radius: 15px;
@@ -669,9 +664,9 @@
 }
 /* ----------end top category css ------------ */
 
-
 /* ---------------- PopularBrands.css------------ */
-/* Borders */.brand-slider {
+/* Borders */
+.brand-slider {
   overflow: hidden;
   width: 100%;
   position: relative;
@@ -710,7 +705,6 @@
     transform: translateX(-50%);
   }
 }
-
 
 /* ---------------- end PopularBrands.css------------ */
 

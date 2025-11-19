@@ -28,6 +28,7 @@ import Terms from './pages/Terms';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import FAQ from './pages/FAQ';
 import HelpCenter from './pages/HelpCenter';
+import BlogDetails from './pages/BlogDetails';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:id" element={<BlogDetails />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/360" element={<Product360Viewer />} />
           <Route path="/term" element={<Terms />} />
