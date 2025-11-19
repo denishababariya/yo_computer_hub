@@ -1,6 +1,8 @@
 import './App.css';
 import './styles/x_main.css';
 import './styles/z_style.css';
+import './styles/z_prdDetails.css';
+
 import { Routes, Route } from 'react-router-dom';
 import AppNavbar from './components/Navbar';
 import AppFooter from './components/Footer';

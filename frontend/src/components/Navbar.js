@@ -1,11 +1,22 @@
 import React, { useState } from "react";
-import { Container, Nav, Form, InputGroup, Button, Offcanvas } from "react-bootstrap";
+import { Container, Nav, Form, InputGroup, Button, Offcanvas, Dropdown } from "react-bootstrap";
 import { NavLink, Link } from "react-router-dom";
 
 function Navbar4() {
   const [show, setShow] = useState(false);
+  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  
+  const handleProfileClick = () => {
+    setShowProfileDropdown(!showProfileDropdown);
+  };
+  
+  const handleLogout = () => {
+    // Add logout logic here
+    console.log("User logged out");
+    setShowProfileDropdown(false);
+  };
 
   return (
     <div className="z_nav_wrapper z_nav_menu py-3">
@@ -31,16 +42,36 @@ function Navbar4() {
               </InputGroup>
             </Form>
             <div className="z_nav_icons d-flex align-items-center gap-4">
-              <Link to="/wishlist" className="z_glow_icon">
+              <Link to="/wishlist" className="z_glow_icon position-relative">
                 <i className="bi bi-heart"></i>
+                <span className="z_cart_count">2</span>
               </Link>
               <Link to="/cart" className="z_glow_icon position-relative">
                 <i className="bi bi-cart"></i>
                 <span className="z_cart_count">3</span>
               </Link>
-              <Link to="/account" className="z_glow_icon">
-                <i className="bi bi-person"></i>
-              </Link>
+              <div className="z_profile_dropdown_wrapper position-relative">
+                <button 
+                  className="z_glow_icon z_profile_btn"
+                  onClick={handleProfileClick}
+                  style={{background: 'none', border: 'none', padding: 0, cursor: 'pointer'}}
+                >
+                  <i className="bi bi-person"></i>
+                </button>
+                {showProfileDropdown && (
+                  <div className="z_profile_dropdown">
+                    <Link to="/account" className="z_dropdown_item" onClick={() => setShowProfileDropdown(false)}>
+                      <i className="bi bi-person-circle"></i> My Profile
+                    </Link>
+                    <button 
+                      className="z_dropdown_item z_logout_item"
+                      onClick={handleLogout}
+                    >
+                      <i className="bi bi-box-arrow-right"></i> Logout
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
             {/* Offcanvas button at end for mobile/tablet */}
             <Button variant="outline-light" className="d-lg-none ms-2" onClick={handleShow}>
