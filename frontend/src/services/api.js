@@ -93,6 +93,8 @@ export const authAPI = {
 // Order APIs
 export const orderAPI = {
   create: (data) => api.post('/orders', data),
+  createRazorpay: (data) => api.post('/orders/create_razorpay', data),
+  verifyPayment: (data) => api.post('/orders/verify_payment', data),
   getUserOrders: (userId) => api.get(`/orders/user/${userId}`),
   getById: (orderId) => api.get(`/orders/${orderId}`),
   update: (orderId, data) => api.put(`/orders/${orderId}`, data),

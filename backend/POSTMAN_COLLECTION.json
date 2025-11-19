@@ -1,0 +1,537 @@
+{
+  "info": {
+    "_postman_id": "yo-computer-hub-api",
+    "name": "YO Computer Hub - Full API",
+    "description": "Complete API collection with Products, Categories, Images, and Videos",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "PRODUCTS",
+      "item": [
+        {
+          "name": "Get All Products",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test('Response has pagination', function () {",
+                  "    pm.expect(pm.response.json().pagination).to.exist;",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/products?page=1&limit=10&sort=newest",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "disabled": false
+                },
+                {
+                  "key": "sort",
+                  "value": "newest",
+                  "disabled": false
+                },
+                {
+                  "key": "search",
+                  "value": "RTX",
+                  "disabled": true
+                },
+                {
+                  "key": "category",
+                  "value": "Graphics Cards",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Featured Products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/products/featured",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "products",
+                "featured"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Best Sellers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/products/best-sellers",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "products",
+                "best-sellers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Product by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/products/{{PRODUCT_ID}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "products",
+                "{{PRODUCT_ID}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Product (Admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 201', function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "if (pm.response.code === 201) {",
+                  "    pm.environment.set('PRODUCT_ID', pm.response.json().data._id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"NVIDIA GeForce RTX 4090\",\n  \"description\": \"The world's fastest desktop GPU. Built for ultimate gaming performance and demanding professional applications.\",\n  \"price\": 1599,\n  \"originalPrice\": 1999,\n  \"category\": \"Graphics Cards\",\n  \"image\": \"https://example.com/rtx4090-main.jpg\",\n  \"images\": [\n    {\n      \"url\": \"https://example.com/rtx4090-1.jpg\",\n      \"alt\": \"RTX 4090 Front View\",\n      \"isPrimary\": true\n    },\n    {\n      \"url\": \"https://example.com/rtx4090-2.jpg\",\n      \"alt\": \"RTX 4090 Top View\",\n      \"isPrimary\": false\n    },\n    {\n      \"url\": \"https://example.com/rtx4090-3.jpg\",\n      \"alt\": \"RTX 4090 RGB Lighting\",\n      \"isPrimary\": false\n    }\n  ],\n  \"videos\": [\n    {\n      \"url\": \"https://www.youtube.com/watch?v=3d_4h0nnG0w\",\n      \"title\": \"RTX 4090 Performance Review\",\n      \"type\": \"youtube\",\n      \"thumbnail\": \"https://i.ytimg.com/vi/3d_4h0nnG0w/hqdefault.jpg\"\n    },\n    {\n      \"url\": \"https://example.com/rtx4090-demo.mp4\",\n      \"title\": \"Product Demo - 4K Gaming\",\n      \"type\": \"direct\",\n      \"thumbnail\": \"https://example.com/demo-thumb.jpg\"\n    }\n  ],\n  \"stock\": 100,\n  \"specifications\": {\n    \"memory\": \"24GB GDDR6X\",\n    \"memoryBandwidth\": \"960 GB/s\",\n    \"maxPower\": \"575W\",\n    \"cudaCores\": 16384,\n    \"boostClock\": \"2.52 GHz\"\n  },\n  \"tags\": [\"gpu\", \"nvidia\", \"rtx\", \"gaming\"],\n  \"isFeatured\": true,\n  \"isBestSeller\": true\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/products",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "products"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Product (Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"price\": 1499,\n  \"stock\": 95,\n  \"rating\": 4.8\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/products/{{PRODUCT_ID}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "products",
+                "{{PRODUCT_ID}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add Image to Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"https://example.com/rtx4090-side.jpg\",\n  \"alt\": \"RTX 4090 Side View\",\n  \"isPrimary\": false\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/products/{{PRODUCT_ID}}/images",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "products",
+                "{{PRODUCT_ID}}",
+                "images"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add Video to Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"https://www.youtube.com/watch?v=WrVmNDjVWf0\",\n  \"title\": \"RTX 4090 Unboxing\",\n  \"type\": \"youtube\",\n  \"thumbnail\": \"https://i.ytimg.com/vi/WrVmNDjVWf0/hqdefault.jpg\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/products/{{PRODUCT_ID}}/videos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "products",
+                "{{PRODUCT_ID}}",
+                "videos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Image from Product",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/products/{{PRODUCT_ID}}/images/0",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "products",
+                "{{PRODUCT_ID}}",
+                "images",
+                "0"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Video from Product",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/products/{{PRODUCT_ID}}/videos/0",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "products",
+                "{{PRODUCT_ID}}",
+                "videos",
+                "0"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Product (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/products/{{PRODUCT_ID}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "products",
+                "{{PRODUCT_ID}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "CATEGORIES",
+      "item": [
+        {
+          "name": "Get All Categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/products/categories/all",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "products",
+                "categories",
+                "all"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Category by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/products/categories/{{CATEGORY_ID}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "products",
+                "categories",
+                "{{CATEGORY_ID}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Category",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 201', function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "if (pm.response.code === 201) {",
+                  "    pm.environment.set('CATEGORY_ID', pm.response.json().data._id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Graphics Cards\",\n  \"slug\": \"graphics-cards\",\n  \"description\": \"High-performance GPU components for gaming and professional work\",\n  \"image\": \"https://example.com/category-gpu.jpg\",\n  \"icon\": \"🎮\",\n  \"parent\": null,\n  \"order\": 1\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/products/categories",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "products",
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Sub-Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"RTX 40 Series\",\n  \"slug\": \"rtx-40-series\",\n  \"description\": \"NVIDIA RTX 40 series graphics cards\",\n  \"image\": \"https://example.com/rtx40.jpg\",\n  \"icon\": \"⭐\",\n  \"parent\": \"{{CATEGORY_ID}}\",\n  \"order\": 1\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/products/categories",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "products",
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Category",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Category Name\",\n  \"order\": 2,\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/products/categories/{{CATEGORY_ID}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "products",
+                "categories",
+                "{{CATEGORY_ID}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Category",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/products/categories/{{CATEGORY_ID}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "products",
+                "categories",
+                "{{CATEGORY_ID}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "BASE_URL",
+      "value": "http://localhost:5000/api",
+      "type": "string"
+    },
+    {
+      "key": "PRODUCT_ID",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "CATEGORY_ID",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

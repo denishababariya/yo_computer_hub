@@ -13,7 +13,12 @@ const verifyToken = (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; // Attach user info to request
+      // Normalize token payload to provide `req.user.id` for route checks
+      // Some tokens are signed with { userId }, ensure `id` is available
+      req.user = {
+        id: decoded.userId || decoded.user_id || decoded.id,
+        ...decoded
+      };
     next();
   } catch (error) {
     return res.status(401).json({ 

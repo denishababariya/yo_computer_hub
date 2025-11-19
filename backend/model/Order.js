@@ -7,7 +7,11 @@ const orderSchema = new mongoose.Schema({
     required: true
   },
   items: [{
-    productId: mongoose.Schema.Types.ObjectId,
+    // allow productId to be either a Mongo ObjectId or a string SKU/slug
+    productId: {
+      type: String,
+      required: true
+    },
     productName: String,
     price: Number,
     quantity: Number,

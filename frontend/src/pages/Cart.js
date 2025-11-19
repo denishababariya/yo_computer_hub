@@ -107,7 +107,7 @@ function Cart() {
           <div className="mt-3 d-flex gap-2">
             <Button as={Link} to="/shop" variant="dark">Continue Shopping</Button>
             {userAuthenticated ? (
-              <Button as={Link} to="/checkout" variant="danger">Checkout</Button>
+              <Button as={Link} to="/checkout" variant="danger" className='text-dark'>Checkout</Button>
             ) : (
               <Button as={Link} to="/login" variant="danger">Login to Checkout</Button>
             )}

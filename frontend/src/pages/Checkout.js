@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button, Alert, Spinner } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { selectCartItems } from '../store';
 import { orderAPI } from '../services/api';
+import { clearCart } from '../store/cartSlice';
 import { getUser, getToken } from '../utils/auth';
 
 function Checkout() {
   const items = useSelector(selectCartItems);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const user = getUser();
   const token = getToken();
   const [loading, setLoading] = useState(false);
@@ -81,16 +83,71 @@ function Checkout() {
         paymentMethod
       };
 
-      const response = await orderAPI.create(orderData);
-
-      if (response.success) {
-        setSuccess('Order placed successfully!');
-        setTimeout(() => {
-          navigate('/');
-        }, 2000);
-      } else {
-        setError(response.message || 'Failed to place order');
+      // Create DB order and Razorpay order
+      const resp = await orderAPI.createRazorpay(orderData);
+      if (!resp.success) {
+        setError(resp.message || 'Failed to initiate payment');
+        setLoading(false);
+        return;
       }
+
+      const { razorpayOrder, order, key } = resp.data;
+
+      // Ensure Razorpay script is loaded
+      const loadRzp = () => new Promise((resolve, reject) => {
+        if (window.Razorpay) return resolve();
+        const script = document.createElement('script');
+        script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+        script.onload = resolve;
+        script.onerror = reject;
+        document.body.appendChild(script);
+      });
+
+      await loadRzp();
+
+      const options = {
+        key: key || key, // Razorpay key from server
+        amount: razorpayOrder.amount,
+        currency: razorpayOrder.currency,
+        name: 'Yo Computer Hub',
+        description: 'Order Payment',
+        order_id: razorpayOrder.id,
+        prefill: {
+          name: shippingData.name,
+          email: shippingData.email,
+          contact: shippingData.phone
+        },
+        handler: async function (response) {
+          try {
+            // Verify payment on backend
+            const verifyResp = await orderAPI.verifyPayment({
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+              orderId: order._id
+            });
+
+            if (verifyResp.success) {
+              setSuccess('Payment successful and order placed!');
+              // Clear cart
+              dispatch(clearCart());
+              setTimeout(() => navigate('/orders'), 1500);
+            } else {
+              setError(verifyResp.message || 'Payment verification failed');
+            }
+          } catch (err) {
+            setError(err.message || 'Payment verification failed');
+          }
+        },
+        modal: {
+          ondismiss: function() {
+            setError('Payment process was cancelled');
+          }
+        }
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
     } catch (err) {
       setError(err.message || 'Failed to place order. Please try again.');
     } finally {
@@ -236,7 +293,7 @@ function Checkout() {
             <Button
               type="submit"
               variant="danger"
-              className="w-100 py-2"
+              className="w-100 py-2 text-dark"
               disabled={loading || entries.length === 0}
             >
               {loading ? <Spinner animation="border" size="sm" className="me-2" /> : null}
