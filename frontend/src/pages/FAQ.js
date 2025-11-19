@@ -137,7 +137,7 @@ export default function FAQ() {
       <div className="d_faq-header">
         <Container>
           <h1 className="display-5 fw-bold"><FaQuestionCircle className="me-3" /> Frequently Asked Questions</h1>
-          <p className="lead mb-4">Find answers related to shipping, returns, payments, and technical issues.</p>
+          <p className="lead mb-md-4 mb-2">Find answers related to shipping, returns, payments, and technical issues.</p>
 
           {/* Search Bar */}
           <Row className="justify-content-center">
@@ -154,7 +154,7 @@ export default function FAQ() {
       {/* Category Section */}
       <Container className="my-5">
         <Row>
-          <Col className="mb-4">
+          <Col className="mb-md-4 mb-2">
             <div className="d-flex flex-wrap justify-content-center d_category-pills">
               {categories.map(cat => (
                 <Button
@@ -173,7 +173,7 @@ export default function FAQ() {
         {/* FAQ Accordion */}
         <Row className="justify-content-center">
           <Col md={10}>
-            <h3 className="mb-4 text-center text-md-start">{activeCategory} Questions</h3>
+            <h3 className="mb-md-4 mb-2 text-center text-md-start">{activeCategory} Questions</h3>
 
             <Accordion className="d_faq-accordion">
               {faqData[activeCategory].map((item, index) => (

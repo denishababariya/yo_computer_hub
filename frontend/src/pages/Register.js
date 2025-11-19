@@ -67,12 +67,12 @@ function Register() {
   };
 
   return (
-    <Container className="py-5">
+    <Container className="py-md-5 py-4">
       <Row className="justify-content-center">
         <Col md={6} lg={5}>
           <Card className="shadow-lg border-0" style={{ borderRadius: '12px' }}>
             <Card.Body className="p-5">
-              <div className="text-center mb-4">
+              <div className="text-center mb-md-4 mb-2">
                 <h2 className="fw-bold mb-2">Create Account</h2>
                 <p className="text-muted">Sign up to get started with your account.</p>
               </div>
@@ -143,7 +143,7 @@ function Register() {
                   required
                 />
 
-                <Form.Group className="mb-4">
+                <Form.Group className="mb-md-4 mb-2">
                   <Form.Check
                     type="checkbox"
                     label="I agree to the Terms of Service and Privacy Policy"

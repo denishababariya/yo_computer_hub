@@ -62,7 +62,7 @@ function Blog() {
   const currentPosts = blogPosts.slice(startIndex, startIndex + postsPerPage);
 
   return (
-    <Container className="py-5 x_blog">
+    <Container className="py-md-5 py-4 x_blog">
       <div className="text-center mb-5">
         <h1 className="display-5 fw-bold mb-3">Latest Blog Posts</h1>
         <p className="text-muted">Stay updated with the latest gaming news and reviews</p>

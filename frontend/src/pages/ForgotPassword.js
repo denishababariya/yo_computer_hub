@@ -33,12 +33,12 @@ function ForgotPassword() {
   };
 
   return (
-    <Container className="py-5">
+    <Container className="py-md-5 py-4">
       <Row className="justify-content-center">
         <Col md={6} lg={5}>
           <Card className="shadow-lg border-0" style={{ borderRadius: '12px' }}>
             <Card.Body className="p-5">
-              <div className="text-center mb-4">
+              <div className="text-center mb-md-4 mb-2">
                 <h2 className="fw-bold mb-2">Forgot Password</h2>
                 <p className="text-muted">
                   Enter your email address and we'll send you an OTP to reset your password.
@@ -58,7 +58,7 @@ function ForgotPassword() {
               )}
 
               <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-4">
+                <Form.Group className="mb-md-4 mb-2">
                   <Form.Label className="fw-semibold">Email Address</Form.Label>
                   <Form.Control
                     type="email"

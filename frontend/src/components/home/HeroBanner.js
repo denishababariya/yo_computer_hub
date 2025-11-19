@@ -25,8 +25,8 @@ function HeroBanner() {
             <div className="hero-bg-word">MOUSE</div>
 
             <Container className="position-relative" style={{ zIndex: 1 }}>
-              <Row className="align-items-center min-vh-50 py-5">
-                <Col lg={6} className="text-center mb-4 mb-lg-0">
+              <Row className="align-items-center min-vh-50 py-md-5 py-4">
+                <Col lg={6} className="text-center mb-md-4 mb-2 mb-lg-0">
                   <div className="position-relative" style={{ maxWidth: '600px', margin: '0 auto' }}>
                     <img 
                       src={slide.image}

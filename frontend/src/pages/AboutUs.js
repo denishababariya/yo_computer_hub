@@ -103,9 +103,9 @@ const AboutUs = () => {
 
 			{/* Our Story Section */}
 			<div className='story-section' >
-				<Container className="py-5">
+				<Container className="py-md-5 py-4">
 					<Row className="align-items-center">
-						<Col lg={6} className="mb-4 mb-lg-0">
+						<Col lg={6} className="mb-md-4 mb-2 mb-lg-0">
 							<div className="story-content">
 								<h2 className="story-header-title">Our Story</h2>
 								<p>
@@ -129,7 +129,7 @@ const AboutUs = () => {
 			{/* Values Section */}
 			<div>
 				<Container>
-					<div className="my-5 py-5">
+					<div className="my-5 py-md-5 py-4">
 						<div className='text-center mb-5'>
 							<h2 className="section-title">Our Core Values</h2>
 							<span className="section-header-line"></span>
@@ -155,9 +155,9 @@ const AboutUs = () => {
 			<div style={{ backgroundColor: "#262626" }}>
 				<Container>
 					<Row className="text-left">
-						<div className="py-5">
+						<div className="py-md-5 py-4">
 							<div className="row h-100">
-								<div className="col-lg-5 mb-4 mb-lg-0 px-3">
+								<div className="col-lg-5 mb-md-4 mb-2 mb-lg-0 px-3">
 									<div className="stats-intro">
 										<h2 className="stats-main-title">We have the experience</h2>
 										<div className="stats-underline"></div>
@@ -203,7 +203,7 @@ const AboutUs = () => {
 
 			{/* Team Section */}
 			<Container>
-				<div className="my-5 py-5 improved-section-container">
+				<div className="my-5 py-md-5 py-4 improved-section-container">
 					<div className='text-center mb-5'>
 						<h2 className="section-title">Meet Our Team</h2>
 						<span className="section-header-line"></span>

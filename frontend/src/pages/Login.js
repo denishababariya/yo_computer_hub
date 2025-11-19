@@ -45,12 +45,12 @@ function Login() {
   };
 
   return (
-    <Container className="py-5">
+    <Container className="py-md-5 py-4">
       <Row className="justify-content-center">
         <Col md={6} lg={5}>
           <Card className="shadow-lg border-0" style={{ borderRadius: '12px' }}>
             <Card.Body className="p-5">
-              <div className="text-center mb-4">
+              <div className="text-center mb-md-4 mb-2">
                 <h2 className="fw-bold mb-2">Login</h2>
                 <p className="text-muted">Welcome back! Please login to your account.</p>
               </div>
@@ -84,7 +84,7 @@ function Login() {
                   required
                 />
 
-                <div className="d-flex justify-content-between align-items-center mb-4">
+                <div className="d-flex justify-content-between align-items-center mb-md-4 mb-2">
                   <Form.Check
                     type="checkbox"
                     label="Remember me"

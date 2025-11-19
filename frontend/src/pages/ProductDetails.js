@@ -57,7 +57,7 @@ function ProductDetails() {
 
   if (loading) {
     return (
-      <Container className="py-5 text-center">
+      <Container className="py-md-5 py-4 text-center">
         <Spinner animation="border" variant="danger" />
         <p className="mt-3">Loading product...</p>
       </Container>
@@ -66,7 +66,7 @@ function ProductDetails() {
 
   if (error || !product) {
     return (
-      <Container className="py-5">
+      <Container className="py-md-5 py-4">
         <h2>Product not found</h2>
         <Button as={Link} to="/shop" variant="dark" className="mt-3">
           Back to Shop

@@ -58,7 +58,7 @@ function FilterOffcanvas({ show, onHide, categories, onFilterChange, products })
       </Offcanvas.Header>
       <Offcanvas.Body style={{ padding: '1.5rem' }}>
         {/* Category Filter */}
-        <div className="mb-4">
+        <div className="mb-md-4 mb-2">
           <h6 className="fw-bold mb-3" style={{ color: '#333', fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
             Category
           </h6>
@@ -82,7 +82,7 @@ function FilterOffcanvas({ show, onHide, categories, onFilterChange, products })
         <hr className="my-4" />
 
         {/* Price Range Filter */}
-        <div className="mb-4">
+        <div className="mb-md-4 mb-2">
           <h6 className="fw-bold mb-3" style={{ color: '#333', fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
             Price Range
           </h6>
@@ -137,7 +137,7 @@ function FilterOffcanvas({ show, onHide, categories, onFilterChange, products })
         <hr className="my-4" />
 
         {/* Sort Options */}
-        <div className="mb-4">
+        <div className="mb-md-4 mb-2">
           <h6 className="fw-bold mb-3" style={{ color: '#333', fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
             Sort By
           </h6>

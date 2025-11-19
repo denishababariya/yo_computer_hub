@@ -104,7 +104,7 @@ function Checkout() {
         <div style={{ minHeight: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <div>
             <h1 className="mb-3">Login Required</h1>
-            <p className="fs-5 mb-4 text-muted">You need to be logged in to proceed with checkout.</p>
+            <p className="fs-5 mb-md-4 mb-2 text-muted">You need to be logged in to proceed with checkout.</p>
             <div className="d-flex gap-2 justify-content-center">
               <Button 
                 variant="danger" 

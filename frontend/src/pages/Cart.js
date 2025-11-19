@@ -26,7 +26,7 @@ function Cart() {
           <img
             src={emptyCart}
             alt="Empty cart"
-            className="empty-icon mb-4"
+            className="empty-icon mb-md-4 mb-2"
             style={{
               width: '200px',
               height: '200px',

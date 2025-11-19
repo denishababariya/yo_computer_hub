@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Card, Carousel } from 'react-bootstrap';
+import Title from '../Title';
 
 function CustomerReview() {
     const reviews = [
@@ -79,12 +80,13 @@ function CustomerReview() {
   }
 
   return (
-    <section className="x_main-customer-review py-5 bg-light">
+    <section className="x_main-customer-review py-md-5 py-4 bg-light">
       <Container>
         <div className="text-center mb-5">
-          <h2 className="text-danger fw-bold mb-3" style={{ fontSize: '2rem', letterSpacing: '2px' }}>
+           <Title text="CUSTOMER REVIEW" theme="light" align="center" />
+          {/* <h2 className="text-danger fw-bold mb-3" style={{ fontSize: '2rem', letterSpacing: '2px' }}>
             CUSTOMER REVIEW
-          </h2>
+          </h2> */}
           <p className="text-muted">See what our customers are saying about us</p>
         </div>
 
@@ -111,7 +113,7 @@ function CustomerReview() {
                           />
                           {renderStars(review.rating)}
                         </div>
-                        <p className="mb-4 text-muted" style={{ fontSize: '1rem', lineHeight: '1.6' }}>
+                        <p className="mb-md-4 mb-2 text-muted" style={{ fontSize: '1rem', lineHeight: '1.6' }}>
                           "{review.text}"
                         </p>
                         <div className="d-flex justify-content-between align-items-center pt-3 border-top">

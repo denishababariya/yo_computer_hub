@@ -104,12 +104,12 @@ function VerifyOTP() {
   const email = localStorage.getItem('resetEmail') || 'your email';
 
   return (
-    <Container className="py-5">
+    <Container className="py-md-5 py-4">
       <Row className="justify-content-center">
         <Col md={6} lg={5}>
           <Card className="shadow-lg border-0" style={{ borderRadius: '12px' }}>
             <Card.Body className="p-5">
-              <div className="text-center mb-4">
+              <div className="text-center mb-md-4 mb-2">
                 <h2 className="fw-bold mb-2">Verify OTP</h2>
                 <p className="text-muted">
                   Enter the 6-digit OTP sent to <strong>{email}</strong>
@@ -123,7 +123,7 @@ function VerifyOTP() {
               )}
 
               <Form onSubmit={handleSubmit}>
-                <div className="d-flex justify-content-center gap-2 mb-4">
+                <div className="d-flex justify-content-center gap-2 mb-md-4 mb-2">
                   {otp.map((digit, index) => (
                     <Form.Control
                       key={index}

@@ -66,57 +66,45 @@ function AppFooter() {
       </div>
 
       {/* Main Footer Section */}
-      <Container fluid="xxl" className="py-5">
-        <Row className="gy-4">
-          <Col lg={2} md={4} sm={6} xs={12}>
-            <h6 className="fw-bold mb-3">Customer</h6>
+      <Container fluid="xxl" className="py-md-5 py-4">
+          <Row className="gy-4">
+          <Col lg={3} md={4} sm={6} xs={12}>
+            <h6 className="fw-bold mb-3">Customer Support</h6>
             <ul className="list-unstyled m-0">
-              <li className="mb-2"><Link to="/help" className="text-secondary text-decoration-none">Help Center</Link></li>
+              <li className="mb-2"><Link to="/helpcenter" className="text-secondary text-decoration-none">Help Center</Link></li>
               <li className="mb-2"><Link to="/account" className="text-secondary text-decoration-none">My Account</Link></li>
-              <li className="mb-2"><Link to="/track-order" className="text-secondary text-decoration-none">Track My Order</Link></li>
-              <li className="mb-2"><Link to="/returns" className="text-secondary text-decoration-none">Return Policy</Link></li>
-              <li className="mb-2"><Link to="/gift-cards" className="text-secondary text-decoration-none">Gift Cards</Link></li>
-            </ul>
-          </Col>
-          <Col lg={2} md={4} sm={6} xs={12}>
-            <h6 className="fw-bold mb-3">About Us</h6>
-            <ul className="list-unstyled m-0">
-              <li className="mb-2"><Link to="/company-info" className="text-secondary text-decoration-none">Company Info</Link></li>
-              <li className="mb-2"><Link to="/press" className="text-secondary text-decoration-none">Press Releases</Link></li>
-              <li className="mb-2"><Link to="/careers" className="text-secondary text-decoration-none">Careers</Link></li>
-              <li className="mb-2"><Link to="/reviews" className="text-secondary text-decoration-none">Reviews</Link></li>
-              <li className="mb-2"><Link to="/investor" className="text-secondary text-decoration-none">Investor Relations</Link></li>
-            </ul>
-          </Col>
-          <Col lg={2} md={4} sm={6} xs={12}>
-            <h6 className="fw-bold mb-3">Quick Links</h6>
-            <ul className="list-unstyled m-0">
-              <li className="mb-2"><Link to="/shop" className="text-secondary text-decoration-none">Search</Link></li>
-              <li className="mb-2"><Link to="/reseller" className="text-secondary text-decoration-none">Become a Reseller</Link></li>
-              <li className="mb-2"><Link to="/about" className="text-secondary text-decoration-none">About Us</Link></li>
-              <li className="mb-2"><Link to="/contact" className="text-secondary text-decoration-none">Contact Us</Link></li>
-              <li className="mb-2"><Link to="/terms" className="text-secondary text-decoration-none">Terms of Service</Link></li>
-            </ul>
-          </Col>
-          <Col lg={2} md={4} sm={6} xs={12}>
-            <h6 className="fw-bold mb-3">My Account</h6>
-            <ul className="list-unstyled m-0">
-              <li className="mb-2"><Link to="/store-location" className="text-secondary text-decoration-none">Store Location</Link></li>
-              <li className="mb-2"><Link to="/orders" className="text-secondary text-decoration-none">Order History</Link></li>
               <li className="mb-2"><Link to="/wishlist" className="text-secondary text-decoration-none">Wish List</Link></li>
-              <li className="mb-2"><Link to="/newsletter" className="text-secondary text-decoration-none">Newsletter</Link></li>
-              <li className="mb-2"><Link to="/specials" className="text-secondary text-decoration-none">Specials</Link></li>
+              <li className="mb-2"><Link to="/privacypolicy" className="text-secondary text-decoration-none">Privacy Policy</Link></li>
+              <li className="mb-2"><Link to="/term" className="text-secondary text-decoration-none">Terms of Service</Link></li>
             </ul>
           </Col>
-          <Col lg={4} md={12}>
-            <div className="mb-4">
+          <Col lg={3} md={4} sm={6} xs={12}>
+            <h6 className="fw-bold mb-3">Company</h6>
+            <ul className="list-unstyled m-0">
+              <li className="mb-2"><Link to="/about" className="text-secondary text-decoration-none">About Us</Link></li>
+              <li className="mb-2"><Link to="/blog" className="text-secondary text-decoration-none">Blog</Link></li>
+              <li className="mb-2"><Link to="/contact" className="text-secondary text-decoration-none">Contact Us</Link></li>
+              <li className="mb-2"><Link to="/faq" className="text-secondary text-decoration-none">FAQ</Link></li>
+            </ul>
+          </Col>
+          <Col lg={3} md={4} sm={6} xs={12}>
+            <h6 className="fw-bold mb-3">Shopping</h6>
+            <ul className="list-unstyled m-0">
+              <li className="mb-2"><Link to="/shop" className="text-secondary text-decoration-none">Shop</Link></li>
+              <li className="mb-2"><Link to="/cart" className="text-secondary text-decoration-none">Cart</Link></li>
+              <li className="mb-2"><Link to="/checkout" className="text-secondary text-decoration-none">Checkout</Link></li>
+              <li className="mb-2"><Link to="/360" className="text-secondary text-decoration-none">Product 360 Viewer</Link></li>
+              </ul>
+          </Col>
+          <Col lg={3} md={12}>
+            <di v className="mb-md-4 mb-2">
               <div className="mb-2" style={{ fontSize: '0.95rem' }}>
                 2972 Westheimer Rd. Santa Ana, Illinois 85486
               </div>
               <Link to="/contact" className="text-danger text-decoration-none fw-semibold">
                 Send Message <i className="bi bi-arrow-right"></i>
               </Link>
-            </div>
+            </di>
             <div className="mb-3 text-secondary small">
               Mon - Fri: 9am - 5pm
             </div>

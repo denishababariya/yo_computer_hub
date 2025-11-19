@@ -128,7 +128,7 @@ export default function HelpCenter() {
           <Row className="justify-content-center">
             <Col md={8}>
               <h1 className="display-4">How can we help you today?</h1>
-              <p className="lead mb-4">Find answers to our most common questions quickly.</p>
+              <p className="lead mb-md-4 mb-2">Find answers to our most common questions quickly.</p>
 
               {/* Search Bar */}
               <InputGroup className="mb-3 d_search-input shadow-lg">

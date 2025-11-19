@@ -67,12 +67,12 @@ export default function Terms() {
       <div className="d_tc-wrapper">
         <Container>
           <Card className="shadow-lg border-0 d_tc-card">
-            <h1 className="text-center mb-4 d_tc-title">
+            <h1 className="text-center mb-md-4 mb-2 d_tc-title">
               <FaClipboardList className="me-2" />
               Terms & Conditions
             </h1>
 
-            <section className="mb-4">
+            <section className="mb-md-4 mb-2">
               <h4 className="d_tc-heading">
                 <FaShieldAlt className="me-2" /> Introduction
               </h4>
@@ -83,7 +83,7 @@ export default function Terms() {
               </p>
             </section>
 
-            <section className="mb-4">
+            <section className="mb-md-4 mb-2">
               <h4 className="d_tc-heading">
                 <FaUserShield className="me-2" /> User Responsibilities
               </h4>
@@ -95,7 +95,7 @@ export default function Terms() {
               </ul>
             </section>
 
-            <section className="mb-4">
+            <section className="mb-md-4 mb-2">
               <h4 className="d_tc-heading">Use of Our Services</h4>
               <p className="d_tc-text">
                 Our services must be used only for lawful purposes. We have the
@@ -104,7 +104,7 @@ export default function Terms() {
               </p>
             </section>
 
-            <section className="mb-4">
+            <section className="mb-md-4 mb-2">
               <h4 className="d_tc-heading">Intellectual Property</h4>
               <p className="d_tc-text">
                 All content—images, text, logos, graphics, and designs—belongs
@@ -113,7 +113,7 @@ export default function Terms() {
               </p>
             </section>
 
-            <section className="mb-4">
+            <section className="mb-md-4 mb-2">
               <h4 className="d_tc-heading">Limitation of Liability</h4>
               <p className="d_tc-text">
                 We are not responsible for damages such as data loss, service
@@ -121,7 +121,7 @@ export default function Terms() {
               </p>
             </section>
 
-            <section className="mb-4">
+            <section className="mb-md-4 mb-2">
               <h4 className="d_tc-heading">Changes to Terms</h4>
               <p className="d_tc-text">
                 These Terms & Conditions may be updated at any time. Your
