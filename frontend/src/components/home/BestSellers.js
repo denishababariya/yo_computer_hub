@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Tabs, Tab } from "react-bootstrap";
 import ProductCard from "../ProductCard";
 import { productAPI } from "../../services/api";
+import Title from "../Title";
 
 function BestSellers() {
   const [activeTab, setActiveTab] = useState("all");
@@ -96,21 +97,22 @@ function BestSellers() {
   };
 
   return (
-    <section className="x_main-best-sellers py-5 bg-light">
+    <section className="x_main-best-sellers py-md-5 py-4 bg-light">
       <Container>
-        <div className="text-center mb-4">
-          <h2
+        <div className="text-center mb-md-4 mb-2">
+          {/* <h2
             className="text-danger fw-bold mb-3"
             style={{ fontSize: "2rem", letterSpacing: "2px" }}
           >
             BEST SELLERS
-          </h2>
+          </h2> */}
+           <Title text="BEST SELLERS" theme="light" align="center" />
         </div>
 
         <Tabs
           activeKey={activeTab}
           onSelect={(k) => setActiveTab(k)}
-          className="mb-4 justify-content-center custom-tabs"
+          className="mb-md-4 mb-2 justify-content-center custom-tabs"
         >
           <Tab eventKey="all" title="All">
             {renderProducts(bestSellers)}

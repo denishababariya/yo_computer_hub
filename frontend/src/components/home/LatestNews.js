@@ -35,9 +35,9 @@ function LatestNews() {
   ];
 
   return (
-    <section className="x_main-latest-news py-5">
+    <section className="x_main-latest-news py-md-5 py-4">
       <Container>
-        <div className="d-flex justify-content-between align-items-center mb-4">
+        <div className="d-flex justify-content-between align-items-center mb-md-4 mb-2">
           <h2 className="text-danger fw-bold m-0" style={{ fontSize: '2rem', letterSpacing: '2px' }}>
             LATEST NEWS
           </h2>

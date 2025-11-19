@@ -67,12 +67,12 @@ export default function PrivacyPolicy() {
       <div className="d_pp-wrapper">
         <Container>
           <Card className="shadow-lg border-0 d_pp-card">
-            <h1 className="text-center mb-4 d_pp-title">
+            <h1 className="text-center mb-md-4 mb-2 d_pp-title">
               <FaUserLock className="me-2" />
               Privacy Policy
             </h1>
 
-            <section className="mb-4">
+            <section className="mb-md-4 mb-2">
               <h4 className="d_pp-heading">
                 <FaShieldAlt className="me-2" /> Introduction
               </h4>
@@ -83,7 +83,7 @@ export default function PrivacyPolicy() {
               </p>
             </section>
 
-            <section className="mb-4">
+            <section className="mb-md-4 mb-2">
               <h4 className="d_pp-heading">
                 <FaFileContract className="me-2" /> Information We Collect
               </h4>
@@ -95,7 +95,7 @@ export default function PrivacyPolicy() {
               </ul>
             </section>
 
-            <section className="mb-4">
+            <section className="mb-md-4 mb-2">
               <h4 className="d_pp-heading">How We Use Your Information</h4>
               <p className="d_pp-text">We use your information to:</p>
               <ul className="d_pp-list">
@@ -106,7 +106,7 @@ export default function PrivacyPolicy() {
               </ul>
             </section>
 
-            <section className="mb-4">
+            <section className="mb-md-4 mb-2">
               <h4 className="d_pp-heading">Sharing Your Information</h4>
               <p className="d_pp-text">
                 We do not sell or trade your personal information. However, we
@@ -119,7 +119,7 @@ export default function PrivacyPolicy() {
               </ul>
             </section>
 
-            <section className="mb-4">
+            <section className="mb-md-4 mb-2">
               <h4 className="d_pp-heading">Data Security</h4>
               <p className="d_pp-text">
                 We implement strong security measures to protect your data from
@@ -128,7 +128,7 @@ export default function PrivacyPolicy() {
               </p>
             </section>
 
-            <section className="mb-4">
+            <section className="mb-md-4 mb-2">
               <h4 className="d_pp-heading">Your Choices & Rights</h4>
               <ul className="d_pp-list">
                 <li>Request access or correction of your personal data.</li>

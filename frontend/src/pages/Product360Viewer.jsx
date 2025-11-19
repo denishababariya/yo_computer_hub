@@ -147,7 +147,7 @@ export default function Product360Viewer() {
     <div className="container my-5">
       <div className="row justify-content-center">
         <div className="col-lg-8 col-md-10">
-          <div className="text-center mb-4">
+          <div className="text-center mb-md-4 mb-2">
             <h1 className="display-4 fw-bold mb-3">360° Product Viewer</h1>
             <p className="text-muted">Drag or swipe to rotate the product</p>
           </div>

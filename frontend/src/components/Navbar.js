@@ -87,7 +87,7 @@ function Navbar4() {
           </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body className="z_nav_offcanvas_body">
-          <Form className="mb-4">
+          <Form className="mb-md-4 mb-2">
             <InputGroup>
               <Form.Control type="text" placeholder="Search products..." className="z_glass_input" />
               <Button className="z_glass_btn">
@@ -95,7 +95,7 @@ function Navbar4() {
               </Button>
             </InputGroup>
           </Form>
-          <Nav className="flex-column gap-3 mb-4">
+          <Nav className="flex-column gap-3 mb-md-4 mb-2">
             <NavLink to="/" className={({isActive}) => isActive ? "z_offcan_nav active" : "z_offcan_nav"} onClick={handleClose}>HOME</NavLink>
             <NavLink to="/about" className={({isActive}) => isActive ? "z_offcan_nav active" : "z_offcan_nav"} onClick={handleClose}>ABOUT US</NavLink>
             <NavLink to="/shop" className={({isActive}) => isActive ? "z_offcan_nav active" : "z_offcan_nav"} onClick={handleClose}>SHOP</NavLink>

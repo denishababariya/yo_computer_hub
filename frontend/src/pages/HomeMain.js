@@ -21,8 +21,8 @@ function HomeMain() {
       {/* <TopBar /> */}
       {/* <HeroBanner /> */}
       <HeroSlide></HeroSlide>
-      <TopCategories />
       <PromoBanners />
+      <TopCategories />
       <BestSellers />
       <PopularBrands />
       <FeaturedProducts />

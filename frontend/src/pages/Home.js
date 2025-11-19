@@ -29,7 +29,7 @@ function Home() {
       <section className="text-white">
         <Carousel interval={5000} fade indicators>
           <Carousel.Item>
-            <div className="py-5" style={{background:`linear-gradient( rgba(14,42,71,.85), rgba(14,42,71,.85) ), url(${assets.hero}) center/cover no-repeat`}}>
+            <div className="py-md-5 py-4" style={{background:`linear-gradient( rgba(14,42,71,.85), rgba(14,42,71,.85) ), url(${assets.hero}) center/cover no-repeat`}}>
               <Container>
                 <Row className="align-items-center" style={{minHeight:360}}>
                   <Col md={8} className="mb-3 mb-md-0">
@@ -42,7 +42,7 @@ function Home() {
             </div>
           </Carousel.Item>
           <Carousel.Item>
-            <div className="py-5" style={{background:`linear-gradient( rgba(20,20,20,.7), rgba(20,20,20,.7) ), url(${assets.banners.wide1}) center/cover no-repeat`}}>
+            <div className="py-md-5 py-4" style={{background:`linear-gradient( rgba(20,20,20,.7), rgba(20,20,20,.7) ), url(${assets.banners.wide1}) center/cover no-repeat`}}>
               <Container>
                 <Row className="align-items-center" style={{minHeight:360}}>
                   <Col md={8}>
@@ -55,7 +55,7 @@ function Home() {
             </div>
           </Carousel.Item>
           <Carousel.Item>
-            <div className="py-5" style={{background:`linear-gradient( rgba(36,15,52,.75), rgba(36,15,52,.75) ), url(${assets.banners.wide2}) center/cover no-repeat`}}>
+            <div className="py-md-5 py-4" style={{background:`linear-gradient( rgba(36,15,52,.75), rgba(36,15,52,.75) ), url(${assets.banners.wide2}) center/cover no-repeat`}}>
               <Container>
                 <Row className="align-items-center" style={{minHeight:360}}>
                   <Col md={8}>
@@ -149,7 +149,7 @@ function Home() {
         </Row>
       </Section>
 
-      <section className="py-5" style={{background:'linear-gradient(90deg, #0f172a, #1e293b)'}}>
+      <section className="py-md-5 py-4" style={{background:'linear-gradient(90deg, #0f172a, #1e293b)'}}>
         <Container>
           <Row className="align-items-center g-4 text-white">
             <Col md={6}>

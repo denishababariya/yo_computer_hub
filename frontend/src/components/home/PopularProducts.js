@@ -10,6 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import ProductCard from "../ProductCard";
 import { productAPI } from "../../services/api";
+import Title from "../Title";
 
 function PopularProducts() {
   const [products, setProducts] = useState([]);
@@ -86,7 +87,7 @@ function PopularProducts() {
   }, [products]);
 
   return (
-    <section className="x_main-popular-products py-5 bg-light">
+    <section className="x_main-popular-products py-md-5 py-4  bg-dark" >
       {/* ⭐ ADDING CAROUSEL ARROW CSS HERE */}
       <style>{`
         .review-carousel {
@@ -158,21 +159,15 @@ function PopularProducts() {
       `}</style>
 
       <Container>
-        <div className="d-flex justify-content-md-between justify-content-center align-items-center mb-4">
-          <h2
+        <div className="d-flex justify-content-md-between justify-content-center align-items-center mb-md-4 mb-2">
+          {/* <h2
             className="text-danger fw-bold m-0"
             style={{ fontSize: "2rem", letterSpacing: "2px" }}
           >
             POPULAR PRODUCTS
-          </h2>
-          <Button
-            as={Link}
-            to="/shop"
-            variant="outline-danger"
-            className="d-none d-md-block"
-          >
-            View More
-          </Button>
+          </h2> */}
+           <Title  text="POPULAR PRODUCTS" theme="dark" align="center" />
+       
         </div>
 
         {loading ? (
@@ -203,7 +198,7 @@ function PopularProducts() {
           <Row xs={1} sm={2} md={3} className="g-3">
             {displayProducts.map((product) => (
               <Col key={product.id}>
-                <ProductCard product={product} />
+                <ProductCard  product={product} />
               </Col>
             ))}
           </Row>

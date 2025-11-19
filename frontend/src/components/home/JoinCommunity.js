@@ -12,9 +12,9 @@ function JoinCommunity() {
   ];
 
   return (
-    <section className="x_main-join-community py-5 bg-light">
+    <section className="x_main-join-community py-md-5 py-4 bg-light">
       <Container>
-        <div className="text-center mb-4">
+        <div className="text-center mb-md-4 mb-2">
           <h2 className="text-danger fw-bold mb-3" style={{ fontSize: '2rem', letterSpacing: '2px' }}>
             JOIN OUR COMMUNITY
           </h2>

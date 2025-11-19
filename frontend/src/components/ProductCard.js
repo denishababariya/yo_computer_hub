@@ -102,9 +102,10 @@ function ProductCard({ product }) {
 
   return (
     <Card
-      className="product-card h-100 border-0 shadow-sm x_main-product-card position-relative"
+      className="product-card h-100 border-0 shadow-sm x_main-product-card position-relative" 
       onMouseEnter={() => setShowActions(true)}
       onMouseLeave={() => setShowActions(false)}
+      // style={{ borderRadius: "8px", overflow: "hidden", backgroundColor: '#16191c' }}
       style={{ borderRadius: "8px", overflow: "hidden" }}
     >
       <div

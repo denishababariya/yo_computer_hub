@@ -3,6 +3,7 @@ import { Container, Row, Col, Form, Spinner, Button } from 'react-bootstrap';
 import ProductCard from '../components/ProductCard';
 import FilterOffcanvas from '../components/FilterOffcanvas';
 import { productAPI } from '../services/api';
+import Title from '../components/Title';
 
 function Shop() {
   const [products, setProducts] = useState([]);
@@ -100,15 +101,16 @@ function Shop() {
   }, [filters, products]);
 
   return (
-    <Container fluid className="py-4" style={{ backgroundColor: '#fff' }}>
+    <Container  className="py-4" style={{ backgroundColor: '#fff' }}>
       {error && <div className="alert alert-danger">{error}</div>}
       
       {/* Header */}
-      <Row className="mb-4">
+      <Row className="mb-md-4 mb-2">
         <Col xs={12}>
           <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
             <div>
-              <h1 className="mb-2" style={{ color: '#333', fontSize: '2rem', fontWeight: 'bold' }}>Shop</h1>
+               <Title text="Shop" theme="light" align="center" />
+              {/* <h1 className="mb-2" style={{ color: '#333', fontSize: '2rem', fontWeight: 'bold' }}>Shop</h1> */}
               <p className="text-muted mb-0">Showing {filtered.length} products</p>
             </div>
             <Button
@@ -147,7 +149,7 @@ function Shop() {
             <hr />
 
             {/* Category Filter */}
-            <div className="mb-4">
+            <div className="mb-md-4 mb-2">
               <h6 className="fw-bold mb-2" style={{ color: '#333', fontSize: '0.9rem' }}>Categories</h6>
               <div className="d-flex flex-column gap-2">
                 {categories.map(cat => (
@@ -169,7 +171,7 @@ function Shop() {
             <hr />
 
             {/* Price Range Filter */}
-            <div className="mb-4">
+            <div className="mb-md-4 mb-2">
               <h6 className="fw-bold mb-3" style={{ color: '#333', fontSize: '0.9rem' }}>Price Range</h6>
               
               <div className="mb-3">
@@ -267,7 +269,7 @@ function Shop() {
         {/* Products Column */}
         <Col md={9} xs={12}>
           {loading ? (
-            <div className="text-center py-5">
+            <div className="text-center py-md-5 py-4">
               <Spinner animation="border" variant="primary" />
               <p className="mt-3 text-muted">Loading products...</p>
             </div>
@@ -280,7 +282,7 @@ function Shop() {
                   </Col>
                 ))
               ) : (
-                <div className="col-12 text-center py-5">
+                <div className="col-12 text-center py-md-5 py-4">
                   <i className="bi bi-inbox" style={{ fontSize: '3rem', color: '#ccc' }}></i>
                   <p className="text-muted mt-3 fs-5">No products found matching your filters</p>
                   <Button

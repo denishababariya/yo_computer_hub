@@ -134,7 +134,6 @@
     min-height: 50vh;
     padding: 2rem 0;
   }
- 
 
   /* Category cards */
   .x_main-top-categories .row {
@@ -425,7 +424,8 @@
 
 /* Animation for countdown timer */
 @keyframes countdownPulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -452,8 +452,103 @@ html {
   outline-offset: 2px;
 }
 
- .x_main-top-categories{
-    background-image: url('https://t3.ftcdn.net/jpg/06/07/68/80/360_F_607688089_3Wvfd0eQt99pbSFJTmhC9iL1QrhwZkAL.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
+.x_main-top-categories {
+  background-image: url("https://t3.ftcdn.net/jpg/06/07/68/80/360_F_607688089_3Wvfd0eQt99pbSFJTmhC9iL1QrhwZkAL.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* --- Global Title CSS (Option 10 - Variation A: Glass Edge Bar) --- */
+
+/* --- Base Styling (Large Screens / Desktop First) --- */
+.minimal-bar-title {
+  /* Core Typography */
+  font-size: 2.2rem; /* Base size for desktop/large screen */
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin: 0;
+  /* Positioning for the vertical bar accent */
+  display: inline-block;
+  position: relative;
+  padding-right: 20px; /* Base padding for the bar */
+  /* Color: Default to a near-black for light theme contrast */
+  color: #202020;
+}
+
+/* --- The Minimal Vertical Bar Accent (::after) --- */
+.minimal-bar-title::after {
+  content: "";
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 45%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 70%;
+  /* Subtle Gradient for Depth (#5588c9 based) */
+  background: linear-gradient(
+    to bottom,
+    #7fafe1,
+    #5588c9,
+    #416999
+  );
+  border-radius: 2px;
+}
+
+/* --- Dark Theme Adjustment (Keep theme styles separate) --- */
+.dark-theme .minimal-bar-title {
+  color: #dad8d8;
+}
+.dark-theme .minimal-bar-title::after {
+  box-shadow: 0 0 10px rgba(85, 136, 201, 0.8);
+}
+
+
+/* =======================================
+   RESPONSIVENESS (Media Queries)
+   ======================================= */
+
+/* --- Medium Screens (e.g., Tablets, Small Laptops) --- */
+@media (max-width: 992px) {
+  .minimal-bar-title {
+    /* Slightly reduce the size */
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+    padding-right: 15px; /* Adjust padding for the smaller text */
   }
+
+  .minimal-bar-title::after {
+    /* Slightly reduce the bar width for smaller screens */
+    width: 4px;
+    height: 65%;
+  }
+}
+
+/* --- Small Screens (e.g., Mobile Phones) --- */
+@media (max-width: 576px) {
+  .minimal-bar-title {
+    /* Use Viewport Width (vw) for better scaling on mobile */
+    font-size: 7vw; /* Scales the font based on 5% of the viewport width */
+    font-weight: 700; /* Slightly less bold may look cleaner */
+    letter-spacing: 0.8px;
+    padding-right: 10px; /* Minimum padding */
+  }
+
+  .minimal-bar-title::after {
+    /* Minimum bar size */
+    width: 3px;
+    height: 60%;
+    border-radius: 1px;
+  }
+}
+
+/* --- Dark Theme Adjustment --- */
+.dark-theme .minimal-bar-title {
+  color: #dad8d8; /* Light text color */
+}
+
+.dark-theme .minimal-bar-title::after {
+  /* Add a stronger outer glow for the dark background */
+  box-shadow: 0 0 10px rgba(85, 136, 201, 0.8);
+}

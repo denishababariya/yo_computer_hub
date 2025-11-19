@@ -23,7 +23,7 @@ function Wishlist() {
           <img
             src={emptyWishlist}
             alt="Empty Wishlist"
-            className="empty-icon mb-4"
+            className="empty-icon mb-md-4 mb-2"
             style={{
               width: '150px',
               height: '150px',

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import Title from '../Title';
 
 function SpecialOffer() {
   const [timeLeft, setTimeLeft] = useState({
@@ -37,7 +38,7 @@ function SpecialOffer() {
 
   return (
     <section 
-      className="x_main-special-offer py-5 position-relative overflow-hidden"
+      className="x_main-special-offer py-md-5 py-4 position-relative overflow-hidden"
       style={{
         background: '#0b0f1a',
         borderTop: '3px solid #5588c9',
@@ -63,8 +64,8 @@ function SpecialOffer() {
 
           {/* Offer Content */}
           <Col lg={8} className="mx-auto text-white">
-
-            <h2 
+             <Title text="SPECIAL GAMING OFFER" theme="dark" align="left" />
+            {/* <h2 
               className="fw-bold mb-3"
               style={{
                 fontSize: '2.2rem',
@@ -72,16 +73,16 @@ function SpecialOffer() {
                 textShadow: '0 0 10px rgba(85,136,201,0.6)',
               }}
             >
-              SPECIAL GAMING OFFER
-            </h2>
+            
+            </h2> */}
 
-            <p className="lead mb-4 text-light">
+            <p className="lead mb-md-4 mb-2 text-light">
               Grab the latest gaming gear at exclusive discounted prices.
             </p>
 
             {/* Countdown */}
             <div 
-              className="d-flex justify-content-center justify-content-md-start gap-2 gap-md-3 flex-wrap mb-4"
+              className="d-flex justify-content-center justify-content-md-start gap-2 gap-md-3 flex-wrap mb-md-4 mb-2"
             >
               {['Days','Hours','Minutes','Seconds'].map((label, index) => {
                 const values = [

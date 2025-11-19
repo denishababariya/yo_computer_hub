@@ -6,6 +6,7 @@ import img2 from '../../img/head.png';
 import img3 from '../../img/remote.png';
 import img4 from '../../img/mousetc.png';
 import './HeroSlide.css';
+import Title from '../Title';
 
 
 
@@ -30,14 +31,15 @@ function TopCategories() {
   ];
 
   return (
-    <section className="x_main-top-categories py-5">
+    <section className="x_main-top-categories py-md-5 py-4">
       <div className="App" style={{ backgroundSize: 'cover', backgroundAttachment: 'fixed',  padding: '50px 0',
    }}>
         <div className="container">
-          <h2 className="text-center text-white mb-5 xyz_subtitle">SHOP BY CATEGORIES</h2>
+           <Title text="SHOP BY CATEGORIES" theme="dark" align="center" />
+          {/* <h2 className="text-center text-white mb-5 xyz_subtitle">SHOP BY CATEGORIES</h2> */}
           <div className="row justify-content-center">
             {categories.map((category, index) => (
-              <div key={index} className="col-lg-3 col-md-6 col-sm-10 mb-4">
+              <div key={index} className="col-lg-3 col-md-6 col-sm-10 mb-md-4 mb-2">
                 <div className="category-card" >
                   <div className="category-image-container" >
                     <img src={category.image} alt={category.name} className="img-fluid category-image" />
