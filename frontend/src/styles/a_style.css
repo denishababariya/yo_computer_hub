@@ -306,8 +306,7 @@
 }
 
 .cta-button-modern:hover {
-  background: #3d6ea7;
-  transform: translateY(-4px);
+  filter: brightness(1.1);
 }
 
 /* --- Media Queries for Responsiveness --- */
