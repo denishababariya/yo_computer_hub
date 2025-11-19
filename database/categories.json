@@ -1,0 +1,102 @@
+[
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a1175"
+    },
+    "name": "Processors",
+    "slug": "processors",
+    "description": "CPU processors for computers",
+    "image": "https://via.placeholder.com/300?text=Processors",
+    "createdAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a1176"
+    },
+    "name": "Motherboards",
+    "slug": "motherboards",
+    "description": "Computer motherboards and chipsets",
+    "image": "https://via.placeholder.com/300?text=Motherboards",
+    "createdAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a1177"
+    },
+    "name": "RAM Memory",
+    "slug": "ram-memory",
+    "description": "DDR4 and DDR5 RAM memory modules",
+    "image": "https://via.placeholder.com/300?text=RAM+Memory",
+    "createdAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a1178"
+    },
+    "name": "Storage Drives",
+    "slug": "storage-drives",
+    "description": "SSD and HDD storage devices",
+    "image": "https://via.placeholder.com/300?text=Storage+Drives",
+    "createdAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a1179"
+    },
+    "name": "Graphics Cards",
+    "slug": "graphics-cards",
+    "description": "GPU graphics cards for gaming and workstations",
+    "image": "https://via.placeholder.com/300?text=Graphics+Cards",
+    "createdAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a117a"
+    },
+    "name": "Power Supplies",
+    "slug": "power-supplies",
+    "description": "PSU power supply units",
+    "image": "https://via.placeholder.com/300?text=Power+Supplies",
+    "createdAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a117b"
+    },
+    "name": "Cooling Systems",
+    "slug": "cooling-systems",
+    "description": "CPU coolers and case fans",
+    "image": "https://via.placeholder.com/300?text=Cooling+Systems",
+    "createdAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a117c"
+    },
+    "name": "Cases",
+    "slug": "cases",
+    "description": "Computer cases and chassis",
+    "image": "https://via.placeholder.com/300?text=Cases",
+    "createdAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a117d"
+    },
+    "name": "Peripherals",
+    "slug": "peripherals",
+    "description": "Keyboards, mice, and other peripherals",
+    "image": "https://via.placeholder.com/300?text=Peripherals",
+    "createdAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a117e"
+    },
+    "name": "Monitors",
+    "slug": "monitors",
+    "description": "Computer monitors and displays",
+    "image": "https://via.placeholder.com/300?text=Monitors",
+    "createdAt": "2024-01-01T00:00:00Z"
+  }
+]

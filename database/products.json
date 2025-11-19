@@ -1,0 +1,1358 @@
+[
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a1180"
+    },
+    "name": "Intel Core i9-13900K",
+    "description": "High-performance 13th gen Intel processor with 24 cores",
+    "price": 589,
+    "originalPrice": 699,
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a1175"
+    },
+    "image": "https://via.placeholder.com/400?text=Intel+Core+i9",
+    "images": [
+      {
+        "url": "https://via.placeholder.com/400?text=Intel+Core+i9",
+        "alt": "Intel Core i9-13900K",
+        "isPrimary": true
+      }
+    ],
+    "videos": [
+      {
+        "url": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        "title": "Intel Core i9-13900K Review",
+        "type": "youtube",
+        "thumbnail": "https://via.placeholder.com/400?text=Video+Thumbnail"
+      }
+    ],
+    "stock": 15,
+    "rating": 4.8,
+    "reviews": [
+      {
+        "user": "John Doe",
+        "rating": 5,
+        "comment": "Excellent processor for gaming and workstations",
+        "date": "2024-01-15T00:00:00Z"
+      },
+      {
+        "user": "Jane Smith",
+        "rating": 5,
+        "comment": "Best CPU on the market",
+        "date": "2024-01-20T00:00:00Z"
+      }
+    ],
+    "specifications": {
+      "cores": 24,
+      "threads": 32,
+      "baseClock": "3.0 GHz",
+      "boostClock": "5.8 GHz",
+      "tdp": "253W"
+    },
+    "tags": [
+      "processor",
+      "intel",
+      "gaming",
+      "workstation"
+    ],
+    "isFeatured": true,
+    "isBestSeller": true,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a1181"
+    },
+    "name": "AMD Ryzen 9 7950X",
+    "description": "Ryzen 9 7950X 16-core processor for gaming and workstations",
+    "price": 549,
+    "originalPrice": 649,
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a1175"
+    },
+    "image": "https://via.placeholder.com/400?text=AMD+Ryzen+9",
+    "images": [
+      {
+        "url": "https://via.placeholder.com/400?text=AMD+Ryzen+9",
+        "alt": "AMD Ryzen 9 7950X",
+        "isPrimary": true
+      }
+    ],
+    "videos": [],
+    "stock": 12,
+    "rating": 4.7,
+    "reviews": [
+      {
+        "user": "Tech Reviewer",
+        "rating": 5,
+        "comment": "Amazing performance for the price",
+        "date": "2024-01-10T00:00:00Z"
+      }
+    ],
+    "specifications": {
+      "cores": 16,
+      "threads": 32,
+      "baseClock": "4.5 GHz",
+      "boostClock": "5.7 GHz",
+      "tdp": "162W"
+    },
+    "tags": [
+      "processor",
+      "amd",
+      "gaming",
+      "workstation"
+    ],
+    "isFeatured": true,
+    "isBestSeller": true,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a1182"
+    },
+    "name": "ASUS ROG STRIX Z790-E",
+    "description": "Premium Z790 motherboard with PCIe 5.0 support",
+    "price": 379,
+    "originalPrice": 449,
+    "image": "https://via.placeholder.com/400?text=ASUS+Motherboard",
+    "images": [
+      {
+        "url": "https://via.placeholder.com/400?text=ASUS+Motherboard",
+        "alt": "ASUS ROG STRIX Z790-E",
+        "isPrimary": true
+      }
+    ],
+    "videos": [],
+    "stock": 8,
+    "rating": 4.6,
+    "reviews": [
+      {
+        "user": "Builder Pro",
+        "rating": 5,
+        "comment": "Great motherboard for high-end builds",
+        "date": "2024-01-12T00:00:00Z"
+      }
+    ],
+    "specifications": {
+      "socket": "LGA1700",
+      "formFactor": "ATX",
+      "pciSlots": 3,
+      "ramSlots": 4,
+      "maxRam": "192GB"
+    },
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a1176"
+    },
+    "tags": [
+      "motherboard",
+      "asus",
+      "z790",
+      "gaming"
+    ],
+    "isFeatured": true,
+    "isBestSeller": false,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a1183"
+    },
+    "name": "Corsair Vengeance RGB Pro 32GB DDR4",
+    "description": "32GB DDR4 3600MHz RGB memory kit with excellent performance",
+    "price": 129,
+    "originalPrice": 159,
+    "image": "https://via.placeholder.com/400?text=Corsair+RAM",
+    "images": [
+      {
+        "url": "https://via.placeholder.com/400?text=Corsair+RAM",
+        "alt": "Corsair Vengeance RGB Pro 32GB",
+        "isPrimary": true
+      }
+    ],
+    "videos": [],
+    "stock": 25,
+    "rating": 4.7,
+    "reviews": [
+      {
+        "user": "Memory Expert",
+        "rating": 5,
+        "comment": "Fast and reliable memory",
+        "date": "2024-01-08T00:00:00Z"
+      }
+    ],
+    "specifications": {
+      "capacity": "32GB",
+      "speed": "3600MHz",
+      "type": "DDR4",
+      "voltage": "1.35V",
+      "cas": 18
+    },
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a1177"
+    },
+    "tags": [
+      "ram",
+      "memory",
+      "ddr4",
+      "corsair"
+    ],
+    "isFeatured": false,
+    "isBestSeller": true,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a1184"
+    },
+    "name": "Samsung 990 Pro 2TB NVMe SSD",
+    "description": "Ultra-fast 2TB NVMe SSD with PCIe 4.0 for high-speed storage",
+    "price": 199,
+    "originalPrice": 249,
+    "image": "https://via.placeholder.com/400?text=Samsung+SSD",
+    "images": [
+      {
+        "url": "https://via.placeholder.com/400?text=Samsung+SSD",
+        "alt": "Samsung 990 Pro 2TB",
+        "isPrimary": true
+      }
+    ],
+    "videos": [],
+    "stock": 30,
+    "rating": 4.8,
+    "reviews": [
+      {
+        "user": "Storage Pro",
+        "rating": 5,
+        "comment": "Blazing fast storage solution",
+        "date": "2024-01-05T00:00:00Z"
+      }
+    ],
+    "specifications": {
+      "capacity": "2TB",
+      "interface": "NVMe PCIe 4.0",
+      "readSpeed": "7100 MB/s",
+      "writeSpeed": "6000 MB/s",
+      "formFactor": "M.2"
+    },
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a1178"
+    },
+    "tags": [
+      "ssd",
+      "storage",
+      "nvme",
+      "samsung"
+    ],
+    "isFeatured": true,
+    "isBestSeller": true,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a1185"
+    },
+    "name": "NVIDIA RTX 4090",
+    "description": "Flagship RTX 4090 graphics card with 24GB GDDR6X for ultimate gaming",
+    "price": 1599,
+    "originalPrice": 1999,
+    "image": "https://via.placeholder.com/400?text=NVIDIA+RTX+4090",
+    "images": [
+      {
+        "url": "https://via.placeholder.com/400?text=NVIDIA+RTX+4090",
+        "alt": "NVIDIA RTX 4090",
+        "isPrimary": true
+      }
+    ],
+    "videos": [
+      {
+        "url": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        "title": "RTX 4090 Gaming Review",
+        "type": "youtube",
+        "thumbnail": "https://via.placeholder.com/400?text=Video+Thumbnail"
+      }
+    ],
+    "stock": 5,
+    "rating": 4.9,
+    "reviews": [
+      {
+        "user": "Gamer Elite",
+        "rating": 5,
+        "comment": "Best GPU ever made",
+        "date": "2024-01-03T00:00:00Z"
+      }
+    ],
+    "specifications": {
+      "memory": "24GB GDDR6X",
+      "cudaCores": 16384,
+      "tdp": "450W",
+      "interface": "PCIe 4.0",
+      "boost": "2.52 GHz"
+    },
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a1179"
+    },
+    "tags": [
+      "gpu",
+      "graphics",
+      "nvidia",
+      "gaming"
+    ],
+    "isFeatured": true,
+    "isBestSeller": true,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a1189"
+    },
+    "name": "LIAN LI LANCOOL 205 Case",
+    "description": "Compact mid-tower case with excellent airflow",
+    "price": 49,
+    "originalPrice": 69,
+    "image": "https://via.placeholder.com/400?text=LIAN+LI+Case",
+    "images": [
+      {
+        "url": "https://via.placeholder.com/400?text=LIAN+LI+Case",
+        "alt": "LIAN LI LANCOOL 205",
+        "isPrimary": true
+      }
+    ],
+    "videos": [],
+    "stock": 35,
+    "rating": 4.5,
+    "reviews": [
+      {
+        "user": "Builder",
+        "rating": 4,
+        "comment": "Good budget case",
+        "date": "2024-01-07T00:00:00Z"
+      }
+    ],
+    "specifications": {
+      "formFactor": "Mid-Tower",
+      "material": "Steel",
+      "maxGpuLength": "320mm",
+      "maxCoolerHeight": "160mm",
+      "fanSupport": "3x 120mm"
+    },
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a117c"
+    },
+    "tags": [
+      "case",
+      "lian-li",
+      "mid-tower",
+      "budget"
+    ],
+    "isFeatured": false,
+    "isBestSeller": false,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a118a"
+    },
+    "name": "Logitech MX Master 3S Mouse",
+    "description": "Premium wireless mouse with advanced features",
+    "price": 99,
+    "originalPrice": 129,
+    "image": "https://via.placeholder.com/400?text=Logitech+Mouse",
+    "images": [
+      {
+        "url": "https://via.placeholder.com/400?text=Logitech+Mouse",
+        "alt": "Logitech MX Master 3S",
+        "isPrimary": true
+      }
+    ],
+    "videos": [],
+    "stock": 28,
+    "rating": 4.7,
+    "reviews": [
+      {
+        "user": "Office Pro",
+        "rating": 5,
+        "comment": "Best productivity mouse",
+        "date": "2024-01-09T00:00:00Z"
+      }
+    ],
+    "specifications": {
+      "type": "Wireless",
+      "dpi": "8000",
+      "buttons": 8,
+      "battery": "70 days",
+      "connectivity": "2.4GHz, Bluetooth"
+    },
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a117d"
+    },
+    "tags": [
+      "mouse",
+      "logitech",
+      "wireless",
+      "productivity"
+    ],
+    "isFeatured": false,
+    "isBestSeller": false,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a118b"
+    },
+    "name": "Keychron K8 Pro Mechanical Keyboard",
+    "description": "Wireless mechanical keyboard with RGB lighting",
+    "price": 129,
+    "originalPrice": 169,
+    "image": "https://via.placeholder.com/400?text=Keychron+Keyboard",
+    "images": [
+      {
+        "url": "https://via.placeholder.com/400?text=Keychron+Keyboard",
+        "alt": "Keychron K8 Pro",
+        "isPrimary": true
+      }
+    ],
+    "videos": [],
+    "stock": 20,
+    "rating": 4.6,
+    "reviews": [
+      {
+        "user": "Typist",
+        "rating": 5,
+        "comment": "Great keyboard",
+        "date": "2024-01-11T00:00:00Z"
+      }
+    ],
+    "specifications": {
+      "type": "Mechanical",
+      "switches": "Gateron Brown",
+      "layout": "TKL",
+      "connectivity": "Wireless, USB-C",
+      "battery": "240 hours"
+    },
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a117d"
+    },
+    "tags": [
+      "keyboard",
+      "keychron",
+      "mechanical",
+      "wireless"
+    ],
+    "isFeatured": false,
+    "isBestSeller": false,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a118c"
+    },
+    "name": "Dell UltraSharp U2723DE 27\" Monitor",
+    "description": "27\" 4K IPS monitor with USB-C",
+    "price": 399,
+    "originalPrice": 499,
+    "discount": 20,
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a117e"
+    },
+    "image": "https://via.placeholder.com/400?text=Dell+Monitor",
+    "images": [
+      {
+        "url": "https://via.placeholder.com/400?text=Dell+Monitor",
+        "alt": "Dell UltraSharp U2723DE",
+        "isPrimary": true
+      }
+    ],
+    "videos": [],
+    "stock": 12,
+    "rating": 4.7,
+    "reviews": [
+      {
+        "user": "DisplayExpert",
+        "rating": 5,
+        "comment": "Amazing color accuracy",
+        "date": "2024-01-10T00:00:00Z"
+      }
+    ],
+    "specifications": {
+      "size": "27 inch",
+      "resolution": "4K UHD",
+      "panel": "IPS",
+      "refreshRate": "60Hz",
+      "connectivity": "USB-C, HDMI, DisplayPort"
+    },
+    "brand": "Dell",
+    "tags": [
+      "monitor",
+      "dell",
+      "4k",
+      "usb-c"
+    ],
+    "isFeatured": false,
+    "isBestSeller": false,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a118d"
+    },
+    "name": "ASUS ProArt PA278QV 27\" Monitor",
+    "description": "Professional 27\" QHD monitor",
+    "price": 449,
+    "originalPrice": 549,
+    "discount": 18,
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a117e"
+    },
+    "image": "https://via.placeholder.com/400?text=ASUS+ProArt",
+    "images": [
+      {
+        "url": "https://via.placeholder.com/400?text=ASUS+ProArt",
+        "alt": "ASUS ProArt PA278QV",
+        "isPrimary": true
+      }
+    ],
+    "videos": [],
+    "stock": 10,
+    "rating": 4.6,
+    "reviews": [
+      {
+        "user": "GraphicDesigner",
+        "rating": 5,
+        "comment": "Perfect for editing work",
+        "date": "2024-01-12T00:00:00Z"
+      }
+    ],
+    "specifications": {
+      "size": "27 inch",
+      "resolution": "QHD",
+      "panel": "IPS",
+      "refreshRate": "75Hz",
+      "colorAccuracy": "100% sRGB"
+    },
+    "brand": "ASUS",
+    "tags": [
+      "monitor",
+      "asus",
+      "proart",
+      "designer"
+    ],
+    "isFeatured": false,
+    "isBestSeller": false,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a118e"
+    },
+    "name": "Intel Core i7-13700K",
+    "description": "13th gen Intel Core i7 with 16 cores",
+    "price": 419,
+    "originalPrice": 499,
+    "discount": 16,
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a1175"
+    },
+    "image": "https://via.placeholder.com/400?text=Intel+Core+i7",
+    "images": [
+      {
+        "url": "https://via.placeholder.com/400?text=Intel+Core+i7",
+        "alt": "Intel Core i7-13700K",
+        "isPrimary": true
+      }
+    ],
+    "videos": [],
+    "stock": 20,
+    "rating": 4.7,
+    "reviews": [
+      {
+        "user": "GamerPro",
+        "rating": 5,
+        "comment": "Insane performance!",
+        "date": "2024-01-15T00:00:00Z"
+      }
+    ],
+    "specifications": {
+      "cores": 16,
+      "threads": 24,
+      "baseClock": "3.4GHz",
+      "boostClock": "5.4GHz",
+      "tdp": "125W"
+    },
+    "brand": "Intel",
+    "tags": [
+      "cpu",
+      "intel",
+      "i7",
+      "13700k"
+    ],
+    "isFeatured": false,
+    "isBestSeller": false,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a118f"
+    },
+    "name": "AMD Ryzen 7 7700X",
+    "description": "Ryzen 7 7700X 8-core processor",
+    "price": 299,
+    "originalPrice": 349,
+    "discount": 14,
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a1175"
+    },
+    "image": "https://via.placeholder.com/400?text=AMD+Ryzen+7",
+    "images": [
+      {
+        "url": "https://via.placeholder.com/400?text=AMD+Ryzen+7",
+        "alt": "AMD Ryzen 7 7700X",
+        "isPrimary": true
+      }
+    ],
+    "videos": [],
+    "stock": 18,
+    "rating": 4.6,
+    "reviews": [
+      {
+        "user": "PCBuilder",
+        "rating": 5,
+        "comment": "Excellent CPU for gaming and work",
+        "date": "2024-01-14T00:00:00Z"
+      }
+    ],
+    "specifications": {
+      "cores": 8,
+      "threads": 16,
+      "baseClock": "4.5GHz",
+      "boostClock": "5.4GHz",
+      "tdp": "105W"
+    },
+    "brand": "AMD",
+    "tags": [
+      "cpu",
+      "amd",
+      "ryzen7",
+      "7700x"
+    ],
+    "isFeatured": false,
+    "isBestSeller": false,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a1190"
+    },
+    "name": "MSI MPG B850 EDGE WIFI",
+    "description": "B850 motherboard with WiFi 6E",
+    "price": 289,
+    "originalPrice": 349,
+    "discount": 17,
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a1176"
+    },
+    "image": "https://via.placeholder.com/400?text=MSI+Motherboard",
+    "images": [
+      {
+        "url": "https://via.placeholder.com/400?text=MSI+Motherboard",
+        "alt": "MSI MPG B850 EDGE WIFI",
+        "isPrimary": true
+      }
+    ],
+    "videos": [],
+    "stock": 14,
+    "rating": 4.5,
+    "reviews": [
+      {
+        "user": "BuilderMan",
+        "rating": 5,
+        "comment": "Stable and feature-rich motherboard",
+        "date": "2024-01-13T00:00:00Z"
+      }
+    ],
+    "specifications": {
+      "chipset": "B850",
+      "socket": "LGA1700",
+      "memory": "DDR5",
+      "connectivity": "WiFi 6E, Bluetooth 5.2"
+    },
+    "brand": "MSI",
+    "tags": [
+      "motherboard",
+      "msi",
+      "b850"
+    ],
+    "isFeatured": false,
+    "isBestSeller": false,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a1191"
+    },
+    "name": "Kingston Fury Beast 16GB DDR5",
+    "description": "16GB DDR5 5600MHz memory module",
+    "price": 79,
+    "originalPrice": 99,
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a1177"
+    },
+    "image": "https://via.placeholder.com/400?text=Kingston+RAM",
+    "images": [
+      {
+        "url": "https://via.placeholder.com/400?text=Kingston+RAM",
+        "alt": "Kingston Fury Beast DDR5",
+        "isPrimary": true
+      }
+    ],
+    "videos": [],
+    "stock": 32,
+    "rating": 4.5,
+    "reviews": [
+      {
+        "user": "GamerPro",
+        "rating": 5,
+        "comment": "Super fast RAM!",
+        "date": "2024-01-05T00:00:00Z"
+      }
+    ],
+    "specifications": {
+      "type": "DDR5",
+      "speed": "5600MHz",
+      "capacity": "16GB",
+      "voltage": "1.25V"
+    },
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a1177"
+    },
+    "tags": [
+      "ram",
+      "ddr5",
+      "kingston",
+      "memory"
+    ],
+    "isFeatured": false,
+    "isBestSeller": true,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a1192"
+    },
+    "name": "WD Black SN850X 1TB NVMe SSD",
+    "description": "1TB NVMe SSD with PCIe 4.0",
+    "price": 99,
+    "originalPrice": 129,
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a1178"
+    },
+    "image": "https://via.placeholder.com/400?text=WD+Black+SSD",
+    "images": [
+      {
+        "url": "https://via.placeholder.com/400?text=WD+Black+SSD",
+        "alt": "WD Black SN850X",
+        "isPrimary": true
+      }
+    ],
+    "videos": [],
+    "stock": 28,
+    "rating": 4.6,
+    "reviews": [
+      {
+        "user": "StorageGuru",
+        "rating": 5,
+        "comment": "Super fast SSD!",
+        "date": "2024-01-03T00:00:00Z"
+      }
+    ],
+    "specifications": {
+      "type": "NVMe SSD",
+      "capacity": "1TB",
+      "interface": "PCIe 4.0",
+      "readSpeed": "7300MB/s",
+      "writeSpeed": "6600MB/s"
+    },
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a1178"
+    },
+    "tags": [
+      "ssd",
+      "nvme",
+      "wd",
+      "storage"
+    ],
+    "isFeatured": true,
+    "isBestSeller": true,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a1193"
+    },
+    "name": "Seagate Barracuda 2TB HDD",
+    "description": "2TB 3.5\" SATA hard drive",
+    "price": 49,
+    "originalPrice": 69,
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a1178"
+    },
+    "image": "https://via.placeholder.com/400?text=Seagate+HDD",
+    "images": [
+      {
+        "url": "https://via.placeholder.com/400?text=Seagate+HDD",
+        "alt": "Seagate Barracuda HDD",
+        "isPrimary": true
+      }
+    ],
+    "videos": [],
+    "stock": 40,
+    "rating": 4.4,
+    "reviews": [
+      {
+        "user": "TechBuyer",
+        "rating": 4,
+        "comment": "Good storage capacity",
+        "date": "2024-01-07T00:00:00Z"
+      }
+    ],
+    "specifications": {
+      "type": "HDD",
+      "capacity": "2TB",
+      "size": "3.5 inch",
+      "interface": "SATA"
+    },
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a1178"
+    },
+    "tags": [
+      "hdd",
+      "seagate",
+      "storage"
+    ],
+    "isFeatured": false,
+    "isBestSeller": false,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a1194"
+    },
+    "name": "NVIDIA RTX 4080",
+    "description": "RTX 4080 graphics card with 16GB GDDR6X",
+    "price": 1199,
+    "originalPrice": 1399,
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a1179"
+    },
+    "image": "https://via.placeholder.com/400?text=NVIDIA+RTX+4080",
+    "images": [
+      {
+        "url": "https://via.placeholder.com/400?text=NVIDIA+RTX+4080",
+        "alt": "NVIDIA RTX 4080",
+        "isPrimary": true
+      }
+    ],
+    "videos": [],
+    "stock": 8,
+    "rating": 4.7,
+    "reviews": [
+      {
+        "user": "GamerX",
+        "rating": 5,
+        "comment": "Monster GPU!",
+        "date": "2024-01-09T00:00:00Z"
+      }
+    ],
+    "specifications": {
+      "type": "GPU",
+      "memory": "16GB GDDR6X",
+      "architecture": "Ada Lovelace",
+      "power": "320W"
+    },
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a1179"
+    },
+    "tags": [
+      "gpu",
+      "nvidia",
+      "graphics card"
+    ],
+    "isFeatured": true,
+    "isBestSeller": false,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a1195"
+    },
+    "name": "Intel Arc A770 8GB",
+    "description": "Intel Arc A770 graphics card with 8GB GDDR6",
+    "price": 299,
+    "originalPrice": 349,
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a1179"
+    },
+    "image": "https://via.placeholder.com/400?text=Intel+Arc+A770",
+    "images": [
+      {
+        "url": "https://via.placeholder.com/400?text=Intel+Arc+A770",
+        "alt": "Intel Arc A770",
+        "isPrimary": true
+      }
+    ],
+    "videos": [],
+    "stock": 15,
+    "rating": 4.3,
+    "reviews": [
+      {
+        "user": "PCBuilder",
+        "rating": 4,
+        "comment": "Good value for price",
+        "date": "2024-01-06T00:00:00Z"
+      }
+    ],
+    "specifications": {
+      "type": "GPU",
+      "memory": "8GB GDDR6",
+      "interface": "PCIe 4.0",
+      "power": "225W"
+    },
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a1179"
+    },
+    "tags": [
+      "gpu",
+      "intel",
+      "graphics card"
+    ],
+    "isFeatured": false,
+    "isBestSeller": false,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a1196"
+    },
+    "name": "EVGA SuperNOVA 850 G6 850W PSU",
+    "description": "850W 80+ Gold certified modular PSU",
+    "price": 129,
+    "originalPrice": 169,
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a117a"
+    },
+    "image": "https://via.placeholder.com/400?text=EVGA+PSU",
+    "images": [
+      {
+        "url": "https://via.placeholder.com/400?text=EVGA+PSU",
+        "alt": "EVGA SuperNOVA 850 G6",
+        "isPrimary": true
+      }
+    ],
+    "videos": [],
+    "stock": 22,
+    "rating": 4.6,
+    "reviews": [
+      {
+        "user": "Builder",
+        "rating": 5,
+        "comment": "Reliable and efficient PSU",
+        "date": "2024-01-24T00:00:00Z"
+      }
+    ],
+    "specifications": {
+      "wattage": "850W",
+      "efficiency": "80+ Gold",
+      "modular": true,
+      "fanSize": "120mm",
+      "warranty": "10 years"
+    },
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a117a"
+    },
+    "tags": [
+      "psu",
+      "power",
+      "evga",
+      "modular"
+    ],
+    "isFeatured": false,
+    "isBestSeller": false,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a1197"
+    },
+    "name": "be quiet! Dark Rock Pro 4 Cooler",
+    "description": "Premium silent CPU cooler",
+    "price": 89,
+    "originalPrice": 119,
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a117b"
+    },
+    "image": "https://via.placeholder.com/400?text=be+quiet+Cooler",
+    "images": [
+      {
+        "url": "https://via.placeholder.com/400?text=be+quiet+Cooler",
+        "alt": "be quiet! Dark Rock Pro 4",
+        "isPrimary": true
+      }
+    ],
+    "videos": [],
+    "stock": 19,
+    "rating": 4.7,
+    "reviews": [
+      {
+        "user": "Silent",
+        "rating": 5,
+        "comment": "Very quiet and effective",
+        "date": "2024-01-25T00:00:00Z"
+      }
+    ],
+    "specifications": {
+      "type": "Air Cooler",
+      "fans": 2,
+      "fanSize": "135mm",
+      "tdpRating": "250W",
+      "socketSupport": "LGA1700, AM5"
+    },
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a117b"
+    },
+    "tags": [
+      "cooler",
+      "cpu",
+      "be-quiet",
+      "silent"
+    ],
+    "isFeatured": false,
+    "isBestSeller": false,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a1198"
+    },
+    "name": "Corsair iCUE H150i Elite Liquid Cooler",
+    "description": "360mm AIO liquid cooler with RGB",
+    "price": 179,
+    "originalPrice": 229,
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a117b"
+    },
+    "image": "https://via.placeholder.com/400?text=Corsair+AIO",
+    "images": [
+      {
+        "url": "https://via.placeholder.com/400?text=Corsair+AIO",
+        "alt": "Corsair iCUE H150i Elite",
+        "isPrimary": true
+      }
+    ],
+    "videos": [],
+    "stock": 16,
+    "rating": 4.6,
+    "reviews": [
+      {
+        "user": "Cooler",
+        "rating": 5,
+        "comment": "Great AIO with RGB",
+        "date": "2024-01-26T00:00:00Z"
+      }
+    ],
+    "specifications": {
+      "type": "Liquid Cooler",
+      "radiatorSize": "360mm",
+      "fans": 3,
+      "fanSize": "120mm",
+      "tdpRating": "300W"
+    },
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a117b"
+    },
+    "tags": [
+      "cooler",
+      "cpu",
+      "corsair",
+      "liquid"
+    ],
+    "isFeatured": false,
+    "isBestSeller": false,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a1199"
+    },
+    "name": "Fractal Design North Case",
+    "description": "Scandinavian-designed mid-tower case",
+    "price": 139,
+    "originalPrice": 179,
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a117c"
+    },
+    "image": "https://via.placeholder.com/400?text=Fractal+Design",
+    "images": [
+      {
+        "url": "https://via.placeholder.com/400?text=Fractal+Design",
+        "alt": "Fractal Design North",
+        "isPrimary": true
+      }
+    ],
+    "videos": [],
+    "stock": 11,
+    "rating": 4.5,
+    "reviews": [
+      {
+        "user": "Designer",
+        "rating": 5,
+        "comment": "Beautiful and functional case",
+        "date": "2024-01-27T00:00:00Z"
+      }
+    ],
+    "specifications": {
+      "formFactor": "Mid-Tower",
+      "material": "Steel, Aluminum",
+      "maxGpuLength": "330mm",
+      "maxCoolerHeight": "170mm",
+      "fanSupport": "3x 120mm"
+    },
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a117c"
+    },
+    "tags": [
+      "case",
+      "fractal-design",
+      "mid-tower",
+      "scandinavian"
+    ],
+    "isFeatured": false,
+    "isBestSeller": false,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a119a"
+    },
+    "name": "Razer DeathAdder V3 Gaming Mouse",
+    "description": "Lightweight gaming mouse with 30000 DPI",
+    "price": 69,
+    "originalPrice": 99,
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a117d"
+    },
+    "image": "https://via.placeholder.com/400?text=Razer+Mouse",
+    "images": [
+      {
+        "url": "https://via.placeholder.com/400?text=Razer+Mouse",
+        "alt": "Razer DeathAdder V3",
+        "isPrimary": true
+      }
+    ],
+    "videos": [],
+    "stock": 26,
+    "rating": 4.6,
+    "reviews": [
+      {
+        "user": "Gamer",
+        "rating": 5,
+        "comment": "Perfect gaming mouse",
+        "date": "2024-01-28T00:00:00Z"
+      }
+    ],
+    "specifications": {
+      "type": "Wired",
+      "dpi": "30000",
+      "buttons": 8,
+      "weight": "63g",
+      "sensor": "Focus Pro 30K"
+    },
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a117d"
+    },
+    "tags": [
+      "mouse",
+      "razer",
+      "gaming",
+      "wired"
+    ],
+    "isFeatured": false,
+    "isBestSeller": false,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a119b"
+    },
+    "name": "SteelSeries Apex Pro Keyboard",
+    "description": "Mechanical keyboard with adjustable switches",
+    "price": 199,
+    "originalPrice": 249,
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a117d"
+    },
+    "image": "https://via.placeholder.com/400?text=SteelSeries+Keyboard",
+    "images": [
+      {
+        "url": "https://via.placeholder.com/400?text=SteelSeries+Keyboard",
+        "alt": "SteelSeries Apex Pro",
+        "isPrimary": true
+      }
+    ],
+    "videos": [],
+    "stock": 17,
+    "rating": 4.7,
+    "reviews": [
+      {
+        "user": "Pro",
+        "rating": 5,
+        "comment": "Professional-grade keyboard",
+        "date": "2024-01-29T00:00:00Z"
+      }
+    ],
+    "specifications": {
+      "type": "Mechanical",
+      "switches": "OmniPoint",
+      "layout": "Full",
+      "connectivity": "Wired, 2.4GHz",
+      "backlight": "RGB"
+    },
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a117d"
+    },
+    "tags": [
+      "keyboard",
+      "steelseries",
+      "mechanical",
+      "pro"
+    ],
+    "isFeatured": false,
+    "isBestSeller": false,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a119c"
+    },
+    "name": "LG 27GP850 27\" Gaming Monitor",
+    "description": "27\" 1440p 165Hz IPS gaming monitor",
+    "price": 349,
+    "originalPrice": 449,
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a117e"
+    },
+    "image": "https://via.placeholder.com/400?text=LG+Gaming+Monitor",
+    "images": [
+      {
+        "url": "https://via.placeholder.com/400?text=LG+Gaming+Monitor",
+        "alt": "LG 27GP850",
+        "isPrimary": true
+      }
+    ],
+    "videos": [],
+    "stock": 13,
+    "rating": 4.6,
+    "reviews": [
+      {
+        "user": "Gamer",
+        "rating": 5,
+        "comment": "Excellent gaming monitor",
+        "date": "2024-01-30T00:00:00Z"
+      }
+    ],
+    "specifications": {
+      "size": "27 inches",
+      "resolution": "2560x1440",
+      "panelType": "IPS",
+      "refreshRate": "165Hz",
+      "responseTime": "1ms"
+    },
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a117e"
+    },
+    "tags": [
+      "monitor",
+      "lg",
+      "gaming",
+      "1440p"
+    ],
+    "isFeatured": false,
+    "isBestSeller": false,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "691d65502cfe2fe4776a119d"
+    },
+    "name": "BenQ EW2780U 27\" Monitor",
+    "description": "27\" 4K IPS monitor for content creators",
+    "price": 299,
+    "originalPrice": 399,
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a117e"
+    },
+    "image": "https://via.placeholder.com/400?text=BenQ+Monitor",
+    "images": [
+      {
+        "url": "https://via.placeholder.com/400?text=BenQ+Monitor",
+        "alt": "BenQ EW2780U",
+        "isPrimary": true
+      }
+    ],
+    "videos": [],
+    "stock": 14,
+    "rating": 4.5,
+    "reviews": [
+      {
+        "user": "Creator",
+        "rating": 5,
+        "comment": "Perfect for content creation",
+        "date": "2024-01-31T00:00:00Z"
+      }
+    ],
+    "specifications": {
+      "size": "27 inches",
+      "resolution": "3840x2160",
+      "panelType": "IPS",
+      "refreshRate": "60Hz",
+      "colorAccuracy": "Delta E < 2"
+    },
+    "categoryId": {
+      "$oid": "691d65502cfe2fe4776a117e"
+    },
+    "tags": [
+      "monitor",
+      "benq",
+      "4k",
+      "creator"
+    ],
+    "isFeatured": false,
+    "isBestSeller": false,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  }
+]

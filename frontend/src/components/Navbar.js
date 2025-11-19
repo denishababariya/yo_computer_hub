@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { Container, Nav, Form, InputGroup, Button, Offcanvas, Dropdown } from "react-bootstrap";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
+import { authAPI } from "../services/api";
+import { logout as logoutAuth } from "../utils/auth";
 
 function Navbar4() {
   const [show, setShow] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+  const navigate = useNavigate();
+  
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   
@@ -12,10 +16,25 @@ function Navbar4() {
     setShowProfileDropdown(!showProfileDropdown);
   };
   
-  const handleLogout = () => {
-    // Add logout logic here
-    console.log("User logged out");
-    setShowProfileDropdown(false);
+  const handleLogout = async () => {
+    try {
+      // Call logout API
+      await authAPI.logout();
+      
+      // Clear local auth data
+      logoutAuth();
+      
+      // Close dropdown
+      setShowProfileDropdown(false);
+      
+      // Redirect to login
+      navigate('/login');
+    } catch (error) {
+      console.error('Logout error:', error);
+      // Even if API fails, clear local data and redirect
+      logoutAuth();
+      navigate('/login');
+    }
   };
 
   return (
@@ -44,11 +63,11 @@ function Navbar4() {
             <div className="z_nav_icons d-flex align-items-center gap-4">
               <Link to="/wishlist" className="z_glow_icon position-relative">
                 <i className="bi bi-heart"></i>
-                <span className="z_cart_count">2</span>
+                <span className="z_cart_count">0</span>
               </Link>
               <Link to="/cart" className="z_glow_icon position-relative">
                 <i className="bi bi-cart"></i>
-                <span className="z_cart_count">3</span>
+                <span className="z_cart_count">0</span>
               </Link>
               <div className="z_profile_dropdown_wrapper position-relative">
                 <button 
