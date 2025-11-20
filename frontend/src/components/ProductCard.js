@@ -138,7 +138,7 @@ function ProductCard({ product }) {
             lineHeight: "14px",
           }}
         >
-          {product.category.toUpperCase()}
+          {product.category}
         </Badge>
 
         {/* Interactive Icons - Top Right */}
