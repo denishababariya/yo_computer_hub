@@ -34,7 +34,7 @@ export default function GamingBanner() {
   ];
 
   return (
-    <div style={styles.container}>
+    <div className='ROG' style={styles.container}>
       <style>{mediaStyles}</style>
 
       <div className="grid" style={styles.grid}>
@@ -273,12 +273,12 @@ const mediaStyles = `
   @media (max-width: 576px) {
     .grid { grid-template-columns: repeat(1, 1fr) !important; } /* Single column on phones */
     .subtitle { font-size: 24px !important; }
-    .card { min-height: 250px !important; }
+    .ROG .card { min-height: 250px !important; }
   }
 
   @media (max-width: 480px) {
     .subtitle { font-size: 20px !important; }
-    .card { min-height: 280px !important; padding: 25px !important; }
+    .ROG .card { min-height: 280px !important; padding: 25px !important; }
   }
 
   @media (max-width: 375px) {

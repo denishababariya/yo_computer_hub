@@ -1,8 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import mouse from "../../img/featured_products_mouse.png"
-
+import mouse from "../../img/featured_products_mouse.png";
 
 function FeaturedProducts() {
   const featuredProducts = [
@@ -32,61 +31,73 @@ function FeaturedProducts() {
   return (
     <section className="x_main-featured-products py-md-5 py-4">
       <Container>
-        <Row className="g-3 g-md-4">
+        <Row className="g-4">
           {featuredProducts.map((product) => (
-            <Col key={product.id} md={4} xs={12}>
-             <div 
-  className="position-relative rounded overflow-hidden shadow-lg x_main-featured-card"
-  style={{
-    backgroundImage: `
-      linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.5)),
-      url('https://t3.ftcdn.net/jpg/01/93/30/78/360_F_193307850_Ohzn4ILra9FbnqNaEgR0Dz0iprl0crJr.jpg')
-    `,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    minHeight: '350px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    padding: '2rem',
-    color: 'white'
-  }}
->
-  <div>
-    <h3 className="fw-bold mb-3" style={{ fontSize: '1.5rem' }}>
-      {product.title}
-    </h3>
+            <Col key={product.id} lg={4} sm={6}>
+              
+              <div 
+                className="position-relative rounded overflow-hidden shadow-lg x_main-featured-card"
+                style={{
+                  backgroundImage: `
+                    linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.5)),
+                    url('https://t3.ftcdn.net/jpg/01/93/30/78/360_F_193307850_Ohzn4ILra9FbnqNaEgR0Dz0iprl0crJr.jpg')
+                  `,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat',
+                  minHeight: '380px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  padding: '1.8rem',
+                  color: 'white',
+                  borderRadius: '12px'
+                }}
+              >
+                
+                {/* Title */}
+                <div>
+                  <h3 
+                    className="fw-bold mb-3" 
+                    style={{ fontSize: '1.4rem', lineHeight: '1.2' }}
+                  >
+                    {product.title}
+                  </h3>
 
-    <div 
-      className="mb-3"
-      style={{
-        aspectRatio: '16/9',
-        backgroundImage: `url(${product.image})`,
-        backgroundSize: 'contain',
-        backgroundPosition: 'center',
-        backgroundRepeat:'no-repeat',
-        borderRadius: '8px',
-      }}
-    />
-  </div>
+                  {/* Product Image */}
+                  <div
+                    className="mb-3"
+                    style={{
+                      width: "100%",
+                      aspectRatio: "16/9",
+                      backgroundImage: `url(${product.image})`,
+                      backgroundSize: "contain",
+                      backgroundPosition: "center",
+                      backgroundRepeat: "no-repeat",
+                      borderRadius: '10px',
+                    }}
+                  />
+                </div>
 
-  <div className="d-flex justify-content-between align-items-center">
-    <div>
-      <div className="fw-bold fs-4 text-danger">{product.price}</div>
-    </div>
+                {/* Price + Button */}
+                <div className="d-flex justify-content-between align-items-center mt-md-3 mt-0">
+                  <div className="fw-bold fs-4 text-danger">
+                    {product.price}
+                  </div>
 
-    <Button 
-      as={Link} 
-      to={product.link} 
-      variant="danger" 
-      size="lg"
-      className="px-4"
-    >
-      Add Now
-    </Button>
-  </div>
-</div>
+                  <Button
+                    as={Link}
+                    to={product.link}
+                    variant="danger"
+                   
+                    className="px-3 py-2"
+                    style={{ fontWeight: "600", fontSize: "0.95rem" }}
+                  >
+                    Add Now
+                  </Button>
+                </div>
+
+              </div>
 
             </Col>
           ))}
@@ -97,4 +108,3 @@ function FeaturedProducts() {
 }
 
 export default FeaturedProducts;
-

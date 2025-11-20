@@ -9,12 +9,22 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      const { id, product, qty = 1 } = action.payload;
+      // payload: { id, product, qty = 1, replace = false }
+      const { id, product, qty = 1, replace = false } = action.payload;
       const existing = state.items[id];
-      state.items[id] = {
-        product,
-        qty: (existing?.qty || 0) + qty,
-      };
+      if (replace) {
+        // set the qty to provided value (or remove if <=0)
+        if (qty > 0) {
+          state.items[id] = { product, qty };
+        } else {
+          delete state.items[id];
+        }
+      } else {
+        state.items[id] = {
+          product,
+          qty: (existing?.qty || 0) + qty,
+        };
+      }
     },
     removeFromCart: (state, action) => {
       delete state.items[action.payload];

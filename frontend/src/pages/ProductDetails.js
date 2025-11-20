@@ -1,33 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Container, Row, Col, Button, Spinner, Alert } from 'react-bootstrap';
-import products from '../data/products';
-import { useDispatch } from 'react-redux';
+import { Container, Row, Col, Button, Spinner } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../store/cartSlice';
+import { selectCartItems, selectWishlistIds } from '../store';
+import { toggleWishlist } from '../store/wishlistSlice';
 import { productAPI } from '../services/api';
 import { FaShoppingCart, FaHeart, FaStar, FaTruck, FaShieldAlt, FaUndo } from 'react-icons/fa';
 
-function getYouTubeEmbed(url) {
-  // Convert ANY YouTube link into EMBED URL
-  try {
-    const u = new URL(url);
-
-    if (u.hostname.includes("youtu.be")) {
-      return `https://www.youtube.com/embed/${u.pathname.replace("/", "")}`;
-    }
-
-    if (u.hostname.includes("youtube.com")) {
-      const videoID = u.searchParams.get("v");
-      if (videoID) return `https://www.youtube.com/embed/${videoID}`;
-    }
-  } catch (e) {}
-
-  // Fallback
-  const match = url.match(/(?:v=|youtu\.be\/)([A-Za-z0-9_-]+)/);
-  if (match) return `https://www.youtube.com/embed/${match[1]}`;
-
-  return null;
-}
+// ...existing code...
 
 function ProductDetails() {
   const { id } = useParams();
@@ -39,6 +20,8 @@ function ProductDetails() {
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [activeTab, setActiveTab] = useState('details');
   const dispatch = useDispatch();
+  const cartItems = useSelector(selectCartItems);
+  const wishlistIds = useSelector(selectWishlistIds);
 
   // 360 view images - using the K_assets images
   const images360 = [
@@ -48,7 +31,6 @@ function ProductDetails() {
     require('../Images/K_assets/h101x (4).png'),
     require('../Images/K_assets/h101x (5).png'),
     require('../Images/K_assets/h101x (6).png'),
-    require('../Images/K_assets/h101x (7).png'),
     require('../Images/K_assets/h101x (8).png'),
     require('../Images/K_assets/h101x (9).png'),
     require('../Images/K_assets/h101x (10).png'),
@@ -74,6 +56,21 @@ function ProductDetails() {
     fetchProduct();
   }, [id]);
 
+  // keep local flag in sync with central wishlist ids
+  useEffect(() => {
+    if (!product) return;
+    const idKey = product.id || product._id;
+    setIsWishlisted(wishlistIds.includes(idKey));
+  }, [product, wishlistIds]);
+
+  // If product is present and cart contains it, set initial quantity from cart
+  useEffect(() => {
+    if (product && cartItems && cartItems[product.id]) {
+      const existingQty = cartItems[product.id].qty || 1;
+      setQuantity(existingQty);
+    }
+  }, [product, cartItems]);
+
   const handlePrevImage = () => {
     setCurrentImageIndex((prev) => (prev === 0 ? images360.length - 1 : prev - 1));
   };
@@ -87,7 +84,7 @@ function ProductDetails() {
   };
 
   const handleAddToCart = () => {
-    dispatch(addToCart({ id: product.id, product, qty: quantity }));
+  dispatch(addToCart({ id: product.id, product, qty: quantity, replace: true }));
   };
 
   // Sample product tags and specifications
@@ -256,7 +253,10 @@ function ProductDetails() {
                 </button>
                 <button 
                   className={`z_prdD_btn z_prdD_btn_secondary ${isWishlisted ? 'active' : ''}`}
-                  onClick={() => setIsWishlisted(!isWishlisted)}
+                  onClick={() => {
+                    const idKey = product.id || product._id;
+                    dispatch(toggleWishlist(idKey));
+                  }}
                 >
                   <FaHeart /> Wishlist
                 </button>
