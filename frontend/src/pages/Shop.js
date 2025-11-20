@@ -156,6 +156,8 @@ function Shop() {
     // Store selected category in localStorage
     if (newFilters.category) {
       localStorage.setItem('selectedCategory', newFilters.category);
+      // Dispatch event so CategoryTab component updates without page refresh
+      window.dispatchEvent(new Event('categoryChanged'));
     }
   };
 

@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/z_style.css";
 import { productAPI, categoryAPI } from "../services/api";
 
 function CategoryTab() {
+    const navigate = useNavigate();
     const [categories, setCategories] = useState([]);
 
     const [active, setActive] = useState(localStorage.getItem('selectedCategory') || "All");
+    console.log(active,'active');
+    
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -83,15 +87,28 @@ function CategoryTab() {
             setActive(localStorage.getItem('selectedCategory') || "All");
         };
         
+        // Listen to custom event from Shop component (same tab)
+        window.addEventListener('categoryChanged', handleStorageChange);
+        // Also listen to storage event for multi-tab support
         window.addEventListener('storage', handleStorageChange);
-        return () => window.removeEventListener('storage', handleStorageChange);
+        
+        return () => {
+            window.removeEventListener('categoryChanged', handleStorageChange);
+            window.removeEventListener('storage', handleStorageChange);
+        };
     }, []);
 
     const handleCategoryClick = (categoryId) => {
+        // Update state immediately
         setActive(categoryId);
+        // Update localStorage
         localStorage.setItem('selectedCategory', categoryId);
         // Dispatch custom event so Shop component can listen
         window.dispatchEvent(new Event('categoryChanged'));
+        // Small delay to ensure state updates before navigation
+        setTimeout(() => {
+            navigate('/shop');
+        }, 0);
     };
 
     return (
