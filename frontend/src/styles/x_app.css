@@ -30,7 +30,7 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Stronger shadow for contrast */
 }
 
-.x_blog_card:hover {
+.x_blog_cards .x_blog_card:hover {
   transform: translateY(-5px);
   border: 1px solid #758dab8c !important;
 }
@@ -695,6 +695,10 @@
 .brand-item img:hover {
   filter: grayscale(0%);
 }
+
+.a_pagination_icon .page-link>span{
+  font-size: 26px;
+} 
 
 /* scrolling animation */
 @keyframes scroll {

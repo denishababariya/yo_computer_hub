@@ -10,7 +10,6 @@ import blog9 from "../img/blog_pc_performance_img.jpg"
 import blog10 from "../img/blog_wfh_img.jpg"
 import blog11 from "../img/blog_wireless_parts.jpg"
 import blog12 from "../img/blog_desk_organization.jpg"
-
 import '../styles/x_app.css';
 
 // Sample blog posts data (kept the same)
@@ -125,7 +124,7 @@ function Blog() {
 
   return (
     <>
-      <div className='x_blog_dark_theme'>
+      <div className='x_blog_dark_theme x_blog_cards'>
         <Container className="py-5">
           <div className="text-center mb-5">
             <h1 className="display-5 fw-bold mb-3">Latest Blog Posts</h1>
@@ -176,6 +175,7 @@ function Blog() {
           <div className="d-flex justify-content-center">
             <Pagination className="mb-0 x_pagination">
               <Pagination.Prev
+              className='a_pagination_icon'
                 disabled={currentPage === 1}
                 onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
               />
@@ -192,6 +192,7 @@ function Blog() {
                 );
               })}
               <Pagination.Next
+              className='a_pagination_icon'
                 disabled={currentPage === totalPages}
                 onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
               />

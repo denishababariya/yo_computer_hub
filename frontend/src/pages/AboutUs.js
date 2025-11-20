@@ -17,22 +17,22 @@ const AboutUs = () => {
 	// Data remains the same, but the emoji for 'Quality' is adjusted for the theme
 	const values = [
 		{
-			icon: <img src={Innovation} alt="Innovation" style={{ width: "28%" }} />,
+			icon: <img src={Innovation} alt="Innovation" />,
 			title: 'Innovation',
 			description: 'We constantly seek the latest technology and trends to bring you cutting-edge products that enhance your digital lifestyle.'
 		},
 		{
-			icon: <img src={safety} alt="Quality" style={{ width: "28%" }} />,
+			icon: <img src={safety} alt="Quality" />,
 			title: 'Quality',
 			description: 'Every product is carefully selected and tested to meet our high standards of performance, durability, and reliability.'
 		},
 		{
-			icon: <img src={operator} alt="Customer First" style={{ width: "28%" }} />,
+			icon: <img src={operator} alt="Customer First" />,
 			title: 'Customer First',
 			description: 'Your satisfaction is our priority. We provide exceptional support and service to ensure your complete happiness.'
 		},
 		{
-			icon: <img src={fast_delivery} alt="Fast Delivery" style={{ width: "28%" }} />,
+			icon: <img src={fast_delivery} alt="Fast Delivery" />,
 			title: 'Fast Delivery',
 			description: 'We understand you can\'t wait to use your new gear. That\'s why we offer express shipping and reliable delivery.'
 		}
@@ -187,7 +187,7 @@ const AboutUs = () => {
 								<div className="col-lg-7 px-3">
 									<div className="row g-4 h-100">
 										{stats.map((stat, index) => (
-											<div key={index} className="col-sm-6 p-0">
+											<div key={index} className="col-6 a_state_card_col p-0">
 												<div className="stat-card-modern p-0">
 
 													{/* Icon + Glow Background */}
@@ -225,7 +225,7 @@ const AboutUs = () => {
 					</div>
 					<Row className="g-4">
 						{team.map((member, index) => (
-							<Col key={index} lg={3} md={6}>
+							<Col key={index} lg={3} md={6} sm={6}>
 								<Card className="team-card-modern border-0">
 									<Card.Body className='p-0 d-flex flex-column align-items-center'>
 										<img src={member.avatar} alt={member.name} className="team-avatar-modern" />
