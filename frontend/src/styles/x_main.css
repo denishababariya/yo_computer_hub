@@ -453,7 +453,7 @@ html {
 }
 
 .x_main-top-categories {
-  background-image: url("https://t3.ftcdn.net/jpg/06/07/68/80/360_F_607688089_3Wvfd0eQt99pbSFJTmhC9iL1QrhwZkAL.jpg");
+  background-image: url("https://4kwallpapers.com/images/walls/thumbs_3t/5889.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -487,12 +487,7 @@ html {
   width: 5px;
   height: 70%;
   /* Subtle Gradient for Depth (#5588c9 based) */
-  background: linear-gradient(
-    to bottom,
-    #7fafe1,
-    #5588c9,
-    #416999
-  );
+  background: linear-gradient(to bottom, #7fafe1, #5588c9, #416999);
   border-radius: 2px;
 }
 
@@ -503,7 +498,6 @@ html {
 .dark-theme .minimal-bar-title::after {
   box-shadow: 0 0 10px rgba(85, 136, 201, 0.8);
 }
-
 
 /* =======================================
    RESPONSIVENESS (Media Queries)

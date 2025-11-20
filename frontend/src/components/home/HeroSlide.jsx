@@ -45,7 +45,7 @@ const slides = [
   },
   {
    id: 3,
-  type: "specker",
+  type: "speaker",
   imgSrc: require("../../img/ssp.png"),
   title: "SoundBlaster Z —",
   subtitle: "Premium Gaming Speaker",

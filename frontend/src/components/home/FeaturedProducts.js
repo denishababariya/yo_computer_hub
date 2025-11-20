@@ -1,6 +1,8 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import mouse from "../../img/featured_products_mouse.png"
+
 
 function FeaturedProducts() {
   const featuredProducts = [
@@ -8,14 +10,14 @@ function FeaturedProducts() {
       id: 1,
       title: 'X5 GAMING MOUSE',
       price: '$59.99',
-      image: 'https://w7.pngwing.com/pngs/519/268/png-transparent-computer-mouse-e-blue-auroza-type-im-computer-keyboard-e-blue-auroza-gaming-mouse-black-blue-gaming-keypad-computer-mouse-electronics-computer-keyboard-computer.png',
+      image: mouse,
       link: '/shop'
     },
     {
       id: 2,
-      title: 'acer NITRO 5',
+      title: 'Axtel AX-FHD Webcam Pro',
       price: '$349.99',
-      image: 'https://pngimg.com/uploads/laptop/laptop_PNG101804.png',
+      image: 'https://resource.logitech.com/content/dam/logitech/en/products/webcams/mx-brio/buy/migration-assets-for-delorean-2025/gallery/mx-brio-3qtr-front-right-pale-gray.png',
       link: '/shop'
     },
     {
@@ -38,7 +40,7 @@ function FeaturedProducts() {
   style={{
     backgroundImage: `
       linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.5)),
-      url('https://media.tenor.com/TZaIBNauQfAAAAAM/stars-galaxy.gif')
+      url('https://t3.ftcdn.net/jpg/01/93/30/78/360_F_193307850_Ohzn4ILra9FbnqNaEgR0Dz0iprl0crJr.jpg')
     `,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
