@@ -2,12 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Container, Nav, Form, InputGroup, Button, Offcanvas, Dropdown } from "react-bootstrap";
 import { NavLink, Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { authAPI } from "../services/api";
 import { selectWishlistCount, selectCartCount } from "../store";
-import { logout as logoutAuth } from "../utils/auth";
 import { logout as logoutAuth, getToken } from "../utils/auth";
-import { selectCartCount, selectWishlistCount } from "../store";
 
 function Navbar4() {
   const [show, setShow] = useState(false);
