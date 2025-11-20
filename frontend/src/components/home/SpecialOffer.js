@@ -63,7 +63,7 @@ function SpecialOffer() {
         <Row className="align-items-center text-center text-md-start">
 
           {/* Offer Content */}
-          <Col lg={8} className="mx-auto text-white">
+          <Col md={8} lg={8} className="mx-auto text-white">
              <Title text="SPECIAL GAMING OFFER" theme="dark" align="left" />
             {/* <h2 
               className="fw-bold mb-3"

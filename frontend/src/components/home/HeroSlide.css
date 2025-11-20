@@ -258,8 +258,9 @@
     .xyz_vertical-dots {
         right: 10px;
         top: 20px;
+        gap: 10px;
         transform: none; /* Remove translateY */
-        flex-direction: row; /* Change to horizontal */
+        /* flex-direction: row;  */
     }
     
     .xyz_v-dot {
@@ -337,8 +338,9 @@
     .xyz_vertical-dots {
         right: 10px;
         top: 20px;
+        gap: 8px;
         transform: none; /* Remove translateY */
-        flex-direction: row; /* Change to horizontal */
+        /* flex-direction: row; */
     }
     
     .xyz_v-dot {
