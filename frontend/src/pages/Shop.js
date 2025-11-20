@@ -177,6 +177,8 @@ function Shop() {
         // notify navbar to clear its input
         window.dispatchEvent(new Event('searchCleared'));
       }
+      // Dispatch event so CategoryTab component updates without page refresh
+      window.dispatchEvent(new Event('categoryChanged'));
     }
   };
 
