@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { selectWishlistIds } from '../store';
-import { Container, Row, Col } from 'react-bootstrap';
-import products from '../data/products';
+import { Container, Row, Col, Spinner } from 'react-bootstrap';
+import { productAPI } from '../services/api';
 import ProductCard from '../components/ProductCard';
 
 // ⭐ Import your empty wishlist image
@@ -10,13 +10,50 @@ import emptyWishlist from '../img/ewish.png';
 
 function Wishlist() {
   const ids = useSelector(selectWishlistIds);
-  const list = products.filter((p) => ids.includes(p.id));
+  const [wishlistProducts, setWishlistProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchWishlistProducts = async () => {
+      try {
+        setLoading(true);
+        // Fetch all products
+        const response = await productAPI.getAll({ limit: 10000 });
+        
+        const allProducts = Array.isArray(response) ? response : response?.data || [];
+        
+        // Filter products that are in wishlist
+        const wishedProducts = allProducts.filter(p => 
+          ids.includes(p._id) || ids.includes(p.id)
+        );
+        
+        setWishlistProducts(wishedProducts);
+      } catch (error) {
+        console.error('Error fetching wishlist products:', error);
+        setWishlistProducts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (ids.length > 0) {
+      fetchWishlistProducts();
+    } else {
+      setWishlistProducts([]);
+      setLoading(false);
+    }
+  }, [ids]);
 
   return (
     <Container className="py-4">
       <h2 className="text-center mb-3 xyz_subtitle">WISHLIST</h2>
 
-      {list.length === 0 ? (
+      {loading ? (
+        <div className="text-center py-5">
+          <Spinner animation="border" variant="primary" />
+          <p className="mt-3 text-muted">Loading wishlist...</p>
+        </div>
+      ) : wishlistProducts.length === 0 ? (
         <div className="wishlist-empty text-center d-flex flex-column align-items-center justify-content-center">
 
           {/* IMAGE */}
@@ -43,8 +80,8 @@ function Wishlist() {
         </div>
       ) : (
         <Row xs={1} sm={2} md={3} lg={4} className="g-3">
-          {list.map((p) => (
-            <Col key={p.id}>
+          {wishlistProducts.map((p) => (
+            <Col key={p._id || p.id}>
               <ProductCard product={p} />
             </Col>
           ))}

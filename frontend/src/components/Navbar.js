@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import { Container, Nav, Form, InputGroup, Button, Offcanvas, Dropdown } from "react-bootstrap";
 import { NavLink, Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { authAPI } from "../services/api";
+import { selectWishlistCount, selectCartCount } from "../store";
 import { logout as logoutAuth } from "../utils/auth";
 
 function Navbar4() {
   const [show, setShow] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const navigate = useNavigate();
+  
+  // Get wishlist and cart counts from Redux
+  const wishlistCount = useSelector(selectWishlistCount);
+  const cartCount = useSelector(selectCartCount);
   
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -63,11 +69,11 @@ function Navbar4() {
             <div className="z_nav_icons d-flex align-items-center gap-4">
               <Link to="/wishlist" className="z_glow_icon position-relative">
                 <i className="bi bi-heart"></i>
-                <span className="z_cart_count">0</span>
+                <span className="z_cart_count">{wishlistCount}</span>
               </Link>
               <Link to="/cart" className="z_glow_icon position-relative">
                 <i className="bi bi-cart"></i>
-                <span className="z_cart_count">0</span>
+                <span className="z_cart_count">{cartCount}</span>
               </Link>
               <div className="z_profile_dropdown_wrapper position-relative">
                 <button 

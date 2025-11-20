@@ -1,19 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "../styles/z_style.css";
-import { productAPI } from "../services/api";
+import { productAPI, categoryAPI } from "../services/api";
 
 function CategoryTab() {
-    const [categories, setCategories] = useState([
-        "All",
-        "Electronics",
-        "Fashion",
-        "Home",
-        "Toys",
-        "Books",
-        "Beauty"
-    ]);
+    const [categories, setCategories] = useState([]);
 
-    const [active, setActive] = useState("All");
+    const [active, setActive] = useState(localStorage.getItem('selectedCategory') || "All");
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -21,25 +13,59 @@ function CategoryTab() {
         async function fetchCategories() {
             setLoading(true);
             try {
-                // get all products and extract unique categories
-                const products = await productAPI.getAll();
+                // fetch categories and many products to determine which categories are used
+                const [catRes, prodRes] = await Promise.all([
+                    categoryAPI.getAll(),
+                    // request many items so we can see used categories; adjust limit as needed
+                    productAPI.getAll({ limit: 10000 })
+                ]);
+          
                 if (!mounted) return;
-                if (Array.isArray(products)) {
-                    const unique = Array.from(new Set(products
-                        .map(p => p.category)
+
+                // normalize responses (api returns { success : true, data: [...] })
+                const catsList = Array.isArray(catRes) ? catRes : (catRes && catRes.data) || [];
+         
+                const productsList = Array.isArray(prodRes) ? prodRes : (prodRes && prodRes.data) || [];
+                   
+                // build set of product category IDs (categoryId may be populated object or an id string)
+                const productCategorySet = new Set(
+                    productsList
+                        .map(p => {
+                            if (!p || !p.categoryId) return null;
+                            if (typeof p.categoryId === 'object') return p.categoryId._id || p.categoryId.id || null;
+                            return p.categoryId;
+                        })
                         .filter(Boolean)
-                    ));
-                    // ensure "All" is first
-                    setCategories(["All", ...unique]);
-                } else {
-                    // API might return { data: [...] } depending on backend shape
-                    const list = products.data || products.products || [];
-                    const unique = Array.from(new Set(list
-                        .map(p => p.category)
-                        .filter(Boolean)
-                    ));
-                    setCategories(["All", ...unique]);
-                }
+                        .map(id => id.toString())
+                );
+
+                // categories from backend might be objects { _id, name, ... } or simple strings
+                // build map of id -> name and list of category ids from backend
+                const idToName = new Map(
+                    catsList
+                        .map(c => {
+                            const id = (typeof c === "string" ? c : (c._id || c.id));
+                            const name = (typeof c === "string" ? c : c.name);
+                            return [id && id.toString(), name];
+                        })
+                        .filter(([id]) => id)
+                );
+
+                const catIds = Array.from(idToName.keys());
+
+                // keep only category ids that exist in product categories
+                const matchedIds = catIds.filter(id => productCategorySet.has(id));
+
+                const uniqueIds = Array.from(new Set(matchedIds));
+                const categoryObjects = uniqueIds.map(id => ({
+                    id: id,
+                    name: idToName.get(id)
+                }));
+
+                setCategories(categoryObjects);
+                console.log('====================================');
+                console.log(categoryObjects,'categories');
+                console.log('====================================');
             } catch (err) {
                 console.error("Failed to load categories:", err);
                 // keep defaults on error
@@ -51,6 +77,23 @@ function CategoryTab() {
         return () => { mounted = false; };
     }, []);
 
+    // Listen to localStorage changes for category updates
+    useEffect(() => {
+        const handleStorageChange = () => {
+            setActive(localStorage.getItem('selectedCategory') || "All");
+        };
+        
+        window.addEventListener('storage', handleStorageChange);
+        return () => window.removeEventListener('storage', handleStorageChange);
+    }, []);
+
+    const handleCategoryClick = (categoryId) => {
+        setActive(categoryId);
+        localStorage.setItem('selectedCategory', categoryId);
+        // Dispatch custom event so Shop component can listen
+        window.dispatchEvent(new Event('categoryChanged'));
+    };
+
     return (
         <section className="z_catTab_section">
             <div className="z_catTab_wrapper">
@@ -58,15 +101,24 @@ function CategoryTab() {
                     {loading ? (
                         <li className="z_catTab_item">Loading...</li>
                     ) : (
-                        categories.map((cat) => (
+                        <>
                             <li
-                                key={cat}
-                                className={`z_catTab_item ${active === cat ? "active" : ""}`}
-                                onClick={() => setActive(cat)}
+                                key="all"
+                                className={`z_catTab_item ${active === "All" ? "active" : ""}`}
+                                onClick={() => handleCategoryClick("All")}
                             >
-                                {cat}
+                                All
                             </li>
-                        ))
+                            {categories.map((cat) => (
+                                <li
+                                    key={cat.id}
+                                    className={`z_catTab_item ${active === cat.id ? "active" : ""}`}
+                                    onClick={() => handleCategoryClick(cat.id)}
+                                >
+                                    {cat.name}
+                                </li>
+                            ))}
+                        </>
                     )}
                 </ul>
             </div>
