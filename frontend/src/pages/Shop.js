@@ -4,6 +4,7 @@ import ProductCard from '../components/ProductCard';
 import FilterOffcanvas from '../components/FilterOffcanvas';
 import { categoryAPI, productAPI } from '../services/api';
 import Title from '../components/Title';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function Shop() {
   const [products, setProducts] = useState([]);
@@ -18,6 +19,9 @@ function Shop() {
   const [error, setError] = useState('');
   // CATEGORY STATE - stores objects with {id, name}
   const [categories, setCategories] = useState([]);  
+  const location = useLocation();
+  const searchParam = new URLSearchParams(location.search).get('search')?.trim() || '';
+  const navigate = useNavigate();
 
   // FETCH CATEGORIES BASED ON PRODUCTS
   useEffect(() => {
@@ -82,7 +86,11 @@ function Shop() {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const response = await productAPI.getAll({ limit: 10000 });
+        // include search param when present to let the server filter
+        const params = {};
+        params.limit = 10000;
+        if (searchParam && searchParam.length > 0) params.search = searchParam;
+        const response = await productAPI.getAll(params);
         console.log('API Response:', response);
 
         if (response.success && response.data && Array.isArray(response.data) && response.data.length > 0) {
@@ -108,7 +116,7 @@ function Shop() {
       }
     };
     fetchProducts();
-  }, []);
+  }, [searchParam]);
 
   // Listen for category changes from localStorage without page refresh
   useEffect(() => {
@@ -156,6 +164,19 @@ function Shop() {
     // Store selected category in localStorage
     if (newFilters.category) {
       localStorage.setItem('selectedCategory', newFilters.category);
+      // If a search query was active, remove it so filters apply to full dataset
+      if (searchParam && searchParam.length > 0) {
+        try {
+          const params = new URLSearchParams(location.search);
+          params.delete('search');
+          const newSearch = params.toString();
+          navigate(`${location.pathname}${newSearch ? '?' + newSearch : ''}`, { replace: true });
+        } catch (err) {
+          console.warn('Failed to remove search param:', err);
+        }
+        // notify navbar to clear its input
+        window.dispatchEvent(new Event('searchCleared'));
+      }
     }
   };
 

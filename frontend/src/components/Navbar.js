@@ -10,6 +10,7 @@ function Navbar4() {
   const [show, setShow] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
   const cartCount = useSelector(selectCartCount);
   const wishlistCount = useSelector(selectWishlistCount);
@@ -18,6 +19,13 @@ function Navbar4() {
     // Check if token exists in localStorage
     const token = getToken();
     setIsLoggedIn(!!token);
+  }, []);
+
+  // Clear the search input when Shop dispatches a clear event (e.g. filter applied)
+  useEffect(() => {
+    const onSearchCleared = () => setSearchTerm('');
+    window.addEventListener('searchCleared', onSearchCleared);
+    return () => window.removeEventListener('searchCleared', onSearchCleared);
   }, []);
   
   
@@ -53,6 +61,13 @@ function Navbar4() {
     }
   };
 
+  const handleSearchSubmit = (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    const q = (searchTerm || '').trim();
+    if (q.length === 0) return;
+    navigate(`/shop?search=${encodeURIComponent(q)}`);
+  };
+
   return (
     <div className="z_nav_wrapper z_nav_menu py-3">
       <Container>
@@ -68,14 +83,20 @@ function Navbar4() {
             <NavLink to="/contact" className="z_nav_link">CONTACT US</NavLink>
           </Nav>
           <div className="z_right_section d-flex align-items-center gap-4">
-            <Form className="z_search_glass d-none d-md-block">
-              <InputGroup>
-                <Form.Control type="text" placeholder="Search products..." className="z_glass_input" />
-                <Button className="z_glass_btn">
-                  <i className="bi bi-search"></i>
-                </Button>
-              </InputGroup>
-            </Form>
+            <Form className="z_search_glass d-none d-md-block" onSubmit={handleSearchSubmit}>
+                <InputGroup>
+                  <Form.Control
+                    type="text"
+                    placeholder="Search products..."
+                    className="z_glass_input"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                  <Button type="submit" className="z_glass_btn">
+                    <i className="bi bi-search"></i>
+                  </Button>
+                </InputGroup>
+              </Form>
             <div className="z_nav_icons d-flex align-items-center gap-4">
               <Link to="/wishlist" className="z_glow_icon position-relative">
                 <i className="bi bi-heart"></i>
@@ -130,10 +151,16 @@ function Navbar4() {
           </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body className="z_nav_offcanvas_body">
-          <Form className="mb-md-4 mb-2">
+          <Form className="mb-md-4 mb-2" onSubmit={(e) => { e.preventDefault(); handleSearchSubmit(e); handleClose(); }}>
             <InputGroup>
-              <Form.Control type="text" placeholder="Search products..." className="z_glass_input" />
-              <Button className="z_glass_btn">
+              <Form.Control
+                type="text"
+                placeholder="Search products..."
+                className="z_glass_input"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <Button type="submit" className="z_glass_btn">
                 <i className="bi bi-search"></i>
               </Button>
             </InputGroup>
