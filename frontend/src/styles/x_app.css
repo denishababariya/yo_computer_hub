@@ -492,7 +492,7 @@
 }
 
 .input-group .form-control:focus {
-  border-color: #fff;
+  /* border-color: #fff; */
   box-shadow: none !important;
 }
 

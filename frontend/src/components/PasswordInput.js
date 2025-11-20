@@ -23,6 +23,9 @@ function PasswordInput({ label, name, placeholder, value, onChange, required = f
           style={{ borderRadius: '8px 0 0 8px', padding: '0.75rem' }}
         />
         <InputGroup.Text
+          role="button"
+          aria-label={showPassword ? 'Hide password' : 'Show password'}
+          title={showPassword ? 'Hide password' : 'Show password'}
           onClick={togglePasswordVisibility}
           style={{
             cursor: 'pointer',
@@ -32,7 +35,7 @@ function PasswordInput({ label, name, placeholder, value, onChange, required = f
             userSelect: 'none'
           }}
         >
-          <i className={`bi ${showPassword ? 'bi-eye-slash-fill' : 'bi-eye-fill'}`} style={{ color: '#666', fontSize: '1.1rem' }}></i>
+          <i className={`bi ${showPassword ? 'bi-eye-fill' : 'bi-eye-slash-fill'}`} style={{ color: '#666', fontSize: '1.1rem' }}></i>
         </InputGroup.Text>
       </InputGroup>
     </Form.Group>

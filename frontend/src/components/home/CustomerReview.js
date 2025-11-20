@@ -87,7 +87,7 @@ function CustomerReview() {
           {/* <h2 className="text-danger fw-bold mb-3" style={{ fontSize: '2rem', letterSpacing: '2px' }}>
             CUSTOMER REVIEW
           </h2> */}
-          <p className="text-muted">See what our customers are saying about us</p>
+          <p className="text-dark">See what our customers are saying about us</p>
         </div>
 
         <Carousel
@@ -113,7 +113,7 @@ function CustomerReview() {
                           />
                           {renderStars(review.rating)}
                         </div>
-                        <p className="mb-md-4 mb-2 text-muted" style={{ fontSize: '1rem', lineHeight: '1.6' }}>
+                        <p className="mb-md-4 mb-2 text-light" style={{ fontSize: '1rem', lineHeight: '1.6' }}>
                           "{review.text}"
                         </p>
                         <div className="d-flex justify-content-between align-items-center pt-3 border-top">
@@ -121,10 +121,10 @@ function CustomerReview() {
                             <div className="fw-bold mb-1" style={{ fontSize: '1.1rem' }}>
                               {review.author}
                             </div>
-                            <div className="small text-muted">{review.date}</div>
+                            <div className="small text-light">{review.date}</div>
                           </div>
                           <div className="text-end">
-                            <div className="small text-muted mb-1">Product</div>
+                            <div className="small text-light mb-1">Product</div>
                             <div className="fw-semibold text-primary">{review.product}</div>
                           </div>
                         </div>
@@ -206,7 +206,8 @@ function CustomerReview() {
           .x_main-review-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border-radius: 12px;
-            background: #fff;
+            background: #212529;
+            color: #f1f1f1;
           }
           
           .x_main-review-card:hover {

@@ -61,10 +61,24 @@ function Navbar4() {
     }
   };
 
+  const handleSearchChange = (value) => {
+    setSearchTerm(value);
+    const q = (value || '').trim();
+    // Apply search in real-time as user types
+    if (q.length === 0) {
+      navigate('/shop');
+    } else {
+      navigate(`/shop?search=${encodeURIComponent(q)}`);
+    }
+  };
+
   const handleSearchSubmit = (e) => {
     if (e && e.preventDefault) e.preventDefault();
     const q = (searchTerm || '').trim();
-    if (q.length === 0) return;
+    if (q.length === 0) {
+      navigate('/shop');
+      return;
+    }
     navigate(`/shop?search=${encodeURIComponent(q)}`);
   };
 
@@ -90,7 +104,7 @@ function Navbar4() {
                     placeholder="Search products..."
                     className="z_glass_input"
                     value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onChange={(e) => handleSearchChange(e.target.value)}
                   />
                   <Button type="submit" className="z_glass_btn">
                     <i className="bi bi-search"></i>
@@ -158,7 +172,7 @@ function Navbar4() {
                 placeholder="Search products..."
                 className="z_glass_input"
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) => handleSearchChange(e.target.value)}
               />
               <Button type="submit" className="z_glass_btn">
                 <i className="bi bi-search"></i>

@@ -353,6 +353,18 @@
   }
 }
 
+@media (min-width: 1025px) and (max-width: 1199px) {
+  .z_nav_items {
+    gap: 20px !important;
+  }
+}
+
+@media (max-width: 1200px) {
+  .z_catTab_wrapper {
+    display: flex !important;
+  }
+}
+
 /* Navbar End */
 
 /* Custom Responsive Image + Video Slider Style */

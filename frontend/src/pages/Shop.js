@@ -299,58 +299,7 @@ function Shop() {
             <hr />
 
             {/* Price Range Filter */}
-            <div className="mb-md-4 mb-2">
-              <h6 className="fw-bold mb-3" style={{ color: '#e1dcdc', fontSize: '0.9rem' }}>Price Range</h6>
-
-              <div className="mb-3">
-                <div className="d-flex justify-content-between mb-2">
-                  <label style={{ fontSize: '0.85rem', color: '#e1dcdc' }}>Min</label>
-                </div>
-                <Form.Range
-                  min={0}
-                  max={priceCeiling}
-                  value={filters.priceMin}
-                  onChange={(e) => handleFilterChange({ priceMin: parseInt(e.target.value) })}
-                  className="price-range-slider"
-                />
-              </div>
-
-              <div className="mb-3">
-                <div className="d-flex justify-content-between mb-2">
-                  <label style={{ fontSize: '0.85rem', color: '#e1dcdc' }}>Max</label>
-                </div>
-                <Form.Range
-                  min={filters.priceMin}
-                  max={priceCeiling}
-                  value={filters.priceMax}
-                  onChange={(e) => handleFilterChange({ priceMax: parseInt(e.target.value) })}
-                  className="price-range-slider"
-                />
-              </div>
-
-              {/* Price Input Boxes */}
-              <div className="price-input-wrapper">
-                <label>From</label>
-                <input
-                  type="number"
-                  value={filters.priceMin}
-                  onChange={(e) => handleFilterChange({ priceMin: Math.min(Math.max(parseInt(e.target.value) || 0, 0), priceCeiling) })}
-                  placeholder="$100"
-                  style={{ borderRadius: '4px', padding: '0.5rem 0.75rem' }}
-                />
-                <label>To</label>
-                <input
-                  type="number"
-                  value={filters.priceMax}
-                  onChange={(e) => handleFilterChange({ priceMax: Math.min(Math.max(parseInt(e.target.value) || priceCeiling, 0), priceCeiling) })}
-                  placeholder="$500"
-                  style={{ borderRadius: '4px', padding: '0.5rem 0.75rem' }}
-                />
-              </div>
-
-            </div>
-
-            <hr />
+           
 
             {/* Sort Options */}
             <div className="mb-3">

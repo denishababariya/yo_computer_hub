@@ -26,11 +26,16 @@ function AppFooter() {
           <Row className="align-items-center">
             <Col md={6} className="mb-3 mb-md-0">
               <div className="d-flex align-items-center">
-                <i className="bi bi-telephone me-3" style={{ fontSize: '1.5rem' }}></i>
+                {/* <i className="bi bi-telephone me-3" style={{ fontSize: '1.5rem' }}></i> */}
+                <a href="tel:+14165550199"  style={{ fontSize: '1.1rem', textDecoration: 'none' }}>
+                  <i className="bi bi-telephone me-3" style={{ fontSize: '1.5rem' }}></i>
+                  
+                </a>
+
                 <div>
                   <div className="fw-semibold mb-1">Order And Service</div>
                   <div className="text-danger fw-bold" style={{ fontSize: '1.1rem' }}>
-                    (084) 123 - 456 88
+                    (416) 555 - 0199
                   </div>
                 </div>
               </div>
@@ -50,9 +55,9 @@ function AppFooter() {
                     className="bg-white text-dark border-0"
                     style={{ flex: 1, borderRadius: '4px' }}
                   />
-                  <Button 
-                    type="submit" 
-                    variant="dark" 
+                  <Button
+                    type="submit"
+                    variant="dark"
                     className="px-4 border border-white d-flex align-items-center"
                     style={{ borderRadius: '4px' }}
                   >
@@ -67,8 +72,8 @@ function AppFooter() {
 
       {/* Main Footer Section */}
       <Container fluid="xxl" className="py-md-5 py-4">
-          <Row className="gy-4">
-          <Col lg={3} md={4} sm={6} xs={12}>
+        <Row className="gy-4">
+          <Col lg={3} md={4} sm={6} xs={6}>
             <h6 className="fw-bold mb-3">Customer Support</h6>
             <ul className="list-unstyled m-0">
               <li className="mb-2"><Link to="/helpcenter" className="text-secondary text-decoration-none">Help Center</Link></li>
@@ -78,7 +83,7 @@ function AppFooter() {
               <li className="mb-2"><Link to="/term" className="text-secondary text-decoration-none">Terms of Service</Link></li>
             </ul>
           </Col>
-          <Col lg={3} md={4} sm={6} xs={12}>
+          <Col lg={3} md={4} sm={6} xs={6}>
             <h6 className="fw-bold mb-3">Company</h6>
             <ul className="list-unstyled m-0">
               <li className="mb-2"><Link to="/about" className="text-secondary text-decoration-none">About Us</Link></li>
@@ -87,16 +92,16 @@ function AppFooter() {
               <li className="mb-2"><Link to="/faq" className="text-secondary text-decoration-none">FAQ</Link></li>
             </ul>
           </Col>
-          <Col lg={3} md={4} sm={6} xs={12}>
+          <Col lg={3} md={4} sm={6} xs={6}>
             <h6 className="fw-bold mb-3">Shopping</h6>
             <ul className="list-unstyled m-0">
               <li className="mb-2"><Link to="/shop" className="text-secondary text-decoration-none">Shop</Link></li>
               <li className="mb-2"><Link to="/cart" className="text-secondary text-decoration-none">Cart</Link></li>
               <li className="mb-2"><Link to="/checkout" className="text-secondary text-decoration-none">Checkout</Link></li>
               <li className="mb-2"><Link to="/360" className="text-secondary text-decoration-none">Product 360 Viewer</Link></li>
-              </ul>
+            </ul>
           </Col>
-          <Col lg={3} md={12}>
+          <Col lg={3} md={4} sm={6} xs={12}>
             <di v className="mb-md-4 mb-2">
               <div className="mb-2" style={{ fontSize: '0.95rem' }}>
                 2972 Westheimer Rd. Santa Ana, Illinois 85486
@@ -109,37 +114,37 @@ function AppFooter() {
               Mon - Fri: 9am - 5pm
             </div>
             <div className="d-flex gap-2">
-              <a 
-                href="https://facebook.com" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-secondary text-white rounded p-2 d-flex align-items-center justify-content-center"
                 style={{ width: '40px', height: '40px', textDecoration: 'none' }}
               >
                 <i className="bi bi-facebook"></i>
               </a>
-              <a 
-                href="https://twitter.com" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-secondary text-white rounded p-2 d-flex align-items-center justify-content-center"
                 style={{ width: '40px', height: '40px', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 'bold' }}
               >
                 X
               </a>
-              <a 
-                href="https://instagram.com" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-secondary text-white rounded p-2 d-flex align-items-center justify-content-center"
                 style={{ width: '40px', height: '40px', textDecoration: 'none' }}
               >
                 <i className="bi bi-instagram"></i>
               </a>
-              <a 
-                href="https://youtube.com" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                href="https://youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-secondary text-white rounded p-2 d-flex align-items-center justify-content-center"
                 style={{ width: '40px', height: '40px', textDecoration: 'none' }}
               >
@@ -148,12 +153,12 @@ function AppFooter() {
             </div>
           </Col>
         </Row>
-        
+
         {/* Bottom Section */}
         <Row className="mt-4 pt-4 border-top border-secondary align-items-center">
           <Col md={6} className="text-center text-md-start mb-3 mb-md-0">
             <div className="text-secondary small">
-              Copyright © {year} Razox. All Rights Reserved.
+              Copyright © {year} Yo Computer Hub. All Rights Reserved.
             </div>
           </Col>
           <Col md={6} className="text-center text-md-end">
@@ -172,13 +177,14 @@ function AppFooter() {
       {/* Scroll to Top Button */}
       <button
         onClick={scrollToTop}
-        className="position-fixed bottom-0 end-0 m-4 bg-dark text-white border-0 rounded-circle d-flex align-items-center justify-content-center"
+        className="position-fixed bottom-0 end-0 m-4 text-white border-0 rounded-circle d-flex align-items-center justify-content-center"
         style={{
           width: '45px',
           height: '45px',
           zIndex: 1000,
           cursor: 'pointer',
-          transition: 'background-color 0.3s ease'
+          transition: 'background-color 0.3s ease',
+          backgroundColor: 'rgb(51, 51, 51)',
         }}
         onMouseEnter={(e) => e.target.style.backgroundColor = '#5588c9'}
         onMouseLeave={(e) => e.target.style.backgroundColor = '#333'}
