@@ -34,7 +34,7 @@ function ProductCard({ product }) {
               ★
             </span>
           ))}
-          <span className="text-muted small ms-1">No reviews</span>
+          <span className="small ms-1" style={"color: rgb(139 152 165)"}>No reviews</span>
         </div>
       );
     }
@@ -67,7 +67,7 @@ function ProductCard({ product }) {
             ★
           </span>
         ))}
-        <span className="text-muted small ms-1">
+        <span className="small ms-1" style={{ color: "#8b98a5" }}>
           {reviews === 1 ? "1 review" : `${reviews} reviews`}
         </span>
       </div>
@@ -96,8 +96,8 @@ function ProductCard({ product }) {
 
   const discountPercent = onSale
     ? Math.round(
-        ((product.originalPrice - product.price) / product.originalPrice) * 100
-      )
+      ((product.originalPrice - product.price) / product.originalPrice) * 100
+    )
     : 0;
 
   return (
@@ -108,7 +108,7 @@ function ProductCard({ product }) {
       style={{
         borderRadius: "8px",
         overflow: "hidden",
-        backgroundColor: "#121416", // 🖤 DARK CARD
+        backgroundColor: "#2d343aff", // 🖤 DARK CARD
         color: "#e5e5e5", // Light text
         boxShadow: "0 4px 20px rgba(0,0,0,0.45)",
       }}
@@ -215,7 +215,7 @@ function ProductCard({ product }) {
             transform: showActions
               ? "translateX(-50%) translateY(0)"
               : "translateX(-50%) translateY(10px)",
-            transition: "all 0.3s ease",
+            transition: "all 0.45s cubic-bezier(0.22, 1, 0.36, 1)",
             zIndex: 4,
             width: "calc(100% - 2rem)",
             pointerEvents: showActions ? "auto" : "none",

@@ -2,13 +2,13 @@ import React, { useMemo, useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Spinner, Button } from 'react-bootstrap';
 import ProductCard from '../components/ProductCard';
 import FilterOffcanvas from '../components/FilterOffcanvas';
-import { productAPI } from '../services/api';
+import { categoryAPI, productAPI } from '../services/api';
 import Title from '../components/Title';
 
 function Shop() {
   const [products, setProducts] = useState([]);
   const [filters, setFilters] = useState({
-    category: 'All',
+    category: localStorage.getItem('selectedCategory') || 'All',
     priceMin: 0,
     priceMax: 10000,
     sort: 'popular'
@@ -16,15 +16,75 @@ function Shop() {
   const [showFilters, setShowFilters] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  // CATEGORY STATE - stores objects with {id, name}
+  const [categories, setCategories] = useState([]);  
+
+  // FETCH CATEGORIES BASED ON PRODUCTS
+  useEffect(() => {
+    let mounted = true;
+
+    async function fetchCategories() {
+      try {
+        const [catRes, prodRes] = await Promise.all([
+          categoryAPI.getAll(),
+          productAPI.getAll({ limit: 10000 })
+        ]);
+
+        if (!mounted) return;
+
+        const catsList = Array.isArray(catRes) ? catRes : catRes?.data || [];
+        const productsList = Array.isArray(prodRes) ? prodRes : prodRes?.data || [];
+
+        const productCategorySet = new Set(
+          productsList
+            .map(p => {
+              if (!p || !p.categoryId) return null;
+              if (typeof p.categoryId === 'object')
+                return p.categoryId._id || p.categoryId.id || null;
+              return p.categoryId;
+            })
+            .filter(Boolean)
+            .map(id => id.toString())
+        );
+
+        const idToName = new Map(
+          catsList
+            .map(c => {
+              const id = typeof c === 'string' ? c : c._id;
+              const name = typeof c === 'string' ? c : c.name;
+              return [id?.toString(), name];
+            })
+            .filter(([id]) => id)
+        );
+
+        const matchedIds = [...idToName.keys()].filter(id =>
+          productCategorySet.has(id)
+        );
+
+        const categoryObjects = matchedIds.map(id => ({
+          id: id,
+          name: idToName.get(id)
+        }));
+
+        setCategories(categoryObjects);
+      } catch (err) {
+        console.error('Failed to load categories:', err);
+      }
+    }
+
+    fetchCategories();
+    return () => { mounted = false; };
+  }, []);
+
 
   // Fetch products from API
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const response = await productAPI.getAll();
+        const response = await productAPI.getAll({ limit: 10000 });
         console.log('API Response:', response);
-        
+
         if (response.success && response.data && Array.isArray(response.data) && response.data.length > 0) {
           setProducts(response.data);
           const maxPrice = Math.max(...response.data.map(p => p.price || 0));
@@ -50,7 +110,30 @@ function Shop() {
     fetchProducts();
   }, []);
 
-  const categories = ['All', ...Array.from(new Set(products.map(p => p.category).filter(Boolean)))];
+  // Listen for category changes from localStorage without page refresh
+  useEffect(() => {
+    const handleCategoryChange = () => {
+      const selectedCat = localStorage.getItem('selectedCategory') || 'All';
+      setFilters(prev => ({
+        ...prev,
+        category: selectedCat
+      }));
+    };
+
+    // Listen to custom event from CategoryTab
+    window.addEventListener('categoryChanged', handleCategoryChange);
+    
+    // Also listen to storage changes for multi-tab support
+    window.addEventListener('storage', handleCategoryChange);
+
+    return () => {
+      window.removeEventListener('categoryChanged', handleCategoryChange);
+      window.removeEventListener('storage', handleCategoryChange);
+    };
+  }, []);
+
+  // const categories = ['All', ...Array.from(new Set(products.map(p => p.category).filter(Boolean)))];
+
   const priceCeiling = products.length > 0
     ? Math.ceil(Math.max(...products.map(p => p.price || 0)) + 100)
     : 1000;
@@ -69,19 +152,28 @@ function Shop() {
       }
     }
     setFilters({ ...merged, priceMin: min, priceMax: max });
+    
+    // Store selected category in localStorage
+    if (newFilters.category) {
+      localStorage.setItem('selectedCategory', newFilters.category);
+    }
   };
 
   const filtered = useMemo(() => {
     // If no products, return empty
     if (!products || products.length === 0) return [];
-    
+
     let list = [...products];
-    
+
     // Apply category filter only if not 'All'
     if (filters.category && filters.category !== 'All') {
-      list = list.filter(p => p.category === filters.category);
+      list = list.filter(p => {
+        if (!p || !p.categoryId) return false;
+        const productCatId = typeof p.categoryId === 'object' ? p.categoryId._id || p.categoryId.id : p.categoryId;
+        return productCatId === filters.category;
+      });
     }
-    
+
     // Apply price range filter
     if (filters.priceMin !== undefined && filters.priceMax !== undefined) {
       list = list.filter(p => {
@@ -89,28 +181,28 @@ function Shop() {
         return price >= filters.priceMin && price <= filters.priceMax;
       });
     }
-    
+
     // Apply sorting
     if (filters.sort === 'price-asc') {
       list = list.sort((a, b) => (a.price || 0) - (b.price || 0));
     } else if (filters.sort === 'price-desc') {
       list = list.sort((a, b) => (b.price || 0) - (a.price || 0));
     }
-    
+
     return list;
   }, [filters, products]);
 
   return (
-    <Container  className="py-4" style={{ backgroundColor: '#fff' }}>
+    <Container className="py-4" style={{ backgroundColor: '#fff' }}>
       {error && <div className="alert alert-danger">{error}</div>}
-      
+
       {/* Header */}
       <Row className="mb-md-4 mb-2">
         <Col xs={12}>
           <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
             <div>
-               <Title text="Shop" theme="light" align="center" />
-              {/* <h1 className="mb-2" style={{ color: '#333', fontSize: '2rem', fontWeight: 'bold' }}>Shop</h1> */}
+              <Title text="Shop" theme="light" align="center" />
+              {/* <h1 className="mb-2" style={{ color: '#e1dcdc', fontSize: '2rem', fontWeight: 'bold' }}>Shop</h1> */}
               <p className="text-muted mb-0">Showing {filtered.length} products</p>
             </div>
             <Button
@@ -135,14 +227,15 @@ function Shop() {
         {/* Filters Sidebar - Desktop Only */}
         <Col md={3} className="d-none d-md-block">
           <div style={{
-            backgroundColor: '#f8f9fa',
+            backgroundColor: '#212529',
+            color: '#e1dcdc',
             padding: '1.5rem',
             borderRadius: '12px',
             border: '1px solid #e0e0e0',
             position: 'sticky',
             top: '20px'
           }}>
-            <h5 className="fw-bold mb-3" style={{ color: '#333', textTransform: 'uppercase', fontSize: '0.95rem', letterSpacing: '0.5px' }}>
+            <h5 className="fw-bold mb-3" style={{ color: '#e1dcdc', textTransform: 'uppercase', fontSize: '0.95rem', letterSpacing: '0.5px' }}>
               <i className="bi bi-funnel me-2" style={{ color: '#0d6efd' }}></i>
               Filter & Sort
             </h5>
@@ -150,21 +243,33 @@ function Shop() {
 
             {/* Category Filter */}
             <div className="mb-md-4 mb-2">
-              <h6 className="fw-bold mb-2" style={{ color: '#333', fontSize: '0.9rem' }}>Categories</h6>
+              <h6 className="fw-bold mb-2" style={{ color: '#e1dcdc', fontSize: '0.9rem' }}>Categories</h6>
               <div className="d-flex flex-column gap-2">
+                <div className="filter-check">
+                  <input
+                    type="radio"
+                    id="cat-all"
+                    name="category"
+                    value="All"
+                    checked={filters.category === 'All'}
+                    onChange={() => handleFilterChange({ category: 'All' })}
+                  />
+                  <label htmlFor="cat-all">All</label>
+                </div>
                 {categories.map(cat => (
-                  <div key={cat} className="filter-check">
+                  <div key={cat.id} className="filter-check">
                     <input
                       type="radio"
-                      id={`cat-${cat}`}
+                      id={`cat-${cat.id}`}
                       name="category"
-                      value={cat}
-                      checked={filters.category === cat}
-                      onChange={() => handleFilterChange({ ...filters, category: cat })}
+                      value={cat.id}
+                      checked={filters.category === cat.id}
+                      onChange={() => handleFilterChange({ category: cat.id })}
                     />
-                    <label htmlFor={`cat-${cat}`}>{cat}</label>
+                    <label htmlFor={`cat-${cat.id}`}>{cat.name}</label>
                   </div>
                 ))}
+
               </div>
             </div>
 
@@ -172,11 +277,11 @@ function Shop() {
 
             {/* Price Range Filter */}
             <div className="mb-md-4 mb-2">
-              <h6 className="fw-bold mb-3" style={{ color: '#333', fontSize: '0.9rem' }}>Price Range</h6>
-              
+              <h6 className="fw-bold mb-3" style={{ color: '#e1dcdc', fontSize: '0.9rem' }}>Price Range</h6>
+
               <div className="mb-3">
                 <div className="d-flex justify-content-between mb-2">
-                  <label style={{ fontSize: '0.85rem', color: '#666' }}>Min</label>
+                  <label style={{ fontSize: '0.85rem', color: '#e1dcdc' }}>Min</label>
                 </div>
                 <Form.Range
                   min={0}
@@ -189,7 +294,7 @@ function Shop() {
 
               <div className="mb-3">
                 <div className="d-flex justify-content-between mb-2">
-                  <label style={{ fontSize: '0.85rem', color: '#666' }}>Max</label>
+                  <label style={{ fontSize: '0.85rem', color: '#e1dcdc' }}>Max</label>
                 </div>
                 <Form.Range
                   min={filters.priceMin}
@@ -226,7 +331,7 @@ function Shop() {
 
             {/* Sort Options */}
             <div className="mb-3">
-              <h6 className="fw-bold mb-2" style={{ color: '#333', fontSize: '0.9rem' }}>Sort By</h6>
+              <h6 className="fw-bold mb-2" style={{ color: '#e1dcdc', fontSize: '0.9rem' }}>Sort By</h6>
               <div className="d-flex flex-column gap-2">
                 <div className="filter-check">
                   <input

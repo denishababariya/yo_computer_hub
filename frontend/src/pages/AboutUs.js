@@ -1,16 +1,17 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Card } from 'react-bootstrap';
-import "../styles/a_style.css"; // Ensure this path is correct
-import com_vector from "../img/aboutus_vector.png"; // Ensure this path is correct
-import Innovation from "../img/Innovation.png" // Ensure this path is correct
-import safety from "../img/safety.png" // Ensure this path is correct
-import operator from "../img/operator.png" // Ensure this path is correct
-import fast_delivery from "../img/fast-delivery.png" // Ensure this path is correct
+import "../styles/a_style.css";
+import com_vector from "../img/aboutus_vector.png";
+import Innovation from "../img/Innovation.png"
+import safety from "../img/safety.png"
+import operator from "../img/operator.png"
+import fast_delivery from "../img/fast-delivery.png"
 import user from "../img/about_user.png"
 import product from "../img/about_product.png"
 import star from "../img/about_star.png"
 import headphone from "../img/about_headphone.png"
+import { Link } from 'react-router-dom';
 
 const AboutUs = () => {
 	// Data remains the same, but the emoji for 'Quality' is adjusted for the theme
@@ -38,30 +39,10 @@ const AboutUs = () => {
 	];
 
 	const stats = [
-		{
-			number: "100K+",
-			label: "Happy Customers",
-			icon: user,
-			color: "#5588c9"
-		},
-		{
-			number: "5000+",
-			label: "Products",
-			icon: product,
-			color: "#5588c9"
-		},
-		{
-			number: "50+",
-			label: "Top Brands",
-			icon: star,
-			color: "#5588c9"
-		},
-		{
-			number: "24/7",
-			label: "Customer Support",
-			icon: headphone,
-			color: "#5588c9"
-		},
+		{ number: 100, suffix: "K+", label: "Happy Customers", icon: user },
+		{ number: 5000, suffix: "+", label: "Products", icon: product },
+		{ number: 50, suffix: "+", label: "Top Brands", icon: star },
+		{ number: 24, suffix: "/7", label: "Customer Support", icon: headphone },
 	];
 
 	const team = [
@@ -90,6 +71,45 @@ const AboutUs = () => {
 			description: 'Ensures smooth operations and fast delivery of products to customers worldwide.'
 		}
 	];
+
+	// Counter Component
+	const Counter = ({ end, duration = 2000 }) => {
+		const [count, setCount] = React.useState(0);
+		const ref = React.useRef();
+		const started = React.useRef(false);
+
+		React.useEffect(() => {
+			const observer = new IntersectionObserver(
+				([entry]) => {
+					if (entry.isIntersecting && !started.current) {
+						started.current = true;
+
+						let start = 0;
+						const increment = end / (duration / 16.6);
+
+						const updateCounter = () => {
+							start += increment;
+							if (start < end) {
+								setCount(Math.floor(start));
+								requestAnimationFrame(updateCounter);
+							} else {
+								setCount(end); // final value
+							}
+						};
+
+						requestAnimationFrame(updateCounter);
+					}
+				},
+				{ threshold: 0.4 }
+			);
+
+			if (ref.current) observer.observe(ref.current);
+
+			return () => observer.disconnect();
+		}, [end, duration]);
+
+		return <span ref={ref}>{count}</span>;
+	};
 
 	return (
 		<div className="bg-dark-theme text-light-gray">
@@ -179,7 +199,10 @@ const AboutUs = () => {
 
 													{/* Number + Label */}
 													<div className="stat-content">
-														<div className="stat-number-modern">{stat.number}</div>
+														<div className="stat-number-modern">
+															<Counter end={stat.number} />
+															{stat.suffix}
+														</div>
 														<div className="stat-label-modern">{stat.label}</div>
 													</div>
 												</div>
@@ -204,7 +227,7 @@ const AboutUs = () => {
 						{team.map((member, index) => (
 							<Col key={index} lg={3} md={6}>
 								<Card className="team-card-modern border-0">
-									<Card.Body className='p-0'>
+									<Card.Body className='p-0 d-flex flex-column align-items-center'>
 										<img src={member.avatar} alt={member.name} className="team-avatar-modern" />
 										<h3 className="team-name-modern">{member.name}</h3>
 										<p className="team-role-modern">{member.role}</p>
@@ -224,7 +247,8 @@ const AboutUs = () => {
 					<p className="cta-description-modern">
 						Explore our extensive collection of premium computer accessories and gaming gear.
 					</p>
-					<button className="cta-button-modern">Shop Now</button>
+					<button className="cta-button-modern">
+						<Link to="/shop" className='text-white text-decoration-none'>Shop Now</Link></button>
 				</div>
 			</Container>
 

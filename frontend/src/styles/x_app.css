@@ -241,7 +241,7 @@
   display: inline-block;
   width: 18px;
   height: 18px;
-  border: 2px solid #999;
+  border: 2px solid #e1dcdc;
   border-radius: 50%;
   background-color: #fff;
   cursor: pointer;
@@ -250,7 +250,7 @@
 }
 
 .filter-check input[type="radio"]:hover + label::before {
-  border-color: #666;
+  border-color: #e1dcdc;
   box-shadow: none;
 }
 
@@ -269,7 +269,7 @@
   border-radius: 50%;
   position: absolute;
   top: 50%;
-  left: 9px;
+  left: 37px;
   transform: translateY(-50%);
   margin-left: -31px;
 }
@@ -280,7 +280,7 @@
   display: inline-block;
   width: 18px;
   height: 18px;
-  border: 2px solid #999;
+  border: 2px solid #e1dcdc;
   border-radius: 3px;
   background-color: #fff;
   cursor: pointer;
@@ -289,7 +289,7 @@
 }
 
 .filter-check input[type="checkbox"]:hover + label::before {
-  border-color: #666;
+  border-color: #e1dcdc;
 }
 
 .filter-check input[type="checkbox"]:checked + label::before {
@@ -316,7 +316,7 @@
   cursor: pointer;
   margin-bottom: 0;
   font-size: 0.95rem;
-  color: #666;
+  color: #e1dcdc;
   transition: all 0.25s ease;
   position: relative;
   display: flex;
@@ -326,12 +326,12 @@
 }
 
 .filter-check label:hover {
-  color: #333;
+  color: #e1dcdc;
 }
 
 .filter-check input[type="radio"]:checked + label,
 .filter-check input[type="checkbox"]:checked + label {
-  color: #333;
+  color: #e1dcdc;
   font-weight: 500;
 }
 
@@ -439,7 +439,7 @@
 
 .price-input-wrapper label {
   font-size: 0.85rem;
-  color: #666;
+  color: #e1dcdc;
   font-weight: 500;
   min-width: 40px;
 }

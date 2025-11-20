@@ -82,6 +82,16 @@ export const productAPI = {
   delete: (id) => api.delete(`/products/${id}`)
 };
 
+// Category APIs
+export const categoryAPI = {
+  // backend categories endpoints are under /products/categories/... per productRoutes.js
+  getAll: () => api.get('/products/categories/all'),
+  getById: (id) => api.get(`/products/categories/${id}`),
+  create: (data) => api.post('/products/categories', data),
+  update: (id, data) => api.put(`/products/categories/${id}`, data),
+  delete: (id) => api.delete(`/products/categories/${id}`)
+};
+
 // Auth APIs
 export const authAPI = {
   register: (data) => api.post('/auth/register', data),

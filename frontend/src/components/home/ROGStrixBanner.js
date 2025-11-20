@@ -1,4 +1,6 @@
 import React from 'react';
+import { FaAngleRight } from 'react-icons/fa';
+import { LiaAngleRightSolid } from "react-icons/lia";
 
 export default function GamingBanner() {
   const products = [
@@ -127,7 +129,7 @@ export default function GamingBanner() {
                   e.currentTarget.style.transform = 'translateX(0)';
                 }}
               >
-                Shop Now <span style={styles.arrow}>›</span>
+                Shop Now <span style={styles.arrow}><FaAngleRight size={18} style={{ marginBottom: '5px' }}/></span>
               </button>
             </div>
 
@@ -228,7 +230,7 @@ const styles = {
     fontSize: '13px',
     display: 'inline-flex',
     alignItems: 'center',
-    gap: '8px',
+    gap: '4px',
     cursor: 'pointer',
     transition: 'all 0.3s ease',
     textTransform: 'uppercase',
