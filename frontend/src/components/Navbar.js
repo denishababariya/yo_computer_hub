@@ -1,19 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Container, Nav, Form, InputGroup, Button, Offcanvas, Dropdown } from "react-bootstrap";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { authAPI } from "../services/api";
 import { selectWishlistCount, selectCartCount } from "../store";
 import { logout as logoutAuth } from "../utils/auth";
+import { logout as logoutAuth, getToken } from "../utils/auth";
+import { selectCartCount, selectWishlistCount } from "../store";
 
 function Navbar4() {
   const [show, setShow] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
-  
-  // Get wishlist and cart counts from Redux
-  const wishlistCount = useSelector(selectWishlistCount);
   const cartCount = useSelector(selectCartCount);
+  const wishlistCount = useSelector(selectWishlistCount);
+
+  useEffect(() => {
+    // Check if token exists in localStorage
+    const token = getToken();
+    setIsLoggedIn(!!token);
+  }, []);
+  
   
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -30,6 +39,9 @@ function Navbar4() {
       // Clear local auth data
       logoutAuth();
       
+      // Update isLoggedIn state
+      setIsLoggedIn(false);
+      
       // Close dropdown
       setShowProfileDropdown(false);
       
@@ -39,6 +51,7 @@ function Navbar4() {
       console.error('Logout error:', error);
       // Even if API fails, clear local data and redirect
       logoutAuth();
+      setIsLoggedIn(false);
       navigate('/login');
     }
   };
@@ -69,11 +82,11 @@ function Navbar4() {
             <div className="z_nav_icons d-flex align-items-center gap-4">
               <Link to="/wishlist" className="z_glow_icon position-relative">
                 <i className="bi bi-heart"></i>
-                <span className="z_cart_count">{wishlistCount}</span>
+                {wishlistCount > 0 && <span className="z_cart_count">{wishlistCount}</span>}
               </Link>
               <Link to="/cart" className="z_glow_icon position-relative">
                 <i className="bi bi-cart"></i>
-                <span className="z_cart_count">{cartCount}</span>
+                {cartCount > 0 && <span className="z_cart_count">{cartCount}</span>}
               </Link>
               <div className="z_profile_dropdown_wrapper position-relative">
                 <button 
@@ -85,15 +98,23 @@ function Navbar4() {
                 </button>
                 {showProfileDropdown && (
                   <div className="z_profile_dropdown">
-                    <Link to="/account" className="z_dropdown_item" onClick={() => setShowProfileDropdown(false)}>
-                      <i className="bi bi-person-circle"></i> My Profile
-                    </Link>
-                    <button 
-                      className="z_dropdown_item z_logout_item"
-                      onClick={handleLogout}
-                    >
-                      <i className="bi bi-box-arrow-right"></i> Logout
-                    </button>
+                    {isLoggedIn ? (
+                      <>
+                        <Link to="/account" className="z_dropdown_item" onClick={() => setShowProfileDropdown(false)}>
+                          <i className="bi bi-person-circle"></i> My Profile
+                        </Link>
+                        <button 
+                          className="z_dropdown_item z_logout_item"
+                          onClick={handleLogout}
+                        >
+                          <i className="bi bi-box-arrow-right"></i> Logout
+                        </button>
+                      </>
+                    ) : (
+                      <Link to="/login" className="z_dropdown_item" onClick={() => setShowProfileDropdown(false)}>
+                        <i className="bi bi-box-arrow-in-right"></i> Login
+                      </Link>
+                    )}
                   </div>
                 )}
               </div>
@@ -135,5 +156,3 @@ function Navbar4() {
 }
 
 export default Navbar4;
- 
- 
