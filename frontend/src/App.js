@@ -23,6 +23,7 @@ import VerifyOTP from './pages/VerifyOTP';
 import ResetPassword from './pages/ResetPassword';
 import ComputerAccessoriesSlider from './pages/ComputerAccessoriesSlider';
 import "../src/styles/x_app.css";
+import "../src/components/home/HeroSlide.css";
 import CategoryTab from './components/CategoryTab';
 import MyAccount from './pages/MyAccount';
 import AboutUs from './pages/AboutUs';

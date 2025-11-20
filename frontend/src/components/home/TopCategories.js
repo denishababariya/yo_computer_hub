@@ -66,13 +66,7 @@ const TopCategories = () => {
     return (
         <>
             {/* Required CDN for Bootstrap CSS to make React-Bootstrap components look correct */}
-            <link 
-                rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
-                xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" // Fixed integrity attribute
-                crossOrigin="anonymous" 
-            />
-            
+                     
             <section className="py-5 d-flex align-items-center" style={{backgroundColor:'#1d1a1aff'}}>
                 <Container>
                   <div className='d-flex justify-content-center'>
