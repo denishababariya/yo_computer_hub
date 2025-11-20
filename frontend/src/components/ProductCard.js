@@ -102,15 +102,23 @@ function ProductCard({ product }) {
 
   return (
     <Card
-      className="product-card h-100 border-0 shadow-sm x_main-product-card position-relative" 
+      className="product-card h-100 border-0 shadow-sm x_main-product-card position-relative"
       onMouseEnter={() => setShowActions(true)}
       onMouseLeave={() => setShowActions(false)}
-      // style={{ borderRadius: "8px", overflow: "hidden", backgroundColor: '#16191c' }}
-      style={{ borderRadius: "8px", overflow: "hidden" }}
+      style={{
+        borderRadius: "8px",
+        overflow: "hidden",
+        backgroundColor: "#121416", // 🖤 DARK CARD
+        color: "#e5e5e5", // Light text
+        boxShadow: "0 4px 20px rgba(0,0,0,0.45)",
+      }}
     >
       <div
         className="product-thumb position-relative overflow-hidden"
-        style={{ height: "250px", background: "#f8f9fa" }}
+        style={{
+          height: "250px",
+          background: "linear-gradient(180deg, #1c1f22, #111)", // darker
+        }}
       >
         {/* Category Badge - Top Left */}
         <Badge
@@ -118,25 +126,16 @@ function ProductCard({ product }) {
           bg=""
           className="position-absolute top-0 start-0 m-2 px-2 py-1 fw-bold"
           style={{
-            // 1. Semi-transparent Gray Background
-            backgroundColor: "rgba(255, 255, 255, 0.3)",
-
-            // 2. Black Text Color
-            color: "#1b1a1aff",
-
-            // 3. Glass Blur Effect
+            backgroundColor: "rgba(255, 255, 255, 0.1)", // semi-white on dark
+            color: "#fff",
             backdropFilter: "blur(10px)",
-
-            // 4. Subtle Border/Shadow (Optional but recommended)
-            border: "1px solid rgba(255, 255, 255, 0.2)",
-            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-
-            // Keep existing styling for size and position
+            border: "1px solid rgba(255, 255, 255, 0.15)",
+            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.5)",
             fontSize: "0.7rem",
             letterSpacing: "1px",
             borderRadius: "4px",
             zIndex: 3,
-            lineHeight:"14px"
+            lineHeight: "14px",
           }}
         >
           {product.category.toUpperCase()}
@@ -207,7 +206,6 @@ function ProductCard({ product }) {
         </Link>
 
         {/* Discount Badge - Below Image (if on sale) - Only show when not hovering */}
-       
 
         {/* Add to Cart Button - Bottom Center (on hover) */}
         <div
