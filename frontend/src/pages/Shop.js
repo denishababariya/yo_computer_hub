@@ -299,7 +299,53 @@ function Shop() {
             <hr />
 
             {/* Price Range Filter */}
-           
+            <div className="mb-md-4 mb-2">
+              <h6 className="fw-bold mb-2" style={{ color: '#e1dcdc', fontSize: '0.9rem' }}>Price Range</h6>
+              <div className="d-flex gap-2">
+                <div className="flex-grow-1">
+                  <label style={{ fontSize: '0.8rem', color: '#b0b0b0', display: 'block', marginBottom: '0.4rem' }}>Min</label>
+                  <input
+                    type="number"
+                    value={filters.priceMin === 0 ? '' : filters.priceMin}
+                    onChange={(e) => {
+                      const minValue = e.target.value === '' ? 0 : parseInt(e.target.value);
+                      handleFilterChange({ priceMin: minValue });
+                    }}
+                    placeholder="Min Price"
+                    style={{ 
+                      width: '100%',
+                      borderRadius: '4px', 
+                      padding: '0.5rem 0.75rem',
+                      border: '1px solid #444',
+                      backgroundColor: '#2d2d2d',
+                      color: '#e1dcdc'
+                    }}
+                  />
+                </div>
+                <div className="flex-grow-1">
+                  <label style={{ fontSize: '0.8rem', color: '#b0b0b0', display: 'block', marginBottom: '0.4rem' }}>Max</label>
+                  <input
+                    type="number"
+                    value={filters.priceMax === 20000 ? '' : filters.priceMax}
+                    onChange={(e) => {
+                      const maxValue = e.target.value === '' ? 20000 : parseInt(e.target.value);
+                      handleFilterChange({ priceMax: maxValue });
+                    }}
+                    placeholder="Max Price"
+                    style={{ 
+                      width: '100%',
+                      borderRadius: '4px', 
+                      padding: '0.5rem 0.75rem',
+                      border: '1px solid #444',
+                      backgroundColor: '#2d2d2d',
+                      color: '#e1dcdc'
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <hr />
 
             {/* Sort Options */}
             <div className="mb-3">

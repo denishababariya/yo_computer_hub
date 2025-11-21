@@ -20,13 +20,23 @@ function FilterOffcanvas({ show, onHide, categories, onFilterChange, products })
   };
 
   const handlePriceMinChange = (e) => {
-    const newFilters = { ...filters, priceMin: parseInt(e.target.value) };
+    const minValue = e.target.value === '' ? 0 : parseInt(e.target.value);
+    let newFilters = { ...filters, priceMin: minValue };
+    // If min is greater than max, adjust max to equal min
+    if (minValue > filters.priceMax) {
+      newFilters.priceMax = minValue;
+    }
     setFilters(newFilters);
     onFilterChange(newFilters);
   };
 
   const handlePriceMaxChange = (e) => {
-    const newFilters = { ...filters, priceMax: parseInt(e.target.value) };
+    const maxValue = e.target.value === '' ? 20000 : parseInt(e.target.value);
+    let newFilters = { ...filters, priceMax: maxValue };
+    // If max is less than min, adjust min to equal max
+    if (maxValue < filters.priceMin) {
+      newFilters.priceMin = maxValue;
+    }
     setFilters(newFilters);
     onFilterChange(newFilters);
   };
@@ -87,50 +97,37 @@ function FilterOffcanvas({ show, onHide, categories, onFilterChange, products })
             Price Range
           </h6>
           
-          <div className="mb-3">
-            <div className="d-flex justify-content-between mb-2">
-              <label style={{ fontSize: '0.9rem', color: '#666' }}>Min Price</label>
+          <div className="d-flex gap-2">
+            <div className="flex-grow-1">
+              <label style={{ fontSize: '0.85rem', color: '#666', display: 'block', marginBottom: '0.5rem' }}>Min</label>
+              <input
+                type="number"
+                value={filters.priceMin === 0 ? '' : filters.priceMin}
+                onChange={(e) => handlePriceMinChange({ target: { value: e.target.value === '' ? '0' : e.target.value } })}
+                placeholder="Min Price"
+                style={{ 
+                  width: '100%',
+                  borderRadius: '4px', 
+                  padding: '0.5rem 0.75rem',
+                  border: '1px solid #ddd'
+                }}
+              />
             </div>
-            <Form.Range
-              min={0}
-              max={maxPrice}
-              value={filters.priceMin}
-              onChange={handlePriceMinChange}
-              className="price-range-slider"
-            />
-          </div>
-
-          <div className="mb-3">
-            <div className="d-flex justify-content-between mb-2">
-              <label style={{ fontSize: '0.9rem', color: '#666' }}>Max Price</label>
+            <div className="flex-grow-1">
+              <label style={{ fontSize: '0.85rem', color: '#666', display: 'block', marginBottom: '0.5rem' }}>Max</label>
+              <input
+                type="number"
+                value={filters.priceMax === 20000 ? '' : filters.priceMax}
+                onChange={(e) => handlePriceMaxChange({ target: { value: e.target.value === '' ? '20000' : e.target.value } })}
+                placeholder="Max Price"
+                style={{ 
+                  width: '100%',
+                  borderRadius: '4px', 
+                  padding: '0.5rem 0.75rem',
+                  border: '1px solid #ddd'
+                }}
+              />
             </div>
-            <Form.Range
-              min={0}
-              max={maxPrice}
-              value={filters.priceMax}
-              onChange={handlePriceMaxChange}
-              className="price-range-slider"
-            />
-          </div>
-
-          {/* Price Input Boxes */}
-          <div className="price-input-wrapper">
-            <label>From</label>
-            <input
-              type="number"
-              value={filters.priceMin}
-              onChange={(e) => handlePriceMinChange({ target: { value: e.target.value } })}
-              placeholder="$100"
-              style={{ borderRadius: '4px', padding: '0.5rem 0.75rem' }}
-            />
-            <label>To</label>
-            <input
-              type="number"
-              value={filters.priceMax}
-              onChange={(e) => handlePriceMaxChange({ target: { value: e.target.value } })}
-              placeholder="$500"
-              style={{ borderRadius: '4px', padding: '0.5rem 0.75rem' }}
-            />
           </div>
         </div>
 
