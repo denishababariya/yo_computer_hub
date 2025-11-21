@@ -45,7 +45,7 @@ function FeaturedProducts() {
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                   backgroundRepeat: 'no-repeat',
-                  minHeight: '380px',
+                  minHeight: '300px',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',

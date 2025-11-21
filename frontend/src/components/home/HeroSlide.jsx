@@ -1,16 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { FaTwitter } from "react-icons/fa";
 import "./HeroSlide.css";
 
-// Define your slide data here
 const slides = [
   {
     id: 0,
     type: "Video Game",
     imgSrc: require("../../img/remote.png"),
-
-    // 🔥 New Updated Content
     title: "Ultimate Pro Controller —",
     subtitle: "Wireless Gamepad",
     oldPrice: "$89.99",
@@ -21,7 +17,7 @@ const slides = [
   {
     id: 1,
     type: "Cooling Pad",
-    imgSrc: require("../../img/aircc.png"), // Keep same
+    imgSrc: require("../../img/aircc.png"),
     title: "UltraCool X5 —",
     subtitle: "Laptop Cooling Pad",
     oldPrice: "$49.99",
@@ -31,79 +27,88 @@ const slides = [
   },
   {
     id: 2,
-  type: "headphone",
-  imgSrc: require("../../img/head.png"), // keep same
-
-  // 🔥 NEW CONTENT BELOW
-  title: "HyperX Cloud Alpha-",
-  subtitle: "Pro Gaming Headset",
-  oldPrice: "$149.99",
-  currentPrice: "$119.99",
-  description:
-    "Enjoy superior sound separation, long-lasting comfort, and crystal-clear communication — perfect for competitive gaming."
-
+    type: "Headphone",
+    imgSrc: require("../../img/head.png"),
+    title: "HyperX Cloud Alpha —",
+    subtitle: "Pro Gaming Headset",
+    oldPrice: "$149.99",
+    currentPrice: "$119.99",
+    description:
+      "Enjoy superior sound separation, long-lasting comfort, and crystal-clear communication — perfect for competitive gaming.",
   },
   {
-   id: 3,
-  type: "speaker",
-  imgSrc: require("../../img/ssp.png"),
-  title: "SoundBlaster Z —",
-  subtitle: "Premium Gaming Speaker",
-  oldPrice: "$159.99",
-  currentPrice: "$119.99",
-  description:
-    "Experience rich bass, crystal-clear audio, and immersive sound for gaming and entertainment."
+    id: 3,
+    type: "Speaker",
+    imgSrc: require("../../img/ssp.png"),
+    title: "SoundBlaster Z —",
+    subtitle: "Premium Gaming Speaker",
+    oldPrice: "$159.99",
+    currentPrice: "$119.99",
+    description:
+      "Experience rich bass, crystal-clear audio, and immersive sound for gaming and entertainment.",
   },
-  // Add more slides as needed
 ];
 
 const HeroSlider = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [fade, setFade] = useState(false);
 
-  const handleDotClick = (index) => {
-    setActiveIndex(index);
+  // Auto-slide every 4 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      triggerSlideChange((activeIndex + 1) % slides.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [activeIndex]);
+
+  const triggerSlideChange = (index) => {
+    setFade(true); // Start fade-out
+    setTimeout(() => {
+      setActiveIndex(index);
+      setFade(false); // Fade-in
+    }, 300); // Fade duration should match CSS
   };
 
-  const activeSlide = slides[activeIndex];
-
-  // Dynamically change the "MOUSE" overlay text based on the active slide type
-  const overlayText = activeSlide.type.toUpperCase();
+  const overlayText = slides[activeIndex].type.toUpperCase();
 
   return (
     <div className="xyz_hero-slide">
-      {/* Faint text overlay behind the content, now dynamic */}
+      
+      {/* Dynamic faint background text */}
       <div className="xyz_text-overlay">{overlayText}</div>
 
       <Container>
-        <Row className="align-items-center xyz_slide-content">
-          {/* Left Text Content Column */}
+        <Row
+          className={`align-items-center xyz_slide-content ${
+            fade ? "fade-out" : "fade-in"
+          }`}
+        >
           <Col sm={6} className="xyz_text-section">
-            <h1 className="xyz_title">{activeSlide.title}</h1>
-            <h2 className="xyz_subtitle">{activeSlide.subtitle}</h2>
+            <h1 className="xyz_title">{slides[activeIndex].title}</h1>
+            <h2 className="xyz_subtitle">{slides[activeIndex].subtitle}</h2>
 
             <div className="xyz_price-section">
-              <span className="xyz_old-price">{activeSlide.oldPrice}</span>
+              <span className="xyz_old-price">{slides[activeIndex].oldPrice}</span>
               <span className="xyz_current-price">
-                {activeSlide.currentPrice}
+                {slides[activeIndex].currentPrice}
               </span>
             </div>
 
-            {/* Added a description for more content variation */}
-            <p className="xyz_description">{activeSlide.description}</p>
+            <p className="xyz_description">{slides[activeIndex].description}</p>
           </Col>
 
-          {/* Right Image Column */}
           <Col sm={6} className="xyz_image-section">
             <img
-              src={activeSlide.imgSrc}
-              alt={activeSlide.title}
-              className="xyz_product-image" // Changed class name for general product images
+              src={slides[activeIndex].imgSrc}
+              alt={slides[activeIndex].title}
+              className="xyz_product-image"
             />
           </Col>
         </Row>
       </Container>
 
-      {/* Vertical Right Navigation Dots (Styled as per new image) */}
+      {/* Right navigation dots */}
       <div className="xyz_vertical-dots">
         {slides.map((slide, index) => (
           <span
@@ -111,9 +116,8 @@ const HeroSlider = () => {
             className={`xyz_v-dot ${
               index === activeIndex ? "xyz_active-v-dot" : ""
             }`}
-            onClick={() => handleDotClick(index)}
+            onClick={() => triggerSlideChange(index)}
           >
-            {/* Inner dot for the active state, if needed for complex designs */}
             {index === activeIndex && <span className="xyz_v-dot-inner"></span>}
           </span>
         ))}

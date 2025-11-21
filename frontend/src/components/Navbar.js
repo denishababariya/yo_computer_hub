@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import { Container, Nav, Form, InputGroup, Button, Offcanvas, Dropdown } from "react-bootstrap";
+import { Container, Nav, Form, InputGroup, Button, Offcanvas } from "react-bootstrap";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { authAPI } from "../services/api";
 import { selectWishlistCount, selectCartCount } from "../store";
@@ -33,7 +33,7 @@ function Navbar4() {
   const handleShow = () => setShow(true);
   
   const handleProfileClick = () => {
-    setShowProfileDropdown(!showProfileDropdown);
+  setShowProfileDropdown(!showProfileDropdown);
   };
   
   const handleLogout = async () => {
@@ -82,12 +82,37 @@ function Navbar4() {
     navigate(`/shop?search=${encodeURIComponent(q)}`);
   };
 
+  // Close dropdown when clicking outside or when clicking the dropdown area itself
+  const profileBtnRef = useRef(null);
+  const profileDropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleDocClick = (e) => {
+      const target = e.target;
+      if (showProfileDropdown) {
+        if (profileDropdownRef.current && profileDropdownRef.current.contains(target)) {
+          // if clicked inside dropdown area (bar), close it
+          setShowProfileDropdown(false);
+          return;
+        }
+        if (profileBtnRef.current && profileBtnRef.current.contains(target)) {
+          // clicking the button toggles elsewhere; ignore here
+          return;
+        }
+        // clicked outside
+        setShowProfileDropdown(false);
+      }
+    };
+    document.addEventListener('click', handleDocClick);
+    return () => document.removeEventListener('click', handleDocClick);
+  }, [showProfileDropdown]);
+
   return (
     <div className="z_nav_wrapper z_nav_menu py-3">
       <Container>
         <div className="d-flex align-items-center justify-content-between">
           <Link to="/" className="z_nav_logo fw-bold fs-3 text-white">
-            <img src={require("../img/logo3.png")} style={{width:'50px'}}></img>
+            <img src={require("../img/logo3.png")} alt="" style={{width:'50px'}} />
           </Link>
           <Nav className="z_nav_items d-none d-lg-flex">
             <NavLink to="/" className="z_nav_link">HOME</NavLink>
@@ -122,6 +147,7 @@ function Navbar4() {
               </Link>
               <div className="z_profile_dropdown_wrapper position-relative">
                 <button 
+                  ref={profileBtnRef}
                   className="z_glow_icon z_profile_btn"
                   onClick={handleProfileClick}
                   style={{background: 'none', border: 'none', padding: 0, cursor: 'pointer'}}
@@ -129,7 +155,7 @@ function Navbar4() {
                   <i className="bi bi-person"></i>
                 </button>
                 {showProfileDropdown && (
-                  <div className="z_profile_dropdown">
+                  <div ref={profileDropdownRef} className="z_profile_dropdown">
                     {isLoggedIn ? (
                       <>
                         <Link to="/account" className="z_dropdown_item" onClick={() => setShowProfileDropdown(false)}>

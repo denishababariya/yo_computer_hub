@@ -1,40 +1,58 @@
-import React, { useState } from 'react';
-import { Offcanvas, Form, Button } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Offcanvas, Button } from 'react-bootstrap';
 import '../styles/x_app.css';
 
-function FilterOffcanvas({ show, onHide, categories, onFilterChange, products }) {
-  const [filters, setFilters] = useState({
-    category: 'All',
-    priceMin: 0,
-    priceMax: 10000,
-    sort: 'popular'
-  });
+function FilterOffcanvas({ show, onHide, categories, currentFilters, onFilterChange, products }) {
+  const [filters, setFilters] = useState(() => ({
+    category: (currentFilters && currentFilters.category) || 'All',
+    priceMin: (currentFilters && typeof currentFilters.priceMin === 'number') ? currentFilters.priceMin : 0,
+    priceMax: (currentFilters && typeof currentFilters.priceMax === 'number') ? currentFilters.priceMax : 10000,
+    sort: (currentFilters && currentFilters.sort) || 'popular'
+  }));
 
   // Get max price from products
   const maxPrice = Math.max(...products.map(p => p.price || 0), 10000);
+
+  // Keep local filters in sync when parent updates currentFilters or products change
+  useEffect(() => {
+    if (!currentFilters) return;
+    setFilters({
+      category: currentFilters.category || 'All',
+      priceMin: typeof currentFilters.priceMin === 'number' ? currentFilters.priceMin : 0,
+      priceMax: typeof currentFilters.priceMax === 'number' ? currentFilters.priceMax : maxPrice,
+      sort: currentFilters.sort || 'popular'
+    });
+  }, [currentFilters, maxPrice]);
 
   const handleCategoryChange = (category) => {
     const newFilters = { ...filters, category };
     setFilters(newFilters);
     onFilterChange(newFilters);
+  // close offcanvas after selecting category
+  if (typeof onHide === 'function') onHide();
   };
 
   const handlePriceMinChange = (e) => {
-    const newFilters = { ...filters, priceMin: parseInt(e.target.value) };
+    const val = Number(e.target.value || 0);
+    const newFilters = { ...filters, priceMin: val };
     setFilters(newFilters);
-    onFilterChange(newFilters);
+    // send only the changed fields to parent
+    onFilterChange({ priceMin: val });
   };
 
   const handlePriceMaxChange = (e) => {
-    const newFilters = { ...filters, priceMax: parseInt(e.target.value) };
+    const val = Number(e.target.value || 0);
+    const newFilters = { ...filters, priceMax: val };
     setFilters(newFilters);
-    onFilterChange(newFilters);
+    onFilterChange({ priceMax: val });
   };
 
   const handleSortChange = (sort) => {
     const newFilters = { ...filters, sort };
     setFilters(newFilters);
     onFilterChange(newFilters);
+  // close offcanvas after selecting sort
+  if (typeof onHide === 'function') onHide();
   };
 
   const handleReset = () => {
@@ -49,96 +67,64 @@ function FilterOffcanvas({ show, onHide, categories, onFilterChange, products })
   };
 
   return (
-    <Offcanvas show={show} onHide={onHide} placement="start" className="custom-offcanvas">
-      <Offcanvas.Header closeButton style={{ borderBottom: '2px solid #f0f0f0' }}>
-        <Offcanvas.Title className="fw-bold" style={{ fontSize: '1.3rem', color: '#333' }}>
+    <Offcanvas show={show} onHide={onHide} placement="start" className="" style={{ backgroundColor: '#2e2e2e', color: '#e1dcdc' }}>
+      <Offcanvas.Header closeButton style={{ borderBottom: '1px solid rgba(255,255,255,0.06)', backgroundColor: 'transparent' }}>
+        <Offcanvas.Title className="fw-bold" style={{ fontSize: '1.3rem', color: '#e1dcdc' }}>
           <i className="bi bi-funnel me-2" style={{ color: '#5588c9' }}></i>
           Filters
         </Offcanvas.Title>
       </Offcanvas.Header>
-      <Offcanvas.Body style={{ padding: '1.5rem' }}>
+      <Offcanvas.Body style={{ padding: '1.5rem', backgroundColor: 'transparent', color: '#e1dcdc' }}>
         {/* Category Filter */}
         <div className="mb-md-4 mb-2">
-          <h6 className="fw-bold mb-3" style={{ color: '#333', fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+          <h6 className="fw-bold mb-3" style={{ color: '#e1dcdc', fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
             Category
           </h6>
           <div className="d-flex flex-column gap-2">
-            {categories.map((cat) => (
-              <div key={cat} className="filter-check">
-                <input
-                  type="radio"
-                  id={`offcanvas-cat-${cat}`}
-                  name="category"
-                  value={cat}
-                  checked={filters.category === cat}
-                  onChange={() => handleCategoryChange(cat)}
-                />
-                <label htmlFor={`offcanvas-cat-${cat}`}>{cat}</label>
-              </div>
-            ))}
+            <div className="filter-check">
+              <input
+                type="radio"
+                id={`offcanvas-cat-All`}
+                name="category"
+                value={'All'}
+                checked={filters.category === 'All'}
+                onChange={() => handleCategoryChange('All')}
+              />
+              <label htmlFor={`offcanvas-cat-All`}>All</label>
+            </div>
+            {Array.isArray(categories) && categories.length > 0 ? (
+              categories.map((cat) => {
+                // support cat as string or object { id, name }
+                const catId = cat && typeof cat === 'object' ? (cat.id || cat._id || '') : (cat || '');
+                const catName = cat && typeof cat === 'object' ? (cat.name || String(catId)) : String(cat);
+                const key = String(catId) || catName;
+                return (
+                  <div key={key} className="filter-check">
+                    <input
+                      type="radio"
+                      id={`offcanvas-cat-${key}`}
+                      name="category"
+                      value={catId || catName}
+                      checked={filters.category === (catId || catName)}
+                      onChange={() => handleCategoryChange(catId || catName)}
+                    />
+                    <label htmlFor={`offcanvas-cat-${key}`}>{catName}</label>
+                  </div>
+                );
+              })
+            ) : (
+              <div className="text-muted">No categories</div>
+            )}
           </div>
         </div>
-
-        <hr className="my-4" />
+  <hr className="my-4" style={{ borderColor: 'rgba(255,255,255,0.06)' }} />
 
         {/* Price Range Filter */}
-        <div className="mb-md-4 mb-2">
-          <h6 className="fw-bold mb-3" style={{ color: '#333', fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-            Price Range
-          </h6>
-          
-          <div className="mb-3">
-            <div className="d-flex justify-content-between mb-2">
-              <label style={{ fontSize: '0.9rem', color: '#666' }}>Min Price</label>
-            </div>
-            <Form.Range
-              min={0}
-              max={maxPrice}
-              value={filters.priceMin}
-              onChange={handlePriceMinChange}
-              className="price-range-slider"
-            />
-          </div>
-
-          <div className="mb-3">
-            <div className="d-flex justify-content-between mb-2">
-              <label style={{ fontSize: '0.9rem', color: '#666' }}>Max Price</label>
-            </div>
-            <Form.Range
-              min={0}
-              max={maxPrice}
-              value={filters.priceMax}
-              onChange={handlePriceMaxChange}
-              className="price-range-slider"
-            />
-          </div>
-
-          {/* Price Input Boxes */}
-          <div className="price-input-wrapper">
-            <label>From</label>
-            <input
-              type="number"
-              value={filters.priceMin}
-              onChange={(e) => handlePriceMinChange({ target: { value: e.target.value } })}
-              placeholder="$100"
-              style={{ borderRadius: '4px', padding: '0.5rem 0.75rem' }}
-            />
-            <label>To</label>
-            <input
-              type="number"
-              value={filters.priceMax}
-              onChange={(e) => handlePriceMaxChange({ target: { value: e.target.value } })}
-              placeholder="$500"
-              style={{ borderRadius: '4px', padding: '0.5rem 0.75rem' }}
-            />
-          </div>
-        </div>
-
-        <hr className="my-4" />
+    
 
         {/* Sort Options */}
         <div className="mb-md-4 mb-2">
-          <h6 className="fw-bold mb-3" style={{ color: '#333', fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+          <h6 className="fw-bold mb-3" style={{ color: '#e1dcdc', fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
             Sort By
           </h6>
           <div className="d-flex flex-column gap-2">
@@ -178,7 +164,7 @@ function FilterOffcanvas({ show, onHide, categories, onFilterChange, products })
           </div>
         </div>
 
-        <hr className="my-4" />
+  <hr className="my-4" style={{ borderColor: 'rgba(255,255,255,0.06)' }} />
 
         {/* Action Buttons */}
         <div className="d-flex gap-2">
@@ -186,7 +172,7 @@ function FilterOffcanvas({ show, onHide, categories, onFilterChange, products })
             variant="outline-secondary"
             className="flex-grow-1 fw-semibold"
             onClick={handleReset}
-            style={{ borderRadius: '8px', border: '2px solid #ccc' }}
+            style={{ borderRadius: '8px', border: '2px solid rgba(255,255,255,0.12)', color: '#e1dcdc', background: 'transparent' }}
           >
             <i className="bi bi-arrow-clockwise me-2"></i>
             Reset

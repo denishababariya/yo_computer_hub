@@ -121,7 +121,7 @@ function ProductCard({ product }) {
         }}
       >
         {/* Category Badge - Top Left */}
-        <Badge
+        {/* <Badge
           // Remove Bootstrap's default background classes
           bg=""
           className="position-absolute top-0 start-0 m-2 px-2 py-1 fw-bold"
@@ -138,8 +138,8 @@ function ProductCard({ product }) {
             lineHeight: "14px",
           }}
         >
-          {product.category}
-        </Badge>
+          {product.categoryID}
+        </Badge> */}
 
         {/* Interactive Icons - Top Right */}
         <div

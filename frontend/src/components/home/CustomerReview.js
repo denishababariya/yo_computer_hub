@@ -3,7 +3,7 @@ import { Container, Card, Carousel } from 'react-bootstrap';
 import Title from '../Title';
 
 function CustomerReview() {
-    const reviews = [
+  const reviews = [
     {
       id: 1,
       image: "https://randomuser.me/api/portraits/men/32.jpg",
@@ -73,7 +73,8 @@ function CustomerReview() {
   };
 
   // Group reviews into slides (2 reviews per slide on desktop, 1 on mobile)
-  const reviewsPerSlide = 2;
+  const isMobile = window.innerWidth < 768;
+  const reviewsPerSlide = isMobile ? 1 : 2;
   const slides = [];
   for (let i = 0; i < reviews.length; i += reviewsPerSlide) {
     slides.push(reviews.slice(i, i + reviewsPerSlide));
@@ -83,7 +84,7 @@ function CustomerReview() {
     <section className="x_main-customer-review py-md-5 py-4 bg-light">
       <Container>
         <div className="text-center mb-5">
-           <Title text="CUSTOMER REVIEW" theme="light" align="center" />
+          <Title text="CUSTOMER REVIEW" theme="light" align="center" />
           {/* <h2 className="text-danger fw-bold mb-3" style={{ fontSize: '2rem', letterSpacing: '2px' }}>
             CUSTOMER REVIEW
           </h2> */}
@@ -104,7 +105,7 @@ function CustomerReview() {
                   <div key={review.id} className="col-12 col-md-6">
                     <Card className="h-100 border-0 shadow-sm x_main-review-card">
                       <Card.Body className="p-2 p-md-5">
-                        <div className="d-flex align-items-center mb-3">
+                        <div className="d-flex align-items-center mb-3">vs
                           <img
                             src={review.image}
                             alt={review.author}

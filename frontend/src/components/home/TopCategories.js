@@ -71,7 +71,7 @@ const TopCategories = () => {
       {/* Required CDN for Bootstrap CSS to make React-Bootstrap components look correct */}
 
       <section
-        className="py-5 d-flex align-items-center"
+        className="py-5 d-flex align-items-center top_category"
         style={{ backgroundColor: "#1d1a1aff" }}
       >
         <Container>
@@ -217,7 +217,7 @@ const TopCategories = () => {
                                 }
                             }
                                 @media (max-width:768px){
-                                            .card {
+                                           .top_category .card {
         max-height: 250px !important;
     }
         .category-card-slide-item {
@@ -227,7 +227,7 @@ const TopCategories = () => {
 
                                 }
   @media (max-width:480px){
-                                            .card {
+                                            .top_category .card {
         min-height: 200px !important;
         max-height: 200px !important;
         padding:0px !important;
