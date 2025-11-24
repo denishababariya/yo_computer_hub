@@ -1,40 +1,42 @@
-import React from 'react';
-import { FaAngleRight } from 'react-icons/fa';
+import React from "react";
+import { FaAngleRight } from "react-icons/fa";
 import { LiaAngleRightSolid } from "react-icons/lia";
+import { useNavigate } from "react-router-dom";
 
 export default function GamingBanner() {
   const products = [
     {
       id: 1,
-      title: 'ERGONOMIC PRECISION',
-      subtitle: ['X6 GAMING', 'MOUSE'],
-      price: '$49.99',
-      accentColor: '#ff0000', // Red accent
+      title: "ERGONOMIC PRECISION",
+      subtitle: ["X6 GAMING", "MOUSE"],
+      price: "$49.99",
+      accentColor: "#ff0000", // Red accent
       bgImage:
-        'https://ap-razox.myshopify.com/cdn/shop/files/Mask_group_56_1.jpg?v=1716522402&width=330' // Placeholder image URL
+        "https://ap-razox.myshopify.com/cdn/shop/files/Mask_group_56_1.jpg?v=1716522402&width=330", // Placeholder image URL
     },
     {
       id: 2,
-      title: 'FUTURE PERFECT',
-      subtitle: ['NXSYS AERO', 'GAMING CHAIR'],
+      title: "FUTURE PERFECT",
+      subtitle: ["NXSYS AERO", "GAMING CHAIR"],
       price: null, // No price shown in the image for the chair
-      accentColor: '#c4a747', // Gold/Yellow accent
+      accentColor: "#c4a747", // Gold/Yellow accent
       bgImage:
-        'https://ap-razox.myshopify.com/cdn/shop/files/Mask_group_55_1.jpg?v=1716522402&width=690' // Placeholder image URL
+        "https://ap-razox.myshopify.com/cdn/shop/files/Mask_group_55_1.jpg?v=1716522402&width=690", // Placeholder image URL
     },
     {
       id: 3,
-      title: 'VOLCANIC SOUND',
-      subtitle: ['E910 5.8G', 'WIRELESS', 'HEADSET'],
-      price: '$69.99',
-      accentColor: '#ff0000', // Red accent
+      title: "VOLCANIC SOUND",
+      subtitle: ["E910 5.8G", "WIRELESS", "HEADSET"],
+      price: "$69.99",
+      accentColor: "#ff0000", // Red accent
       bgImage:
-        'https://ap-razox.myshopify.com/cdn/shop/files/Mask_group_54_1.jpg?v=1716522402&width=330' // Placeholder image URL
-    }
+        "https://ap-razox.myshopify.com/cdn/shop/files/Mask_group_54_1.jpg?v=1716522402&width=330", // Placeholder image URL
+    },
   ];
+  const navigate = useNavigate();
 
   return (
-    <div className='ROG' style={styles.container}>
+    <div className="ROG" style={styles.container}>
       <style>{mediaStyles}</style>
 
       <div className="grid" style={styles.grid}>
@@ -48,9 +50,9 @@ export default function GamingBanner() {
                 linear-gradient(135deg, rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
                 url(${product.bgImage})
               `,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat'
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
             }}
           >
             {/* Hexagon Overlay */}
@@ -89,7 +91,7 @@ export default function GamingBanner() {
                   style={{
                     ...styles.topTitle,
                     // The top title is white in the image, except for the accent color used in the glow/pattern
-                    color: '#fff' 
+                    color: "#fff",
                   }}
                 >
                   {product.title}
@@ -99,7 +101,7 @@ export default function GamingBanner() {
                   className="subtitle"
                   style={{
                     ...styles.subtitle,
-                    fontSize: '32px' // Consistent font size for all cards
+                    fontSize: "32px", // Consistent font size for all cards
                   }}
                 >
                   {product.subtitle.map((line, i) => (
@@ -108,7 +110,10 @@ export default function GamingBanner() {
                 </h2>
 
                 {product.price && (
-                  <div className="price" style={{...styles.price, color: product.accentColor}}>
+                  <div
+                    className="price"
+                    style={{ ...styles.price, color: product.accentColor }}
+                  >
                     {product.price}
                   </div>
                 )}
@@ -118,18 +123,22 @@ export default function GamingBanner() {
               <button
                 className="button"
                 style={styles.button}
+                onClick={() => navigate("/shop")} // 👈 redirect here
                 onMouseEnter={(e) => {
                   e.currentTarget.style.background = product.accentColor;
-                  e.currentTarget.style.color = '#fff';
-                  e.currentTarget.style.transform = 'translateX(5px)';
+                  e.currentTarget.style.color = "#fff";
+                  e.currentTarget.style.transform = "translateX(5px)";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#fff';
-                  e.currentTarget.style.color = '#000';
-                  e.currentTarget.style.transform = 'translateX(0)';
+                  e.currentTarget.style.background = "#fff";
+                  e.currentTarget.style.color = "#000";
+                  e.currentTarget.style.transform = "translateX(0)";
                 }}
               >
-                Shop Now <span style={styles.arrow}><FaAngleRight size={18} style={{ marginBottom: '5px' }}/></span>
+                Shop Now{" "}
+                <span style={styles.arrow}>
+                  <FaAngleRight size={18} style={{ marginBottom: "5px" }} />
+                </span>
               </button>
             </div>
 
@@ -138,7 +147,7 @@ export default function GamingBanner() {
               <div
                 style={{
                   ...styles.productGlow,
-                  background: `radial-gradient(circle, ${product.accentColor}30 0%, transparent 70%)`
+                  background: `radial-gradient(circle, ${product.accentColor}30 0%, transparent 70%)`,
                 }}
               />
               {/* Product image would be here, but is controlled by the background image style */}
@@ -154,112 +163,112 @@ export default function GamingBanner() {
 
 const styles = {
   container: {
-    backgroundColor: '#faf3f3ff',
-    padding: '20px',
-    minHeight: '600px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
+    backgroundColor: "#faf3f3ff",
+    padding: "20px",
+    minHeight: "600px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   grid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)', // Set to 3 columns for desktop view
-    gap: '20px',
-    maxWidth: '1400px',
-    width: '100%'
+    display: "grid",
+    gridTemplateColumns: "repeat(3, 1fr)", // Set to 3 columns for desktop view
+    gap: "20px",
+    maxWidth: "1400px",
+    width: "100%",
   },
   card: {
-    borderRadius: '15px',
-    overflow: 'hidden',
-    position: 'relative',
-    minHeight: '450px',
-    display: 'flex',
-    flexDirection: 'column',
-    padding: '35px',
-    transition: '0.3s ease',
-    cursor: 'pointer'
+    borderRadius: "15px",
+    overflow: "hidden",
+    position: "relative",
+    minHeight: "450px",
+    display: "flex",
+    flexDirection: "column",
+    padding: "35px",
+    transition: "0.3s ease",
+    cursor: "pointer",
   },
   patternOverlay: {
-    position: 'absolute',
+    position: "absolute",
     inset: 0,
-    opacity: 0.25
+    opacity: 0.25,
   },
   pattern: {
-    width: '100%',
-    height: '100%'
+    width: "100%",
+    height: "100%",
   },
   content: {
-    position: 'relative',
+    position: "relative",
     zIndex: 2,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between', // To push the button to the bottom
-    height: '100%'
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between", // To push the button to the bottom
+    height: "100%",
   },
   textContainer: {
     // Allows text to take up space and leaves the button positioned by 'space-between'
   },
   topTitle: {
-    fontSize: '11px',
+    fontSize: "11px",
     fontWeight: 700,
-    letterSpacing: '2.5px',
-    marginBottom: '12px',
-    textTransform: 'uppercase'
+    letterSpacing: "2.5px",
+    marginBottom: "12px",
+    textTransform: "uppercase",
   },
   subtitle: {
-    color: '#fff',
+    color: "#fff",
     fontWeight: 900,
-    lineHeight: '1.1',
-    marginBottom: '15px',
-    textTransform: 'uppercase',
-    letterSpacing: '1px'
+    lineHeight: "1.1",
+    marginBottom: "15px",
+    textTransform: "uppercase",
+    letterSpacing: "1px",
   },
   price: {
-    color: '#ff0000', // Overridden in the component based on product.accentColor, but kept here for default/fallback
-    fontSize: '32px',
-    fontWeight: '700',
-    marginTop: '10px'
+    color: "#ff0000", // Overridden in the component based on product.accentColor, but kept here for default/fallback
+    fontSize: "32px",
+    fontWeight: "700",
+    marginTop: "10px",
   },
   button: {
-    backgroundColor: '#fff',
-    color: '#000',
-    border: 'none',
-    borderRadius: '6px',
-    padding: '7px 19px',
-    fontWeight: '700',
-    fontSize: '13px',
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '4px',
-    cursor: 'pointer',
-    transition: 'all 0.3s ease',
-    textTransform: 'uppercase',
-    letterSpacing: '1.5px',
-    alignSelf: 'flex-start' // Aligns button to the left (start of the cross axis)
+    backgroundColor: "#fff",
+    color: "#000",
+    border: "none",
+    borderRadius: "6px",
+    padding: "7px 19px",
+    fontWeight: "700",
+    fontSize: "13px",
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "4px",
+    cursor: "pointer",
+    transition: "all 0.3s ease",
+    textTransform: "uppercase",
+    letterSpacing: "1.5px",
+    alignSelf: "flex-start", // Aligns button to the left (start of the cross axis)
   },
   arrow: {
-    fontSize: '20px',
-    fontWeight: '900'
+    fontSize: "20px",
+    fontWeight: "900",
   },
   productImageContainer: {
     // Positioning to suggest the image is in the bottom-right corner as in the visual
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
     right: 0,
-    width: '100%', // Take up full width for proper background image scaling
-    height: '100%', // Take up full height
+    width: "100%", // Take up full width for proper background image scaling
+    height: "100%", // Take up full height
     zIndex: 1, // Place below content
-    pointerEvents: 'none' // Ignore mouse events
+    pointerEvents: "none", // Ignore mouse events
   },
   productGlow: {
     // Simulating the glow effect
-    position: 'absolute',
-    bottom: '0px',
-    right: '0px',
-    width: '100%', 
-    height: '100%',
-    opacity: 0.4
-  }
+    position: "absolute",
+    bottom: "0px",
+    right: "0px",
+    width: "100%",
+    height: "100%",
+    opacity: 0.4,
+  },
 };
 
 /* ---------- MEDIA QUERIES ---------- */

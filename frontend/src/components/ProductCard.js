@@ -34,7 +34,7 @@ function ProductCard({ product }) {
               ★
             </span>
           ))}
-          <span className="small ms-1" style={"color: rgb(139 152 165)"}>No reviews</span>
+          <span className="small ms-1" style={{ color: "rgb(139 152 165)" }}>No reviews</span>
         </div>
       );
     }
