@@ -1,0 +1,122 @@
+================================================================================
+CATEGORY DROPDOWN - COMPLETE SETUP COMMANDS
+================================================================================
+
+STEP 1: CLEAN DATABASE (Remove old indexes)
+================================================================================
+cd backend
+node cleanDatabase.js
+
+Expected Output:
+✓ Connected to MongoDB
+✓ Dropped categories collection
+✓ Dropped products collection
+✓ Dropped users collection
+✓ Dropped orders collection
+✓ Dropped contacts collection
+
+✅ Database cleaned successfully!
+Now run: node seedDatabase.js
+
+================================================================================
+
+STEP 2: SEED DATABASE (Create fresh data)
+================================================================================
+node seedDatabase.js
+
+Expected Output:
+✓ Connected to MongoDB
+✓ Created 9 categories
+✓ Created 10 products
+✓ Created 3 users
+✓ Created 3 orders
+✓ Created 3 contacts
+
+✅ Database seeded successfully!
+
+================================================================================
+
+STEP 3: START BACKEND SERVER
+================================================================================
+npm start
+
+Expected Output:
+Server running on port 9000
+MongoDB connected successfully
+
+================================================================================
+
+STEP 4: START FRONTEND SERVER (in new terminal)
+================================================================================
+cd frontend
+npm start
+
+Expected Output:
+Compiled successfully!
+You can now view the app in the browser.
+
+Local:            http://localhost:3000
+
+================================================================================
+
+STEP 5: OPEN ADMIN PANEL IN BROWSER
+================================================================================
+http://localhost:3000/admin
+
+================================================================================
+
+WHAT TO TEST
+================================================================================
+1. Go to Products tab
+2. Click "+ Add Product" button
+3. Fill in product details
+4. Select a category from dropdown (should show 9 categories)
+5. Click "✓ Create Product"
+6. Product should appear in table with category name displayed
+
+================================================================================
+
+QUICK REFERENCE - ALL COMMANDS
+================================================================================
+
+Terminal 1 (Database Setup):
+cd backend
+node cleanDatabase.js
+node seedDatabase.js
+
+Terminal 2 (Backend):
+cd backend
+npm start
+
+Terminal 3 (Frontend):
+cd frontend
+npm start
+
+Browser:
+http://localhost:3000/admin
+
+================================================================================
+
+IF YOU GET E11000 ERROR
+================================================================================
+1. Stop backend (Ctrl+C)
+2. Run: node cleanDatabase.js
+3. Run: node seedDatabase.js
+4. Run: npm start
+5. Refresh browser
+
+================================================================================
+
+CATEGORIES AVAILABLE
+================================================================================
+1. Processors ⚙️
+2. Motherboards 🖥️
+3. RAM 💾
+4. Storage 💿
+5. Graphics Cards 🎮
+6. Power Supply ⚡
+7. Cooling ❄️
+8. Cases 📦
+9. Peripherals 🖱️
+
+================================================================================

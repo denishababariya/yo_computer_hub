@@ -102,7 +102,7 @@ function MyAccount() {
     try {
       setLoading(true);
       const response = await userAPI.getCompleteAccountData(userId);
-      
+
       if (response.success && response.data) {
         setProfile(response.data.profile);
         setEditProfile(response.data.profile);
@@ -127,7 +127,7 @@ function MyAccount() {
         setProfile(response.data);
         setShowEdit(false);
         alert('Profile updated successfully');
-      }
+      } 
     } catch (error) {
       console.error('Error updating profile:', error);
       alert('Failed to update profile');
@@ -150,13 +150,13 @@ function MyAccount() {
         const reader = new FileReader();
         reader.onload = async (event) => {
           const imageData = event.target.result;
-          
+
           // Update edit profile state
           setEditProfile({ ...editProfile, avatar: imageData });
-          
+
           // Update main profile state
           setProfile({ ...profile, avatar: imageData });
-          
+
           // Save to backend immediately
           try {
             const updatedProfileData = {
@@ -272,8 +272,8 @@ function MyAccount() {
                           <div className="z_profile_avatar_section">
                             <div className="z_profile_avatar_wrap">
                               <img src={profile.avatar} alt="Profile" className="z_profile_avatar" />
-                              <button 
-                                className="z_profile_camera_icon" 
+                              <button
+                                className="z_profile_camera_icon"
                                 onClick={handleCameraClick}
                                 title="Change Profile Picture"
                                 type="button"
@@ -291,9 +291,9 @@ function MyAccount() {
                           <div className="z_profile_details_section">
                             <div className="z_profile_header">
                               <h5 className="z_profile_section_title">Personal Information</h5>
-                              <button 
-                                className="btn btn-sm btn-primary z_profile_edit_btn_new" 
-                                title="Edit Profile" 
+                              <button
+                                className="btn btn-sm btn-primary z_profile_edit_btn_new"
+                                title="Edit Profile"
                                 onClick={() => setShowEdit(true)}
                               >
                                 <FiEdit2 size={16} /> Edit Profile
@@ -356,7 +356,7 @@ function MyAccount() {
                                   {order.status}
                                 </div>
                               </div>
-                              
+
                               <div className="z_order_products">
                                 {order.items.map((item, idx) => (
                                   <div className="z_product_item" key={idx}>
@@ -400,7 +400,7 @@ function MyAccount() {
                                   <h5 className="z_address_name">{addr.name}</h5>
                                   <span className="z_address_badge">{addr.name}</span>
                                 </div>
-                                
+
                                 <div className="z_address_body">
                                   <div className="z_address_field">
                                     <label className="z_address_label">Address</label>
@@ -414,13 +414,13 @@ function MyAccount() {
                                 </div>
 
                                 <div className="z_address_actions">
-                                  <button 
+                                  <button
                                     className="btn btn-sm btn-outline-primary z_address_edit_btn"
                                     onClick={() => handleEditAddress(idx)}
                                   >
                                     <i className="bi bi-pencil"></i> Edit
                                   </button>
-                                  <button 
+                                  <button
                                     className="btn btn-sm btn-outline-danger z_address_delete_btn"
                                     onClick={() => handleDeleteAddress(idx)}
                                   >
@@ -433,7 +433,7 @@ function MyAccount() {
                         </div>
                       )}
                       <div className="z_address_add_btn_wrapper mt-4">
-                        <button 
+                        <button
                           className="btn btn-primary z_address_add_btn"
                           onClick={handleAddNewAddress}
                         >
@@ -457,16 +457,16 @@ function MyAccount() {
           <div className="z_logout_modal">
             <div className="z_logout_modal_title">Are you sure you want to logout?</div>
             <div className="z_logout_modal_actions">
-              <button 
-                className="z_logout_btn z_logout_confirm" 
+              <button
+                className="z_logout_btn z_logout_confirm"
                 onClick={async () => {
                   try {
                     // Call logout API
                     await authAPI.logout();
-                    
+
                     // Clear local auth data
                     logoutAuth();
-                    
+
                     // Redirect to login
                     navigate('/login');
                   } catch (error) {

@@ -6,6 +6,11 @@ const categorySchema = new mongoose.Schema({
     required: true,
     unique: true
   },
+  slug: {
+    type: String,
+    unique: true,
+    sparse: true
+  },
   description: String,
   image: String,
   icon: String,
