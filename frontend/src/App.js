@@ -2,6 +2,7 @@ import './App.css';
 import './styles/x_main.css';
 import './styles/z_style.css';
 import './styles/z_prdDetails.css';
+import './styles/z_admin.css';
 
 import { Routes, Route } from 'react-router-dom';
 import AppNavbar from './components/Navbar';
@@ -32,6 +33,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import FAQ from './pages/FAQ';
 import HelpCenter from './pages/HelpCenter';
 import BlogDetails from './pages/BlogDetails';
+import AdminDashboard from './pages/AdminDashboard';
 
 function App() {
   return (
@@ -65,6 +67,9 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/verify-otp" element={<VerifyOTP />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+
+          {/* Admin Routes */}
+          <Route path="/admin" element={<AdminDashboard />} />
 
           <Route path="*" element={<HomeMain />} />
 
