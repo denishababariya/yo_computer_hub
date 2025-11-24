@@ -596,6 +596,7 @@ const AdminProducts = () => {
             <table className="z_admin_table">
               <thead>
                 <tr>
+                  <th>Image</th>
                   <th>Product Name</th>
                   <th>Category</th>
                   <th>Price</th>
@@ -606,6 +607,16 @@ const AdminProducts = () => {
               <tbody>
                 {products.map((product) => (
                   <tr key={product._id}>
+                    <td>
+                      <img
+                        src={product.image ? `http://localhost:9000${product.image}` : fallbackImage}
+                        alt={product.name}
+                        style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px' }}
+                        onError={(e) => {
+                          e.target.src = fallbackImage;
+                        }}
+                      />
+                    </td>
                     <td>{product.name}</td>
                     <td>{getCategoryName(product.categoryId)}</td>
                     <td>₹{product.price}</td>

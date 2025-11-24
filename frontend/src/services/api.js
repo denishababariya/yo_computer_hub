@@ -98,7 +98,10 @@ export const authAPI = {
   login: (data) => api.post('/auth/login', data),
   logout: () => api.post('/auth/logout', {}),
   getProfile: (userId) => api.get(`/auth/profile/${userId}`),
-  updateProfile: (userId, data) => api.put(`/auth/profile/${userId}`, data)
+  updateProfile: (userId, data) => api.put(`/auth/profile/${userId}`, data),
+  sendOtp: (data) => api.post('/auth/send-otp', data),
+  verifyOtp: (data) => api.post('/auth/verify-otp', data),
+  resetPassword: (data) => api.post('/auth/reset-password', data)
 };
 
 // Order APIs

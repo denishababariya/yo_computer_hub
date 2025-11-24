@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import adminAPI from '../services/adminAPI';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 const AdminContacts = () => {
   const [contacts, setContacts] = useState([]);
@@ -117,7 +118,7 @@ const AdminContacts = () => {
                         className="z_admin_btn z_admin_btn_danger"
                         onClick={() => handleDelete(contact._id)}
                       >
-                        🗑️ Delete
+                       <span style={{color: "#fff", fontSize: "16px"}}> <RiDeleteBin6Line /> Delete</span>
                       </button>
                     </div>
                   </td>

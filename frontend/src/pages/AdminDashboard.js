@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import adminAPI from '../services/adminAPI';
 import '../styles/z_admin.css';
 import AdminProducts from './AdminProducts';
@@ -6,11 +7,19 @@ import AdminUsers from './AdminUsers';
 import AdminOrders from './AdminOrders';
 import AdminContacts from './AdminContacts';
 import AdminCategories from './AdminCategories';
+import { FaUsers } from 'react-icons/fa6';
+import { AiFillDashboard } from "react-icons/ai";
+import { RiContactsBook3Fill } from "react-icons/ri";
+import { BiSolidCategoryAlt } from "react-icons/bi";
+import { AiFillSafetyCertificate } from "react-icons/ai";
+import { AiFillProduct } from "react-icons/ai";
+import { GiCash } from "react-icons/gi";
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [dashboardStats, setDashboardStats] = useState(null);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (activeTab === 'dashboard') {
@@ -25,6 +34,11 @@ const AdminDashboard = () => {
       setDashboardStats(data);
     } catch (error) {
       console.error('Error fetching dashboard stats:', error);
+      if (error.status === 401 || error.status === 403) {
+        alert('Your session expired or you lack admin access. Please login again.');
+        navigate('/login');
+        return;
+      }
       alert('Failed to fetch dashboard stats');
     } finally {
       setLoading(false);
@@ -50,37 +64,37 @@ const AdminDashboard = () => {
             className={`z_admin_nav_tab ${activeTab === 'dashboard' ? 'active' : ''}`}
             onClick={() => setActiveTab('dashboard')}
           >
-            📊 Dashboard
-          </button>
-          <button
-            className={`z_admin_nav_tab ${activeTab === 'products' ? 'active' : ''}`}
-            onClick={() => setActiveTab('products')}
-          >
-            📦 Products
-          </button>
-          <button
-            className={`z_admin_nav_tab ${activeTab === 'users' ? 'active' : ''}`}
-            onClick={() => setActiveTab('users')}
-          >
-            👥 Users
-          </button>
-          <button
-            className={`z_admin_nav_tab ${activeTab === 'orders' ? 'active' : ''}`}
-            onClick={() => setActiveTab('orders')}
-          >
-            🛒 Orders
-          </button>
-          <button
-            className={`z_admin_nav_tab ${activeTab === 'contacts' ? 'active' : ''}`}
-            onClick={() => setActiveTab('contacts')}
-          >
-            📧 Contacts
+            <AiFillDashboard /> Dashboard
           </button>
           <button
             className={`z_admin_nav_tab ${activeTab === 'categories' ? 'active' : ''}`}
             onClick={() => setActiveTab('categories')}
           >
-            🏷️ Categories
+            <BiSolidCategoryAlt /> Categories
+          </button>
+          <button
+            className={`z_admin_nav_tab ${activeTab === 'products' ? 'active' : ''}`}
+            onClick={() => setActiveTab('products')}
+          >
+            <AiFillProduct /> Products
+          </button>
+          <button
+            className={`z_admin_nav_tab ${activeTab === 'users' ? 'active' : ''}`}
+            onClick={() => setActiveTab('users')}
+          >
+            <FaUsers /> Users
+          </button>
+          <button
+            className={`z_admin_nav_tab ${activeTab === 'orders' ? 'active' : ''}`}
+            onClick={() => setActiveTab('orders')}
+          >
+            <AiFillSafetyCertificate /> Orders
+          </button>
+          <button
+            className={`z_admin_nav_tab ${activeTab === 'contacts' ? 'active' : ''}`}
+            onClick={() => setActiveTab('contacts')}
+          >
+            <RiContactsBook3Fill /> Contacts
           </button>
         </div>
 
@@ -131,32 +145,56 @@ const DashboardTab = ({ stats, loading }) => {
     <div>
       {/* Stats Grid */}
       <div className="z_admin_stats_grid">
+
+        {/* Total Products */}
         <div className="z_admin_stat_card">
-          <div className="z_admin_stat_icon">📦</div>
-          <div className="z_admin_stat_label">Total Products</div>
+          <div className="z_admin_stat_top">
+            <div className="z_admin_stat_icon text-light"><AiFillProduct /></div>
+            <div className="z_admin_stat_label">Total Products</div>
+          </div>
           <h3 className="z_admin_stat_value">{stats.totalProducts}</h3>
         </div>
+
+        {/* Total Users */}
         <div className="z_admin_stat_card">
-          <div className="z_admin_stat_icon">👥</div>
-          <div className="z_admin_stat_label">Total Users</div>
+          <div className="z_admin_stat_top">
+            <div className="z_admin_stat_icon text-light"><FaUsers /></div>
+            <div className="z_admin_stat_label">Total Users</div>
+          </div>
           <h3 className="z_admin_stat_value">{stats.totalUsers}</h3>
         </div>
+
+        {/* Total Orders */}
         <div className="z_admin_stat_card">
-          <div className="z_admin_stat_icon">🛒</div>
-          <div className="z_admin_stat_label">Total Orders</div>
+          <div className="z_admin_stat_top">
+            <div className="z_admin_stat_icon text-light"><AiFillSafetyCertificate /></div>
+            <div className="z_admin_stat_label">Total Orders</div>
+          </div>
           <h3 className="z_admin_stat_value">{stats.totalOrders}</h3>
         </div>
+
+        {/* Total Contacts */}
         <div className="z_admin_stat_card">
-          <div className="z_admin_stat_icon">📧</div>
-          <div className="z_admin_stat_label">Total Contacts</div>
+          <div className="z_admin_stat_top">
+            <div className="z_admin_stat_icon text-light"><RiContactsBook3Fill /></div>
+            <div className="z_admin_stat_label">Total Contacts</div>
+          </div>
           <h3 className="z_admin_stat_value">{stats.totalContacts}</h3>
         </div>
+
+        {/* Total Revenue */}
         <div className="z_admin_stat_card">
-          <div className="z_admin_stat_icon">💰</div>
-          <div className="z_admin_stat_label">Total Revenue</div>
-          <h3 className="z_admin_stat_value">₹{stats.totalRevenue.toLocaleString()}</h3>
+          <div className="z_admin_stat_top">
+            <div className="z_admin_stat_icon text-light"><GiCash /></div>
+            <div className="z_admin_stat_label">Total Revenue</div>
+          </div>
+          <h3 className="z_admin_stat_value">
+            ₹{stats.totalRevenue.toLocaleString()}
+          </h3>
         </div>
+
       </div>
+
 
       {/* Recent Orders */}
       <div className="z_admin_table_wrapper">

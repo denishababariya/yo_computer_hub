@@ -34,7 +34,8 @@ function Login() {
         setUser(response.user);
         // Store userId for MyAccount page
         localStorage.setItem('userId', response.user.id);
-        navigate('/');
+        const redirectTo = response.user.role === 'admin' ? '/admin' : '/';
+        navigate(redirectTo);
         window.location.reload();
       } else {
         setError(response.message || 'Login failed');
@@ -100,7 +101,7 @@ function Login() {
                 <Button
                   type="submit"
                   variant="danger"
-                  className="w-100 py-2 fw-semibold text-dark"
+                  className="w-100 py-2 fw-semibold"
                   disabled={loading}
                   style={{ borderRadius: '8px', fontSize: '1rem' }}
                 >

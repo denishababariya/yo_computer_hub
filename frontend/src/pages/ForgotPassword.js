@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Card, Form, Button, Alert } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import { authAPI } from '../services/api';
+import { FaArrowLeftLong } from 'react-icons/fa6';
 
 function ForgotPassword() {
-  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
@@ -15,21 +17,24 @@ function ForgotPassword() {
     setSuccess('');
     setLoading(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      if (email) {
-        // Store email in localStorage for OTP verification
-        localStorage.setItem('resetEmail', email);
+    try {
+      if (!phone.trim()) {
+        setError('Phone number is required');
         setLoading(false);
-        setSuccess('OTP has been sent to your email address');
-        setTimeout(() => {
-          navigate('/verify-otp');
-        }, 2000);
-      } else {
-        setError('Please enter your email address');
-        setLoading(false);
+        return;
       }
-    }, 1000);
+      await authAPI.sendOtp({ phone: phone.trim() });
+      localStorage.setItem('resetPhone', phone.trim());
+      localStorage.removeItem('resetToken');
+      setSuccess('OTP has been sent to your phone number');
+      setTimeout(() => {
+        navigate('/verify-otp');
+      }, 1500);
+    } catch (apiError) {
+      setError(apiError.message || 'Failed to send OTP. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -41,7 +46,7 @@ function ForgotPassword() {
               <div className="text-center mb-md-4 mb-2">
                 <h2 className="fw-bold mb-2">Forgot Password</h2>
                 <p className="text-muted">
-                  Enter your email address and we'll send you an OTP to reset your password.
+                  Enter the phone number linked to your account. We’ll text you an OTP via Twilio to reset your password.
                 </p>
               </div>
 
@@ -59,13 +64,13 @@ function ForgotPassword() {
 
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-md-4 mb-2">
-                  <Form.Label className="fw-semibold">Email Address</Form.Label>
+                  <Form.Label className="fw-semibold">Phone Number</Form.Label>
                   <Form.Control
-                    type="email"
-                    placeholder="Enter your email"
-                    value={email}
+                    type="tel"
+                    placeholder="Enter your phone number with country code (e.g. +91XXXXXXXXXX)"
+                    value={phone}
                     onChange={(e) => {
-                      setEmail(e.target.value);
+                      setPhone(e.target.value);
                       setError('');
                     }}
                     required
@@ -86,7 +91,7 @@ function ForgotPassword() {
 
               <div className="text-center mt-4">
                 <Link to="/login" className="text-danger fw-semibold text-decoration-none">
-                  <i className="bi bi-arrow-left me-2"></i>
+                  <FaArrowLeftLong  className='me-2'/>
                   Back to Login
                 </Link>
               </div>

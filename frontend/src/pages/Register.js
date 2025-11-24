@@ -43,11 +43,19 @@ function Register() {
       return;
     }
 
+    // ⭐ Format phone number
+    let formattedPhone = formData.phone.trim();
+
+    // If user enters exactly 10 digits → add +91
+    if (/^\d{10}$/.test(formattedPhone)) {
+      formattedPhone = `+91${formattedPhone}`;
+    }
+
     try {
       const response = await authAPI.register({
         name: formData.name,
         email: formData.email,
-        phone: formData.phone,
+        phone: formattedPhone,   // ⭐ send updated phone
         password: formData.password
       });
 

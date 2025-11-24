@@ -105,7 +105,7 @@ function CustomerReview() {
                   <div key={review.id} className="col-12 col-md-6">
                     <Card className="h-100 border-0 shadow-sm x_main-review-card">
                       <Card.Body className="p-2 p-md-5">
-                        <div className="d-flex align-items-center mb-3">vs
+                        <div className="d-flex align-items-center mb-3">
                           <img
                             src={review.image}
                             alt={review.author}

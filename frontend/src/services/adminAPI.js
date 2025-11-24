@@ -1,225 +1,156 @@
 const API_BASE_URL = 'http://localhost:9000/api/admin';
 
+const authFetch = async (endpoint, options = {}) => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    const error = new Error('Unauthorized');
+    error.status = 401;
+    throw error;
+  }
+
+  const headers = {
+    ...(options.headers || {}),
+    Authorization: `Bearer ${token}`
+  };
+
+  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    ...options,
+    headers
+  });
+
+  if (!response.ok) {
+    let errorBody = {};
+    try {
+      errorBody = await response.json();
+    } catch (e) {
+      // ignore parse errors
+    }
+    const error = new Error(errorBody.message || errorBody.error || 'Request failed');
+    error.status = response.status;
+    throw error;
+  }
+
+  return response.json();
+};
+
+const authFetchAbsolute = async (url, options = {}) => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    const error = new Error('Unauthorized');
+    error.status = 401;
+    throw error;
+  }
+
+  const headers = {
+    ...(options.headers || {}),
+    Authorization: `Bearer ${token}`
+  };
+
+  const response = await fetch(url, {
+    ...options,
+    headers
+  });
+
+  if (!response.ok) {
+    let errorBody = {};
+    try {
+      errorBody = await response.json();
+    } catch (e) {
+      // ignore parse errors
+    }
+    const error = new Error(errorBody.message || errorBody.error || 'Request failed');
+    error.status = response.status;
+    throw error;
+  }
+
+  return response.json();
+};
+
 const adminAPI = {
   // Dashboard
-  getDashboardStats: async () => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/dashboard`);
-      return await response.json();
-    } catch (error) {
-      console.error('Error fetching dashboard stats:', error);
-      throw error;
-    }
-  },
+  getDashboardStats: () => authFetch('/dashboard'),
 
   // Products
-  getAllProducts: async (page = 1, limit = 10, search = '') => {
-    try {
-      const response = await fetch(
-        `${API_BASE_URL}/products?page=${page}&limit=${limit}&search=${search}`
-      );
-      return await response.json();
-    } catch (error) {
-      console.error('Error fetching products:', error);
-      throw error;
-    }
-  },
+  getAllProducts: (page = 1, limit = 10, search = '') =>
+    authFetch(`/products?page=${page}&limit=${limit}&search=${search}`),
 
-  createProduct: async (formData) => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/products`, {
-        method: "POST",
-        body: formData
-      });
-      return await response.json();
-    } catch (error) {
-      console.error("Error creating product:", error);
-      throw error;
-    }
-  },
-  
-  updateProduct: async (productId, formData) => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/products/${productId}`, {
-        method: "PUT",
-        body: formData
-      });
-      return await response.json();
-    } catch (error) {
-      console.error("Error updating product:", error);
-      throw error;
-    }
-  },
-  
+  createProduct: (formData) =>
+    authFetch('/products', {
+      method: 'POST',
+      body: formData
+    }),
 
-  deleteProduct: async (productId) => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/products/${productId}`, {
-        method: 'DELETE'
-      });
-      return await response.json();
-    } catch (error) {
-      console.error('Error deleting product:', error);
-      throw error;
-    }
-  },
+  updateProduct: (productId, formData) =>
+    authFetch(`/products/${productId}`, {
+      method: 'PUT',
+      body: formData
+    }),
+
+  deleteProduct: (productId) =>
+    authFetch(`/products/${productId}`, {
+      method: 'DELETE'
+    }),
 
   // Users
-  getAllUsers: async (page = 1, limit = 10, search = '') => {
-    try {
-      const response = await fetch(
-        `${API_BASE_URL}/users?page=${page}&limit=${limit}&search=${search}`
-      );
-      return await response.json();
-    } catch (error) {
-      console.error('Error fetching users:', error);
-      throw error;
-    }
-  },
+  getAllUsers: (page = 1, limit = 10, search = '') =>
+    authFetch(`/users?page=${page}&limit=${limit}&search=${search}`),
 
-  getUserDetails: async (userId) => {
-    try {
-      const response = await fetch(`http://localhost:9000/api/users/account/${userId}`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      console.log('User details API response:', data);
-      return data;
-    } catch (error) {
-      console.error('Error fetching user details:', error);
-      throw error;
-    }
-  },
+  getUserDetails: (userId) =>
+    authFetchAbsolute(`http://localhost:9000/api/users/account/${userId}`),
 
-  deleteUser: async (userId) => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/users/${userId}`, {
-        method: 'DELETE'
-      });
-      return await response.json();
-    } catch (error) {
-      console.error('Error deleting user:', error);
-      throw error;
-    }
-  },
+  deleteUser: (userId) =>
+    authFetch(`/users/${userId}`, {
+      method: 'DELETE'
+    }),
 
   // Orders
-  getAllOrders: async (page = 1, limit = 10, status = '') => {
-    try {
-      const response = await fetch(
-        `${API_BASE_URL}/orders?page=${page}&limit=${limit}&status=${status}`
-      );
-      return await response.json();
-    } catch (error) {
-      console.error('Error fetching orders:', error);
-      throw error;
-    }
-  },
+  getAllOrders: (page = 1, limit = 10, status = '') =>
+    authFetch(`/orders?page=${page}&limit=${limit}&status=${status}`),
 
-  updateOrderStatus: async (orderId, status) => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/orders/${orderId}/status`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status })
-      });
-      return await response.json();
-    } catch (error) {
-      console.error('Error updating order status:', error);
-      throw error;
-    }
-  },
+  updateOrderStatus: (orderId, status) =>
+    authFetch(`/orders/${orderId}/status`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status })
+    }),
 
   // Contacts
-  getAllContacts: async (page = 1, limit = 10, status = '') => {
-    try {
-      const response = await fetch(
-        `${API_BASE_URL}/contacts?page=${page}&limit=${limit}&status=${status}`
-      );
-      return await response.json();
-    } catch (error) {
-      console.error('Error fetching contacts:', error);
-      throw error;
-    }
-  },
+  getAllContacts: (page = 1, limit = 10, status = '') =>
+    authFetch(`/contacts?page=${page}&limit=${limit}&status=${status}`),
 
-  updateContactStatus: async (contactId, status) => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/contacts/${contactId}/status`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status })
-      });
-      return await response.json();
-    } catch (error) {
-      console.error('Error updating contact status:', error);
-      throw error;
-    }
-  },
+  updateContactStatus: (contactId, status) =>
+    authFetch(`/contacts/${contactId}/status`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status })
+    }),
 
-  deleteContact: async (contactId) => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/contacts/${contactId}`, {
-        method: 'DELETE'
-      });
-      return await response.json();
-    } catch (error) {
-      console.error('Error deleting contact:', error);
-      throw error;
-    }
-  },
+  deleteContact: (contactId) =>
+    authFetch(`/contacts/${contactId}`, {
+      method: 'DELETE'
+    }),
 
   // Categories
-  getAllCategories: async () => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/categories`);
-      return await response.json();
-    } catch (error) {
-      console.error('Error fetching categories:', error);
-      throw error;
-    }
-  },
+  getAllCategories: () => authFetch('/categories'),
 
-  createCategory: async (categoryData) => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/categories`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(categoryData)
-      });
-      return await response.json();
-    } catch (error) {
-      console.error('Error creating category:', error);
-      throw error;
-    }
-  },
+  createCategory: (categoryData) =>
+    authFetch('/categories', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(categoryData)
+    }),
 
-  updateCategory: async (categoryId, categoryData) => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/categories/${categoryId}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(categoryData)
-      });
-      return await response.json();
-    } catch (error) {
-      console.error('Error updating category:', error);
-      throw error;
-    }
-  },
+  updateCategory: (categoryId, categoryData) =>
+    authFetch(`/categories/${categoryId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(categoryData)
+    }),
 
-  deleteCategory: async (categoryId) => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/categories/${categoryId}`, {
-        method: 'DELETE'
-      });
-      return await response.json();
-    } catch (error) {
-      console.error('Error deleting category:', error);
-      throw error;
-    }
-  }
+  deleteCategory: (categoryId) =>
+    authFetch(`/categories/${categoryId}`, {
+      method: 'DELETE'
+    })
 };
 
 export default adminAPI;

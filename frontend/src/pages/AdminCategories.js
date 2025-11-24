@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import adminAPI from '../services/adminAPI';
+import { FaRegEdit } from "react-icons/fa";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 const AdminCategories = () => {
   const [categories, setCategories] = useState([]);
@@ -7,9 +9,13 @@ const AdminCategories = () => {
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
+    slug: '',
     description: '',
-    icon: ''
+    icon: '',
+    image: '',
+    isActive: true,
   });
+
   const [editingCategoryId, setEditingCategoryId] = useState(null);
   const [submitButtonText, setSubmitButtonText] = useState('✓ Create Category');
 
@@ -34,12 +40,16 @@ const AdminCategories = () => {
     setEditingCategoryId(category._id);
     setFormData({
       name: category.name,
-      description: category.description,
-      icon: category.icon || ''
+      slug: category.slug || '',
+      description: category.description || '',
+      icon: category.icon || '',
+      image: category.image || '',
+      isActive: category.isActive,
     });
     setShowForm(true);
     setSubmitButtonText('Save Changes');
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -85,7 +95,7 @@ const AdminCategories = () => {
         <div className="z_admin_table_header">
           <h3 className="z_admin_table_title">Categories Management</h3>
           <button
-            className="z_admin_btn z_admin_btn_primary"
+            className="z_admin_btn z_admin_btn_primary "
             onClick={() => setShowForm(!showForm)}
           >
             {showForm ? '✕ Cancel' : '+ Add Category'}
@@ -95,6 +105,8 @@ const AdminCategories = () => {
         {showForm && (
           <form className="z_admin_form" onSubmit={handleSubmit}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '15px' }}>
+
+              {/* Name */}
               <div className="z_admin_form_group">
                 <label className="z_admin_form_label">Category Name</label>
                 <input
@@ -105,6 +117,20 @@ const AdminCategories = () => {
                   required
                 />
               </div>
+
+              {/* Slug */}
+              {/* <div className="z_admin_form_group">
+                <label className="z_admin_form_label">Slug</label>
+                <input
+                  type="text"
+                  className="z_admin_form_input"
+                  value={formData.slug}
+                  onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+                  placeholder="auto-generated if empty"
+                />
+              </div> */}
+
+              {/* Icon */}
               <div className="z_admin_form_group">
                 <label className="z_admin_form_label">Icon</label>
                 <input
@@ -112,10 +138,37 @@ const AdminCategories = () => {
                   className="z_admin_form_input"
                   value={formData.icon}
                   onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
-                  placeholder="e.g., 📦"
                 />
               </div>
+
+              {/* Image URL */}
+              <div className="z_admin_form_group">
+                <label className="z_admin_form_label">Image URL</label>
+                <input
+                  type="text"
+                  className="z_admin_form_input"
+                  value={formData.image}
+                  onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                />
+              </div>
+
+
+              {/* Active Status */}
+              <div className="z_admin_form_group">
+                <label className="z_admin_form_label">Active Status</label>
+                <select
+                  className="z_admin_form_input"
+                  value={formData.isActive}
+                  onChange={(e) => setFormData({ ...formData, isActive: e.target.value === 'true' })}
+                >
+                  <option value="true">Active</option>
+                  <option value="false">Inactive</option>
+                </select>
+              </div>
+
             </div>
+
+            {/* Description */}
             <div className="z_admin_form_group">
               <label className="z_admin_form_label">Description</label>
               <textarea
@@ -124,10 +177,12 @@ const AdminCategories = () => {
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               />
             </div>
+
             <button type="submit" className="z_admin_btn z_admin_btn_success">
-              ✓ Create Category
+              {submitButtonText}
             </button>
           </form>
+
         )}
 
         {loading ? (
@@ -142,6 +197,7 @@ const AdminCategories = () => {
                 <th>Icon</th>
                 <th>Category Name</th>
                 <th>Description</th>
+                <th>Status</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -151,14 +207,15 @@ const AdminCategories = () => {
                   <td>{category.icon || '🏷️'}</td>
                   <td>{category.name}</td>
                   <td>{category.description || 'N/A'}</td>
+                  <td>{category.isActive ? 'Active' : 'Inactive'}</td>
                   <td>
                     <div className="z_admin_actions">
-                      <button className="z_admin_btn z_admin_btn_secondary" onClick={() => handleEdit(category)}>✎ Edit</button>
+                      <button className="z_admin_btn z_admin_btn_secondary wrap-nowrap" onClick={() => handleEdit(category)}> <span style={{color: "#fff", fontSize: "16px"}}><FaRegEdit /> Edit</span> </button>
                       <button
                         className="z_admin_btn z_admin_btn_danger"
                         onClick={() => handleDelete(category._id)}
                       >
-                        🗑️ Delete
+                       <span style={{color: "#fff", fontSize: "16px"}}> <RiDeleteBin6Line /> Delete</span>
                       </button>
                     </div>
                   </td>

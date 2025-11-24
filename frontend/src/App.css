@@ -28,13 +28,36 @@
   color: var(--theme-accent-2);
 }
 
+:root {
+  --color-lblue: #355987;
+  --color-blue: #5588c9;
+  --color-darkblue: #2b4f80; /* optional – adjust if needed */
+  --color-white: #ffffff;
+} 
+
 /* Theme helpers */
-.btn-danger { background-color: var(--color-red); border-color: var(--color-red); }
-.btn-danger:hover { background-color: var(--color-red); border-color: var(--color-red); }
+.btn-danger { background-color: var(--color-blue); border-color: var(--color-blue); }
+.btn-danger:hover { background-color: var(--color-blue); border-color: var(--color-blue); }
+.btn-danger:disabled,
+.btn-danger.disabled {
+  background-color: var(--color-lblue) !important;
+  border-color: var(--color-lblue) !important;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.btn:active,
+.btn:focus-visible,
+.btn-danger:focus-visible {
+  outline: 2px solid var(--color-darkblue);
+  background-color: var(--color-lblue) !important;
+  border-color: var(--color-lblue) !important;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(85, 136, 201, 0.4);
+}
 .btn-primary { background-color: var(--color-darkblue); border-color: var(--color-darkblue); }
 .btn-primary:hover { filter: brightness(1.1); }
 .navbar-dark .navbar-brand, .navbar-dark .nav-link { color: var(--color-white); }
-.navbar-dark .nav-link.active { color: var(--color-red); }
+.navbar-dark .nav-link.active { color: var(--color-blue); }
 
 @keyframes App-logo-spin {
   from {
@@ -48,6 +71,10 @@
 
 .App {
   font-family: Arial, sans-serif;
+}
+
+.z_admin_table th{
+  text-wrap: nowrap;
 }
 
 .a_header_container {

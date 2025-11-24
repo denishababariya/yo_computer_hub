@@ -1,17 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Form, Button, Alert } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import PasswordInput from '../components/PasswordInput';
+import { authAPI } from '../services/api';
+import { FaArrowLeftLong } from 'react-icons/fa6';
 
 function ResetPassword() {
   const [formData, setFormData] = useState({
     password: '',
     confirmPassword: ''
   });
+  const [phone] = useState(() => localStorage.getItem('resetPhone') || '');
+  const [resetToken] = useState(() => localStorage.getItem('resetToken') || '');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!phone || !resetToken) {
+      navigate('/forgot-password');
+    }
+  }, [navigate, phone, resetToken]);
 
   const handleChange = (e) => {
     setFormData({
@@ -40,16 +50,29 @@ function ResetPassword() {
       return;
     }
 
-    // Simulate API call
-    setTimeout(() => {
-      // Mock password reset
+    if (!phone || !resetToken) {
+      setError('Session expired. Please restart the process.');
       setLoading(false);
+      return;
+    }
+
+    try {
+      await authAPI.resetPassword({
+        phone,
+        token: resetToken,
+        password: formData.password
+      });
       setSuccess('Password has been reset successfully!');
-      localStorage.removeItem('resetEmail');
+      localStorage.removeItem('resetPhone');
+      localStorage.removeItem('resetToken');
       setTimeout(() => {
         navigate('/login');
-      }, 2000);
-    }, 1000);
+      }, 1500);
+    } catch (apiError) {
+      setError(apiError.message || 'Failed to reset password. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -112,7 +135,7 @@ function ResetPassword() {
 
               <div className="text-center mt-4">
                 <Link to="/login" className="text-danger fw-semibold text-decoration-none">
-                  <i className="bi bi-arrow-left me-2"></i>
+                  <FaArrowLeftLong className='me-2'/>
                   Back to Login
                 </Link>
               </div>

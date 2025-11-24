@@ -1,17 +1,26 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Container, Row, Col, Card, Form, Button, Alert } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import { authAPI } from '../services/api';
+import { FaArrowLeftLong } from 'react-icons/fa6';
 
 function VerifyOTP() {
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
+  const [resending, setResending] = useState(false);
   const [timer, setTimer] = useState(60);
+  const [phone] = useState(() => localStorage.getItem('resetPhone') || '');
   const navigate = useNavigate();
   const inputRefs = useRef([]);
 
   useEffect(() => {
-    // Start timer
+    if (!phone) {
+      navigate('/forgot-password');
+      return;
+    }
+
     const interval = setInterval(() => {
       setTimer((prev) => {
         if (prev <= 1) {
@@ -23,7 +32,7 @@ function VerifyOTP() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [navigate, phone]);
 
   useEffect(() => {
     // Focus first input
@@ -34,7 +43,7 @@ function VerifyOTP() {
 
   const handleChange = (index, value) => {
     if (value.length > 1) return;
-    
+
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
@@ -70,38 +79,57 @@ function VerifyOTP() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setSuccess('');
     setLoading(true);
 
     const otpString = otp.join('');
-    
+
     if (otpString.length !== 6) {
       setError('Please enter complete OTP');
       setLoading(false);
       return;
     }
 
-    // Simulate API call
-    setTimeout(() => {
-      // Mock OTP verification (in real app, verify with backend)
-      if (otpString === '123456' || otpString.length === 6) {
-        setLoading(false);
-        navigate('/reset-password');
-      } else {
-        setError('Invalid OTP. Please try again.');
-        setLoading(false);
+    if (!phone) {
+      setError('Session expired. Please restart the process.');
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const response = await authAPI.verifyOtp({ phone, otp: otpString });
+      if (!response.resetToken) {
+        throw new Error('Unable to verify OTP. Please try again.');
       }
-    }, 1000);
+      localStorage.setItem('resetToken', response.resetToken);
+      setSuccess('OTP verified successfully');
+      setTimeout(() => {
+        navigate('/reset-password');
+      }, 800);
+    } catch (apiError) {
+      setError(apiError.message || 'Invalid OTP. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const resendOTP = () => {
-    setTimer(60);
-    setOtp(['', '', '', '', '', '']);
-    setError('');
-    // Simulate resend OTP
-    alert('OTP has been resent to your email');
-  };
+  const resendOTP = async () => {
+    if (!phone) return;
 
-  const email = localStorage.getItem('resetEmail') || 'your email';
+    try {
+      setResending(true);
+      setError('');
+      setSuccess('');
+      await authAPI.sendOtp({ phone });
+      setOtp(['', '', '', '', '', '']);
+      setTimer(60);
+      setSuccess('A new OTP has been sent to your phone');
+    } catch (apiError) {
+      setError(apiError.message || 'Failed to resend OTP');
+    } finally {
+      setResending(false);
+    }
+  };
 
   return (
     <Container className="py-md-5 py-4">
@@ -112,13 +140,19 @@ function VerifyOTP() {
               <div className="text-center mb-md-4 mb-2">
                 <h2 className="fw-bold mb-2">Verify OTP</h2>
                 <p className="text-muted">
-                  Enter the 6-digit OTP sent to <strong>{email}</strong>
+                  Enter the 6-digit OTP sent to <strong>{phone}</strong>
                 </p>
               </div>
 
               {error && (
                 <Alert variant="danger" className="mb-3">
                   {error}
+                </Alert>
+              )}
+
+              {success && (
+                <Alert variant="success" className="mb-3">
+                  {success}
                 </Alert>
               )}
 
@@ -156,6 +190,15 @@ function VerifyOTP() {
                 >
                   {loading ? 'Verifying...' : 'Verify OTP'}
                 </Button>
+                {/* <Button
+                  type="submit"
+                  variant="danger"
+                  className="w-100 py-2 fw-semibold"
+                  disabled={loading}
+                  style={{ borderRadius: '8px', fontSize: '1rem' }}
+                >
+                  {loading ? 'Verifying...' : 'Verify OTP'}
+                </Button> */}
               </Form>
 
               <div className="text-center mt-4">
@@ -168,13 +211,14 @@ function VerifyOTP() {
                     variant="link"
                     onClick={resendOTP}
                     className="text-danger text-decoration-none p-0"
+                    disabled={resending}
                   >
-                    Resend OTP
+                    {resending ? 'Sending...' : 'Resend OTP'}
                   </Button>
                 )}
                 <div className="mt-3">
                   <Link to="/login" className="text-danger fw-semibold text-decoration-none">
-                    <i className="bi bi-arrow-left me-2"></i>
+                    <FaArrowLeftLong className='me-2'/>
                     Back to Login
                   </Link>
                 </div>

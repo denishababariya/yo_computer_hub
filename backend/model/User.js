@@ -66,6 +66,23 @@ const userSchema = new mongoose.Schema({
     type: String
   },
   addresses: [addressSchema],
+  role: {
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user'
+  },
+  resetOtp: {
+    type: String
+  },
+  resetOtpExpires: {
+    type: Date
+  },
+  resetPasswordToken: {
+    type: String
+  },
+  resetPasswordExpires: {
+    type: Date
+  },
   createdAt: {
     type: Date,
     default: Date.now

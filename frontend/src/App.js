@@ -34,6 +34,7 @@ import FAQ from './pages/FAQ';
 import HelpCenter from './pages/HelpCenter';
 import BlogDetails from './pages/BlogDetails';
 import AdminDashboard from './pages/AdminDashboard';
+import AdminRoute from './components/AdminRoute';
 
 function App() {
   return (
@@ -69,7 +70,14 @@ function App() {
           <Route path="/reset-password" element={<ResetPassword />} />
 
           {/* Admin Routes */}
-          <Route path="/admin" element={<AdminDashboard />} />
+          <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                <AdminDashboard />
+              </AdminRoute>
+            }
+          />
 
           <Route path="*" element={<HomeMain />} />
 

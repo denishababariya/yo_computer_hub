@@ -90,11 +90,53 @@
   box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
 }
 
-/* Dashboard Stats */
 .z_admin_stats_grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 20px;
+}
+
+.z_admin_stat_card {
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: 0.3s ease;
+}
+
+.z_admin_stat_card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.z_admin_stat_top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.z_admin_stat_icon {
+  font-size: 26px;
+}
+
+.z_admin_stat_label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #555;
+}
+
+.z_admin_stat_value {
+  margin-top: 8px;
+  font-size: 32px;
+  font-weight: 700;
+  color: #222;
+}
+
+/* Dashboard Stats */
+.z_admin_stats_grid {
+  /* display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px; */
   margin-bottom: 30px;
 }
 
@@ -109,12 +151,12 @@
 
 .z_admin_stat_card:hover {
   transform: translateY(-5px);
-  border-color: #00d4ff;
-  box-shadow: 0 12px 40px rgba(0, 212, 255, 0.2);
+  border-color: #00d4ff4f;
+  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.2);
 }
 
 .z_admin_stat_label {
-  font-size: 0.9rem;
+  font-size: 19px;
   color: #a9a9a9;
   margin-bottom: 10px;
   text-transform: uppercase;
@@ -130,7 +172,7 @@
 
 .z_admin_stat_icon {
   font-size: 2rem;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   opacity: 0.7;
 }
 
@@ -255,6 +297,7 @@
   background: rgba(0, 212, 255, 0.2);
   color: #00d4ff;
   border: 1px solid #00d4ff;
+  text-wrap: nowrap;
 }
 
 .z_admin_btn_secondary:hover {
@@ -263,8 +306,10 @@
 }
 
 .z_admin_btn_danger {
-  background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
-  color: #fff;
+  background: rgba(0, 212, 255, 0.2);
+  color: #00d4ff;
+  border: 1px solid #00d4ff;
+  text-wrap: nowrap;
 }
 
 .z_admin_btn_danger:hover {
@@ -539,7 +584,9 @@
 }
 
 @keyframes z_admin_spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Empty State */
@@ -764,8 +811,10 @@
   border-radius: 12px;
   padding: 30px;
   z-index: 3000;
-  display: block !important;   /* FORCE SHOW */
-  opacity: 1 !important;       /* ENSURE VISIBLE */
+  display: block !important;
+  /* FORCE SHOW */
+  opacity: 1 !important;
+  /* ENSURE VISIBLE */
   border: 1px solid #333;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
   max-height: fit-content;

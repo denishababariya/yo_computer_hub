@@ -4,13 +4,14 @@ import { Container, Nav, Form, InputGroup, Button, Offcanvas } from "react-boots
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { authAPI } from "../services/api";
 import { selectWishlistCount, selectCartCount } from "../store";
-import { logout as logoutAuth, getToken } from "../utils/auth";
+import { logout as logoutAuth, getToken, getUser } from "../utils/auth";
 
 function Navbar4() {
   const [show, setShow] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [currentUser, setCurrentUser] = useState(() => getUser());
   const navigate = useNavigate();
   const cartCount = useSelector(selectCartCount);
   const wishlistCount = useSelector(selectWishlistCount);
@@ -19,6 +20,7 @@ function Navbar4() {
     // Check if token exists in localStorage
     const token = getToken();
     setIsLoggedIn(!!token);
+    setCurrentUser(getUser());
   }, []);
 
   // Clear the search input when Shop dispatches a clear event (e.g. filter applied)
@@ -43,6 +45,7 @@ function Navbar4() {
       
       // Clear local auth data
       logoutAuth();
+      setCurrentUser(null);
       
       // Update isLoggedIn state
       setIsLoggedIn(false);
@@ -161,6 +164,15 @@ function Navbar4() {
                         <Link to="/account" className="z_dropdown_item" onClick={() => setShowProfileDropdown(false)}>
                           <i className="bi bi-person-circle"></i> My Profile
                         </Link>
+                        {currentUser?.role === 'admin' && (
+                          <Link
+                            to="/admin"
+                            className="z_dropdown_item"
+                            onClick={() => setShowProfileDropdown(false)}
+                          >
+                            <i className="bi bi-speedometer2"></i> Admin Dashboard
+                          </Link>
+                        )}
                         <button 
                           className="z_dropdown_item z_logout_item"
                           onClick={handleLogout}
