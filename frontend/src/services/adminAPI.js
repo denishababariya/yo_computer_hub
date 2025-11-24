@@ -1,4 +1,12 @@
-const API_BASE_URL = 'http://localhost:9000/api/admin';
+const BASE_URL = "http://localhost:9000/api";
+const PRODUCTS = `${BASE_URL}/products`;
+const ADMIN = `${BASE_URL}/admin`;
+
+const request = async (url, options = {}) => {
+  const res = await fetch(url, options);
+  if (!res.ok) throw new Error(`Error ${res.status}`);
+  return res.json();
+};
 
 const authFetch = async (endpoint, options = {}) => {
   const token = localStorage.getItem('token');
@@ -67,90 +75,70 @@ const authFetchAbsolute = async (url, options = {}) => {
 };
 
 const adminAPI = {
-  // Dashboard
-  getDashboardStats: () => authFetch('/dashboard'),
+  getDashboardStats: () => request(`${ADMIN}/dashboard`),
 
-  // Products
-  getAllProducts: (page = 1, limit = 10, search = '') =>
-    authFetch(`/products?page=${page}&limit=${limit}&search=${search}`),
+  getAllProducts: (page = 1, limit = 10, search = "") =>
+    request(`${ADMIN}/products?page=${page}&limit=${limit}&search=${search}`),
 
   createProduct: (formData) =>
-    authFetch('/products', {
-      method: 'POST',
-      body: formData
+    request(PRODUCTS, { method: "POST", body: formData }),
+
+  updateProduct: (id, formData) =>
+    request(`${PRODUCTS}/${id}`, { method: "PUT", body: formData }),
+
+  deleteProduct: (id) =>
+    request(`${PRODUCTS}/${id}`, { method: "DELETE" }),
+
+  getAllUsers: (page = 1, limit = 10, search = "") =>
+    request(`${ADMIN}/users?page=${page}&limit=${limit}&search=${search}`),
+
+  getUserDetails: (id) =>
+    request(`${BASE_URL}/users/account/${id}`),
+
+  deleteUser: (id) =>
+    request(`${ADMIN}/users/${id}`, { method: "DELETE" }),
+
+  getAllOrders: (page = 1, limit = 10, status = "") =>
+    request(`${ADMIN}/orders?page=${page}&limit=${limit}&status=${status}`),
+
+  updateOrderStatus: (id, status) =>
+    request(`${ADMIN}/orders/${id}/status`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status }),
     }),
 
-  updateProduct: (productId, formData) =>
-    authFetch(`/products/${productId}`, {
-      method: 'PUT',
-      body: formData
+  getAllContacts: (page = 1, limit = 10, status = "") =>
+    request(`${ADMIN}/contacts?page=${page}&limit=${limit}&status=${status}`),
+
+  updateContactStatus: (id, status) =>
+    request(`${ADMIN}/contacts/${id}/status`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status }),
     }),
 
-  deleteProduct: (productId) =>
-    authFetch(`/products/${productId}`, {
-      method: 'DELETE'
+  deleteContact: (id) =>
+    request(`${ADMIN}/contacts/${id}`, { method: "DELETE" }),
+
+  getAllCategories: () => request(`${ADMIN}/categories`),
+
+  createCategory: (data) =>
+    request(`${ADMIN}/categories`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
     }),
 
-  // Users
-  getAllUsers: (page = 1, limit = 10, search = '') =>
-    authFetch(`/users?page=${page}&limit=${limit}&search=${search}`),
-
-  getUserDetails: (userId) =>
-    authFetchAbsolute(`http://localhost:9000/api/users/account/${userId}`),
-
-  deleteUser: (userId) =>
-    authFetch(`/users/${userId}`, {
-      method: 'DELETE'
+  updateCategory: (id, data) =>
+    request(`${ADMIN}/categories/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
     }),
 
-  // Orders
-  getAllOrders: (page = 1, limit = 10, status = '') =>
-    authFetch(`/orders?page=${page}&limit=${limit}&status=${status}`),
-
-  updateOrderStatus: (orderId, status) =>
-    authFetch(`/orders/${orderId}/status`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ status })
-    }),
-
-  // Contacts
-  getAllContacts: (page = 1, limit = 10, status = '') =>
-    authFetch(`/contacts?page=${page}&limit=${limit}&status=${status}`),
-
-  updateContactStatus: (contactId, status) =>
-    authFetch(`/contacts/${contactId}/status`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ status })
-    }),
-
-  deleteContact: (contactId) =>
-    authFetch(`/contacts/${contactId}`, {
-      method: 'DELETE'
-    }),
-
-  // Categories
-  getAllCategories: () => authFetch('/categories'),
-
-  createCategory: (categoryData) =>
-    authFetch('/categories', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(categoryData)
-    }),
-
-  updateCategory: (categoryId, categoryData) =>
-    authFetch(`/categories/${categoryId}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(categoryData)
-    }),
-
-  deleteCategory: (categoryId) =>
-    authFetch(`/categories/${categoryId}`, {
-      method: 'DELETE'
-    })
+  deleteCategory: (id) =>
+    request(`${ADMIN}/categories/${id}`, { method: "DELETE" }),
 };
 
 export default adminAPI;

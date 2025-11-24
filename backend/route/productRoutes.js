@@ -135,11 +135,12 @@ router.post(
         specifications,
         tags,
         isFeatured,
-        isBestSeller
+        isBestSeller,
+        rating
       } = req.body;
 
       // ====== REQUIRED FIELDS ======
-      if (!name || !description || !price || !categoryId) {
+      if (!name || !description || !price || !categoryId || !rating) {
         return res.status(400).json({
           success: false,
           message: 'Name, description, price, and categoryId are required'
@@ -188,6 +189,7 @@ router.post(
         images,
         videos,
         stock,
+        rating,
         specifications: (() => {
           try {
             return specifications ? JSON.parse(specifications) : {};
@@ -296,7 +298,7 @@ router.put(
         categoryId: req.body.categoryId || product.categoryId,
         category: req.body.category || product.category,
         stock: req.body.stock || product.stock,
-
+        rating : req.body.rating || product.rating,
         image: mainImage,
         images: newImages,
         videos: newVideos,

@@ -147,24 +147,24 @@ const AdminProducts = () => {
       categoryId: product.categoryId,
       image: product.image,
       stock: product.stock,
-      rating: product.rating || '',
+      rating: product.rating ,
       tags: Array.isArray(product.tags) ? product.tags.join(', ') : '',
-      isFeatured: product.isFeatured || false,
-      isBestSeller: product.isBestSeller || false,
+      isFeatured: !!product.isFeatured,
+      isBestSeller: !!product.isBestSeller,
       specifications: product.specifications || {},
       images: product.images || [],
       videos: product.videos || []
     });
     setImagePreview(product.images ? product.images.map(img => ({
       url: img.url,
-      alt: img.alt,
-      isPrimary: img.isPrimary
+      alt: img.alt || '',
+      isPrimary: !!img.isPrimary
     })) : []);
     setVideoPreview(product.videos ? product.videos.map(vid => ({
       url: vid.url,
-      title: vid.title,
-      type: vid.type,
-      thumbnail: vid.thumbnail
+      title: vid.title || '',
+      type: vid.type || 'direct',
+      thumbnail: vid.thumbnail || ''
     })) : []);
     setShowForm(true);
   };
@@ -198,60 +198,55 @@ const AdminProducts = () => {
   
     try {
       const formDataToSend = new FormData();
-  
+      
       formDataToSend.append("name", formData.name);
       formDataToSend.append("description", formData.description);
       formDataToSend.append("price", formData.price);
       formDataToSend.append("originalPrice", formData.originalPrice);
       formDataToSend.append("categoryId", formData.categoryId);
       formDataToSend.append("stock", formData.stock);
-      formDataToSend.append("rating", formData.rating);
-      formDataToSend.append("tags", formData.tags);
       formDataToSend.append("isFeatured", formData.isFeatured);
       formDataToSend.append("isBestSeller", formData.isBestSeller);
+      formDataToSend.append("rating", formData.rating);
   
-      // Main Image URL (keep if needed)
-      formDataToSend.append("image", formData.image);
+      // ✅ tags must be array — backend expects JSON.parse
+      formDataToSend.append("tags", JSON.stringify(formData.tags.split(",")));
   
-      // ---------------------
-      // Upload all image files
-      // ---------------------
-      imagePreview.forEach((img, index) => {
-        if (img.file) {
-          formDataToSend.append("images", img.file);
-        }
-        formDataToSend.append(`images_meta[${index}][alt]`, img.alt);
-        formDataToSend.append(`images_meta[${index}][isPrimary]`, img.isPrimary);
+      // ✅ specifications must be JSON
+      formDataToSend.append("specifications", JSON.stringify(formData.specifications));
+  
+      // ✅ MAIN IMAGE - multer expects field name = "image"
+      if (imagePreview[0]?.file) {
+        formDataToSend.append("image", imagePreview[0].file);
+      }
+  
+      // ✅ Additional images
+      imagePreview.forEach((img) => {
+        if (img.file) formDataToSend.append("images", img.file);
       });
   
-      // ---------------------
-      // Upload all video files
-      // ---------------------
-      videoPreview.forEach((vid, index) => {
-        if (vid.file) {
-          formDataToSend.append("videos", vid.file);
-        }
-        formDataToSend.append(`videos_meta[${index}][title]`, vid.title);
-        formDataToSend.append(`videos_meta[${index}][type]`, vid.type);
+      // ✅ Videos upload
+      videoPreview.forEach((vid) => {
+        if (vid.file) formDataToSend.append("videos", vid.file);
       });
   
       if (editingProductId) {
         await adminAPI.updateProduct(editingProductId, formDataToSend);
-        alert("Product updated successfully");
+        alert("✅ Product updated successfully");
       } else {
         await adminAPI.createProduct(formDataToSend);
-        alert("Product created successfully");
+        alert("✅ Product created successfully");
       }
   
       resetForm();
       setShowForm(false);
       fetchProducts();
-  
-    } catch (err) {
-      console.log("Error saving product", err);
-      alert("Failed to save product");
+    } catch (error) {
+      console.error("Error saving product", error);
+      alert("❌ Failed to save product");
     }
   };
+  
   
 
   const fallbackImage =
