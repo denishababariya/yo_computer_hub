@@ -6,7 +6,8 @@
 
 /* ===== PRODUCT DETAILS PAGE ===== */
 .z_prdD_page {
-  background: linear-gradient(135deg, #f8f9fa, #f0f2f5);
+  background: linear-gradient(
+144deg, #101010, #8a8a8b);
   min-height: 100vh;
   padding: 40px 0;
 }
@@ -27,7 +28,7 @@
 
 .z_prdD_viewer_wrapper {
   width: 100%;
-  background: #fff;
+  background: #4a4a4a;
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   overflow: hidden;
@@ -151,7 +152,7 @@
 }
 
 .z_prdD_details {
-  background: #fff;
+  background: #4a4a4a;
   border-radius: 16px;
   padding: 32px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
@@ -166,7 +167,7 @@
 .z_prdD_title {
   font-size: 2rem;
   font-weight: 700;
-  color: #222;
+  color: #fff;
   margin-bottom: 8px;
   line-height: 1.3;
 }
@@ -180,12 +181,14 @@
 .z_prdD_brand,
 .z_prdD_category {
   font-size: 0.95rem;
-  color: #666;
+  color: #bec2c7;
   background: #f0f0f0;
   padding: 4px 12px;
   border-radius: 20px;
 }
-
+.z_prdD_feature_title{
+  color: antiquewhite;
+}
 .z_prdD_brand {
   color: #5588c9;
   background: rgba(85, 136, 201, 0.1);
@@ -214,7 +217,7 @@
 
 .z_prdD_reviews {
   font-size: 0.9rem;
-  color: #666;
+  color: #bec2c7;
 }
 
 /* Price Section */
@@ -252,7 +255,7 @@
 /* Description */
 .z_prdD_description {
   font-size: 0.95rem;
-  color: #555;
+  color: #b8bec5;
   line-height: 1.6;
   margin-bottom: 24px;
 }
@@ -266,7 +269,7 @@
   display: block;
   font-size: 0.95rem;
   font-weight: 600;
-  color: #333;
+  color: #e0e0e0;
   margin-bottom: 8px;
 }
 
@@ -301,7 +304,8 @@
   text-align: center;
   font-size: 1rem;
   font-weight: 600;
-  color: #333;
+  color: #f7f1f1;
+  background-color: transparent;
 }
 
 .z_prdD_qty_input:focus {
@@ -342,7 +346,7 @@
 
 .z_prdD_btn_secondary {
   background: #f0f0f0;
-  color: #333;
+  color: #a09e9e;
   border: 2px solid #e0e0e0;
 }
 
@@ -382,12 +386,12 @@
 .z_prdD_feature_title {
   font-size: 0.95rem;
   font-weight: 600;
-  color: #333;
+  color: #e0e0e0;
 }
 
 .z_prdD_feature_text {
   font-size: 0.85rem;
-  color: #666;
+  color: #bec2c7;
 }
 
 /* ===== PRODUCT TAGS ===== */
@@ -400,7 +404,7 @@
 .z_prdD_tags_title {
   font-size: 0.95rem;
   font-weight: 600;
-  color: #333;
+  color: #e0e0e0;
   margin-bottom: 12px;
 }
 
@@ -431,7 +435,7 @@
 
 /* ===== DETAILED INFORMATION TABS ===== */
 .z_prdD_details_row {
-  background: #fff;
+  background: #4a4a4a;
   border-radius: 16px;
   padding: 40px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
@@ -455,7 +459,7 @@
   padding: 12px 24px;
   font-size: 1rem;
   font-weight: 600;
-  color: #666;
+  color: #bec2c7;
   cursor: pointer;
   position: relative;
   transition: all 0.3s ease;
@@ -494,7 +498,7 @@
 .z_prdD_section_title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #222;
+  color: #fff;
   margin-bottom: 24px;
 }
 
@@ -505,7 +509,7 @@
 
 .z_prdD_details_text p {
   font-size: 0.95rem;
-  color: #555;
+  color: #bec2c7;
   margin-bottom: 16px;
 }
 
@@ -521,13 +525,14 @@
 }
 
 .z_prdD_spec_item {
-  background: linear-gradient(135deg, #f8f9fa, #f0f2f5);
+  background:linear-gradient(
+62deg, #1f1e1e, #5a5f66);
   padding: 16px;
   border-radius: 12px;
   border-left: 4px solid #5588c9;
 }
 
-.z_prdD_spec_label {
+.z_prdD_spec_label {                   
   font-size: 0.85rem;
   font-weight: 700;
   color: #5588c9;
@@ -539,7 +544,7 @@
 .z_prdD_spec_value {
   font-size: 1rem;
   font-weight: 600;
-  color: #333;
+  color: #e0e0e0;
 }
 
 /* Highlights Tab */
@@ -555,8 +560,8 @@
   gap: 12px;
   padding: 12px 0;
   font-size: 0.95rem;
-  color: #555;
-  border-bottom: 1px solid #e8e8e8;
+  color: #fff;
+  border-bottom: 1px solid #5588c9;
 }
 
 .z_prdD_highlight_item:last-child {
