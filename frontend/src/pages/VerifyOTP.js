@@ -132,11 +132,11 @@ function VerifyOTP() {
   };
 
   return (
-    <Container className="py-md-5 py-4">
+    <Container className="py-md-5 py-4 x_var">
       <Row className="justify-content-center">
-        <Col md={6} lg={5}>
+        <Col md={8} lg={6} xl={5}>
           <Card className="shadow-lg border-0" style={{ borderRadius: '12px' }}>
-            <Card.Body className="p-5">
+            <Card.Body className="p-md-5 p-3 py-4">
               <div className="text-center mb-md-4 mb-2">
                 <h2 className="fw-bold mb-2">Verify OTP</h2>
                 <p className="text-muted">
@@ -168,11 +168,8 @@ function VerifyOTP() {
                       onChange={(e) => handleChange(index, e.target.value)}
                       onKeyDown={(e) => handleKeyDown(index, e)}
                       onPaste={handlePaste}
-                      className="text-center"
+                      className="text-center x_box"
                       style={{
-                        width: '50px',
-                        height: '50px',
-                        fontSize: '1.5rem',
                         borderRadius: '8px',
                         border: '2px solid #dee2e6'
                       }}

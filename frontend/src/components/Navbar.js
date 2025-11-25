@@ -112,7 +112,7 @@ function Navbar4() {
 
   return (
     <div className="z_nav_wrapper z_nav_menu py-3">
-      <Container>
+      <Container className="px-md-auto px-0">
         <div className="d-flex align-items-center justify-content-between">
           <Link to="/" className="z_nav_logo fw-bold fs-3 text-white">
             <img src={require("../img/logo3.png")} alt="" style={{width:'50px'}} />
@@ -124,7 +124,7 @@ function Navbar4() {
             <NavLink to="/blog" className="z_nav_link">BLOG</NavLink>
             <NavLink to="/contact" className="z_nav_link">CONTACT US</NavLink>
           </Nav>
-          <div className="z_right_section d-flex align-items-center gap-4">
+          <div className="z_right_section d-flex align-items-center gap-md-4 gap-1 ">
             <Form className="z_search_glass d-none d-md-block" onSubmit={handleSearchSubmit}>
                 <InputGroup>
                   <Form.Control
@@ -139,7 +139,7 @@ function Navbar4() {
                   </Button>
                 </InputGroup>
               </Form>
-            <div className="z_nav_icons d-flex align-items-center gap-4">
+            <div className="z_nav_icons d-flex align-items-center gap-md-4 gap-3">
               <Link to="/wishlist" className="z_glow_icon position-relative">
                 <i className="bi bi-heart"></i>
                 {wishlistCount > 0 && <span className="z_cart_count">{wishlistCount}</span>}
@@ -190,7 +190,7 @@ function Navbar4() {
               </div>
             </div>
             {/* Offcanvas button at end for mobile/tablet */}
-            <Button variant="outline-light" className="d-lg-none ms-2" onClick={handleShow}>
+            <Button variant="" className="d-lg-none ms-md-2 ms-0 text-light px-md-auto px-1" onClick={handleShow}>
               <i className="bi bi-list" style={{fontSize: '1.5rem'}}></i>
             </Button>
           </div>

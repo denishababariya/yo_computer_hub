@@ -186,7 +186,7 @@ All admin panel classes follow the naming convention: `z_admin_*`
 ## Color Scheme
 
 - **Background**: Dark gradient (#0f0f0f to #1a1a1a)
-- **Primary Color**: Cyan (#00d4ff)
+- **Primary Color**: Cyan (#5588c9)
 - **Secondary**: Light gray (#a9a9a9)
 - **Success**: Green (#00cc44)
 - **Danger**: Red (#ff4444)

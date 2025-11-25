@@ -46,7 +46,7 @@
 }
 
 .z_admin_breadcrumb a {
-  color: #00d4ff;
+  color: #5588c9;
   text-decoration: none;
   cursor: pointer;
   transition: color 0.3s;
@@ -77,17 +77,17 @@
 }
 
 .z_admin_nav_tab:hover {
-  border-color: #00d4ff;
-  color: #00d4ff;
+  border-color: #5588c9;
+  color: #5588c9;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 212, 255, 0.2);
 }
 
 .z_admin_nav_tab.active {
-  background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
-  border-color: #00d4ff;
+  background: linear-gradient(135deg, #5588c9 0%, #264872 100%);
+  border-color: #5588c9;
   color: #fff;
-  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+  box-shadow: 0 4px 12px #5588c94d;
 }
 
 .z_admin_stats_grid {
@@ -151,7 +151,7 @@
 
 .z_admin_stat_card:hover {
   transform: translateY(-5px);
-  border-color: #00d4ff4f;
+  border-color: #5588c94f;
   box-shadow: 0 4px 12px rgba(0, 212, 255, 0.2);
 }
 
@@ -166,7 +166,7 @@
 .z_admin_stat_value {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #00d4ff;
+  color: #5588c9;
   margin: 0;
 }
 
@@ -205,8 +205,8 @@
 
 .z_admin_search_box {
   padding: 10px 15px;
-  background: rgba(0, 212, 255, 0.1);
-  border: 1px solid #00d4ff;
+  background: #5588c91a;
+  border: 1px solid #5588c9;
   border-radius: 6px;
   color: #fff;
   font-size: 0.9rem;
@@ -217,7 +217,7 @@
 .z_admin_search_box:focus {
   outline: none;
   background: rgba(0, 212, 255, 0.15);
-  box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+  box-shadow: 0 0 10px #5588c94d;
 }
 
 .z_admin_search_box::placeholder {
@@ -231,15 +231,15 @@
 }
 
 .z_admin_table thead {
-  background: rgba(0, 212, 255, 0.1);
-  border-bottom: 2px solid #00d4ff;
+  background: #5588c91a;
+  border-bottom: 2px solid #5588c9;
 }
 
 .z_admin_table th {
   padding: 15px 20px;
   text-align: left;
   font-weight: 600;
-  color: #00d4ff;
+  color: #5588c9;
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -256,7 +256,7 @@
 }
 
 .z_admin_table tbody tr:hover {
-  background: rgba(0, 212, 255, 0.05);
+  background: #5588c912;
 }
 
 .z_admin_table tbody tr:last-child td {
@@ -284,31 +284,31 @@
 }
 
 .z_admin_btn_primary {
-  background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+  background: linear-gradient(135deg, #5588c9 0%, #264872 100%);
   color: #fff;
 }
 
 .z_admin_btn_primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+  box-shadow: 0 4px 12px #5588c94d;
 }
 
 .z_admin_btn_secondary {
   background: rgba(0, 212, 255, 0.2);
-  color: #00d4ff;
-  border: 1px solid #00d4ff;
+  color: #5588c9;
+  border: 1px solid #5588c9;
   text-wrap: nowrap;
 }
 
 .z_admin_btn_secondary:hover {
-  background: rgba(0, 212, 255, 0.3);
+  background: #5588c94d;
   transform: translateY(-2px);
 }
 
 .z_admin_btn_danger {
   background: rgba(0, 212, 255, 0.2);
-  color: #00d4ff;
-  border: 1px solid #00d4ff;
+  color: #5588c9;
+  border: 1px solid #5588c9;
   text-wrap: nowrap;
 }
 
@@ -387,8 +387,8 @@
 .z_admin_form_textarea:focus,
 .z_admin_form_select:focus {
   outline: none;
-  border-color: #00d4ff;
-  background: rgba(0, 212, 255, 0.05);
+  border-color: #5588c9;
+  background: #5588c912;
   box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
 }
 
@@ -500,14 +500,14 @@
 }
 
 .z_admin_pagination_btn:hover:not(:disabled) {
-  border-color: #00d4ff;
-  color: #00d4ff;
+  border-color: #5588c9;
+  color: #5588c9;
   transform: translateY(-2px);
 }
 
 .z_admin_pagination_btn.active {
-  background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
-  border-color: #00d4ff;
+  background: linear-gradient(135deg, #5588c9 0%, #264872 100%);
+  border-color: #5588c9;
   color: #fff;
 }
 
@@ -529,7 +529,7 @@
 
 .z_admin_status_new {
   background: rgba(0, 212, 255, 0.2);
-  color: #00d4ff;
+  color: #5588c9;
 }
 
 .z_admin_status_pending {
@@ -577,8 +577,8 @@
   display: inline-block;
   width: 20px;
   height: 20px;
-  border: 3px solid rgba(0, 212, 255, 0.3);
-  border-top-color: #00d4ff;
+  border: 3px solid #5588c94d;
+  border-top-color: #5588c9;
   border-radius: 50%;
   animation: z_admin_spin 0.8s linear infinite;
 }
@@ -833,7 +833,7 @@
 }
 
 .z_admin_modal_header h2 {
-  color: #00d4ff;
+  color: #5588c9;
   font-size: 1.5rem;
   margin: 0;
   font-weight: 700;
@@ -870,7 +870,7 @@
   font-weight: 600;
   margin-bottom: 5px;
   display: block;
-  color: #00d4ff;
+  color: #5588c9;
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -896,15 +896,15 @@
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #00d4ff;
-  box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+  border: 3px solid #5588c9;
+  box-shadow: 0 0 20px #5588c94d;
 }
 
 .z_admin_user_avatar_placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+  background: linear-gradient(135deg, #5588c9 0%, #264872 100%);
   color: #fff;
   font-size: 2rem;
   font-weight: 700;

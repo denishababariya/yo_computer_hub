@@ -5,6 +5,8 @@ import { FaCamera } from 'react-icons/fa';
 import { userAPI } from '../services/userAPI';
 import { authAPI } from '../services/api';
 import { logout as logoutAuth } from '../utils/auth';
+import emptyAdd from '../img/no_add.png';
+import emptyOrd from '../img/em_ord.png';
 
 const navTabs = [
   { name: "MY PROFILE", key: "profile" },
@@ -127,7 +129,7 @@ function MyAccount() {
         setProfile(response.data);
         setShowEdit(false);
         alert('Profile updated successfully');
-      } 
+      }
     } catch (error) {
       console.error('Error updating profile:', error);
       alert('Failed to update profile');
@@ -342,7 +344,27 @@ function MyAccount() {
                     <div className="z_acc_tab_heading">MY ORDER</div>
                     <div className="z_order_card">
                       {orders.length === 0 ? (
-                        <div className="z_order_empty">No orders yet. Start shopping now!</div>
+                        <div className=" text-center d-flex flex-column align-items-center justify-content-center ">
+
+                          {/* IMAGE */}
+                          <img
+                            src={emptyOrd}
+                            alt="Empty Wishlist"
+                            className="empty-icon mb-md-2 mb-2"
+                            style={{
+                              width: '150px',
+                              height: '150px',
+                              objectFit: 'contain',
+                              opacity: 0.7,
+                            }}
+                          />
+
+                          {/* TEXT */}
+                          <p className="empty-text" style={{ fontSize: '1.2rem', fontWeight: '00' }}>
+                            No orders yet. Start shopping now!
+                          </p>
+
+                        </div>
                       ) : (
                         <div className="z_order_list">
                           {orders.map(order => (
@@ -388,8 +410,28 @@ function MyAccount() {
 
                     <div className="z_address_card">
                       {addresses.length === 0 ? (
-                        <div className="z_address_empty">
-                          No addresses saved. Add a new address!
+
+
+                        <div className=" text-center d-flex flex-column align-items-center justify-content-center ">
+
+                          {/* IMAGE */}
+                          <img
+                            src={emptyAdd}
+                            alt="Empty Wishlist"
+                            className="empty-icon mb-md-2 mb-2"
+                            style={{
+                              width: '150px',
+                              height: '150px',
+                              objectFit: 'contain',
+                              opacity: 0.7,
+                            }}
+                          />
+
+                          {/* TEXT */}
+                          <p className="empty-text" style={{ fontSize: '1.2rem', fontWeight: '00' }}>
+                            No addresses saved. Add a new address!
+                          </p>
+
                         </div>
                       ) : (
                         <div className="row g-4">
@@ -454,36 +496,61 @@ function MyAccount() {
       </div>
       {showLogout && (
         <div className="z_logout_modal_bg">
-          <div className="z_logout_modal">
-            <div className="z_logout_modal_title">Are you sure you want to logout?</div>
-            <div className="z_logout_modal_actions">
-              <button
-                className="z_logout_btn z_logout_confirm"
-                onClick={async () => {
-                  try {
-                    // Call logout API
-                    await authAPI.logout();
+          <div className="z_logout_modal_big">
 
-                    // Clear local auth data
-                    logoutAuth();
+            {/* Close Button */}
+            <button className="z_logout_close_btn" onClick={() => setShowLogout(false)}>
+              ✕
+            </button>
 
-                    // Redirect to login
-                    navigate('/login');
-                  } catch (error) {
-                    console.error('Logout error:', error);
-                    // Even if API fails, clear local data and redirect
-                    logoutAuth();
-                    navigate('/login');
-                  }
-                }}
-              >
-                Logout
-              </button>
-              <button className="z_logout_btn z_logout_cancel" onClick={() => setShowLogout(false)}>Cancel</button>
+            <div className="z_logout_modal_body">
+
+              {/* Left Side User Image */}
+              <div className="z_logout_left">
+                <img src={profile.avatar} alt="User" className="z_logout_user_img" />
+              </div>
+
+              {/* Right Side Text Section */}
+              <div className="z_logout_right">
+                <h2 className="z_logout_title">Logout</h2>
+                <p className="z_logout_message">
+                  Are you sure you want to logout?<br />
+                  You will need to login again to access your account.
+                </p>
+
+                {/* Footer Buttons */}
+                <div className="z_logout_footer">
+                  <button
+                    className="z_logout_btn_confirm"
+                    onClick={async () => {
+                      try {
+                        await authAPI.logout();
+                        logoutAuth();
+                        navigate("/login");
+                      } catch (error) {
+                        console.error("Logout error:", error);
+                        logoutAuth();
+                        navigate("/login");
+                      }
+                    }}
+                  >
+                    Logout
+                  </button>
+
+                  <button
+                    className="z_logout_btn_cancel"
+                    onClick={() => setShowLogout(false)}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
             </div>
+
           </div>
         </div>
       )}
+
       {showEdit && (
         <div className="z_logout_modal_bg">
           <div className="z_logout_modal">

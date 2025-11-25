@@ -77,9 +77,9 @@ function Register() {
   return (
     <Container className="py-md-5 py-4">
       <Row className="justify-content-center">
-        <Col md={6} lg={5}>
+        <Col md={8} lg={6} xl={5}>
           <Card className="shadow-lg border-0" style={{ borderRadius: '12px' }}>
-            <Card.Body className="p-5">
+            <Card.Body className="p-md-5 p-3 py-4">
               <div className="text-center mb-md-4 mb-2">
                 <h2 className="fw-bold mb-2">Create Account</h2>
                 <p className="text-muted">Sign up to get started with your account.</p>
@@ -126,9 +126,16 @@ function Register() {
                     placeholder="Enter your phone number"
                     value={formData.phone}
                     onChange={handleChange}
-                    style={{ borderRadius: '8px', padding: '0.75rem' }}
+                    pattern="^[0-9]{10}$"
+                    maxLength={10}
+                    required
+                    style={{ borderRadius: "8px", padding: "0.75rem" }}
                   />
-                </Form.Group>
+                   </Form.Group>
+                  <Form.Text className="text-muted d-block mb-3">
+                    Enter a valid 10-digit phone number
+                  </Form.Text>
+
 
                 <PasswordInput
                   label="Password"

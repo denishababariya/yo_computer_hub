@@ -23,13 +23,30 @@ function ForgotPassword() {
         setLoading(false);
         return;
       }
-      await authAPI.sendOtp({ phone: phone.trim() });
-      localStorage.setItem('resetPhone', phone.trim());
+
+      // Validate 10-digit phone
+      if (!/^[0-9]{10}$/.test(phone.trim())) {
+        setError('Please enter a valid 10-digit phone number');
+        setLoading(false);
+        return;
+      }
+
+      // Auto-attach +91 before sending
+      const finalPhone = `+91${phone.trim()}`;
+      console.log(finalPhone,"fp");
+      
+
+      await authAPI.sendOtp({ phone: finalPhone });
+
+      localStorage.setItem('resetPhone', finalPhone);
       localStorage.removeItem('resetToken');
+
       setSuccess('OTP has been sent to your phone number');
+
       setTimeout(() => {
         navigate('/verify-otp');
       }, 1500);
+
     } catch (apiError) {
       setError(apiError.message || 'Failed to send OTP. Please try again.');
     } finally {
@@ -37,12 +54,13 @@ function ForgotPassword() {
     }
   };
 
+
   return (
     <Container className="py-md-5 py-4">
       <Row className="justify-content-center">
-        <Col md={6} lg={5}>
+        <Col md={8} lg={6} xl={5}>
           <Card className="shadow-lg border-0" style={{ borderRadius: '12px' }}>
-            <Card.Body className="p-5">
+            <Card.Body className="p-md-5 p-3 py-4">
               <div className="text-center mb-md-4 mb-2">
                 <h2 className="fw-bold mb-2">Forgot Password</h2>
                 <p className="text-muted">
@@ -67,7 +85,7 @@ function ForgotPassword() {
                   <Form.Label className="fw-semibold">Phone Number</Form.Label>
                   <Form.Control
                     type="tel"
-                    placeholder="Enter your phone number with country code (e.g. +91XXXXXXXXXX)"
+                    placeholder="Enter your phone number"
                     value={phone}
                     onChange={(e) => {
                       setPhone(e.target.value);
@@ -91,7 +109,7 @@ function ForgotPassword() {
 
               <div className="text-center mt-4">
                 <Link to="/login" className="text-danger fw-semibold text-decoration-none">
-                  <FaArrowLeftLong  className='me-2'/>
+                  <FaArrowLeftLong className='me-2' />
                   Back to Login
                 </Link>
               </div>

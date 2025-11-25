@@ -283,7 +283,7 @@ const AdminProducts = () => {
 
         {showForm && (
           <form className="z_admin_form" onSubmit={handleSubmit}>
-            <h3 style={{ color: '#00d4ff', marginTop: 0, marginBottom: '20px' }}>{formTitle}</h3>
+            <h3 style={{ color: '#5588c9', marginTop: 0, marginBottom: '20px' }}>{formTitle}</h3>
             {/* Basic Info */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '15px' }}>
               <div className="z_admin_form_group">
@@ -424,7 +424,7 @@ const AdminProducts = () => {
               />
               {imagePreview.length > 0 && (
                 <div style={{ marginTop: '15px' }}>
-                  <h4 style={{ color: '#00d4ff', marginBottom: '10px' }}>Uploaded Images:</h4>
+                  <h4 style={{ color: '#5588c9', marginBottom: '10px' }}>Uploaded Images:</h4>
                   <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                     {imagePreview.map((img, idx) => (
                       <div key={idx} style={{ position: 'relative', textAlign: 'center' }}>
@@ -437,7 +437,7 @@ const AdminProducts = () => {
                             height: '50px',
                             objectFit: 'cover',
                             borderRadius: '4px',
-                            border: img.isPrimary ? '3px solid #00d4ff' : '1px solid #333',
+                            border: img.isPrimary ? '3px solid #5588c9' : '1px solid #333',
                             cursor: 'pointer'
                           }}
                           onClick={() => handleImagePrimaryChange(idx)}
