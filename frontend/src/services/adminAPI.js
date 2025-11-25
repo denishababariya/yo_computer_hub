@@ -1,4 +1,6 @@
 const BASE_URL = "http://localhost:9000/api";
+const API_BASE_URL = "http://localhost:9000/api";
+
 const PRODUCTS = `${BASE_URL}/products`;
 const ADMIN = `${BASE_URL}/admin`;
 
