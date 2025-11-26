@@ -215,6 +215,16 @@ const AboutUs = () => {
 					</Row>
 				</Container>
 			</div>
+			<style>
+				{`
+					@media (max-width: 575px) {
+						.col-custom-padding {
+						padding-left: 1.5rem !important;
+						padding-right: 1.5rem !important;
+						}
+					}
+					`}
+			</style>
 
 			{/* Team Section */}
 			<Container>
@@ -225,7 +235,7 @@ const AboutUs = () => {
 					</div>
 					<Row className="g-4">
 						{team.map((member, index) => (
-							<Col key={index} lg={3} md={6} sm={6}>
+							<Col key={index} lg={3} md={6} sm={6} className="col-custom-padding">
 								<Card className="team-card-modern border-0">
 									<Card.Body className='p-0 d-flex flex-column align-items-center'>
 										<img src={member.avatar} alt={member.name} className="team-avatar-modern" />

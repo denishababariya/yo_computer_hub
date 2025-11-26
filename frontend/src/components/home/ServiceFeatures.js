@@ -4,12 +4,12 @@ import { Container, Row, Col } from "react-bootstrap";
 // Define the custom design styles
 const styles = {
   section: {
-    backgroundColor: "#0a0a0a", // Dark background
+    backgroundColor: "#0a0a0a",
     paddingTop: "60px",
     paddingBottom: "60px",
   },
   featureBox: {
-    backgroundColor: "#1a1a1a", // Slightly lighter dark background for the box
+    backgroundColor: "#1a1a1a",
     borderRadius: "10px",
     padding: "30px 20px",
     minHeight: "200px",
@@ -25,18 +25,18 @@ const styles = {
   iconWrapper: {
     fontSize: "2.5rem",
     marginBottom: "15px",
-    color: "#5588c9 ", // Electric Blue Accent Color
+    color: "#5588c9",
     transition: "color 0.3s ease",
   },
   title: {
     fontSize: "1.1rem",
     fontWeight: 600,
-    color: "#ffffff", // White text
+    color: "#ffffff",
     marginBottom: "8px",
   },
   description: {
     fontSize: "0.9rem",
-    color: "#aaaaaa", // Light grey for description
+    color: "#aaaaaa",
     margin: 0,
   },
 };
@@ -65,10 +65,11 @@ function ServiceFeatures() {
     },
   ];
 
+  // Hover Effects
   const handleMouseEnter = (e) => {
     e.currentTarget.style.transform = "translateY(-5px)";
-    e.currentTarget.style.backgroundColor = "#007bff30"; // Light blue tint on hover
-    e.currentTarget.querySelector("i").style.color = "#fff"; // White icon on hover
+    e.currentTarget.style.backgroundColor = "#007bff30";
+    e.currentTarget.querySelector("i").style.color = "#fff";
   };
 
   const handleMouseLeave = (e) => {
@@ -79,21 +80,39 @@ function ServiceFeatures() {
 
   return (
     <>
+      {/* Responsive CSS */}
       <style>
         {`
           @media (max-width: 375px) {
             .custom-col {
-              width: 100% !important; /* 1 column */
+              width: 100% !important;
+            }
+               .feature-box-fixed {
+              height: 180px !important;
             }
           }
 
           @media (min-width: 376px) and (max-width: 425px) {
             .custom-col {
-              width: 50% !important; /* 2 columns */
+              width: 50% !important;
+            }
+          }
+
+            @media (max-width: 991px) {
+            .feature-box-fixed {
+              height: 230px ;
+            }
+          }
+
+          /* FIXED HEIGHT ON DESKTOP (>=1024px) */
+          @media (min-width: 1024px) {
+            .feature-box-fixed {
+              height: 230px !important;
             }
           }
         `}
       </style>
+
       <section style={styles.section}>
         <Container>
           <Row className="g-4">
@@ -107,22 +126,16 @@ function ServiceFeatures() {
                 lg={3}
               >
                 <div
+                  className="feature-box-fixed"
                   style={styles.featureBox}
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
                 >
-                  {/* Icon */}
                   <div style={styles.iconWrapper}>
-                    <i
-                      className={`bi ${feature.icon}`}
-                      style={{ color: "#5588c9" }}
-                    ></i>
+                    <i className={`bi ${feature.icon}`}></i>
                   </div>
 
-                  {/* Title */}
                   <h5 style={styles.title}>{feature.title}</h5>
-
-                  {/* Description */}
                   <p style={styles.description}>{feature.description}</p>
                 </div>
               </Col>

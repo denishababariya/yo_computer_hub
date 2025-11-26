@@ -19,7 +19,7 @@ function AppFooter() {
   };
 
   return (
-    <footer className="bg-dark text-white mt-auto position-relative">
+    <footer className="bg-dark text-white mt-auto position-relative footer-links">
       {/* Top Footer Section */}
       <div className="border-bottom border-secondary py-4">
         <Container fluid="xxl">

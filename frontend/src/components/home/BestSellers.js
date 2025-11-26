@@ -3,6 +3,7 @@ import { Container, Row, Col, Tabs, Tab } from "react-bootstrap";
 import ProductCard from "../ProductCard";
 import { productAPI } from "../../services/api";
 import Title from "../Title";
+import "../../styles/z_style.css"
 
 function BestSellers() {
   const [activeTab, setActiveTab] = useState("all");
@@ -106,13 +107,13 @@ function BestSellers() {
           >
             BEST SELLERS
           </h2> */}
-           <Title text="BEST SELLERS" theme="light" align="center" />
+          <Title text="BEST SELLERS" theme="light" align="center" />
         </div>
 
         <Tabs
           activeKey={activeTab}
           onSelect={(k) => setActiveTab(k)}
-          className="mb-md-4 mb-2 justify-content-center custom-tabs"
+          className="mb-md-4 mb-2 justify-content-md-center custom-tabs"
         >
           <Tab eventKey="all" title="All">
             {renderProducts(bestSellers)}

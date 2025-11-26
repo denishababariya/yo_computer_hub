@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectCartItems } from '../store';
 import { Container, Table, Button, Form, Alert } from 'react-bootstrap';
@@ -16,18 +16,27 @@ function Cart() {
   const entries = Object.entries(items);
   const subtotal = entries.reduce((s, [, { product, qty }]) => s + product.price * qty, 0);
   const userAuthenticated = isAuthenticated();
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 576);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 576);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
-    <section style={{
-      backgroundColor: '#000',
-      backgroundSize: 'cover',
-      backgroundAttachment: 'fixed', 
-      backgroundColor: '#111',      
-      color: '#f8f9fa',              
-      minHeight: '85vh',
-      padding: '30px',
-      borderRadius: '8px',
-    }}>
+    <section  style={{
+        backgroundColor: "#111",
+        backgroundSize: "cover",
+        backgroundAttachment: "fixed",
+        color: "#f8f9fa",
+        minHeight: "85vh",
+        padding: isMobile ? "20px" : "30px",    
+      }}
+    >
       <Container className="py-4">
         <h2 className="text-center mb-3 xyz_subtitle">YOUR CART</h2>
         {entries.length === 0 ? (
@@ -80,11 +89,11 @@ function Cart() {
               <tbody>
                 {entries.map(([id, { product, qty }]) => (
                   <tr key={id} style={{ borderBottom: '1px solid #333' }}> {/* Subtle separator */}
-                    <td>{product.name}</td>
+                    <td className='text-nowrap'>{product.name}</td>
                     <td>${product.price.toFixed(2)}</td>
 
                     {/* ===== QTY INPUT ===== */}
-                    <td style={{ maxWidth: 70 }}>
+                    <td >
                       <Form.Control
                         type="number"
                         min={0}
@@ -118,11 +127,11 @@ function Cart() {
               </tbody>
             </Table>
 
-            <div className="d-flex justify-content-between align-items-center">
+            <div className="d-flex justify-content-between align-items-center mt-3 mt-md-0">
               <Button variant="outline-secondary" onClick={() => dispatch(clearCart())}>
                 Clear cart
               </Button>
-              <div className="h5 mb-0">Subtotal: ${subtotal.toFixed(2)} CAD</div>
+              <div className="h5 mb-0">Subtotal: ${subtotal.toFixed(2)}</div>
             </div>
 
             {!userAuthenticated && (

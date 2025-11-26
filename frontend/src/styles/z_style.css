@@ -993,6 +993,26 @@
     width: 80vw;
   }
 }
+.shop-btn {
+  background-color: #5588c9;
+  border: none;
+  box-shadow: 0 0 15px rgba(85,136,201,0.7);
+  width: 100%;
+  max-width: 220px;
+}
+
+@media (max-width: 768px) {
+  .shop-btn {
+    max-width: 180px;
+  }
+}
+@media (max-width: 425px) {
+  .shop-btn {
+    max-width: 160px;
+    font-weight: 500 !important;
+  }
+}
+
 
 @media (max-width: 600px) {
   .z_contact_container {

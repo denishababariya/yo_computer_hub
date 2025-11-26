@@ -93,7 +93,7 @@ function FeaturedProducts() {
                     className="px-3 py-2"
                     style={{ fontWeight: "600", fontSize: "0.95rem" }}
                   >
-                    Add Now
+                    Shop Now
                   </Button>
                 </div>
 

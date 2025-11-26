@@ -37,7 +37,7 @@ function SpecialOffer() {
   }, []);
 
   return (
-    <section 
+    <section
       className="x_main-special-offer py-md-5 py-4 position-relative overflow-hidden"
       style={{
         background: '#0b0f1a',
@@ -46,7 +46,7 @@ function SpecialOffer() {
       }}
     >
       {/* Background Image + Dark Overlay */}
-      <div 
+      <div
         className="position-absolute top-0 start-0 w-100 h-100"
         style={{
           backgroundImage: `
@@ -64,7 +64,7 @@ function SpecialOffer() {
 
           {/* Offer Content */}
           <Col md={8} lg={8} className="mx-auto text-white">
-             <Title text="SPECIAL GAMING OFFER" theme="dark" align="left" />
+            <Title text="SPECIAL GAMING OFFER" theme="dark" align="left" />
             {/* <h2 
               className="fw-bold mb-3"
               style={{
@@ -76,15 +76,15 @@ function SpecialOffer() {
             
             </h2> */}
 
-            <p className="lead mb-md-4 mb-2 text-light">
+            <p className="lead mb-md-4 mb-2 text-light px-md-0 px-2">
               Grab the latest gaming gear at exclusive discounted prices.
             </p>
 
             {/* Countdown */}
-            <div 
+            <div
               className="d-flex justify-content-center justify-content-md-start gap-2 gap-md-3 flex-wrap mb-md-4 mb-2"
             >
-              {['Days','Hours','Minutes','Seconds'].map((label, index) => {
+              {['Days', 'Hours', 'Minutes', 'Seconds'].map((label, index) => {
                 const values = [
                   timeLeft.days,
                   String(timeLeft.hours).padStart(2, '0'),
@@ -94,7 +94,7 @@ function SpecialOffer() {
                 return (
                   <div
                     key={index}
-                    className="text-center p-2 p-md-3 rounded"
+                    className="text-center p-1 p-md-2 p-lg-3 rounded"
                     style={{
                       minWidth: '70px',
                       background: 'rgba(255,255,255,0.05)',
@@ -103,7 +103,7 @@ function SpecialOffer() {
                       boxShadow: '0 0 10px rgba(85,136,201,0.3)',
                     }}
                   >
-                    <div 
+                    <div
                       className="fw-bold"
                       style={{ fontSize: '1.4rem', color: '#5588c9' }}
                     >
@@ -120,14 +120,7 @@ function SpecialOffer() {
               as={Link}
               to="/shop"
               size="lg"
-              className="px-4 py-3 fw-bold"
-              style={{
-                backgroundColor: '#5588c9',
-                border: 'none',
-                boxShadow: '0 0 15px rgba(85,136,201,0.7)',
-                width: '100%',
-                maxWidth: '220px'
-              }}
+              className="px-lg-4 py-lg-3 px-md-0 py-md-2 py-1 fw-bold shop-btn mt-md-0 mt-2"
             >
               Shop Now
             </Button>

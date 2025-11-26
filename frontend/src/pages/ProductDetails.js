@@ -64,12 +64,18 @@ function ProductDetails() {
   }, [product, wishlistIds]);
 
   // If product is present and cart contains it, set initial quantity from cart
-  useEffect(() => {
-    if (product && cartItems && cartItems[product.id]) {
-      const existingQty = cartItems[product.id].qty || 1;
-      setQuantity(existingQty);
-    }
-  }, [product, cartItems]);
+useEffect(() => {
+  if (!product || !cartItems) return;
+
+  const idKey = product.id || product._id;
+
+  if (cartItems[idKey]) {
+    setQuantity(cartItems[idKey].qty); // ✔ Set existing qty from cart
+  } else {
+    setQuantity(1); // ✔ Default
+  }
+}, [product, cartItems]);
+
 
   const handlePrevImage = () => {
     setCurrentImageIndex((prev) => (prev === 0 ? images360.length - 1 : prev - 1));
@@ -84,12 +90,18 @@ function ProductDetails() {
   };
 
   const handleAddToCart = () => {
-  dispatch(addToCart({ id: product.id, product, qty: quantity, replace: true }));
+    // dispatch(addToCart({ id: product.id, product, qty: quantity, replace: true }));
+    dispatch(addToCart({
+      id: product.id || product._id,
+      product,
+      qty: quantity,
+      replace: false
+    }));
   };
 
   // Sample product tags and specifications
   const productTags = ['Gaming', 'Wireless', 'Ergonomic', 'Professional', 'Durable'];
-  
+
   const specifications = [
     { label: 'Model', value: 'Premium Gaming Controller' },
     { label: 'Connection', value: 'Wireless 2.4GHz' },
@@ -139,21 +151,21 @@ function ProductDetails() {
             <div className="z_prdD_viewer_wrapper">
               {/* Main Image Display */}
               <div className="z_prdD_main_viewer">
-                <img 
-                  src={images360[currentImageIndex]} 
-                  alt="360 View" 
+                <img
+                  src={images360[currentImageIndex]}
+                  alt="360 View"
                   className="z_prdD_main_image"
                 />
-                
+
                 {/* Navigation Arrows */}
-                <button 
+                <button
                   className="z_prdD_arrow z_prdD_arrow_left"
                   onClick={handlePrevImage}
                   title="Previous"
                 >
                   &#10094;
                 </button>
-                <button 
+                <button
                   className="z_prdD_arrow z_prdD_arrow_right"
                   onClick={handleNextImage}
                   title="Next"
@@ -222,19 +234,19 @@ function ProductDetails() {
               <div className="z_prdD_quantity_section">
                 <label className="z_prdD_label">Quantity:</label>
                 <div className="z_prdD_quantity_box">
-                  <button 
+                  <button
                     className="z_prdD_qty_btn"
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
                   >
                     −
                   </button>
-                  <input 
-                    type="number" 
+                  <input
+                    type="number"
                     value={quantity}
                     onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
                     className="z_prdD_qty_input"
                   />
-                  <button 
+                  <button
                     className="z_prdD_qty_btn"
                     onClick={() => setQuantity(quantity + 1)}
                   >
@@ -245,13 +257,13 @@ function ProductDetails() {
 
               {/* Action Buttons */}
               <div className="z_prdD_actions">
-                <button 
+                <button
                   className="z_prdD_btn z_prdD_btn_primary"
                   onClick={handleAddToCart}
                 >
                   <FaShoppingCart /> Add to Cart
                 </button>
-                <button 
+                <button
                   className={`z_prdD_btn z_prdD_btn_secondary ${isWishlisted ? 'active' : ''}`}
                   onClick={() => {
                     const idKey = product.id || product._id;
@@ -334,18 +346,18 @@ function ProductDetails() {
                     <h3 className="z_prdD_section_title">Product Details</h3>
                     <div className="z_prdD_details_text">
                       <p>
-                        Experience ultimate gaming performance with our premium wireless controller. 
-                        Engineered for precision and comfort, this controller features advanced haptic 
+                        Experience ultimate gaming performance with our premium wireless controller.
+                        Engineered for precision and comfort, this controller features advanced haptic
                         feedback technology that brings your gaming experience to life.
                       </p>
                       <p>
-                        With its ergonomic design and premium rubber grip, you can enjoy extended gaming 
-                        sessions without fatigue. The low-latency wireless connection ensures responsive 
+                        With its ergonomic design and premium rubber grip, you can enjoy extended gaming
+                        sessions without fatigue. The low-latency wireless connection ensures responsive
                         gameplay across all your favorite platforms.
                       </p>
                       <p>
-                        Customize your gaming experience with 16 programmable buttons and intuitive software. 
-                        Whether you're a casual gamer or professional esports player, this controller adapts 
+                        Customize your gaming experience with 16 programmable buttons and intuitive software.
+                        Whether you're a casual gamer or professional esports player, this controller adapts
                         to your needs.
                       </p>
                     </div>

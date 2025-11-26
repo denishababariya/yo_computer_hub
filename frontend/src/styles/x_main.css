@@ -115,6 +115,30 @@
    RESPONSIVE BREAKPOINTS
    ============================================ */
 
+.x_main-best-sellers .nav-tabs {
+  overflow-y: hidden;
+}
+
+/* Footer Link Hover */
+.footer-links ul li a {
+  color: #b3b3b3; /* default light grey */
+  transition: color 0.3s ease, padding-left 0.2s ease;
+}
+
+.footer-links ul li a:hover {
+  color: #5588c9 !important;        /* hover blue */
+  padding-left: 4px;     /* slight move animation */
+  text-decoration: none; /* keep clean */
+}
+@media (max-width: 500px) {
+.x_main-best-sellers .nav-tabs {
+    flex-wrap: nowrap;
+    font-size: 0.875rem;
+    overflow-x: scroll;
+    line-height: 1.5rem !important;
+  }
+}
+
 /* Extra Small devices (phones, 320px and up) */
 @media (min-width: 320px) {
   .x_main-hero h1 {
@@ -150,10 +174,7 @@
   }
 
   /* Best sellers tabs */
-  .x_main-best-sellers .nav-tabs {
-    flex-wrap: wrap;
-    font-size: 0.875rem;
-  }
+  
 
   .x_main-best-sellers .nav-tabs .nav-link {
     padding: 0.5rem 0.75rem;
@@ -351,8 +372,52 @@
   object-fit: cover;
 }
 
+/* Make tabs scroll horizontally on small screens */
+.custom-tabs .nav {
+  overflow-x: auto;
+  white-space: nowrap;
+  flex-wrap: nowrap !important;
+  scrollbar-width: none;
+  /* Hide scrollbar (Firefox) */
+}
+
+.custom-tabs .nav::-webkit-scrollbar {
+  display: none;
+  /* Hide scrollbar (Chrome/Safari) */
+}
+
+.custom-tabs .nav-item {
+  flex: 0 0 auto;
+  /* Prevent tabs from shrinking or wrapping */
+}
+
+/* For screens ≤ 576px (Mobile) */
+@media (max-width: 576px) {
+  .custom-tabs .nav {
+    overflow-x: auto;
+    /* Enable horizontal scroll */
+    white-space: nowrap;
+    /* Prevent wrapping to next line */
+    flex-wrap: nowrap !important;
+    /* Disable Bootstrap wrapping */
+    scrollbar-width: none;
+    /* Hide scrollbar (Firefox) */
+  }
+
+  .custom-tabs .nav::-webkit-scrollbar {
+    display: none;
+    /* Hide scrollbar (Chrome/Safari) */
+  }
+
+  .custom-tabs .nav-item {
+    flex: 0 0 auto;
+    /* Keep each tab in one line */
+  }
+}
+
 /* Button spacing on mobile */
 @media (max-width: 575px) {
+
   .x_main-hero .btn,
   .x_main-special-offer .btn,
   .x_main-rog-banner .btn {
@@ -368,6 +433,7 @@
 
 /* Container padding on mobile */
 @media (max-width: 575px) {
+
   .x_main-top-categories .container,
   .x_main-promo-banners .container,
   .x_main-best-sellers .container,
@@ -424,10 +490,12 @@
 
 /* Animation for countdown timer */
 @keyframes countdownPulse {
+
   0%,
   100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.8;
   }
@@ -463,7 +531,8 @@ html {
 /* --- Base Styling (Large Screens / Desktop First) --- */
 .minimal-bar-title {
   /* Core Typography */
-  font-size: 2.2rem; /* Base size for desktop/large screen */
+  font-size: 2.2rem;
+  /* Base size for desktop/large screen */
   font-weight: 800;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -471,7 +540,8 @@ html {
   /* Positioning for the vertical bar accent */
   display: inline-block;
   position: relative;
-  padding-right: 20px; /* Base padding for the bar */
+  padding-right: 20px;
+  /* Base padding for the bar */
   /* Color: Default to a near-black for light theme contrast */
   color: #202020;
 }
@@ -495,6 +565,7 @@ html {
 .dark-theme .minimal-bar-title {
   color: #dad8d8;
 }
+
 .dark-theme .minimal-bar-title::after {
   box-shadow: 0 0 10px rgba(85, 136, 201, 0.8);
 }
@@ -509,7 +580,8 @@ html {
     /* Slightly reduce the size */
     font-size: 1.8rem;
     letter-spacing: 1px;
-    padding-right: 15px; /* Adjust padding for the smaller text */
+    padding-right: 15px;
+    /* Adjust padding for the smaller text */
   }
 
   .minimal-bar-title::after {
@@ -523,10 +595,13 @@ html {
 @media (max-width: 576px) {
   .minimal-bar-title {
     /* Use Viewport Width (vw) for better scaling on mobile */
-    font-size: 7vw; /* Scales the font based on 5% of the viewport width */
-    font-weight: 700; /* Slightly less bold may look cleaner */
+    font-size: 7vw;
+    /* Scales the font based on 5% of the viewport width */
+    font-weight: 700;
+    /* Slightly less bold may look cleaner */
     letter-spacing: 0.8px;
-    padding-right: 10px; /* Minimum padding */
+    padding-right: 10px;
+    /* Minimum padding */
   }
 
   .minimal-bar-title::after {
@@ -539,7 +614,8 @@ html {
 
 /* --- Dark Theme Adjustment --- */
 .dark-theme .minimal-bar-title {
-  color: #dad8d8; /* Light text color */
+  color: #dad8d8;
+  /* Light text color */
 }
 
 .dark-theme .minimal-bar-title::after {
