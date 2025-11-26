@@ -14,7 +14,6 @@ const contactAPI = {
 
       const data = await response.json();
       console.log("contact data",data);
-      
 
       if (!response.ok) {
         throw new Error(data.message || data.error || 'Failed to send contact message');

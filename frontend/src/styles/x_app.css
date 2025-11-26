@@ -144,7 +144,7 @@
 /* Pagination Styling */
 .x_pagination {
   gap: 0.5rem;
-  margin-top: 3rem;
+  margin-top: 0;
 }
 
 .x_pagination .page-link {

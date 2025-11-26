@@ -41,8 +41,13 @@ function ProductDetails() {
       try {
         setLoading(true);
         const response = await productAPI.getById(id);
+
+        console.log('Product Response:', response);
+
         if (response.success) {
           setProduct(response.data);
+          console.log(response.data, 'data');
+
         } else {
           setError('Product not found');
         }
@@ -84,12 +89,12 @@ function ProductDetails() {
   };
 
   const handleAddToCart = () => {
-  dispatch(addToCart({ id: product.id, product, qty: quantity, replace: true }));
+    dispatch(addToCart({ id: product.id, product, qty: quantity, replace: true }));
   };
 
   // Sample product tags and specifications
   const productTags = ['Gaming', 'Wireless', 'Ergonomic', 'Professional', 'Durable'];
-  
+
   const specifications = [
     { label: 'Model', value: 'Premium Gaming Controller' },
     { label: 'Connection', value: 'Wireless 2.4GHz' },
@@ -139,21 +144,21 @@ function ProductDetails() {
             <div className="z_prdD_viewer_wrapper">
               {/* Main Image Display */}
               <div className="z_prdD_main_viewer">
-                <img 
-                  src={images360[currentImageIndex]} 
-                  alt="360 View" 
+                <img
+                  src={images360[currentImageIndex]}
+                  alt="360 View"
                   className="z_prdD_main_image"
                 />
-                
+
                 {/* Navigation Arrows */}
-                <button 
+                <button
                   className="z_prdD_arrow z_prdD_arrow_left"
                   onClick={handlePrevImage}
                   title="Previous"
                 >
                   &#10094;
                 </button>
-                <button 
+                <button
                   className="z_prdD_arrow z_prdD_arrow_right"
                   onClick={handleNextImage}
                   title="Next"
@@ -190,7 +195,7 @@ function ProductDetails() {
                 <h1 className="z_prdD_title">{product.name}</h1>
                 <div className="z_prdD_meta">
                   <span className="z_prdD_brand">{product.brand}</span>
-                  <span className="z_prdD_category">{product.category}</span>
+                  <span className="z_prdD_category text-dark">{product.categoryId.name}</span>
                 </div>
               </div>
 
@@ -222,19 +227,19 @@ function ProductDetails() {
               <div className="z_prdD_quantity_section">
                 <label className="z_prdD_label">Quantity:</label>
                 <div className="z_prdD_quantity_box">
-                  <button 
+                  <button
                     className="z_prdD_qty_btn"
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
                   >
                     −
                   </button>
-                  <input 
-                    type="number" 
+                  <input
+                    type="number"
                     value={quantity}
                     onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
                     className="z_prdD_qty_input"
                   />
-                  <button 
+                  <button
                     className="z_prdD_qty_btn"
                     onClick={() => setQuantity(quantity + 1)}
                   >
@@ -245,13 +250,13 @@ function ProductDetails() {
 
               {/* Action Buttons */}
               <div className="z_prdD_actions">
-                <button 
+                <button
                   className="z_prdD_btn z_prdD_btn_primary"
                   onClick={handleAddToCart}
                 >
                   <FaShoppingCart /> Add to Cart
                 </button>
-                <button 
+                <button
                   className={`z_prdD_btn z_prdD_btn_secondary ${isWishlisted ? 'active' : ''}`}
                   onClick={() => {
                     const idKey = product.id || product._id;
@@ -291,11 +296,14 @@ function ProductDetails() {
               <div className="z_prdD_tags_section">
                 <h4 className="z_prdD_tags_title">Product Tags:</h4>
                 <div className="z_prdD_tags">
-                  {productTags.map((tag, index) => (
-                    <span key={index} className="z_prdD_tag">
-                      {tag}
-                    </span>
-                  ))}
+
+                  {
+                    product.tags.map((tag, index) => (
+                      <span className="z_prdD_tag">
+                        <span key={index} className="z_prdD_tag_item">{tag}</span>
+                      </span>
+                    ))
+                  }
                 </div>
               </div>
             </div>
@@ -334,18 +342,18 @@ function ProductDetails() {
                     <h3 className="z_prdD_section_title">Product Details</h3>
                     <div className="z_prdD_details_text">
                       <p>
-                        Experience ultimate gaming performance with our premium wireless controller. 
-                        Engineered for precision and comfort, this controller features advanced haptic 
+                        Experience ultimate gaming performance with our premium wireless controller.
+                        Engineered for precision and comfort, this controller features advanced haptic
                         feedback technology that brings your gaming experience to life.
                       </p>
                       <p>
-                        With its ergonomic design and premium rubber grip, you can enjoy extended gaming 
-                        sessions without fatigue. The low-latency wireless connection ensures responsive 
+                        With its ergonomic design and premium rubber grip, you can enjoy extended gaming
+                        sessions without fatigue. The low-latency wireless connection ensures responsive
                         gameplay across all your favorite platforms.
                       </p>
                       <p>
-                        Customize your gaming experience with 16 programmable buttons and intuitive software. 
-                        Whether you're a casual gamer or professional esports player, this controller adapts 
+                        Customize your gaming experience with 16 programmable buttons and intuitive software.
+                        Whether you're a casual gamer or professional esports player, this controller adapts
                         to your needs.
                       </p>
                     </div>
