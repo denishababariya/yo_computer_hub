@@ -1,66 +1,88 @@
 .xyz_hero-slide {
-  background: linear-gradient(
-      rgba(0, 0, 0, 0.5), 
-      rgba(0, 0, 0, 0.5)
-    ),
-    url("https://www.kofinas.gr/wp-content/uploads/kofinas/prefab-categories/collection_header.jpg") no-repeat center center;
-  background-size: cover;
-  height: 700px;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-  padding: 50px 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.5),
+            rgba(0, 0, 0, 0.5)),
+        url("https://www.kofinas.gr/wp-content/uploads/kofinas/prefab-categories/collection_header.jpg") no-repeat center center;
+    background-size: cover;
+    height: 700px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 50px 0;
 }
 
 
 /* --- Content Alignment --- */
 .xyz_slide-content {
-  position: relative;
-  z-index: 20; 
-  height: 100%; /* Ensure content takes full height to align items */
+    position: relative;
+    z-index: 20;
+    height: 100%;
+    /* Ensure content takes full height to align items */
 }
 
 /* --- Typography and Text Section --- */
 .xyz_text-section {
-  padding-right: 40px;
+    padding-right: 40px;
 }
 
 .xyz_title {
-  font-size: 4.5rem; 
-  font-weight: 900;
-  margin-bottom: -10px; 
+    font-size: 4.5rem;
+    font-weight: 900;
+    margin-bottom: -10px;
 }
 
 .xyz_subtitle {
-  font-size: 4rem; 
-  font-weight: 700;
-  margin-bottom: 20px;
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #e5e5e5;
+}
+
+.wishlist-bg {
+    position: relative;
+    min-height: 100%;
+    background-image: url('https://i.pinimg.com/originals/bf/4a/7c/bf4a7cc7e05cb1cc79b7c75edf00ee4d.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    backgroundAttachment: 'fixed',
+}
+
+.wishlist-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(1px);
+}
+
+.wishlist-bg>* {
+    position: relative;
+    z-index: 2;
 }
 
 /* --- Price Styling --- */
 .xyz_price-section {
-  display: flex;
-  flex-direction: column; 
-  align-items: flex-start;
-  font-size: 2rem;
-  margin-top: 15px;
-  line-height: 1; 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 2rem;
+    margin-top: 15px;
+    line-height: 1;
 }
 
 .xyz_old-price {
-  color: #888; 
-  text-decoration: line-through;
-  font-size: 0.7em; 
-  font-weight: 300;
+    color: #888;
+    text-decoration: line-through;
+    font-size: 0.7em;
+    font-weight: 300;
 }
 
 .xyz_current-price {
-  color: #5588c9
- ; 
-  font-weight: 700;
-  font-size: 1.2em; 
+    color: #5588c9;
+    font-weight: 700;
+    font-size: 1.2em;
 }
 
 /* --- Product Description (New) --- */
@@ -75,94 +97,110 @@
 
 /* --- Large Faded Text Overlay (Dynamic) --- */
 .xyz_text-overlay {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  font-size: 18vw; 
-  font-weight: 900;
-  color: rgba(255, 255, 255, 0.05); 
-  pointer-events: none; 
-  z-index: 10; 
-  white-space: nowrap; 
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    font-size: 18vw;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.05);
+    pointer-events: none;
+    z-index: 10;
+    white-space: nowrap;
 }
 
 /* --- Product Image Section --- */
 .xyz_image-section {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  height: 100%; /* Ensure image section takes full height */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+    /* Ensure image section takes full height */
 }
 
-.xyz_product-image { /* Renamed from xyz_mouse-image to be generic */
-  max-width: 100%; /* Ensure it fits within its column */
-  max-height: 600px; /* Limit height */
-  height: auto;
-  position: relative;
-  z-index: 15;
+.xyz_product-image {
+    /* Renamed from xyz_mouse-image to be generic */
+    max-width: 100%;
+    /* Ensure it fits within its column */
+    max-height: 600px;
+    /* Limit height */
+    height: auto;
+    position: relative;
+    z-index: 15;
 }
 
 /* --- Bottom Left Icon (Twitter) --- */
 .xyz_bottom-left-icon {
-  position: absolute;
-  bottom: 20px;
-  left: 15px; /* Adjust based on container padding */
-  color: #888;
-  z-index: 30;
+    position: absolute;
+    bottom: 20px;
+    left: 15px;
+    /* Adjust based on container padding */
+    color: #888;
+    z-index: 30;
 }
 
 /* --- Vertical Right Dots (Vertical Navigation - Modified for new style) --- */
 .xyz_vertical-dots {
-  position: absolute;
-  top: 50%;
-  right: 20px; /* Adjust as needed */
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  z-index: 30;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    /* Adjust as needed */
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    z-index: 30;
 }
 
 .xyz_v-dot {
-  display: flex; /* Use flex to center the inner dot */
-  justify-content: center;
-  align-items: center;
-  width: 14px; /* Increased size to accommodate inner dot */
-  height: 14px;
-  background-color: transparent; /* Transparent background for inactive */
-  border: 1px solid #888; /* White border for inactive */
-  border-radius: 50%;
-  margin: 8px 0;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  position: relative; /* For positioning the inner dot */
+    display: flex;
+    /* Use flex to center the inner dot */
+    justify-content: center;
+    align-items: center;
+    width: 14px;
+    /* Increased size to accommodate inner dot */
+    height: 14px;
+    background-color: transparent;
+    /* Transparent background for inactive */
+    border: 1px solid #888;
+    /* White border for inactive */
+    border-radius: 50%;
+    margin: 8px 0;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    /* For positioning the inner dot */
 }
 
 .xyz_active-v-dot {
-  border-color: #5588c9
- ; /* Blue border for active */
-  background-color: rgba(0, 176, 255, 0.2); /* Slight blue fill for active */
+    border-color: #5588c9;
+    /* Blue border for active */
+    background-color: rgba(0, 176, 255, 0.2);
+    /* Slight blue fill for active */
 }
 
-.xyz_v-dot-inner { /* Inner dot for the active state */
-  display: block;
-  width: 6px;
-  height: 6px;
-  background-color: #5588c9
- ; /* Blue color for the inner dot */
-  border-radius: 50%;
-  /* Optional: Add a subtle glow */
-  box-shadow: 0 0 5px #5588c9
- ; 
+.xyz_v-dot-inner {
+    /* Inner dot for the active state */
+    display: block;
+    width: 6px;
+    height: 6px;
+    background-color: #5588c9;
+    /* Blue color for the inner dot */
+    border-radius: 50%;
+    /* Optional: Add a subtle glow */
+    box-shadow: 0 0 5px #5588c9;
 }
 
-.--bs-danger-rgb,.text-danger {
+.--bs-danger-rgb,
+.text-danger {
     color: #5588c9 !important;
 }
-.bg-danger{
+
+.bg-danger {
     background-color: #5588c9 !important;
 }
+
 @media (max-width: 1200px) {
+
     /* Reduce hero height slightly */
     .xyz_hero-slide {
         height: 600px;
@@ -192,13 +230,17 @@
         max-height: 500px;
     }
 }
+
 @media (max-width: 991px) {
+
     /* Allow the hero section to be taller to fit stacked content */
     .xyz_hero-slide {
-        height: auto; 
+        height: auto;
         min-height: 450px;
-        padding-top: 30px; /* Add more vertical padding */
-        padding-bottom: 0px; /* Add more vertical padding */
+        padding-top: 30px;
+        /* Add more vertical padding */
+        padding-bottom: 0px;
+        /* Add more vertical padding */
     }
 
     /* Center the stacked content on smaller screens */
@@ -209,48 +251,58 @@
     /* Text section adjustments (now full width) */
     .xyz_text-section {
         padding-right: 0;
-        text-align: center; /* Center align text */
-        margin-bottom: 40px; /* Space between text and image */
-        order: 2; /* Put text below image on mobile (optional, but a common pattern) */
+        text-align: center;
+        /* Center align text */
+        margin-bottom: 40px;
+        /* Space between text and image */
+        order: 2;
+        /* Put text below image on mobile (optional, but a common pattern) */
     }
 
     /* Image section adjustments (now full width) */
     .xyz_image-section {
-        justify-content: center; /* Center the image */
+        justify-content: center;
+        /* Center the image */
         margin-bottom: 20px;
-        order: 1; /* Put image above text on mobile */
+        order: 1;
+        /* Put image above text on mobile */
     }
-    
+
     .xyz_product-image {
-        max-height: 400px; /* Reduce image size further */
-        max-width: 100%; /* Limit image width */
+        max-height: 400px;
+        /* Reduce image size further */
+        max-width: 100%;
+        /* Limit image width */
     }
 
     /* Typography adjustments */
     .xyz_title {
         font-size: 2.5rem;
-        margin-bottom: 0; 
+        margin-bottom: 0;
     }
 
     .xyz_subtitle {
         font-size: 2rem;
         margin-bottom: 10px;
     }
-    
+
     .xyz_description {
-        margin-left: auto; /* Center the max-width block */
+        margin-left: auto;
+        /* Center the max-width block */
         margin-right: auto;
         max-width: 90%;
     }
 
     /* Price section alignment */
     .xyz_price-section {
-        align-items: center; /* Center price stack */
+        align-items: center;
+        /* Center price stack */
     }
-    
+
     /* Overlay text needs repositioning for stacked layout */
     .xyz_text-overlay {
-        top: 52%; /* Move up slightly */
+        top: 52%;
+        /* Move up slightly */
         font-size: 20vw;
     }
 
@@ -259,12 +311,14 @@
         right: 10px;
         top: 20px;
         gap: 10px;
-        transform: none; /* Remove translateY */
+        transform: none;
+        /* Remove translateY */
         /* flex-direction: row;  */
     }
-    
+
     .xyz_v-dot {
-        margin: 0 5px; /* Adjust spacing for horizontal dots */
+        margin: 0 5px;
+        /* Adjust spacing for horizontal dots */
     }
 
     /* Hide the bottom-left icon as it might clutter the bottom of the page */
@@ -272,13 +326,17 @@
         display: none;
     }
 }
+
 @media (max-width: 768px) {
+
     /* Allow the hero section to be taller to fit stacked content */
     .xyz_hero-slide {
-        height: auto; 
+        height: auto;
         min-height: 450px;
-        padding-top: 30px; /* Add more vertical padding */
-        padding-bottom: 0px; /* Add more vertical padding */
+        padding-top: 30px;
+        /* Add more vertical padding */
+        padding-bottom: 0px;
+        /* Add more vertical padding */
     }
 
     /* Center the stacked content on smaller screens */
@@ -289,48 +347,58 @@
     /* Text section adjustments (now full width) */
     .xyz_text-section {
         padding-right: 0;
-        text-align: center; /* Center align text */
-        margin-bottom: 40px; /* Space between text and image */
-        order: 2; /* Put text below image on mobile (optional, but a common pattern) */
+        text-align: center;
+        /* Center align text */
+        margin-bottom: 40px;
+        /* Space between text and image */
+        order: 2;
+        /* Put text below image on mobile (optional, but a common pattern) */
     }
 
     /* Image section adjustments (now full width) */
     .xyz_image-section {
-        justify-content: center; /* Center the image */
+        justify-content: center;
+        /* Center the image */
         margin-bottom: 20px;
-        order: 1; /* Put image above text on mobile */
+        order: 1;
+        /* Put image above text on mobile */
     }
-    
+
     .xyz_product-image {
-        max-height: 200px; /* Reduce image size further */
-        max-width: 100%; /* Limit image width */
+        max-height: 200px;
+        /* Reduce image size further */
+        max-width: 100%;
+        /* Limit image width */
     }
 
     /* Typography adjustments */
     .xyz_title {
         font-size: 2.5rem;
-        margin-bottom: 0; 
+        margin-bottom: 0;
     }
 
     .xyz_subtitle {
         font-size: 2rem;
         margin-bottom: 10px;
     }
-    
+
     .xyz_description {
-        margin-left: auto; /* Center the max-width block */
+        margin-left: auto;
+        /* Center the max-width block */
         margin-right: auto;
         max-width: 90%;
     }
 
     /* Price section alignment */
     .xyz_price-section {
-        align-items: center; /* Center price stack */
+        align-items: center;
+        /* Center price stack */
     }
-    
+
     /* Overlay text needs repositioning for stacked layout */
     .xyz_text-overlay {
-        top: 52%; /* Move up slightly */
+        top: 52%;
+        /* Move up slightly */
         font-size: 20vw;
     }
 
@@ -339,12 +407,14 @@
         right: 10px;
         top: 20px;
         gap: 8px;
-        transform: none; /* Remove translateY */
+        transform: none;
+        /* Remove translateY */
         /* flex-direction: row; */
     }
-    
+
     .xyz_v-dot {
-        margin: 0 5px; /* Adjust spacing for horizontal dots */
+        margin: 0 5px;
+        /* Adjust spacing for horizontal dots */
     }
 
     /* Hide the bottom-left icon as it might clutter the bottom of the page */
@@ -352,7 +422,9 @@
         display: none;
     }
 }
+
 @media (max-width: 575px) {
+
     /* Further padding and font adjustments for small screens */
     .xyz_hero-slide {
         padding-top: 60px;
@@ -366,21 +438,23 @@
     .xyz_subtitle {
         font-size: 1.5rem;
     }
-    
+
     .xyz_description {
         font-size: 1rem;
     }
 
     .xyz_text-overlay {
-        font-size: 20vw; /* Largest possible font to maintain faded effect */
+        font-size: 20vw;
+        /* Largest possible font to maintain faded effect */
         top: 28%;
         left: 0%;
     }
-    
+
     .xyz_product-image {
-        max-height: 170px; /* Final size reduction */
+        max-height: 170px;
+        /* Final size reduction */
     }
-    
+
     /* Price section font size */
     .xyz_price-section {
         font-size: 1.5rem;
@@ -388,11 +462,11 @@
 }
 
 .fade-in {
-  opacity: 1;
-  transition: opacity 0.3s ease-in-out;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .fade-out {
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
 }

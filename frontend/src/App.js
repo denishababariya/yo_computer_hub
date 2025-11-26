@@ -16,7 +16,6 @@ import Checkout from './pages/Checkout';
 import Wishlist from './pages/Wishlist';
 import Blog from './pages/Blog';
 import Contact from './pages/Contact';
-import Product360Viewer from './pages/Product360Viewer';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
@@ -54,7 +53,6 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:id" element={<BlogDetails />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/360" element={<Product360Viewer />} />
           <Route path="/term" element={<Terms />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/helpcenter" element={<HelpCenter />} />

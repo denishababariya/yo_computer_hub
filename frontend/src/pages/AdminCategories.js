@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import adminAPI from '../services/adminAPI';
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import DModal from '../components/DModal'; // Ensure path is correct
 
 const AdminCategories = () => {
   const [categories, setCategories] = useState([]);
@@ -19,6 +20,15 @@ const AdminCategories = () => {
   const [editingCategoryId, setEditingCategoryId] = useState(null);
   const [submitButtonText, setSubmitButtonText] = useState('✓ Create Category');
 
+  // --- Modal State Configuration ---
+  const [modalConfig, setModalConfig] = useState({
+    show: false,
+    type: 'info', // 'delete', 'update', 'success'
+    title: '',
+    message: ''
+  });
+  const [deleteId, setDeleteId] = useState(null); // To store ID for deletion
+
   useEffect(() => {
     fetchCategories();
   }, []);
@@ -30,7 +40,13 @@ const AdminCategories = () => {
       setCategories(data);
     } catch (error) {
       console.error('Error fetching categories:', error);
-      alert('Failed to fetch categories');
+      // Replaced alert with Modal
+      setModalConfig({
+        show: true,
+        type: 'info',
+        title: 'Error',
+        message: 'Failed to fetch categories.'
+      });
     } finally {
       setLoading(false);
     }
@@ -50,43 +66,98 @@ const AdminCategories = () => {
     setSubmitButtonText('Save Changes');
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       if (editingCategoryId) {
         await adminAPI.updateCategory(editingCategoryId, formData);
-        alert('Category updated successfully');
+        // Success Modal for Update
+        setModalConfig({
+            show: true,
+            type: 'success',
+            title: 'Updated!',
+            message: 'Category updated successfully'
+        });
       } else {
         await adminAPI.createCategory(formData);
-        alert('Category created successfully');
+        // Success Modal for Create
+        setModalConfig({
+            show: true,
+            type: 'success',
+            title: 'Created!',
+            message: 'Category created successfully'
+        });
       }
+      
+      // Reset Form
       setFormData({
         name: '',
+        slug: '', // Added reset for slug
         description: '',
-        icon: ''
+        icon: '',
+        image: '', // Added reset for image
+        isActive: true
       });
       setShowForm(false);
       setEditingCategoryId(null);
       setSubmitButtonText('✓ Create Category');
       fetchCategories();
+
     } catch (error) {
       console.error('Error saving category:', error);
-      alert('Failed to save category');
+      // Error Modal
+      setModalConfig({
+        show: true,
+        type: 'info', // DModal doesn't have 'error' style in your code, so using info/default
+        title: 'Error',
+        message: 'Failed to save category'
+      });
     }
   };
 
-  const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this category?')) {
-      try {
-        await adminAPI.deleteCategory(id);
-        alert('Category deleted successfully');
-        fetchCategories();
-      } catch (error) {
-        console.error('Error deleting category:', error);
-        alert('Failed to delete category');
-      }
+  // 1. Trigger when Delete button is clicked (Opens Modal)
+  const initiateDelete = (id) => {
+    setDeleteId(id);
+    setModalConfig({
+        show: true,
+        type: 'delete',
+        title: 'Delete Category',
+        message: 'Are you sure you want to delete this category? This action cannot be undone.'
+    });
+  };
+
+  // 2. Execute the actual logic when "Confirm" is clicked in Modal
+  const handleModalConfirm = async () => {
+    // If the modal is currently in 'delete' mode
+    if (modalConfig.type === 'delete' && deleteId) {
+        try {
+            await adminAPI.deleteCategory(deleteId);
+            setModalConfig({
+                show: true,
+                type: 'success',
+                title: 'Deleted!',
+                message: 'Category deleted successfully'
+            });
+            fetchCategories();
+        } catch (error) {
+            console.error('Error deleting category:', error);
+            setModalConfig({
+                show: true,
+                type: 'info',
+                title: 'Error',
+                message: 'Failed to delete category'
+            });
+        }
+        setDeleteId(null); // Reset ID
+    } else {
+        // For Success or Info types, clicking button just closes modal
+        handleModalClose();
     }
+  };
+
+  const handleModalClose = () => {
+    setModalConfig({ ...modalConfig, show: false });
+    setDeleteId(null);
   };
 
   return (
@@ -118,18 +189,6 @@ const AdminCategories = () => {
                 />
               </div>
 
-              {/* Slug */}
-              {/* <div className="z_admin_form_group">
-                <label className="z_admin_form_label">Slug</label>
-                <input
-                  type="text"
-                  className="z_admin_form_input"
-                  value={formData.slug}
-                  onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-                  placeholder="auto-generated if empty"
-                />
-              </div> */}
-
               {/* Icon */}
               <div className="z_admin_form_group">
                 <label className="z_admin_form_label">Icon</label>
@@ -152,7 +211,6 @@ const AdminCategories = () => {
                 />
               </div>
 
-
               {/* Active Status */}
               <div className="z_admin_form_group">
                 <label className="z_admin_form_label">Active Status</label>
@@ -165,7 +223,6 @@ const AdminCategories = () => {
                   <option value="false">Inactive</option>
                 </select>
               </div>
-
             </div>
 
             {/* Description */}
@@ -182,7 +239,6 @@ const AdminCategories = () => {
               {submitButtonText}
             </button>
           </form>
-
         )}
 
         {loading ? (
@@ -210,10 +266,12 @@ const AdminCategories = () => {
                   <td>{category.isActive ? 'Active' : 'Inactive'}</td>
                   <td>
                     <div className="z_admin_actions">
-                      <button className="z_admin_btn z_admin_btn_secondary wrap-nowrap" onClick={() => handleEdit(category)}> <span style={{color: "#fff", fontSize: "16px"}}><FaRegEdit /> Edit</span> </button>
+                      <button className="z_admin_btn z_admin_btn_secondary wrap-nowrap" onClick={() => handleEdit(category)}> 
+                        <span style={{color: "#fff", fontSize: "16px"}}><FaRegEdit /> Edit</span> 
+                      </button>
                       <button
                         className="z_admin_btn z_admin_btn_danger"
-                        onClick={() => handleDelete(category._id)}
+                        onClick={() => initiateDelete(category._id)}
                       >
                        <span style={{color: "#fff", fontSize: "16px"}}> <RiDeleteBin6Line /> Delete</span>
                       </button>
@@ -229,6 +287,16 @@ const AdminCategories = () => {
           </div>
         )}
       </div>
+
+      {/* --- Integration of DModal --- */}
+      <DModal 
+        show={modalConfig.show}
+        type={modalConfig.type}
+        title={modalConfig.title}
+        message={modalConfig.message}
+        onClose={handleModalClose}
+        onConfirm={handleModalConfirm}
+      />
     </div>
   );
 };
