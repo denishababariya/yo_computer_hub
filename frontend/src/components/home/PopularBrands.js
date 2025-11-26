@@ -1,6 +1,8 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import Title from "../Title";
+// Assuming Title component is defined elsewhere
+// import Title from "../Title"; 
 
 function PopularBrands() {
   const brands = [
@@ -28,17 +30,28 @@ function PopularBrands() {
     },
   ];
 
-  const scrollBrands = [...brands, ...brands];
+  // Duplicating the brands is the correct first step for an infinite loop
+  const scrollBrands = [...brands, ...brands]; 
 
   return (
     <section className="x_main-popular-brands bg-dark py-md-5 py-4">
       <Container>
+        {/* Placeholder for Title component */}
         <Title text="SHOP BY POPULAR BRANDS" theme="dark" align="center" />
-        <div className="brand-slider py-3">
+        {/* <h2 className="text-white text-center mb-md-4">SHOP BY POPULAR BRANDS</h2>  */}
+
+        {/* 1. brand-slider needs overflow: hidden;
+          2. brand-track needs display: flex; and the animation.
+        */}
+        <div className="brand-slider py-md-3 py-1"> 
           <div className="brand-track">
             {scrollBrands.map((brand, index) => (
-              <div className="brand-item m-2 d-flex align-items-center justify-content-center bg-white border rounded shadow-sm  x_main-brand-card">
-                <img src={brand.url} alt={brand.name} />
+              // Ensure brand-item has a fixed width or max-width for consistent sliding
+              <div 
+                key={index} // Using index is okay here because the list is static within the map
+                className="brand-item m-2 d-flex align-items-center justify-content-center bg-white border rounded shadow-sm x_main-brand-card"
+              >
+                <img src={brand.url} alt={brand.name} style={{ maxWidth: '100%', height: 'auto' }} />
               </div>
             ))}
           </div>

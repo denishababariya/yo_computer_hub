@@ -200,7 +200,6 @@ function CustomerReview() {
           .review-carousel .carousel-control-next-icon {
             width: 18px;
             height: 18px;
-            filter: invert(59%) sepia(14%) saturate(1923%) hue-rotate(185deg) brightness(93%) contrast(90%);
 
           }
           

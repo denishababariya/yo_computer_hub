@@ -115,7 +115,7 @@ const AboutUs = () => {
 		<div className="bg-dark-theme text-light-gray">
 			{/* Our Story Section */}
 			<div className='story-section' >
-				<Container className="py-md-5 py-4">
+				<Container className="py-3">
 					<Row className="align-items-center">
 						<Col lg={6} className="mb-md-4 mb-2 mb-lg-0">
 							<div className="story-content">
@@ -139,10 +139,10 @@ const AboutUs = () => {
 			</div>
 
 			{/* Values Section */}
-			<div>
+			<div className='pb-2'>
 				<Container>
-					<div className="my-5 py-md-5 py-4">
-						<div className='text-center mb-5'>
+					<div className="my-lg-4 my-md-3 my-2 ">
+						<div className='text-center mb-md-5 mb-3'>
 							<h2 className="section-title">Our Core Values</h2>
 							<span className="section-header-line"></span>
 						</div>
@@ -167,7 +167,7 @@ const AboutUs = () => {
 			<div style={{ backgroundColor: "#262626" }}>
 				<Container>
 					<Row className="text-left">
-						<div className="py-md-5 py-4">
+						<div className="py-3">
 							<div className="row h-100">
 								<div className="col-lg-5 mb-md-4 mb-2 mb-lg-0 px-3">
 									<div className="stats-intro">
@@ -218,8 +218,8 @@ const AboutUs = () => {
 
 			{/* Team Section */}
 			<Container>
-				<div className="my-5 py-md-5 py-4 improved-section-container">
-					<div className='text-center mb-5'>
+				<div className="my-lg-4 my-md-3 my-2 py-3 improved-section-container">
+					<div className='text-center mb-md-5 mb-3'>
 						<h2 className="section-title">Meet Our Team</h2>
 						<span className="section-header-line"></span>
 					</div>

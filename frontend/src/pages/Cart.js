@@ -8,6 +8,7 @@ import { isAuthenticated } from '../utils/auth';
 import { CiCircleRemove } from "react-icons/ci";
 
 import emptyCart from '../img/ecart.png';
+import Title from '../components/Title';
 
 
 function Cart() {
@@ -24,12 +25,13 @@ function Cart() {
       backgroundAttachment: 'fixed', 
       backgroundColor: '#111',      
       color: '#f8f9fa',              
-      minHeight: '85vh',
+      // minHeight: '85vh',
       padding: '30px',
-      borderRadius: '8px',
+      // borderRadius: '8px',
     }}>
       <Container className="py-4">
-        <h2 className="text-center mb-3 xyz_subtitle">YOUR CART</h2>
+        {/* <h2 className="text-center mb-3 xyz_subtitle">YOUR CART</h2> */}
+          <Title text="YOUR CART" theme="dark" align="center" />
         {entries.length === 0 ? (
           <div className="wishlist-empty text-center d-flex flex-column align-items-center justify-content-center">
 

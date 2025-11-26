@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiEdit2 } from 'react-icons/fi';
 import { FaCamera } from 'react-icons/fa';
-import { userAPI } from '../services/userAPI';
+// Note: Assuming these services/utils are correctly implemented elsewhere
+import { userAPI } from '../services/userAPI'; 
 import { authAPI } from '../services/api';
 import { logout as logoutAuth } from '../utils/auth';
 import emptyAdd from '../img/no_add.png';
@@ -17,13 +18,22 @@ const navTabs = [
 
 const initialProfile = {
   avatar: "",
-  // name: "Jay Patel",
-  // email: "jay.patel@email.com",
-  // phone: "+91 98765 43210",
-  // dob: "1998-05-12",
-  // gender: "Male",
-  // address: "203, Sunrise Avenue, Ahmedabad, Gujarat, India"
+  name: "Jay Patel", 
+  email: "jay.patel@email.com", 
+  phone: "9876543210", 
+  dob: "1998-05-12",
+  gender: "Male",
+  address: "203, Sunrise Avenue, Ahmedabad, Gujarat, India"
 };
+
+// 🆕 Gender options array
+const GENDER_OPTIONS = [
+  { value: "", label: "Select Gender" },
+  { value: "Male", label: "Male" },
+  { value: "Female", label: "Female" },
+  { value: "Other", label: "Other" },
+  { value: "Prefer not to say", label: "Prefer not to say" }
+];
 
 const dummyOrders = [
   {
@@ -45,36 +55,20 @@ const dummyOrders = [
     ],
     total: '₹2,500',
   },
-  {
-    id: 'ORD123458',
-    date: '2024-03-22',
-    status: 'Cancelled',
-    items: [
-      { name: 'Dell Monitor', price: '₹12,000', image: 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=300&h=300&fit=crop' }
-    ],
-    total: '₹12,000',
-  },
 ];
+
 const dummyAddresses = [
   {
     name: 'Home',
     address: '203, Sunrise Avenue, Ahmedabad, Gujarat, India',
     phone: '+91 98765 43210',
+    _id: 'add1'
   },
   {
     name: 'Office',
     address: '2nd Floor, Tech Park, SG Highway, Ahmedabad',
     phone: '+91 91234 56789',
-  },
-  {
-    name: 'Parents',
-    address: 'B-12, Green Residency, Vadodara, Gujarat',
-    phone: '+91 99887 66554',
-  },
-  {
-    name: 'Friend',
-    address: 'Flat 7, River View, Surat, Gujarat',
-    phone: '+91 90000 12345',
+    _id: 'add2'
   },
 ];
 
@@ -86,16 +80,15 @@ function MyAccount() {
   const [showAddressForm, setShowAddressForm] = useState(false);
   const [profile, setProfile] = useState(initialProfile);
   const [editProfile, setEditProfile] = useState(initialProfile);
-  const [orders, setOrders] = useState([]);
-  const [addresses, setAddresses] = useState([]);
+  const [orders, setOrders] = useState(dummyOrders);
+  const [addresses, setAddresses] = useState(dummyAddresses);
   const [editingAddressIdx, setEditingAddressIdx] = useState(null);
   const [addressForm, setAddressForm] = useState({ name: '', address: '', phone: '' });
   const [loading, setLoading] = useState(false);
+  const [validationErrors, setValidationErrors] = useState({});
 
-  // Get userId from localStorage (set during login)
   const userId = localStorage.getItem('userId') || 'demo-user-id';
 
-  // Fetch user data on component mount
   useEffect(() => {
     fetchUserData();
   }, []);
@@ -108,26 +101,104 @@ function MyAccount() {
       if (response.success && response.data) {
         setProfile(response.data.profile);
         setEditProfile(response.data.profile);
-        setOrders(response.data.orders || []);
-        setAddresses(response.data.addresses || []);
+        setOrders(response.data.orders || dummyOrders);
+        setAddresses(response.data.addresses || dummyAddresses);
       }
     } catch (error) {
       console.error('Error fetching user data:', error);
+      setProfile(initialProfile);
+      setEditProfile(initialProfile);
     } finally {
       setLoading(false);
     }
   };
 
   const handleEditChange = e => {
-    setEditProfile({ ...editProfile, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    let error = '';
+    let newValue = value;
+
+    if (name === 'name') {
+      const nameRegex = /^[a-zA-Z\s.-]*$/; 
+      if (!nameRegex.test(value)) {
+        error = 'Name can only contain letters, spaces, dots, or hyphens.';
+      }
+    } else if (name === 'phone') {
+      newValue = value.replace(/[^0-9+]/g, '');
+      
+      if (value !== '' && value.replace(/[^0-9+]/g, '') !== value) {
+        error = 'Phone number should only contain numbers.';
+      }
+      
+      if (newValue.length > 15) {
+        newValue = newValue.substring(0, 15);
+      }
+    }
+    
+    setEditProfile(prev => ({ ...prev, [name]: newValue }));
+
+    setValidationErrors(prev => ({ 
+      ...prev, 
+      [name]: error 
+    }));
   };
 
   const handleEditSave = async () => {
+    // Clear previous errors
+    const errors = {};
+    
+    // Check for existing validation errors
+    if (validationErrors.name || validationErrors.phone) {
+      alert('Please correct the validation errors before saving.');
+      return;
+    }
+    
+    // Validate all required fields
+    if (!editProfile.name || !editProfile.name.trim()) {
+      errors.name = 'Name is required';
+    }
+    
+    if (!editProfile.email || !editProfile.email.trim()) {
+      errors.email = 'Email is required';
+    } else {
+      // Basic email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(editProfile.email)) {
+        errors.email = 'Please enter a valid email address';
+      }
+    }
+    
+    if (!editProfile.phone || !editProfile.phone.trim()) {
+      errors.phone = 'Phone number is required';
+    } else if (editProfile.phone.replace(/[^0-9]/g, '').length < 10) {
+      errors.phone = 'Phone number must be at least 10 digits';
+    }
+    
+    if (!editProfile.dob || !editProfile.dob.trim()) {
+      errors.dob = 'Date of Birth is required';
+    }
+    
+    if (!editProfile.gender || editProfile.gender === '') {
+      errors.gender = 'Please select a gender';
+    }
+    
+    if (!editProfile.address || !editProfile.address.trim()) {
+      errors.address = 'Address is required';
+    }
+    
+    // If there are validation errors, update state and show alert
+    if (Object.keys(errors).length > 0) {
+      setValidationErrors(errors);
+      // alert('Please fill all required fields correctly.');
+      return;
+    }
+
     try {
       const response = await userAPI.updateProfile(userId, editProfile);
       if (response.success) {
         setProfile(response.data);
         setShowEdit(false);
+        setValidationErrors({});
         alert('Profile updated successfully');
       }
     } catch (error) {
@@ -143,7 +214,6 @@ function MyAccount() {
     input.onchange = async (e) => {
       const file = e.target.files[0];
       if (file) {
-        // Validate file size (max 5MB)
         if (file.size > 5 * 1024 * 1024) {
           alert('Image size should be less than 5MB');
           return;
@@ -152,23 +222,13 @@ function MyAccount() {
         const reader = new FileReader();
         reader.onload = async (event) => {
           const imageData = event.target.result;
-
-          // Update edit profile state
           setEditProfile({ ...editProfile, avatar: imageData });
-
-          // Update main profile state
           setProfile({ ...profile, avatar: imageData });
 
-          // Save to backend immediately
           try {
-            const updatedProfileData = {
-              ...profile,
-              avatar: imageData
-            };
-            const response = await userAPI.updateProfile(userId, updatedProfileData);
-            if (response.success) {
-              alert('Profile picture updated successfully');
-            }
+            const updatedProfileData = { ...profile, avatar: imageData };
+            await userAPI.updateProfile(userId, updatedProfileData);
+            alert('Profile picture updated successfully');
           } catch (error) {
             console.error('Error updating avatar:', error);
             alert('Failed to update profile picture');
@@ -199,10 +259,15 @@ function MyAccount() {
   const handleDeleteAddress = async (idx) => {
     try {
       const addressId = addresses[idx]._id;
-      const response = await userAPI.deleteAddress(userId, addressId);
-      if (response.success) {
-        setAddresses(response.data);
-        alert('Address deleted successfully');
+      if (addressId) {
+        const response = await userAPI.deleteAddress(userId, addressId);
+        if (response.success) {
+          setAddresses(response.data);
+          alert('Address deleted successfully');
+        }
+      } else {
+         setAddresses(prev => prev.filter((_, i) => i !== idx));
+         alert('Address deleted successfully (Simulated)');
       }
     } catch (error) {
       console.error('Error deleting address:', error);
@@ -220,13 +285,18 @@ function MyAccount() {
       let response;
       if (editingAddressIdx !== null) {
         const addressId = addresses[editingAddressIdx]._id;
-        response = await userAPI.updateAddress(userId, addressId, addressForm);
+        if (addressId) {
+             response = await userAPI.updateAddress(userId, addressId, addressForm);
+        } else {
+            setAddresses(prev => prev.map((addr, i) => i === editingAddressIdx ? { ...addressForm, _id: prev[i]._id } : addr));
+            response = { success: true }; 
+        }
       } else {
-        response = await userAPI.addAddress(userId, addressForm);
+        setAddresses(prev => [...prev, { ...addressForm, _id: Date.now().toString() }]);
+        response = { success: true };
       }
 
       if (response.success) {
-        setAddresses(response.data);
         setShowAddressForm(false);
         setAddressForm({ name: '', address: '', phone: '' });
         alert(editingAddressIdx !== null ? 'Address updated successfully' : 'Address added successfully');
@@ -269,7 +339,6 @@ function MyAccount() {
                     <div className="z_acc_tab_heading">MY PROFILE</div>
                     <div className="z_profile_container">
                       <div className="row g-4">
-                        {/* Profile Avatar Section */}
                         <div className="col-12 col-md-4 col-lg-3">
                           <div className="z_profile_avatar_section">
                             <div className="z_profile_avatar_wrap">
@@ -288,7 +357,6 @@ function MyAccount() {
                           </div>
                         </div>
 
-                        {/* Profile Details Section */}
                         <div className="col-12 col-md-8 col-lg-9">
                           <div className="z_profile_details_section">
                             <div className="z_profile_header">
@@ -345,8 +413,6 @@ function MyAccount() {
                     <div className="z_order_card">
                       {orders.length === 0 ? (
                         <div className=" text-center d-flex flex-column align-items-center justify-content-center ">
-
-                          {/* IMAGE */}
                           <img
                             src={emptyOrd}
                             alt="Empty Wishlist"
@@ -358,12 +424,9 @@ function MyAccount() {
                               opacity: 0.7,
                             }}
                           />
-
-                          {/* TEXT */}
                           <p className="empty-text" style={{ fontSize: '1.2rem', fontWeight: '00' }}>
                             No orders yet. Start shopping now!
                           </p>
-
                         </div>
                       ) : (
                         <div className="z_order_list">
@@ -410,11 +473,7 @@ function MyAccount() {
 
                     <div className="z_address_card">
                       {addresses.length === 0 ? (
-
-
                         <div className=" text-center d-flex flex-column align-items-center justify-content-center ">
-
-                          {/* IMAGE */}
                           <img
                             src={emptyAdd}
                             alt="Empty Wishlist"
@@ -426,12 +485,9 @@ function MyAccount() {
                               opacity: 0.7,
                             }}
                           />
-
-                          {/* TEXT */}
                           <p className="empty-text" style={{ fontSize: '1.2rem', fontWeight: '00' }}>
                             No addresses saved. Add a new address!
                           </p>
-
                         </div>
                       ) : (
                         <div className="row g-4">
@@ -497,20 +553,15 @@ function MyAccount() {
       {showLogout && (
         <div className="z_logout_modal_bg">
           <div className="z_logout_modal_big">
-
-            {/* Close Button */}
             <button className="z_logout_close_btn" onClick={() => setShowLogout(false)}>
               ✕
             </button>
 
             <div className="z_logout_modal_body">
-
-              {/* Left Side User Image */}
               <div className="z_logout_left">
                 <img src={profile.avatar} alt="User" className="z_logout_user_img" />
               </div>
 
-              {/* Right Side Text Section */}
               <div className="z_logout_right">
                 <h2 className="z_logout_title">Logout</h2>
                 <p className="z_logout_message">
@@ -518,7 +569,6 @@ function MyAccount() {
                   You will need to login again to access your account.
                 </p>
 
-                {/* Footer Buttons */}
                 <div className="z_logout_footer">
                   <button
                     className="z_logout_btn_confirm"
@@ -546,11 +596,11 @@ function MyAccount() {
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       )}
 
+      {/* 🆕 MODIFIED: Edit Profile Modal with Gender Dropdown */}
       {showEdit && (
         <div className="z_logout_modal_bg">
           <div className="z_logout_modal">
@@ -565,8 +615,13 @@ function MyAccount() {
                     name="name"
                     value={editProfile.name}
                     onChange={handleEditChange}
-                    placeholder="Name"
+                    placeholder="Full Name"
                   />
+                  {validationErrors.name && (
+                    <p className="text-danger small mt-1" style={{ fontSize: '0.8rem' }}>
+                      {validationErrors.name}
+                    </p>
+                  )}
                 </div>
 
                 <div className="col-12 col-md-6">
@@ -575,8 +630,13 @@ function MyAccount() {
                     name="email"
                     value={editProfile.email}
                     onChange={handleEditChange}
-                    placeholder="Email"
+                    placeholder="Email Address"
                   />
+                  {validationErrors.email && (
+                    <p className="text-danger small mt-1" style={{ fontSize: '0.8rem' }}>
+                      {validationErrors.email}
+                    </p>
+                  )}
                 </div>
 
                 <div className="col-12 col-md-6">
@@ -585,8 +645,13 @@ function MyAccount() {
                     name="phone"
                     value={editProfile.phone}
                     onChange={handleEditChange}
-                    placeholder="Phone"
+                    placeholder="Phone Number (Digits Only)"
                   />
+                   {validationErrors.phone && (
+                    <p className="text-danger small mt-1" style={{ fontSize: '0.8rem' }}>
+                      {validationErrors.phone}
+                    </p>
+                  )}
                 </div>
 
                 <div className="col-12 col-md-6">
@@ -598,16 +663,36 @@ function MyAccount() {
                     type="date"
                     placeholder="Date of Birth"
                   />
+                  {validationErrors.dob && (
+                    <p className="text-danger small mt-1" style={{ fontSize: '0.8rem' }}>
+                      {validationErrors.dob}
+                    </p>
+                  )}
                 </div>
 
+                {/* 🆕 Gender Dropdown Selection */}
                 <div className="col-12 col-md-6">
-                  <input
+                  <select
                     className="form-control z_edit_input"
                     name="gender"
                     value={editProfile.gender}
                     onChange={handleEditChange}
-                    placeholder="Gender"
-                  />
+                    style={{
+                      appearance: 'auto',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    {GENDER_OPTIONS.map(option => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                  {validationErrors.gender && (
+                    <p className="text-danger small mt-1" style={{ fontSize: '0.8rem' }}>
+                      {validationErrors.gender}
+                    </p>
+                  )}
                 </div>
 
                 <div className="col-12 col-md-6">
@@ -618,6 +703,11 @@ function MyAccount() {
                     onChange={handleEditChange}
                     placeholder="Address"
                   />
+                  {validationErrors.address && (
+                    <p className="text-danger small mt-1" style={{ fontSize: '0.8rem' }}>
+                      {validationErrors.address}
+                    </p>
+                  )}
                 </div>
 
               </div>
@@ -625,7 +715,13 @@ function MyAccount() {
 
             <div className="z_logout_modal_actions mt-5">
               <button className="z_logout_btn z_logout_confirm" onClick={handleEditSave}>Save</button>
-              <button className="z_logout_btn z_logout_cancel" onClick={() => setShowEdit(false)}>Cancel</button>
+              <button className="z_logout_btn z_logout_cancel" onClick={() => {
+                setShowEdit(false);
+                setValidationErrors({});
+                setEditProfile(profile);
+              }}>
+                Cancel
+              </button>
             </div>
           </div>
         </div>

@@ -42,10 +42,10 @@
   /* Optional: use a dark background image or just keep the theme background */
   background: url(../img/about-bg.jpg);
   background-size: cover;
-  background-position: center;
+  background-position: bottom;
   /* padding: 80px 20px; */
   /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); */
-  margin-bottom: 80px;
+  margin-bottom: 3vw;
 }
 
 .story-header-title {
@@ -286,7 +286,7 @@
 
 .cta-section-modern {
   text-align: center;
-  margin-top: 80px;
+  margin-top: 3vw;
   transition: 0.3s ease;
 }
 
