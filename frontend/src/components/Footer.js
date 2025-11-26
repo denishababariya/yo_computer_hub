@@ -80,7 +80,6 @@ function AppFooter() {
               <li className="mb-2"><Link to="/account" className="text-secondary text-decoration-none">My Account</Link></li>
               <li className="mb-2"><Link to="/wishlist" className="text-secondary text-decoration-none">Wish List</Link></li>
               <li className="mb-2"><Link to="/privacypolicy" className="text-secondary text-decoration-none">Privacy Policy</Link></li>
-              <li className="mb-2"><Link to="/term" className="text-secondary text-decoration-none">Terms of Service</Link></li>
             </ul>
           </Col>
           <Col lg={3} md={4} sm={6} xs={6}>
@@ -89,7 +88,7 @@ function AppFooter() {
               <li className="mb-2"><Link to="/about" className="text-secondary text-decoration-none">About Us</Link></li>
               <li className="mb-2"><Link to="/blog" className="text-secondary text-decoration-none">Blog</Link></li>
               <li className="mb-2"><Link to="/contact" className="text-secondary text-decoration-none">Contact Us</Link></li>
-              <li className="mb-2"><Link to="/faq" className="text-secondary text-decoration-none">FAQ</Link></li>
+              <li className="mb-2"><Link to="/term" className="text-secondary text-decoration-none">Terms of Service</Link></li>
             </ul>
           </Col>
           <Col lg={3} md={4} sm={6} xs={6}>
@@ -98,7 +97,7 @@ function AppFooter() {
               <li className="mb-2"><Link to="/shop" className="text-secondary text-decoration-none">Shop</Link></li>
               <li className="mb-2"><Link to="/cart" className="text-secondary text-decoration-none">Cart</Link></li>
               <li className="mb-2"><Link to="/checkout" className="text-secondary text-decoration-none">Checkout</Link></li>
-              <li className="mb-2"><Link to="/360" className="text-secondary text-decoration-none">Product 360 Viewer</Link></li>
+              <li className="mb-2"><Link to="/faq" className="text-secondary text-decoration-none">FAQ</Link></li>
             </ul>
           </Col>
           <Col lg={3} md={4} sm={6} xs={12}>

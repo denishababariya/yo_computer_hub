@@ -33,7 +33,7 @@ class APIClient {
           window.location.href = '/login?redirected=true';
           throw new Error('Session expired. Please login again.');
         }
-        
+
         const error = await response.json();
         throw new Error(error.error || error.message || 'API request failed');
       }

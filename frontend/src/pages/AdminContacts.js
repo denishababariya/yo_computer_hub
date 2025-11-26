@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import adminAPI from '../services/adminAPI';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
 import { RiDeleteBin6Line } from "react-icons/ri";
+import DModal from '../components/DModal';
 
 const AdminContacts = () => {
   const [contacts, setContacts] = useState([]);
@@ -9,6 +10,15 @@ const AdminContacts = () => {
   const [page, setPage] = useState(1);
   const [statusFilter, setStatusFilter] = useState('');
   const [totalPages, setTotalPages] = useState(1);
+
+  // --- Modal State Configuration ---
+  const [modalConfig, setModalConfig] = useState({
+    show: false,
+    type: 'info', // 'delete', 'success', 'info'
+    title: '',
+    message: ''
+  });
+  const [pendingDeleteId, setPendingDeleteId] = useState(null);
 
   useEffect(() => {
     fetchContacts();
@@ -22,7 +32,12 @@ const AdminContacts = () => {
       setTotalPages(data.pages);
     } catch (error) {
       console.error('Error fetching contacts:', error);
-      alert('Failed to fetch contacts');
+      setModalConfig({
+        show: true,
+        type: 'info',
+        title: 'Error',
+        message: 'Failed to fetch contacts'
+      });
     } finally {
       setLoading(false);
     }
@@ -31,25 +46,65 @@ const AdminContacts = () => {
   const handleStatusChange = async (contactId, newStatus) => {
     try {
       await adminAPI.updateContactStatus(contactId, newStatus);
-      alert('Contact status updated successfully');
+      setModalConfig({
+        show: true,
+        type: 'success',
+        title: 'Updated',
+        message: 'Contact status updated successfully'
+      });
       fetchContacts();
     } catch (error) {
       console.error('Error updating contact status:', error);
-      alert('Failed to update contact status');
+      setModalConfig({
+        show: true,
+        type: 'info',
+        title: 'Error',
+        message: 'Failed to update contact status'
+      });
     }
   };
 
-  const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this contact?')) {
+  // 1. Initiate Delete (Opens Modal)
+  const initiateDelete = (id) => {
+    setPendingDeleteId(id);
+    setModalConfig({
+      show: true,
+      type: 'delete',
+      title: 'Delete Contact',
+      message: 'Are you sure you want to delete this contact? This action cannot be undone.'
+    });
+  };
+
+  // 2. Handle Confirm Action (Delete logic or just close)
+  const handleModalConfirm = async () => {
+    if (modalConfig.type === 'delete' && pendingDeleteId) {
       try {
-        await adminAPI.deleteContact(id);
-        alert('Contact deleted successfully');
+        await adminAPI.deleteContact(pendingDeleteId);
+        setModalConfig({
+          show: true,
+          type: 'success',
+          title: 'Deleted!',
+          message: 'Contact deleted successfully'
+        });
         fetchContacts();
       } catch (error) {
         console.error('Error deleting contact:', error);
-        alert('Failed to delete contact');
+        setModalConfig({
+          show: true,
+          type: 'info',
+          title: 'Error',
+          message: 'Failed to delete contact'
+        });
       }
+      setPendingDeleteId(null);
+    } else {
+      handleModalClose();
     }
+  };
+
+  const handleModalClose = () => {
+    setModalConfig({ ...modalConfig, show: false });
+    setPendingDeleteId(null);
   };
 
   return (
@@ -116,9 +171,9 @@ const AdminContacts = () => {
                       </select>
                       <button
                         className="z_admin_btn z_admin_btn_danger"
-                        onClick={() => handleDelete(contact._id)}
+                        onClick={() => initiateDelete(contact._id)}
                       >
-                       <span style={{color: "#fff", fontSize: "16px"}}> <RiDeleteBin6Line /> Delete</span>
+                        <span style={{color: "#fff", fontSize: "16px"}}> <RiDeleteBin6Line /> Delete</span>
                       </button>
                     </div>
                   </td>
@@ -157,6 +212,16 @@ const AdminContacts = () => {
           <p>No contacts found</p>
         </div>
       )}
+
+      {/* --- Integration of DModal --- */}
+      <DModal 
+        show={modalConfig.show}
+        type={modalConfig.type}
+        title={modalConfig.title}
+        message={modalConfig.message}
+        onClose={handleModalClose}
+        onConfirm={handleModalConfirm}
+      />
     </div>
   );
 };

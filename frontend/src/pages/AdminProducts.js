@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import adminAPI from '../services/adminAPI';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
+import DModal from '../components/DModal';
+import { FaRegEdit } from 'react-icons/fa';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 
 const AdminProducts = () => {
   const [products, setProducts] = useState([]);
@@ -10,6 +13,8 @@ const AdminProducts = () => {
   const [search, setSearch] = useState('');
   const [totalPages, setTotalPages] = useState(1);
   const [showForm, setShowForm] = useState(false);
+
+  // State for Product Form Data
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -26,12 +31,30 @@ const AdminProducts = () => {
     images: [],
     videos: []
   });
+
   const [imagePreview, setImagePreview] = useState([]);
   const [videoPreview, setVideoPreview] = useState([]);
   const [editingProductId, setEditingProductId] = useState(null);
   const [formTitle, setFormTitle] = useState('Add New Product');
   const [submitButtonText, setSubmitButtonText] = useState('✓ Create Product');
 
+  // Modal State and Handlers
+  const [modal, setModal] = useState({ show: false, type: '', title: '', message: '' });
+  const [pendingDeleteId, setPendingDeleteId] = useState(null); // To hold ID before confirmation
+
+  const showModal = (type, title, message) => {
+    setModal({ show: true, type, title, message });
+  };
+
+  const closeModal = () => {
+    setModal({ ...modal, show: false });
+    // Reset pending ID if the user cancels or closes the confirmation modal
+    if (modal.type === 'delete') {
+      setPendingDeleteId(null);
+    }
+  }
+
+  // Effect Hooks
   useEffect(() => {
     fetchCategories();
     fetchProducts();
@@ -54,7 +77,7 @@ const AdminProducts = () => {
       setTotalPages(data.pages);
     } catch (error) {
       console.error('Error fetching products:', error);
-      alert('Failed to fetch products');
+      showModal('info', 'Error', 'Failed to fetch products'); // Replaced alert
     } finally {
       setLoading(false);
     }
@@ -65,19 +88,35 @@ const AdminProducts = () => {
     return category ? category.name : 'Unknown';
   };
 
-  const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this product?')) {
+  // 1. Initiate Delete (shows confirmation modal)
+  const initiateDelete = (id) => {
+    setPendingDeleteId(id);
+    showModal('delete', 'Confirm Deletion', 'Are you sure you want to delete this product? This action cannot be undone.');
+  };
+
+  // 2. Handle Modal Confirmation (runs the actual logic)
+  const handleModalConfirm = async () => {
+    // Logic for handling the delete confirmation
+    if (modal.type === 'delete' && pendingDeleteId) {
+      const idToDelete = pendingDeleteId;
+      setPendingDeleteId(null);
+      setModal({ show: false, type: '', title: '', message: '' }); // Close confirmation modal
+
       try {
-        await adminAPI.deleteProduct(id);
-        alert('Product deleted successfully');
+        await adminAPI.deleteProduct(idToDelete);
+        showModal('success', 'Success', 'Product deleted successfully'); // Show success modal
         fetchProducts();
       } catch (error) {
         console.error('Error deleting product:', error);
-        alert('Failed to delete product');
+        showModal('info', 'Error', 'Failed to delete product'); // Show error modal
       }
+    } else {
+      // For success/info/update modals, 'OK' or 'Confirm' acts as close
+      closeModal();
     }
   };
 
+  // File Handlers (Unchanged, kept for completeness)
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
     const previews = files.map(file => ({
@@ -147,7 +186,7 @@ const AdminProducts = () => {
       categoryId: product.categoryId,
       image: product.image,
       stock: product.stock,
-      rating: product.rating ,
+      rating: product.rating,
       tags: Array.isArray(product.tags) ? product.tags.join(', ') : '',
       isFeatured: !!product.isFeatured,
       isBestSeller: !!product.isBestSeller,
@@ -195,10 +234,10 @@ const AdminProducts = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const formDataToSend = new FormData();
-      
+
       formDataToSend.append("name", formData.name);
       formDataToSend.append("description", formData.description);
       formDataToSend.append("price", formData.price);
@@ -208,49 +247,50 @@ const AdminProducts = () => {
       formDataToSend.append("isFeatured", formData.isFeatured);
       formDataToSend.append("isBestSeller", formData.isBestSeller);
       formDataToSend.append("rating", formData.rating);
-  
-      // ✅ tags must be array — backend expects JSON.parse
-      formDataToSend.append("tags", JSON.stringify(formData.tags.split(",")));
-  
-      // ✅ specifications must be JSON
+
+      // tags must be array — backend expects JSON.parse
+      formDataToSend.append("tags", JSON.stringify(formData.tags.split(",").map(tag => tag.trim()).filter(tag => tag.length > 0)));
+
+      // specifications must be JSON
       formDataToSend.append("specifications", JSON.stringify(formData.specifications));
-  
-      // ✅ MAIN IMAGE - multer expects field name = "image"
+
+      // MAIN IMAGE - multer expects field name = "image"
       if (imagePreview[0]?.file) {
         formDataToSend.append("image", imagePreview[0].file);
       }
-  
-      // ✅ Additional images
+
+      // Additional images
       imagePreview.forEach((img) => {
         if (img.file) formDataToSend.append("images", img.file);
       });
-  
-      // ✅ Videos upload
+
+      // Videos upload
       videoPreview.forEach((vid) => {
         if (vid.file) formDataToSend.append("videos", vid.file);
       });
-  
+
       if (editingProductId) {
         await adminAPI.updateProduct(editingProductId, formDataToSend);
-        alert("✅ Product updated successfully");
+        showModal('success', 'Success', 'Product updated successfully'); // Replaced alert
       } else {
         await adminAPI.createProduct(formDataToSend);
-        alert("✅ Product created successfully");
+        showModal('success', 'Success', 'Product created successfully'); // Replaced alert
       }
-  
+
       resetForm();
       setShowForm(false);
       fetchProducts();
     } catch (error) {
       console.error("Error saving product", error);
-      alert("❌ Failed to save product");
+      showModal('info', 'Error', 'Failed to save product'); // Replaced alert
     }
   };
-  
-  
+
+
 
   const fallbackImage =
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRbhCAelFcME2bxvvcN_Grufcw4HdyzEbtGA&s";
+
   return (
     <div>
       <div className="z_admin_table_wrapper">
@@ -429,9 +469,9 @@ const AdminProducts = () => {
                     {imagePreview.map((img, idx) => (
                       <div key={idx} style={{ position: 'relative', textAlign: 'center' }}>
                         <img
-                          src={`http://localhost:9000${img.url}`}
-                          alt={img?.name}
-                          
+                          src={img.file ? img.url : `http://localhost:9000${img.url}`} // Use URL.createObjectURL for new files, or the existing URL for edit mode
+                          alt={img.alt || 'Product Image'}
+
                           style={{
                             width: '50px',
                             height: '50px',
@@ -496,83 +536,86 @@ const AdminProducts = () => {
                 accept="video/*"
                 onChange={handleVideoUpload}
               />
-              {videoPreview.map((vid, idx) => (
-                <div key={idx} style={{ position: 'relative', textAlign: 'center' }}>
+              {videoPreview.length > 0 && (
+                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '15px' }}>
+                  {videoPreview.map((vid, idx) => (
+                    <div key={idx} style={{ position: 'relative', textAlign: 'center' }}>
 
-                  {/* PLAYABLE VIDEO PREVIEW */}
-                  <video
-                    src={`http://localhost:9000${vid.url}`}
-                    controls
-                    style={{
-                      width: '280px',
-                      height: '280px',
-                      objectFit: 'cover',
-                      borderRadius: '6px',
-                      border: '1px solid #555',
-                      background: '#000'
-                    }}
-                  />
+                      {/* PLAYABLE VIDEO PREVIEW */}
+                      <video
+                        src={vid.file ? vid.url : `http://localhost:9000${vid.url}`} // Use URL.createObjectURL for new files, or the existing URL for edit mode
+                        controls
+                        style={{
+                          width: '280px',
+                          height: '280px',
+                          objectFit: 'cover',
+                          borderRadius: '6px',
+                          border: '1px solid #555',
+                          background: '#000'
+                        }}
+                      />
 
-                  {/* Delete Button */}
-                  <button
-                    type="button"
-                    onClick={() => removeVideo(idx)}
-                    style={{
-                      position: 'absolute',
-                      top: '-8px',
-                      right: '-8px',
-                      background: '#ff4444',
-                      color: '#fff',
-                      border: 'none',
-                      borderRadius: '50%',
-                      width: '20px',
-                      height: '20px',
-                      cursor: 'pointer',
-                      fontSize: '12px'
-                    }}
-                  >
-                    ✕
-                  </button>
+                      {/* Delete Button */}
+                      <button
+                        type="button"
+                        onClick={() => removeVideo(idx)}
+                        style={{
+                          position: 'absolute',
+                          top: '-8px',
+                          right: '-8px',
+                          background: '#ff4444',
+                          color: '#fff',
+                          border: 'none',
+                          borderRadius: '50%',
+                          width: '20px',
+                          height: '20px',
+                          cursor: 'pointer',
+                          fontSize: '12px'
+                        }}
+                      >
+                        ✕
+                      </button>
 
-                  {/* Title + Type Inputs */}
-                  <div style={{ marginTop: '5px', fontSize: '0.75rem' }}>
-                    <input
-                      type="text"
-                      placeholder="Title"
-                      value={vid.title}
-                      onChange={(e) => handleVideoTitleChange(idx, e.target.value)}
-                      style={{
-                        width: '80px',
-                        padding: '4px',
-                        marginBottom: '3px',
-                        backgroundColor: '#333',
-                        border: '1px solid #555',
-                        color: '#fff',
-                        borderRadius: '3px'
-                      }}
-                    />
-                    <select
-                      value={vid.type}
-                      onChange={(e) => handleVideoTypeChange(idx, e.target.value)}
-                      style={{
-                        width: '80px',
-                        padding: '4px',
-                        backgroundColor: '#333',
-                        border: '1px solid #555',
-                        color: '#fff',
-                        borderRadius: '3px'
-                      }}
-                    >
-                      <option value="direct">Direct</option>
-                      <option value="youtube">YouTube</option>
-                      <option value="vimeo">Vimeo</option>
-                      <option value="demo">Demo</option>
-                    </select>
-                  </div>
+                      {/* Title + Type Inputs */}
+                      <div style={{ marginTop: '5px', fontSize: '0.75rem' }}>
+                        <input
+                          type="text"
+                          placeholder="Title"
+                          value={vid.title}
+                          onChange={(e) => handleVideoTitleChange(idx, e.target.value)}
+                          style={{
+                            width: '80px',
+                            padding: '4px',
+                            marginBottom: '3px',
+                            backgroundColor: '#333',
+                            border: '1px solid #555',
+                            color: '#fff',
+                            borderRadius: '3px'
+                          }}
+                        />
+                        <select
+                          value={vid.type}
+                          onChange={(e) => handleVideoTypeChange(idx, e.target.value)}
+                          style={{
+                            width: '80px',
+                            padding: '4px',
+                            backgroundColor: '#333',
+                            border: '1px solid #555',
+                            color: '#fff',
+                            borderRadius: '3px'
+                          }}
+                        >
+                          <option value="direct">Direct</option>
+                          <option value="youtube">YouTube</option>
+                          <option value="vimeo">Vimeo</option>
+                          <option value="demo">Demo</option>
+                        </select>
+                      </div>
 
+                    </div>
+                  ))}
                 </div>
-              ))}
-
+              )}
             </div>
 
             <button type="submit" className="z_admin_btn z_admin_btn_success">
@@ -618,19 +661,15 @@ const AdminProducts = () => {
                     <td>{product.stock}</td>
                     <td>
                       <div className="z_admin_actions">
-                        <button
-                          type="button"
-                          className="z_admin_btn z_admin_btn_secondary"
-                          onClick={() => handleEditProduct(product)}
-                        >
-                          ✎ Edit
+                        <button className="z_admin_btn z_admin_btn_secondary wrap-nowrap" onClick={() => handleEditProduct(product)}>
+                          <span style={{ color: "#fff", fontSize: "16px" }}><FaRegEdit /> Edit</span>
+
                         </button>
                         <button
-                          type="button"
                           className="z_admin_btn z_admin_btn_danger"
-                          onClick={() => handleDelete(product._id)}
+                          onClick={() => initiateDelete(product._id)}
                         >
-                          🗑️ Delete
+                          <span style={{ color: "#fff", fontSize: "16px" }}> <RiDeleteBin6Line /> Delete</span>
                         </button>
                       </div>
                     </td>
@@ -670,6 +709,16 @@ const AdminProducts = () => {
           </div>
         )}
       </div>
+
+      {/* DModal Integration */}
+      <DModal
+        show={modal.show}
+        type={modal.type}
+        title={modal.title}
+        message={modal.message}
+        onClose={closeModal}
+        onConfirm={handleModalConfirm} // Handles both Delete confirmation and Info/Success close
+      />
     </div>
   );
 };
