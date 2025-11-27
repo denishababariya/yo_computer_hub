@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FiEdit2 } from 'react-icons/fi';
 import { FaCamera } from 'react-icons/fa';
 // Note: Assuming these services/utils are correctly implemented elsewhere
-import { userAPI } from '../services/userAPI'; 
+import { userAPI } from '../services/userAPI';
 import { authAPI } from '../services/api';
 import { logout as logoutAuth } from '../utils/auth';
 import emptyAdd from '../img/no_add.png';
@@ -18,9 +18,9 @@ const navTabs = [
 
 const initialProfile = {
   avatar: "",
-  name: "Jay Patel", 
-  email: "jay.patel@email.com", 
-  phone: "9876543210", 
+  name: "Jay Patel",
+  email: "jay.patel@email.com",
+  phone: "9876543210",
   dob: "1998-05-12",
   gender: "Male",
   address: "203, Sunrise Avenue, Ahmedabad, Gujarat, India"
@@ -83,7 +83,12 @@ function MyAccount() {
   const [orders, setOrders] = useState(dummyOrders);
   const [addresses, setAddresses] = useState(dummyAddresses);
   const [editingAddressIdx, setEditingAddressIdx] = useState(null);
-  const [addressForm, setAddressForm] = useState({ name: '', address: '', phone: '' });
+  const [addressForm, setAddressForm] = useState({
+    name: "",
+    address: "",
+    phone: ""
+  });
+  const [phoneError, setPhoneError] = useState("");
   const [loading, setLoading] = useState(false);
   const [validationErrors, setValidationErrors] = useState({});
 
@@ -119,45 +124,45 @@ function MyAccount() {
     let newValue = value;
 
     if (name === 'name') {
-      const nameRegex = /^[a-zA-Z\s.-]*$/; 
+      const nameRegex = /^[a-zA-Z\s.-]*$/;
       if (!nameRegex.test(value)) {
         error = 'Name can only contain letters, spaces, dots, or hyphens.';
       }
     } else if (name === 'phone') {
       newValue = value.replace(/[^0-9+]/g, '');
-      
+
       if (value !== '' && value.replace(/[^0-9+]/g, '') !== value) {
         error = 'Phone number should only contain numbers.';
       }
-      
+
       if (newValue.length > 15) {
         newValue = newValue.substring(0, 15);
       }
     }
-    
+
     setEditProfile(prev => ({ ...prev, [name]: newValue }));
 
-    setValidationErrors(prev => ({ 
-      ...prev, 
-      [name]: error 
+    setValidationErrors(prev => ({
+      ...prev,
+      [name]: error
     }));
   };
 
   const handleEditSave = async () => {
     // Clear previous errors
     const errors = {};
-    
+
     // Check for existing validation errors
     if (validationErrors.name || validationErrors.phone) {
       alert('Please correct the validation errors before saving.');
       return;
     }
-    
+
     // Validate all required fields
     if (!editProfile.name || !editProfile.name.trim()) {
       errors.name = 'Name is required';
     }
-    
+
     if (!editProfile.email || !editProfile.email.trim()) {
       errors.email = 'Email is required';
     } else {
@@ -167,25 +172,25 @@ function MyAccount() {
         errors.email = 'Please enter a valid email address';
       }
     }
-    
+
     if (!editProfile.phone || !editProfile.phone.trim()) {
       errors.phone = 'Phone number is required';
     } else if (editProfile.phone.replace(/[^0-9]/g, '').length < 10) {
       errors.phone = 'Phone number must be at least 10 digits';
     }
-    
+
     if (!editProfile.dob || !editProfile.dob.trim()) {
       errors.dob = 'Date of Birth is required';
     }
-    
+
     if (!editProfile.gender || editProfile.gender === '') {
       errors.gender = 'Please select a gender';
     }
-    
+
     if (!editProfile.address || !editProfile.address.trim()) {
       errors.address = 'Address is required';
     }
-    
+
     // If there are validation errors, update state and show alert
     if (Object.keys(errors).length > 0) {
       setValidationErrors(errors);
@@ -241,8 +246,10 @@ function MyAccount() {
   };
 
   const handleAddressFormChange = (e) => {
-    setAddressForm({ ...addressForm, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setAddressForm((prev) => ({ ...prev, [name]: value }));
   };
+
 
   const handleAddNewAddress = () => {
     setEditingAddressIdx(null);
@@ -266,8 +273,8 @@ function MyAccount() {
           alert('Address deleted successfully');
         }
       } else {
-         setAddresses(prev => prev.filter((_, i) => i !== idx));
-         alert('Address deleted successfully (Simulated)');
+        setAddresses(prev => prev.filter((_, i) => i !== idx));
+        alert('Address deleted successfully (Simulated)');
       }
     } catch (error) {
       console.error('Error deleting address:', error);
@@ -275,37 +282,54 @@ function MyAccount() {
     }
   };
 
-  const handleSaveAddress = async () => {
-    if (!addressForm.name.trim() || !addressForm.address.trim() || !addressForm.phone.trim()) {
-      alert('Please fill all required fields');
-      return;
-    }
+ const handleSaveAddress = async () => {
+  // Basic Validation
+  if (!addressForm.name.trim()) {
+    alert("Please select Address Type");
+    return;
+  }
+  if (!addressForm.address.trim()) {
+    alert("Please enter address");
+    return;
+  }
+  if (!addressForm.phone.trim() || addressForm.phone.length !== 10) {
+    alert("Please enter valid 10-digit phone number");
+    return;
+  }
 
-    try {
-      let response;
-      if (editingAddressIdx !== null) {
-        const addressId = addresses[editingAddressIdx]._id;
-        if (addressId) {
-             response = await userAPI.updateAddress(userId, addressId, addressForm);
-        } else {
-            setAddresses(prev => prev.map((addr, i) => i === editingAddressIdx ? { ...addressForm, _id: prev[i]._id } : addr));
-            response = { success: true }; 
-        }
-      } else {
-        setAddresses(prev => [...prev, { ...addressForm, _id: Date.now().toString() }]);
-        response = { success: true };
-      }
+  try {
+    let response;
+
+    // 🟦 UPDATE Address
+    if (editingAddressIdx !== null) {
+      const addressId = addresses[editingAddressIdx]._id;
+
+      response = await userAPI.updateAddress(userId, addressId, addressForm);
 
       if (response.success) {
-        setShowAddressForm(false);
-        setAddressForm({ name: '', address: '', phone: '' });
-        alert(editingAddressIdx !== null ? 'Address updated successfully' : 'Address added successfully');
+        setAddresses(response.data); // backend returns updated array
+        alert("Address updated successfully");
       }
-    } catch (error) {
-      console.error('Error saving address:', error);
-      alert('Failed to save address');
     }
-  };
+    else {
+      // 🟩 ADD NEW Address → Backend push into array
+      response = await userAPI.addAddress(userId, addressForm);
+
+      if (response.success) {
+        setAddresses(response.data); // updated full array from backend
+        alert("Address added successfully");
+      }
+    }
+
+    setShowAddressForm(false);
+    setAddressForm({ name: "", address: "", phone: "" });
+  } catch (error) {
+    console.error("Error saving address:", error);
+    alert("Failed to save address");
+  }
+};
+
+
 
   return (
     <section className="z_acc_section py-4">
@@ -647,7 +671,7 @@ function MyAccount() {
                     onChange={handleEditChange}
                     placeholder="Phone Number (Digits Only)"
                   />
-                   {validationErrors.phone && (
+                  {validationErrors.phone && (
                     <p className="text-danger small mt-1" style={{ fontSize: '0.8rem' }}>
                       {validationErrors.phone}
                     </p>
@@ -728,61 +752,77 @@ function MyAccount() {
       )}
 
       {showAddressForm && (
-        <div className="z_logout_modal_bg">
-          <div className="z_logout_modal">
-            <div className="z_logout_modal_title">
-              {editingAddressIdx !== null ? 'Edit Address' : 'Add New Address'}
-            </div>
+  <div className="z_logout_modal_bg">
+    <div className="z_logout_modal">
+      <div className="z_logout_modal_title">
+        {editingAddressIdx !== null ? "Edit Address" : "Add New Address"}
+      </div>
 
-            <div className="container">
-              <div className="row g-3 mt-2">
+      <div className="container">
+        <div className="row g-3 mt-2">
 
-                <div className="col-12">
-                  <label className="z_form_label">Address Type <span className="z_required">*</span></label>
-                  <input
-                    className="form-control z_edit_input"
-                    name="name"
-                    value={addressForm.name}
-                    onChange={handleAddressFormChange}
-                    placeholder="e.g., Home, Office, Parents"
-                  />
-                </div>
-
-                <div className="col-12">
-                  <label className="z_form_label">Address <span className="z_required">*</span></label>
-                  <textarea
-                    className="form-control z_edit_input"
-                    name="address"
-                    value={addressForm.address}
-                    onChange={handleAddressFormChange}
-                    placeholder="Enter full address"
-                    rows="3"
-                  />
-                </div>
-
-                <div className="col-12">
-                  <label className="z_form_label">Phone Number <span className="z_required">*</span></label>
-                  <input
-                    className="form-control z_edit_input"
-                    name="phone"
-                    value={addressForm.phone}
-                    onChange={handleAddressFormChange}
-                    placeholder="e.g., +91 98765 43210"
-                  />
-                </div>
-
-              </div>
-            </div>
-
-            <div className="z_logout_modal_actions mt-5">
-              <button className="z_logout_btn z_logout_confirm" onClick={handleSaveAddress}>
-                {editingAddressIdx !== null ? 'Update' : 'Add'} Address
-              </button>
-              <button className="z_logout_btn z_logout_cancel" onClick={() => setShowAddressForm(false)}>Cancel</button>
-            </div>
+          {/* Address Type */}
+          <div className="col-12">
+            <label className="z_form_label">
+              Address Type <span className="z_required">*</span>
+            </label>
+            <select
+              className="form-control z_edit_input"
+              name="name"
+              value={addressForm.name}
+              onChange={handleAddressFormChange}
+            >
+              <option value="">Select Type</option>
+              <option value="Home">Home</option>
+              <option value="Office">Office</option>
+              <option value="Other">Other</option>
+            </select>
           </div>
+
+          {/* Address */}
+          <div className="col-12">
+            <label className="z_form_label">Address <span className="z_required">*</span></label>
+            <textarea
+              className="form-control z_edit_input"
+              name="address"
+              value={addressForm.address}
+              onChange={handleAddressFormChange}
+              placeholder="Enter full address"
+              rows="3"
+            />
+          </div>
+
+          {/* Phone */}
+          <div className="col-12">
+            <label className="z_form_label">Phone Number <span className="z_required">*</span></label>
+            <input
+              className="form-control z_edit_input"
+              name="phone"
+              maxLength={10}
+              value={addressForm.phone}
+              onChange={(e) => {
+                const onlyNums = e.target.value.replace(/\D/g, "");
+                setAddressForm(prev => ({ ...prev, phone: onlyNums }));
+              }}
+              placeholder="Enter 10-digit phone number"
+            />
+          </div>
+
         </div>
-      )}
+      </div>
+
+      <div className="z_logout_modal_actions mt-5">
+        <button className="z_logout_btn z_logout_confirm" onClick={handleSaveAddress}>
+          {editingAddressIdx !== null ? "Update" : "Add"} Address
+        </button>
+        <button className="z_logout_btn z_logout_cancel" onClick={() => setShowAddressForm(false)}>
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
 
     </section>
   );

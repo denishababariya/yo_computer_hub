@@ -41,7 +41,7 @@ function AppFooter() {
               </div>
             </Col>
             <Col md={6}>
-              <div>
+              <div className="x_sub"> 
                 <h6 className="fw-bold mb-2">Subscribe to our mailing list</h6>
                 <p className="text-secondary small mb-3">
                   Sign up for special perks starting now with a 10% Off Coupon!

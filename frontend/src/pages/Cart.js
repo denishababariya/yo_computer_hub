@@ -81,6 +81,7 @@ function Cart() {
             >
               <thead>
                 <tr style={{ backgroundColor: '#2c2c2c', color: '#00d4ff' }}> {/* Dark header with a neon accent color */}
+                  <th>Image</th>
                   <th>Product</th>
                   <th>Price</th>
                   <th>Qty</th>
@@ -91,6 +92,14 @@ function Cart() {
               <tbody>
                 {entries.map(([id, { product, qty }]) => (
                   <tr key={id} style={{ borderBottom: '1px solid #333' }}> {/* Subtle separator */}
+
+                    <td>
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px' }}
+                      />
+                    </td>
                     <td className='text-nowrap'>{product.name}</td>
                     <td>${product.price.toFixed(2)}</td>
 

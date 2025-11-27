@@ -26,8 +26,6 @@ const orderSchema = new mongoose.Schema({
     email: String,
     phone: String,
     address: String,
-    city: String,
-    state: String,
     zipCode: String
   },
   orderStatus: {

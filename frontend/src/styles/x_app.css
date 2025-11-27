@@ -1,12 +1,18 @@
 /* Blog Page Styling (Dark Theme) */
 .x_blog_dark_theme {
-  --primary-blue: #5588c9; /* Accent Blue */
-  --bg-dark: #282828; /* Dark Background */
-  --card-dark: #2a2a2a; /* Slightly Lighter Card Background */
+  --primary-blue: #5588c9;
+  /* Accent Blue */
+  --bg-dark: #282828;
+  /* Dark Background */
+  --card-dark: #2a2a2a;
+  /* Slightly Lighter Card Background */
   --text-white: #ffffff;
-  --text-light: #cccccc; /* Light Gray Text */
-  --text-muted: #888888; /* Muted Gray Text */
-  --border-gray: #444444; /* Border/Divider Gray */
+  --text-light: #cccccc;
+  /* Light Gray Text */
+  --text-muted: #888888;
+  /* Muted Gray Text */
+  --border-gray: #444444;
+  /* Border/Divider Gray */
 
   background-color: var(--bg-dark);
   color: var(--text-light);
@@ -27,7 +33,8 @@
   background-color: #343434 !important;
   border-radius: 12px !important;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Stronger shadow for contrast */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  /* Stronger shadow for contrast */
 }
 
 .x_blog_cards .x_blog_card:hover {
@@ -63,6 +70,7 @@
   border-radius: 0 0 8px 0;
   padding: 0.6rem 0.8rem;
 }
+
 .x_blog_details .x_card_category_badge {
   border-radius: 0 0px 0px 0;
 }
@@ -120,16 +128,20 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  position: relative; /* Needed for underline effect */
+  position: relative;
+  /* Needed for underline effect */
 }
 
 /* Underline (hidden by default) */
 .x_read_more_link::after {
   content: "";
   position: absolute;
-  bottom: -2px; /* distance from text */
-  right: 0; /* start from right */
-  width: 0; /* hidden */
+  bottom: -2px;
+  /* distance from text */
+  right: 0;
+  /* start from right */
+  width: 0;
+  /* hidden */
   height: 1px;
   background: var(--primary-blue);
   transition: width 0.4s ease, left 0.4s ease;
@@ -236,7 +248,7 @@
 }
 
 /* Custom radio button styling - Modern clean design */
-.filter-check input[type="radio"] + label::before {
+.filter-check input[type="radio"]+label::before {
   content: "";
   display: inline-block;
   width: 18px;
@@ -249,18 +261,18 @@
   flex-shrink: 0;
 }
 
-.filter-check input[type="radio"]:hover + label::before {
+.filter-check input[type="radio"]:hover+label::before {
   border-color: #e1dcdc;
   box-shadow: none;
 }
 
-.filter-check input[type="radio"]:checked + label::before {
+.filter-check input[type="radio"]:checked+label::before {
   border-color: #5588c9;
   background-color: #5588c9;
   box-shadow: none;
 }
 
-.filter-check input[type="radio"]:checked + label::after {
+.filter-check input[type="radio"]:checked+label::after {
   content: "";
   display: inline-block;
   width: 5px;
@@ -275,7 +287,7 @@
 }
 
 /* Custom checkbox styling */
-.filter-check input[type="checkbox"] + label::before {
+.filter-check input[type="checkbox"]+label::before {
   content: "";
   display: inline-block;
   width: 18px;
@@ -288,17 +300,17 @@
   flex-shrink: 0;
 }
 
-.filter-check input[type="checkbox"]:hover + label::before {
+.filter-check input[type="checkbox"]:hover+label::before {
   border-color: #e1dcdc;
 }
 
-.filter-check input[type="checkbox"]:checked + label::before {
+.filter-check input[type="checkbox"]:checked+label::before {
   background: #5588c9;
   border-color: #5588c9;
   box-shadow: none;
 }
 
-.filter-check input[type="checkbox"]:checked + label::after {
+.filter-check input[type="checkbox"]:checked+label::after {
   content: "✓";
   display: inline-block;
   color: #fff;
@@ -329,8 +341,8 @@
   color: #e1dcdc;
 }
 
-.filter-check input[type="radio"]:checked + label,
-.filter-check input[type="checkbox"]:checked + label {
+.filter-check input[type="radio"]:checked+label,
+.filter-check input[type="checkbox"]:checked+label {
   color: #e1dcdc;
   font-weight: 500;
 }
@@ -348,13 +360,11 @@
   outline: none;
   -webkit-appearance: none;
   appearance: none;
-  background: linear-gradient(
-    to right,
-    #5588c9 0%,
-    #5588c9 0%,
-    #ddd 0%,
-    #ddd 100%
-  );
+  background: linear-gradient(to right,
+      #5588c9 0%,
+      #5588c9 0%,
+      #ddd 0%,
+      #ddd 100%);
   background-size: 100% 100%;
   background-repeat: no-repeat;
   cursor: pointer;
@@ -579,7 +589,8 @@
   overflow: hidden;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  height: 100%; /* Ensures cards in a row have equal height */
+  height: 100%;
+  /* Ensures cards in a row have equal height */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -613,13 +624,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 230px; /* Fixed height for image container */
+  height: 230px;
+  /* Fixed height for image container */
 }
 
 .category-image {
   max-width: 90%;
   max-height: 100%;
-  object-fit: contain; /* Ensures the entire image is visible without cropping */
+  object-fit: contain;
+  /* Ensures the entire image is visible without cropping */
   /* filter: drop-shadow(0 0 4px rgba(43, 168, 226, 0.4)); */
   transition: transform 0.3s ease-in-out;
 }
@@ -640,7 +653,8 @@
 .shop-now-link {
   position: relative;
   z-index: 1;
-  color: #5588c9; /* Bluish-purple color */
+  color: #5588c9;
+  /* Bluish-purple color */
   text-decoration: none;
   font-weight: bold;
   transition: color 0.3s ease-in-out;
@@ -650,7 +664,8 @@
 }
 
 .shop-now-link:hover {
-  color: #6693cb; /* Pinkish color on hover */
+  color: #6693cb;
+  /* Pinkish color on hover */
   text-decoration: underline;
 }
 
@@ -662,6 +677,7 @@
 .shop-now-link:hover .arrow-icon {
   transform: translateX(5px);
 }
+
 /* ----------end top category css ------------ */
 
 /* ---------------- PopularBrands.css------------ */
@@ -674,7 +690,8 @@
 
 .brand-track {
   display: flex;
-  width: calc(200%); /* because duplicated */
+  width: calc(200%);
+  /* because duplicated */
   animation: scroll 25s linear infinite;
 }
 
@@ -696,15 +713,16 @@
   filter: grayscale(0%);
 }
 
-.a_pagination_icon .page-link>span{
+.a_pagination_icon .page-link>span {
   font-size: 26px;
-} 
+}
 
 /* scrolling animation */
 @keyframes scroll {
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -720,9 +738,113 @@
   .wishlist-empty {
     height: 40vh;
   }
-  
-.brand-item img {
-  max-height: 30px;
+
+  .brand-item img {
+    max-height: 30px;
+  }
 }
-}
+
 /* --------------- wishlist ------------ */
+
+
+/* checkout */
+
+.x_che {
+  background-color: #1e1f20;
+  color: #9f9f9f;
+  width: 100%;
+}
+
+.x_che .table th {
+  color: #ffffff;
+
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 10px 10px;
+  border-bottom: 1px solid #dee2e6;
+  background-color: #343a40;
+  border-top: 1px solid #dee2e6;
+}
+
+
+.x_che .table td {
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0.2px;
+  padding: 10px 10px;
+  border-bottom: 1px solid #dee2e6;
+  background-color: #2c2f33;
+}
+
+
+/* Outer wrapper */
+
+.custom-table {
+  table-layout: auto !important;
+}
+
+.table-scroll {
+  max-height: 450px;
+  overflow-y: auto;
+  overflow-x: scroll;
+}
+
+/* Make table fixed layout */
+
+/* tbody rows behave like table rows */
+.scroll-body tr {
+  width: 100%;
+}
+
+/* keep header full width */
+.fixed-table thead tr {
+  width: 100%;
+}
+
+.total-box {
+  font-size: 18px;
+  padding: 8px 10px;
+  background: #2c2f33;
+  border: 1px solid #ddd;
+  color: #ddd;
+}
+
+.x_che .form-control, 
+.x_sub .form-control {
+  color: #e3e3e3 !important;
+  background-color: #2c2f33 !important;
+}
+
+.x_che .form-control::placeholder,
+.x_sub .form-control::placeholder {
+  color: #aaa3a3a6;
+}
+
+.x_che.table-scroll {
+ max-height: 60vh;    
+}
+
+/* Chrome, Edge, Safari */
+.x_che .table-scroll::-webkit-scrollbar {
+  width: 1px;
+  height: 1px;
+}
+
+.x_che .table-scroll::-webkit-scrollbar-track {
+  background: #0f0f0f;
+}
+
+.x_che .table-scroll::-webkit-scrollbar-thumb {
+  background: #131212;
+  border-radius: 10px;
+}
+
+/* Firefox */
+.x_che .table-scroll {
+  scrollbar-width: none;
+  scrollbar-color: #fefefe #c1c1c1;
+}
