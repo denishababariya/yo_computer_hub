@@ -67,7 +67,7 @@ export default function PrivacyPolicy() {
       <div className="d_pp-wrapper">
         <Container>
           <Card className="shadow-lg border-0 d_pp-card">
-            <h1 className="text-center mb-md-4 mb-2 d_pp-title">
+            <h1 className="text-center mb-md-4 mb-3 d_pp-title">
               <FaUserLock className="me-2" />
               Privacy Policy
             </h1>

@@ -304,18 +304,33 @@ function Checkout() {
 
         <Col md={6}>
           <h5>Order Summary</h5>
-          <div className="card p-3">
-            {entries.map(([id, { product, qty }]) => (
-              <div key={id} className="d-flex justify-content-between mb-2">
-                <span>{product.name} x {qty}</span>
-                <span>${(product.price * qty).toFixed(2)}</span>
-              </div>
-            ))}
-            <hr />
-            <div className="d-flex justify-content-between fw-bold">
-              <span>Total:</span>
-              <span>${totalAmount.toFixed(2)}</span>
-            </div>
+          <div className="table-responsive">
+            <table className="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Qty</th>
+                  <th>Price</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {entries.map(([id, { product, qty }]) => (
+                  <tr key={id}>
+                    <td className='text-nowrap'>{product.name}</td>
+                    <td>{qty}</td>
+                    <td>${product.price.toFixed(2)}</td>
+                    <td className='fw-semibold'>${(product.price * qty).toFixed(2)}</td>
+                  </tr>
+                ))}
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colSpan="3" className="fw-bold">Total:</td>
+                  <td className="fw-bold">${totalAmount.toFixed(2)}</td>
+                </tr>
+              </tfoot>
+            </table>
           </div>
         </Col>
       </Row>

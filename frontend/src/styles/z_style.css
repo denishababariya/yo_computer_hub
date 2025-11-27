@@ -353,17 +353,12 @@
   }
 }
 
-@media (min-width: 1025px) and (max-width: 1199px) {
-  .z_nav_items {
-    gap: 20px !important;
-  }
-}
-
 @media (max-width: 1200px) {
   .z_catTab_wrapper {
     display: flex !important;
   }
 }
+
 
 /* Navbar End */
 
@@ -655,6 +650,7 @@
   width: 100%;
   background: #0d0d0d;
   padding: 6px 0;
+  margin-top: 65px;
 }
 
 /* Wrapper */
@@ -701,6 +697,7 @@
   position: relative;
   overflow: hidden;
   transition: 0.35s ease;
+  min-width: fit-content;
 }
 
 /* Animated Neon Shine on Active */
@@ -954,10 +951,11 @@
 }
 
 .x_var .x_box {
-    width: 50px;
-    height: 50px;
-    font-size: 1.5rem;
-  }
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+}
+
 @media (max-width: 900px) {
   .z_contact_content {
     flex-direction: column-reverse;
@@ -991,6 +989,10 @@
 
   .z_contact_container {
     width: 80vw;
+  }
+
+  .z_catTab_section {
+    margin-top: 82px;
   }
 }
 .shop-btn {

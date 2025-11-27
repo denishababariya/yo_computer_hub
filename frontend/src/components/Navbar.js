@@ -111,7 +111,7 @@ function Navbar4() {
   }, [showProfileDropdown]);
 
   return (
-    <div className="z_nav_wrapper z_nav_menu py-3">
+    <div className="z_nav_wrapper z_nav_menu py-3" style={{position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 999}}>
       <Container className="px-md-auto px-0">
         <div className="d-flex align-items-center justify-content-between">
           <Link to="/" className="z_nav_logo fw-bold fs-3 text-white">

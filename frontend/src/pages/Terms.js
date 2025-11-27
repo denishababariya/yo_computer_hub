@@ -67,7 +67,7 @@ export default function Terms() {
       <div className="d_tc-wrapper">
         <Container>
           <Card className="shadow-lg border-0 d_tc-card">
-            <h1 className="text-center mb-md-4 mb-2 d_tc-title">
+            <h1 className="text-center mb-md-4 mb-3 d_tc-title">
               <FaClipboardList className="me-2" />
               Terms & Conditions
             </h1>

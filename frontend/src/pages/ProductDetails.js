@@ -41,8 +41,13 @@ function ProductDetails() {
       try {
         setLoading(true);
         const response = await productAPI.getById(id);
+
+        console.log('Product Response:', response);
+
         if (response.success) {
           setProduct(response.data);
+          console.log(response.data, 'data');
+
         } else {
           setError('Product not found');
         }
@@ -202,7 +207,7 @@ useEffect(() => {
                 <h1 className="z_prdD_title">{product.name}</h1>
                 <div className="z_prdD_meta">
                   <span className="z_prdD_brand">{product.brand}</span>
-                  <span className="z_prdD_category">{product.category}</span>
+                  <span className="z_prdD_category text-dark">{product.categoryId.name}</span>
                 </div>
               </div>
 
@@ -303,11 +308,14 @@ useEffect(() => {
               <div className="z_prdD_tags_section">
                 <h4 className="z_prdD_tags_title">Product Tags:</h4>
                 <div className="z_prdD_tags">
-                  {productTags.map((tag, index) => (
-                    <span key={index} className="z_prdD_tag">
-                      {tag}
-                    </span>
-                  ))}
+
+                  {
+                    product.tags.map((tag, index) => (
+                      <span className="z_prdD_tag">
+                        <span key={index} className="z_prdD_tag_item">{tag}</span>
+                      </span>
+                    ))
+                  }
                 </div>
               </div>
             </div>
