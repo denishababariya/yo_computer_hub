@@ -185,7 +185,7 @@ function Checkout() {
   }
 
   return (
-    <Container className="py-4">
+    <Container className="py-4 ">
       <h1 className="mb-3">Checkout</h1>
 
       {error && <Alert variant="danger">{error}</Alert>}

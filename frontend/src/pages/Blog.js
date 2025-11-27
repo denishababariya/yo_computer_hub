@@ -127,13 +127,13 @@ function Blog() {
     <>
       <div className='x_blog_dark_theme x_blog_cards'>
         <Container className="py-5">
-          <div className="text-center mb-5">
+          <div className="text-center mb-md-5 mb-2">
               <Title text="Latest Blog Posts" theme="dark" align="center" />
             {/* <h1 className="display-5 fw-bold mb-3">Latest Blog Posts</h1> */}
             <p className="text-light-subtle">Explore expert guides, product reviews, and the newest computer accessories</p>
           </div>
 
-          <Row className="g-4 mb-5">
+          <Row className="g-4 mb-md-5 mb-2">
             {currentPosts.map((post) => (
               <Col key={post.id} sm={6} md={4} xs={12}>
                 <Card className="h-100 x_blog_card">

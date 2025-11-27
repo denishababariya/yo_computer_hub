@@ -108,27 +108,42 @@ function Shop() {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        // include search param when present to let the server filter
+
         const params = {};
         params.limit = 10000;
-        if (searchParam && searchParam.length > 0) params.search = searchParam;
-        const response = await productAPI.getAll(params);
-        console.log("API Response:", response);
 
-        if (
-          response.success &&
-          response.data &&
-          Array.isArray(response.data) &&
-          response.data.length > 0
-        ) {
-          setProducts(response.data);
-          const maxPrice = Math.max(...response.data.map((p) => p.price || 0));
-          setFilters((prev) => ({
-            ...prev,
-            priceMin: 0,
-            priceMax: Math.ceil(maxPrice + 100),
-          }));
-          setError("");
+        if (searchParam && searchParam.length > 0) {
+          params.search = searchParam; // still sending to API
+        }
+
+        const response = await productAPI.getAll(params);
+
+        if (response.success && response.data && Array.isArray(response.data)) {
+          // ✅ ONLY product.name par search filter
+          const filteredProducts = searchParam
+            ? response.data.filter((p) =>
+                p.name?.toLowerCase().includes(searchParam.toLowerCase())
+              )
+            : response.data;
+
+          if (filteredProducts.length > 0) {
+            setProducts(filteredProducts);
+
+            const maxPrice = Math.max(
+              ...filteredProducts.map((p) => p.price || 0)
+            );
+
+            setFilters((prev) => ({
+              ...prev,
+              priceMin: 0,
+              priceMax: Math.ceil(maxPrice + 100),
+            }));
+
+            setError("");
+          } else {
+            setProducts([]);
+            setError("No products found");
+          }
         } else {
           console.warn("No products in response:", response);
           setProducts([]);
@@ -142,6 +157,7 @@ function Shop() {
         setLoading(false);
       }
     };
+
     fetchProducts();
   }, [searchParam]);
 
@@ -275,7 +291,7 @@ function Shop() {
                     color: "#5588c9",
                     borderRadius: "8px",
                     padding: "0.5rem 1.5rem",
-                    height:'100%'
+                    height: "100%",
                   }}
                 >
                   <i className="bi bi-funnel me-2"></i>

@@ -92,7 +92,7 @@ function CustomerReview() {
     <section className="x_main-customer-review py-md-5 py-4 custom-bg-dark ">
       <Container className='py-md-4 py-0'>
 
-        <div className="text-center mb-5">
+        <div className="text-center mb-md-5 mb-2">
           {/* Title કમ્પોનન્ટનો ઉપયોગ અહીં થશે */}
           {/* <Title text="CUSTOMER REVIEW" theme="light" align="center" /> */}
           <h2 className="title-text mb-2">CUSTOMERS REVIEWS</h2>
@@ -279,11 +279,11 @@ function CustomerReview() {
           }
           
           .review-carousel .carousel-control-prev {
-            left: -20px;
+            left: ;
           }
           
           .review-carousel .carousel-control-next {
-            right: -20px;
+            right: ;
           }
           
           .review-carousel .carousel-control-prev-icon,
