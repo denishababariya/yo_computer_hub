@@ -11,6 +11,7 @@ import blog10 from "../img/blog_wfh_img.jpg"
 import blog11 from "../img/blog_wireless_parts.jpg"
 import blog12 from "../img/blog_desk_organization.jpg"
 import '../styles/x_app.css';
+import Title from '../components/Title';
 
 // Sample blog posts data (kept the same)
 const blogPosts = [
@@ -127,7 +128,8 @@ function Blog() {
       <div className='x_blog_dark_theme x_blog_cards'>
         <Container className="py-5">
           <div className="text-center mb-5">
-            <h1 className="display-5 fw-bold mb-3">Latest Blog Posts</h1>
+              <Title text="Latest Blog Posts" theme="dark" align="center" />
+            {/* <h1 className="display-5 fw-bold mb-3">Latest Blog Posts</h1> */}
             <p className="text-light-subtle">Explore expert guides, product reviews, and the newest computer accessories</p>
           </div>
 

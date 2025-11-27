@@ -251,6 +251,45 @@ function CustomerReview() {
             border-radius: 50%;
             margin: 0 5px;
           }
+          
+          .review-carousel .carousel-indicators button.active {
+            background-color: #5588c9;
+            border-color: #5588c9;
+            width: 30px;
+            border-radius: 5px;
+          }
+          
+          .review-carousel .carousel-control-prev,
+          .review-carousel .carousel-control-next {
+            width: 45px;
+            height: 45px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #5588c92e;
+            border-radius: 50%;
+            backdrop-filter: blur(10px);
+            opacity: 0.8;
+            transition: all 0.3s ease;
+          }
+          
+          .review-carousel .carousel-control-prev:hover,
+          .review-carousel .carousel-control-next:hover {
+            background-color: #ccd8e5;
+            opacity: 1;
+          }
+          
+          .review-carousel .carousel-control-prev {
+            left: -20px;
+          }
+          
+          .review-carousel .carousel-control-next {
+            right: -20px;
+          }
+          
+          .review-carousel .carousel-control-prev-icon,
+          .review-carousel .carousel-control-next-icon {
+            width: 18px;
+            height: 18px;
 
           .review-carousel .carousel-indicators .active {
             background-color: #5588c9; /* સક્રિય ઇન્ડિકેટર માટે યલો કલર */

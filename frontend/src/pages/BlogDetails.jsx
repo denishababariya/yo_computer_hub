@@ -182,7 +182,7 @@ function BlogDetails() {
           </Link>
 
           <div className="p-4 x_blog_card">
-            <h1 className="display-4 fw-bold mb-4">{post.title}</h1>
+            <h3 className="display-6 fw-bold mb-4">{post.title}</h3>
             <p className="text-muted mb-4 small">
               <span
                 className="x_card_category_badge"

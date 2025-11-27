@@ -51,7 +51,8 @@ function FeaturedProducts() {
                   justifyContent: 'space-between',
                   padding: '1.8rem',
                   color: 'white',
-                  borderRadius: '12px'
+                  borderRadius: '12px',
+                  height:'-webkit-fill-available'
                 }}
               >
                 

@@ -720,5 +720,9 @@
   .wishlist-empty {
     height: 40vh;
   }
+  
+.brand-item img {
+  max-height: 30px;
+}
 }
 /* --------------- wishlist ------------ */

@@ -201,7 +201,7 @@ const TopCategories = () => {
                             @media (min-width: 768px) { /* md breakpoint */
                                 .category-card-slide-item {
                                     min-width: 25%; 
-                                    max-width: 25%;
+                                    max-width: 34%;
                                 }
                             }
     @media (min-width: 991px) { /* md breakpoint */
