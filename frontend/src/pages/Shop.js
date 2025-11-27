@@ -342,7 +342,14 @@ function Shop() {
                   >
                     Categories
                   </h6>
-                  <div className="d-flex flex-column gap-2">
+                  <div
+                    className="d-flex flex-column gap-2 category-scroll"
+                    style={{
+                      maxHeight: categories.length > 5 ? "328px" : "auto",
+                      overflowY: categories.length > 5 ? "auto" : "visible",
+                      scrollbarWidth: "none" // Firefox
+                    }}
+                  >
                     <div className="filter-check">
                       <input
                         type="radio"
@@ -354,7 +361,7 @@ function Shop() {
                       />
                       <label htmlFor="cat-all">All</label>
                     </div>
-                    {categories.map((cat) => (
+                    {categories.map((cat, idx) => (
                       <div key={cat.id} className="filter-check">
                         <input
                           type="radio"
@@ -362,9 +369,7 @@ function Shop() {
                           name="category"
                           value={cat.id}
                           checked={filters.category === cat.id}
-                          onChange={() =>
-                            handleFilterChange({ category: cat.id })
-                          }
+                          onChange={() => handleFilterChange({ category: cat.id })}
                         />
                         <label htmlFor={`cat-${cat.id}`}>{cat.name}</label>
                       </div>

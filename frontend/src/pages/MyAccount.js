@@ -35,42 +35,6 @@ const GENDER_OPTIONS = [
   { value: "Prefer not to say", label: "Prefer not to say" }
 ];
 
-const dummyOrders = [
-  {
-    id: 'ORD123456',
-    date: '2024-05-01',
-    status: 'Delivered',
-    items: [
-      { name: 'HP Laptop', price: '₹45,000', image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=300&h=300&fit=crop' },
-      { name: 'Wireless Mouse', price: '₹7,000', image: 'https://images.unsplash.com/photo-1527814050087-3793815479db?w=300&h=300&fit=crop' }
-    ],
-    total: '₹52,000',
-  },
-  {
-    id: 'ORD123457',
-    date: '2024-04-18',
-    status: 'Shipped',
-    items: [
-      { name: 'Logitech Keyboard', price: '₹2,500', image: 'https://images.unsplash.com/photo-1587829191301-2d5c0f6ba3b8?w=300&h=300&fit=crop' }
-    ],
-    total: '₹2,500',
-  },
-];
-
-const dummyAddresses = [
-  {
-    name: 'Home',
-    address: '203, Sunrise Avenue, Ahmedabad, Gujarat, India',
-    phone: '+91 98765 43210',
-    _id: 'add1'
-  },
-  {
-    name: 'Office',
-    address: '2nd Floor, Tech Park, SG Highway, Ahmedabad',
-    phone: '+91 91234 56789',
-    _id: 'add2'
-  },
-];
 
 function MyAccount() {
   const navigate = useNavigate();
@@ -80,8 +44,8 @@ function MyAccount() {
   const [showAddressForm, setShowAddressForm] = useState(false);
   const [profile, setProfile] = useState(initialProfile);
   const [editProfile, setEditProfile] = useState(initialProfile);
-  const [orders, setOrders] = useState(dummyOrders);
-  const [addresses, setAddresses] = useState(dummyAddresses);
+  const [orders, setOrders] = useState([]);
+  const [addresses, setAddresses] = useState([]);
   const [editingAddressIdx, setEditingAddressIdx] = useState(null);
   const [addressForm, setAddressForm] = useState({
     name: "",
@@ -106,8 +70,8 @@ function MyAccount() {
       if (response.success && response.data) {
         setProfile(response.data.profile);
         setEditProfile(response.data.profile);
-        setOrders(response.data.orders || dummyOrders);
-        setAddresses(response.data.addresses || dummyAddresses);
+        setOrders(response.data.orders || []);
+        setAddresses(response.data.addresses || []);
       }
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -282,54 +246,123 @@ function MyAccount() {
     }
   };
 
- const handleSaveAddress = async () => {
-  // Basic Validation
-  if (!addressForm.name.trim()) {
-    alert("Please select Address Type");
-    return;
-  }
-  if (!addressForm.address.trim()) {
-    alert("Please enter address");
-    return;
-  }
-  if (!addressForm.phone.trim() || addressForm.phone.length !== 10) {
-    alert("Please enter valid 10-digit phone number");
-    return;
-  }
-
-  try {
-    let response;
-
-    // 🟦 UPDATE Address
-    if (editingAddressIdx !== null) {
-      const addressId = addresses[editingAddressIdx]._id;
-
-      response = await userAPI.updateAddress(userId, addressId, addressForm);
-
-      if (response.success) {
-        setAddresses(response.data); // backend returns updated array
-        alert("Address updated successfully");
-      }
+  const handleSaveAddress = async () => {
+    // Basic Validation
+    if (!addressForm.name.trim()) {
+      alert("Please select Address Type");
+      return;
     }
-    else {
-      // 🟩 ADD NEW Address → Backend push into array
-      response = await userAPI.addAddress(userId, addressForm);
-
-      if (response.success) {
-        setAddresses(response.data); // updated full array from backend
-        alert("Address added successfully");
-      }
+    if (!addressForm.address.trim()) {
+      alert("Please enter address");
+      return;
+    }
+    if (!addressForm.phone.trim() || addressForm.phone.length !== 10) {
+      alert("Please enter valid 10-digit phone number");
+      return;
     }
 
-    setShowAddressForm(false);
-    setAddressForm({ name: "", address: "", phone: "" });
-  } catch (error) {
-    console.error("Error saving address:", error);
-    alert("Failed to save address");
-  }
-};
+    try {
+      let response;
+
+      // 🟦 UPDATE Address
+      if (editingAddressIdx !== null) {
+        const addressId = addresses[editingAddressIdx]._id;
+
+        response = await userAPI.updateAddress(userId, addressId, addressForm);
+
+        if (response.success) {
+          setAddresses(response.data); // backend returns updated array
+          alert("Address updated successfully");
+        }
+      }
+      else {
+        // 🟩 ADD NEW Address → Backend push into array
+        response = await userAPI.addAddress(userId, addressForm);
+
+        if (response.success) {
+          setAddresses(response.data); // updated full array from backend
+          alert("Address added successfully");
+        }
+      }
+
+      setShowAddressForm(false);
+      setAddressForm({ name: "", address: "", phone: "" });
+    } catch (error) {
+      console.error("Error saving address:", error);
+      alert("Failed to save address");
+    }
+  };
 
 
+
+  const handlePayOrder = async (orderId) => {
+    try {
+      const order = orders.find(o => o.id === orderId);
+
+      // 1. Create Razorpay order on backend
+      const createOrder = await fetch("http://localhost:5000/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount: order.total,
+          orderId: orderId
+        })
+      }).then(res => res.json());
+
+      if (!createOrder.success) {
+        alert("Unable to create payment. Try again!");
+        return;
+      }
+
+      const options = {
+        key: "YOUR_RAZORPAY_KEY_ID",
+        amount: createOrder.order.amount,
+        currency: "INR",
+        name: "Your Brand",
+        description: "Order Payment",
+        order_id: createOrder.order.id,
+
+        handler: async function (response) {
+
+          // 2. Verify payment on backend
+          const verifyRes = await fetch("http://localhost:5000/verify-payment", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+              userOrderId: orderId
+            })
+          }).then(res => res.json());
+
+          if (verifyRes.success) {
+            alert("Payment Successful!");
+
+            // Update front-end order status instantly
+            setOrders(prev =>
+              prev.map(o =>
+                o.id === orderId ? { ...o, status: "Paid" } : o
+              )
+            );
+          } else {
+            alert("Payment failed to verify!");
+          }
+        },
+
+        theme: {
+          color: "#3399cc"
+        }
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+
+    } catch (error) {
+      console.error(error);
+      alert("Payment failed!");
+    }
+  };
 
   return (
     <section className="z_acc_section py-4">
@@ -479,6 +512,22 @@ function MyAccount() {
                               </div>
 
                               <div className="z_order_footer">
+                                {/* 🆕 NEW: Pay button for pending orders */}
+                                {order.status.toLowerCase() === 'pending' && (
+                                  <button
+                                    className="btn btn-success z_pay_order_btn"
+                                    onClick={() => handlePayOrder(order.id)}
+                                    style={{
+                                      marginLeft: '15px',
+                                      padding: '8px 20px',
+                                      fontWeight: '600',
+                                      borderRadius: '5px'
+                                    }}
+                                  >
+                                    <i className="bi bi-credit-card"></i> Pay Now
+                                  </button>
+                                )}
+
                                 <div className="z_order_total">
                                   <span className="z_total_label">Total Amount:</span>
                                   <span className="z_total_value">{order.total}</span>
@@ -752,76 +801,76 @@ function MyAccount() {
       )}
 
       {showAddressForm && (
-  <div className="z_logout_modal_bg">
-    <div className="z_logout_modal">
-      <div className="z_logout_modal_title">
-        {editingAddressIdx !== null ? "Edit Address" : "Add New Address"}
-      </div>
+        <div className="z_logout_modal_bg">
+          <div className="z_logout_modal">
+            <div className="z_logout_modal_title">
+              {editingAddressIdx !== null ? "Edit Address" : "Add New Address"}
+            </div>
 
-      <div className="container">
-        <div className="row g-3 mt-2">
+            <div className="container">
+              <div className="row g-3 mt-2">
 
-          {/* Address Type */}
-          <div className="col-12">
-            <label className="z_form_label">
-              Address Type <span className="z_required">*</span>
-            </label>
-            <select
-              className="form-control z_edit_input"
-              name="name"
-              value={addressForm.name}
-              onChange={handleAddressFormChange}
-            >
-              <option value="">Select Type</option>
-              <option value="Home">Home</option>
-              <option value="Office">Office</option>
-              <option value="Other">Other</option>
-            </select>
+                {/* Address Type */}
+                <div className="col-12">
+                  <label className="z_form_label">
+                    Address Type <span className="z_required">*</span>
+                  </label>
+                  <select
+                    className="form-control z_edit_input"
+                    name="name"
+                    value={addressForm.name}
+                    onChange={handleAddressFormChange}
+                  >
+                    <option value="">Select Type</option>
+                    <option value="Home">Home</option>
+                    <option value="Office">Office</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+
+                {/* Address */}
+                <div className="col-12">
+                  <label className="z_form_label">Address <span className="z_required">*</span></label>
+                  <textarea
+                    className="form-control z_edit_input"
+                    name="address"
+                    value={addressForm.address}
+                    onChange={handleAddressFormChange}
+                    placeholder="Enter full address"
+                    rows="3"
+                  />
+                </div>
+
+                {/* Phone */}
+                <div className="col-12">
+                  <label className="z_form_label">Phone Number <span className="z_required">*</span></label>
+                  <input
+                    className="form-control z_edit_input"
+                    name="phone"
+                    maxLength={10}
+                    value={addressForm.phone}
+                    onChange={(e) => {
+                      const onlyNums = e.target.value.replace(/\D/g, "");
+                      setAddressForm(prev => ({ ...prev, phone: onlyNums }));
+                    }}
+                    placeholder="Enter 10-digit phone number"
+                  />
+                </div>
+
+              </div>
+            </div>
+
+            <div className="z_logout_modal_actions mt-5">
+              <button className="z_logout_btn z_logout_confirm" onClick={handleSaveAddress}>
+                {editingAddressIdx !== null ? "Update" : "Add"} Address
+              </button>
+              <button className="z_logout_btn z_logout_cancel" onClick={() => setShowAddressForm(false)}>
+                Cancel
+              </button>
+            </div>
           </div>
-
-          {/* Address */}
-          <div className="col-12">
-            <label className="z_form_label">Address <span className="z_required">*</span></label>
-            <textarea
-              className="form-control z_edit_input"
-              name="address"
-              value={addressForm.address}
-              onChange={handleAddressFormChange}
-              placeholder="Enter full address"
-              rows="3"
-            />
-          </div>
-
-          {/* Phone */}
-          <div className="col-12">
-            <label className="z_form_label">Phone Number <span className="z_required">*</span></label>
-            <input
-              className="form-control z_edit_input"
-              name="phone"
-              maxLength={10}
-              value={addressForm.phone}
-              onChange={(e) => {
-                const onlyNums = e.target.value.replace(/\D/g, "");
-                setAddressForm(prev => ({ ...prev, phone: onlyNums }));
-              }}
-              placeholder="Enter 10-digit phone number"
-            />
-          </div>
-
         </div>
-      </div>
-
-      <div className="z_logout_modal_actions mt-5">
-        <button className="z_logout_btn z_logout_confirm" onClick={handleSaveAddress}>
-          {editingAddressIdx !== null ? "Update" : "Add"} Address
-        </button>
-        <button className="z_logout_btn z_logout_cancel" onClick={() => setShowAddressForm(false)}>
-          Cancel
-        </button>
-      </div>
-    </div>
-  </div>
-)}
+      )}
 
 
     </section>
