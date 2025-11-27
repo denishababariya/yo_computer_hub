@@ -81,23 +81,52 @@ const authFetchAbsolute = async (url, options = {}) => {
 
 // ADMIN API EXPORT
 const adminAPI = {
-  getDashboardStats: () => authFetch('/admin/dashboard'),
-  getAllProducts: (page = 1, limit = 10, search = "") => authFetch(`/admin/products?page=${page}&limit=${limit}&search=${search}`),
-  createProduct: (formData) => authFetchAbsolute(`${PRODUCTS}`, { method: "POST", body: formData }),
-  updateProduct: (id, formData) => authFetchAbsolute(`${PRODUCTS}/${id}`, { method: "PUT", body: formData }),
-  deleteProduct: (id) => authFetchAbsolute(`${PRODUCTS}/${id}`, { method: "DELETE" }),
-  getAllUsers: (page = 1, limit = 10, search = "") => authFetch(`/admin/users?page=${page}&limit=${limit}&search=${search}`),
+  getDashboardStats: () => authFetch("/admin/dashboard"),
+  getAllProducts: (page = 1, limit = 10, search = "") =>
+    authFetch(`/admin/products?page=${page}&limit=${limit}&search=${search}`),
+  createProduct: (formData) =>
+    authFetchAbsolute(`${PRODUCTS}`, { method: "POST", body: formData }),
+  updateProduct: (id, formData) =>
+    authFetchAbsolute(`${PRODUCTS}/${id}`, { method: "PUT", body: formData }),
+  deleteProduct: (id) =>
+    authFetchAbsolute(`${PRODUCTS}/${id}`, { method: "DELETE" }),
+  getAllUsers: (page = 1, limit = 10, search = "") =>
+    authFetch(`/admin/users?page=${page}&limit=${limit}&search=${search}`),
   getUserDetails: (id) => authFetchAbsolute(`${BASE_URL}/users/account/${id}`),
   deleteUser: (id) => authFetch(`/admin/users/${id}`, { method: "DELETE" }),
-  getAllOrders: (page = 1, limit = 10, status = "") => authFetch(`/admin/orders?page=${page}&limit=${limit}&status=${status}`),
-  updateOrderStatus: (id, status) => authFetch(`/admin/orders/${id}/status`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ status }) }),
-  getAllContacts: (page = 1, limit = 10, status = "") => authFetch(`/admin/contacts?page=${page}&limit=${limit}&status=${status}`),
-  updateContactStatus: (id, status) => authFetch(`/admin/contacts/${id}/status`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ status }) }),
-  deleteContact: (id) => authFetch(`/admin/contacts/${id}`, { method: "DELETE" }),
-  getAllCategories: () => authFetch('/admin/categories'),
-  createCategory: (data) => authFetch('/admin/categories', { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) }),
-  updateCategory: (id, data) => authFetch(`/admin/categories/${id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) }),
-  deleteCategory: (id) => authFetch(`/admin/categories/${id}`, { method: "DELETE" }),
+  getAllOrders: (page = 1, limit = 10, status = "") =>
+    authFetch(`/admin/orders?page=${page}&limit=${limit}&status=${status}`),
+  updateOrderStatus: (id, orderStatus) =>
+    authFetch(`/admin/orders/${id}/status`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ orderStatus }), // ✅ FIX
+    }),
+  getAllContacts: (page = 1, limit = 10, status = "") =>
+    authFetch(`/admin/contacts?page=${page}&limit=${limit}&status=${status}`),
+  updateContactStatus: (id, status) =>
+    authFetch(`/admin/contacts/${id}/status`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status }),
+    }),
+  deleteContact: (id) =>
+    authFetch(`/admin/contacts/${id}`, { method: "DELETE" }),
+  getAllCategories: () => authFetch("/admin/categories"),
+  createCategory: (data) =>
+    authFetch("/admin/categories", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    }),
+  updateCategory: (id, data) =>
+    authFetch(`/admin/categories/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    }),
+  deleteCategory: (id) =>
+    authFetch(`/admin/categories/${id}`, { method: "DELETE" }),
 };
 
 export default adminAPI;

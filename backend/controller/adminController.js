@@ -155,11 +155,11 @@ exports.getAllOrders = async (req, res) => {
 exports.updateOrderStatus = async (req, res) => {
   try {
     const { id } = req.params;
-    const { status } = req.body;
+    const { orderStatus } = req.body;
     
     const order = await Order.findByIdAndUpdate(
       id,
-      { status, updatedAt: new Date() },
+      { orderStatus, updatedAt: new Date() },
       { new: true }
     );
     

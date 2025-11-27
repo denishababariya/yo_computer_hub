@@ -20,7 +20,7 @@ function PromoBanners() {
                 backgroundPosition: '80%',
                 display: 'flex',
                 alignItems: 'center',
-                padding: '2rem'
+                padding: '1.5rem'
               }}
             >
               <Row className="align-items-center w-100">
@@ -47,7 +47,7 @@ function PromoBanners() {
                 backgroundPosition: '80%',
                 display: 'flex',
                 alignItems: 'center',
-                padding: '2rem'
+                padding: '1.5rem'
               }}
             >
               <Row className="align-items-center w-100">

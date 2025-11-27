@@ -1,7 +1,22 @@
-import React, { useState } from 'react';
-import { Container, Row, Col, Card, Accordion, Form, InputGroup, Button } from 'react-bootstrap';
-import { FaSearch, FaShippingFast, FaUndoAlt, FaCreditCard, FaUser, FaQuestionCircle } from 'react-icons/fa';
-
+import React, { useState } from "react";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Accordion,
+  Form,
+  InputGroup,
+  Button,
+} from "react-bootstrap";
+import {
+  FaSearch,
+  FaShippingFast,
+  FaUndoAlt,
+  FaCreditCard,
+  FaUser,
+  FaQuestionCircle,
+} from "react-icons/fa";
 
 // Internal CSS with d_ prefix
 const d_customStyles = `
@@ -15,7 +30,7 @@ body {
 .d_help-header {
   background: linear-gradient(135deg, #0f172a, #1e293b);
   color: #f1f5f9;
-  padding: 70px 0;
+  padding: 6vw 0;
   margin-bottom: 30px;
   text-align: center;
 }
@@ -127,7 +142,7 @@ body {
 .d_contact-card {
   background-color: #111827;
   border-left: 5px solid #5588c9 ;
-  padding: 25px;
+  padding: 5px;
   color: #e5e7eb;
 }
 
@@ -161,8 +176,10 @@ body {
 hr {
   border-color: #1f2937;
 }
+  .zy_main{
+    height:70% !important; 
+  }
 `;
-
 
 // Help Center Component
 export default function HelpCenter() {
@@ -172,29 +189,32 @@ export default function HelpCenter() {
   const faqData = [
     {
       id: 1,
-      question: 'What are your shipping methods and delivery times?',
-      answer: 'We offer Standard (3-7 business days) and Express (1-3 business days) shipping.'
+      question: "What are your shipping methods and delivery times?",
+      answer:
+        "We offer Standard (3-7 business days) and Express (1-3 business days) shipping.",
     },
     {
       id: 2,
-      question: 'How do I return a faulty or incorrect item?',
-      answer: 'Please visit our Returns & Exchanges section and fill out the return request form.'
+      question: "How do I return a faulty or incorrect item?",
+      answer:
+        "Please visit our Returns & Exchanges section and fill out the return request form.",
     },
     {
       id: 3,
-      question: 'What payment methods do you accept?',
-      answer: 'We accept all major credit cards, PayPal, and Apple Pay.'
+      question: "What payment methods do you accept?",
+      answer: "We accept all major credit cards, PayPal, and Apple Pay.",
     },
     {
       id: 4,
-      question: 'Can I track my order?',
-      answer: 'Yes, you will receive a tracking link once your order ships.'
+      question: "Can I track my order?",
+      answer: "Yes, you will receive a tracking link once your order ships.",
     },
     {
       id: 5,
-      question: 'How do I create or reset my account password?',
-      answer: 'Click on "Forgot Password" on the login screen to reset your password.'
-    }
+      question: "How do I create or reset my account password?",
+      answer:
+        'Click on "Forgot Password" on the login screen to reset your password.',
+    },
   ];
 
   // ✅ FILTER FAQ BASED ON SEARCH
@@ -236,14 +256,18 @@ export default function HelpCenter() {
       {/* Categories Section (UNCHANGED) */}
       <Container className="my-lg-4 my-md-3 my-2">
         <div className="d_faq-section">
-          <h2><FaQuestionCircle className="me-2" /> Popular Help Topics</h2>
+          <h2>
+            <FaQuestionCircle className="me-2" /> Popular Help Topics
+          </h2>
         </div>
 
         <Row className="g-4 text-center">
           <Col xs={12} sm={6} lg={3}>
-            <Card className="d_category-card p-3 shadow-sm">
+            <Card className="d_category-card p-md-3 p-1 shadow-sm">
               <Card.Body>
-                <div className="card-icon"><FaShippingFast /></div>
+                <div className="card-icon">
+                  <FaShippingFast />
+                </div>
                 <Card.Title>Shipping & Delivery</Card.Title>
                 <Card.Text className="text-muted">
                   Tracking, estimated times, and costs.
@@ -253,9 +277,11 @@ export default function HelpCenter() {
           </Col>
 
           <Col xs={12} sm={6} lg={3}>
-            <Card className="d_category-card p-3 shadow-sm">
+            <Card className="d_category-card p-md-3 p-1 shadow-sm">
               <Card.Body>
-                <div className="card-icon"><FaUndoAlt /></div>
+                <div className="card-icon">
+                  <FaUndoAlt />
+                </div>
                 <Card.Title>Returns & Exchanges</Card.Title>
                 <Card.Text className="text-muted">
                   Refund and return policies.
@@ -265,9 +291,11 @@ export default function HelpCenter() {
           </Col>
 
           <Col xs={12} sm={6} lg={3}>
-            <Card className="d_category-card p-3 shadow-sm">
+            <Card className="d_category-card p-md-3 p-1 shadow-sm">
               <Card.Body>
-                <div className="card-icon"><FaCreditCard /></div>
+                <div className="card-icon">
+                  <FaCreditCard />
+                </div>
                 <Card.Title>Payment & Billing</Card.Title>
                 <Card.Text className="text-muted">
                   Billing and payment queries.
@@ -277,9 +305,11 @@ export default function HelpCenter() {
           </Col>
 
           <Col xs={12} sm={6} lg={3}>
-            <Card className="d_category-card p-3 shadow-sm">
+            <Card className="d_category-card p-md-3 p-1 shadow-sm">
               <Card.Body>
-                <div className="card-icon"><FaUser /></div>
+                <div className="card-icon">
+                  <FaUser />
+                </div>
                 <Card.Title>My Account</Card.Title>
                 <Card.Text className="text-muted">
                   Login, security, and profile.
@@ -306,12 +336,10 @@ export default function HelpCenter() {
               <Accordion className="d_faq-accordion" defaultActiveKey="0">
                 {filteredFAQs.map((item, index) => (
                   <Accordion.Item eventKey={String(index)} key={item.id}>
-                    <Accordion.Header className='mb-0'>
+                    <Accordion.Header className="mb-0">
                       {item.question}
                     </Accordion.Header>
-                    <Accordion.Body>
-                      {item.answer}
-                    </Accordion.Body>
+                    <Accordion.Body>{item.answer}</Accordion.Body>
                   </Accordion.Item>
                 ))}
               </Accordion>
@@ -331,14 +359,20 @@ export default function HelpCenter() {
               <Card.Body>
                 <Row>
                   <Col md={6}>
-                    <h4 className="mb-3">Live Chat Support</h4>
-                    <p>For the fastest service, chat with a support agent now.</p>
+                    <div className="zy_main ">
+                      <h4 className="mb-3">Live Chat Support</h4>
+                      <p>
+                        For the fastest service, chat with a support agent now.
+                      </p>
+                    </div>
                     <Button variant="primary">Start Chat</Button>
                   </Col>
 
                   <Col md={6} className="mt-3 mt-md-0">
-                    <h4 className="mb-3">Email Us</h4>
-                    <p>Send us an email and we'll reply within 24 hours.</p>
+                    <div className="zy_main ">
+                      <h4 className="mb-3">Email Us</h4>
+                      <p>Send us an email and we'll reply within 24 hours.</p>
+                    </div>
                     <Button variant="secondary">Send Email</Button>
                   </Col>
                 </Row>
