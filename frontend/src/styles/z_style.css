@@ -2052,7 +2052,7 @@
 
 .z_order_footer {
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
   align-items: center;
   gap: 16px;
 }

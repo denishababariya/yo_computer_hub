@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FiEdit2 } from 'react-icons/fi';
 import { FaCamera } from 'react-icons/fa';
 // Note: Assuming these services/utils are correctly implemented elsewhere
-import { userAPI } from '../services/userAPI'; 
+import { userAPI } from '../services/userAPI';
 import { authAPI } from '../services/api';
 import { logout as logoutAuth } from '../utils/auth';
 import emptyAdd from '../img/no_add.png';
@@ -18,9 +18,9 @@ const navTabs = [
 
 const initialProfile = {
   avatar: "",
-  name: "Jay Patel", 
-  email: "jay.patel@email.com", 
-  phone: "9876543210", 
+  name: "Jay Patel",
+  email: "jay.patel@email.com",
+  phone: "9876543210",
   dob: "1998-05-12",
   gender: "Male",
   address: "203, Sunrise Avenue, Ahmedabad, Gujarat, India"
@@ -35,42 +35,6 @@ const GENDER_OPTIONS = [
   { value: "Prefer not to say", label: "Prefer not to say" }
 ];
 
-const dummyOrders = [
-  {
-    id: 'ORD123456',
-    date: '2024-05-01',
-    status: 'Delivered',
-    items: [
-      { name: 'HP Laptop', price: '₹45,000', image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=300&h=300&fit=crop' },
-      { name: 'Wireless Mouse', price: '₹7,000', image: 'https://images.unsplash.com/photo-1527814050087-3793815479db?w=300&h=300&fit=crop' }
-    ],
-    total: '₹52,000',
-  },
-  {
-    id: 'ORD123457',
-    date: '2024-04-18',
-    status: 'Shipped',
-    items: [
-      { name: 'Logitech Keyboard', price: '₹2,500', image: 'https://images.unsplash.com/photo-1587829191301-2d5c0f6ba3b8?w=300&h=300&fit=crop' }
-    ],
-    total: '₹2,500',
-  },
-];
-
-const dummyAddresses = [
-  {
-    name: 'Home',
-    address: '203, Sunrise Avenue, Ahmedabad, Gujarat, India',
-    phone: '+91 98765 43210',
-    _id: 'add1'
-  },
-  {
-    name: 'Office',
-    address: '2nd Floor, Tech Park, SG Highway, Ahmedabad',
-    phone: '+91 91234 56789',
-    _id: 'add2'
-  },
-];
 
 function MyAccount() {
   const navigate = useNavigate();
@@ -80,8 +44,8 @@ function MyAccount() {
   const [showAddressForm, setShowAddressForm] = useState(false);
   const [profile, setProfile] = useState(initialProfile);
   const [editProfile, setEditProfile] = useState(initialProfile);
-  const [orders, setOrders] = useState(dummyOrders);
-  const [addresses, setAddresses] = useState(dummyAddresses);
+  const [orders, setOrders] = useState([]);
+  const [addresses, setAddresses] = useState([]);
   const [editingAddressIdx, setEditingAddressIdx] = useState(null);
   const [addressForm, setAddressForm] = useState({ name: '', address: '', phone: '' });
   const [loading, setLoading] = useState(false);
@@ -101,8 +65,8 @@ function MyAccount() {
       if (response.success && response.data) {
         setProfile(response.data.profile);
         setEditProfile(response.data.profile);
-        setOrders(response.data.orders || dummyOrders);
-        setAddresses(response.data.addresses || dummyAddresses);
+        setOrders(response.data.orders || []);
+        setAddresses(response.data.addresses || []);
       }
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -119,45 +83,45 @@ function MyAccount() {
     let newValue = value;
 
     if (name === 'name') {
-      const nameRegex = /^[a-zA-Z\s.-]*$/; 
+      const nameRegex = /^[a-zA-Z\s.-]*$/;
       if (!nameRegex.test(value)) {
         error = 'Name can only contain letters, spaces, dots, or hyphens.';
       }
     } else if (name === 'phone') {
       newValue = value.replace(/[^0-9+]/g, '');
-      
+
       if (value !== '' && value.replace(/[^0-9+]/g, '') !== value) {
         error = 'Phone number should only contain numbers.';
       }
-      
+
       if (newValue.length > 15) {
         newValue = newValue.substring(0, 15);
       }
     }
-    
+
     setEditProfile(prev => ({ ...prev, [name]: newValue }));
 
-    setValidationErrors(prev => ({ 
-      ...prev, 
-      [name]: error 
+    setValidationErrors(prev => ({
+      ...prev,
+      [name]: error
     }));
   };
 
   const handleEditSave = async () => {
     // Clear previous errors
     const errors = {};
-    
+
     // Check for existing validation errors
     if (validationErrors.name || validationErrors.phone) {
       alert('Please correct the validation errors before saving.');
       return;
     }
-    
+
     // Validate all required fields
     if (!editProfile.name || !editProfile.name.trim()) {
       errors.name = 'Name is required';
     }
-    
+
     if (!editProfile.email || !editProfile.email.trim()) {
       errors.email = 'Email is required';
     } else {
@@ -167,25 +131,25 @@ function MyAccount() {
         errors.email = 'Please enter a valid email address';
       }
     }
-    
+
     if (!editProfile.phone || !editProfile.phone.trim()) {
       errors.phone = 'Phone number is required';
     } else if (editProfile.phone.replace(/[^0-9]/g, '').length < 10) {
       errors.phone = 'Phone number must be at least 10 digits';
     }
-    
+
     if (!editProfile.dob || !editProfile.dob.trim()) {
       errors.dob = 'Date of Birth is required';
     }
-    
+
     if (!editProfile.gender || editProfile.gender === '') {
       errors.gender = 'Please select a gender';
     }
-    
+
     if (!editProfile.address || !editProfile.address.trim()) {
       errors.address = 'Address is required';
     }
-    
+
     // If there are validation errors, update state and show alert
     if (Object.keys(errors).length > 0) {
       setValidationErrors(errors);
@@ -266,8 +230,8 @@ function MyAccount() {
           alert('Address deleted successfully');
         }
       } else {
-         setAddresses(prev => prev.filter((_, i) => i !== idx));
-         alert('Address deleted successfully (Simulated)');
+        setAddresses(prev => prev.filter((_, i) => i !== idx));
+        alert('Address deleted successfully (Simulated)');
       }
     } catch (error) {
       console.error('Error deleting address:', error);
@@ -286,10 +250,10 @@ function MyAccount() {
       if (editingAddressIdx !== null) {
         const addressId = addresses[editingAddressIdx]._id;
         if (addressId) {
-             response = await userAPI.updateAddress(userId, addressId, addressForm);
+          response = await userAPI.updateAddress(userId, addressId, addressForm);
         } else {
-            setAddresses(prev => prev.map((addr, i) => i === editingAddressIdx ? { ...addressForm, _id: prev[i]._id } : addr));
-            response = { success: true }; 
+          setAddresses(prev => prev.map((addr, i) => i === editingAddressIdx ? { ...addressForm, _id: prev[i]._id } : addr));
+          response = { success: true };
         }
       } else {
         setAddresses(prev => [...prev, { ...addressForm, _id: Date.now().toString() }]);
@@ -307,6 +271,75 @@ function MyAccount() {
     }
   };
 
+  const handlePayOrder = async (orderId) => {
+    try {
+      const order = orders.find(o => o.id === orderId);
+  
+      // 1. Create Razorpay order on backend
+      const createOrder = await fetch("http://localhost:5000/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount: order.total,
+          orderId: orderId
+        })
+      }).then(res => res.json());
+  
+      if (!createOrder.success) {
+        alert("Unable to create payment. Try again!");
+        return;
+      }
+  
+      const options = {
+        key: "YOUR_RAZORPAY_KEY_ID",
+        amount: createOrder.order.amount,
+        currency: "INR",
+        name: "Your Brand",
+        description: "Order Payment",
+        order_id: createOrder.order.id,
+  
+        handler: async function (response) {
+  
+          // 2. Verify payment on backend
+          const verifyRes = await fetch("http://localhost:5000/verify-payment", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+              userOrderId: orderId
+            })
+          }).then(res => res.json());
+  
+          if (verifyRes.success) {
+            alert("Payment Successful!");
+  
+            // Update front-end order status instantly
+            setOrders(prev =>
+              prev.map(o =>
+                o.id === orderId ? { ...o, status: "Paid" } : o
+              )
+            );
+          } else {
+            alert("Payment failed to verify!");
+          }
+        },
+  
+        theme: {
+          color: "#3399cc"
+        }
+      };
+  
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+  
+    } catch (error) {
+      console.error(error);
+      alert("Payment failed!");
+    }
+  };
+  
   return (
     <section className="z_acc_section py-4">
       <div className="container">
@@ -455,6 +488,22 @@ function MyAccount() {
                               </div>
 
                               <div className="z_order_footer">
+                                {/* 🆕 NEW: Pay button for pending orders */}
+                                {order.status.toLowerCase() === 'pending' && (
+                                  <button
+                                    className="btn btn-success z_pay_order_btn"
+                                    onClick={() => handlePayOrder(order.id)}
+                                    style={{
+                                      marginLeft: '15px',
+                                      padding: '8px 20px',
+                                      fontWeight: '600',
+                                      borderRadius: '5px'
+                                    }}
+                                  >
+                                    <i className="bi bi-credit-card"></i> Pay Now
+                                  </button>
+                                )}
+
                                 <div className="z_order_total">
                                   <span className="z_total_label">Total Amount:</span>
                                   <span className="z_total_value">{order.total}</span>
@@ -647,7 +696,7 @@ function MyAccount() {
                     onChange={handleEditChange}
                     placeholder="Phone Number (Digits Only)"
                   />
-                   {validationErrors.phone && (
+                  {validationErrors.phone && (
                     <p className="text-danger small mt-1" style={{ fontSize: '0.8rem' }}>
                       {validationErrors.phone}
                     </p>
