@@ -45,6 +45,8 @@ function MyAccount() {
   const [profile, setProfile] = useState(initialProfile);
   const [editProfile, setEditProfile] = useState(initialProfile);
   const [orders, setOrders] = useState([]);
+  console.log(orders, "ppppppp");
+
   const [addresses, setAddresses] = useState([]);
   const [editingAddressIdx, setEditingAddressIdx] = useState(null);
   const [addressForm, setAddressForm] = useState({
@@ -66,6 +68,7 @@ function MyAccount() {
     try {
       setLoading(true);
       const response = await userAPI.getCompleteAccountData(userId);
+      console.log(response.data.orders, "ord");
 
       if (response.success && response.data) {
         setProfile(response.data.profile);
@@ -297,72 +300,138 @@ function MyAccount() {
 
   const handlePayOrder = async (orderId) => {
     try {
-      const order = orders.find(o => o.id === orderId);
+      const token = localStorage.getItem("token");
+      const userId = localStorage.getItem("userId");
 
-      // 1. Create Razorpay order on backend
-      const createOrder = await fetch("http://localhost:5000/create-order", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          amount: order.total,
-          orderId: orderId
-        })
-      }).then(res => res.json());
-
-      if (!createOrder.success) {
-        alert("Unable to create payment. Try again!");
+      if (!token || !userId) {
+        alert("Please login to continue");
         return;
       }
 
+      // Find the order from the orders array
+      const order = orders.find(o => o._id === orderId || o.id === orderId);
+      if (!order) {
+        alert("Order not found");
+        return;
+      }
+
+      // Check if order is already paid
+      if (order.paymentStatus === 'completed') {
+        alert("This order is already paid");
+        return;
+      }
+
+      // 1️⃣ Get full order data from DB (items, totalAmount, etc.)
+      const orderRes = await fetch(`http://localhost:9000/api/orders/${order._id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      if (!orderRes.ok) {
+        throw new Error("Failed to fetch order details");
+      }
+
+      const orderData = await orderRes.json();
+      if (!orderData.success || !orderData.data) {
+        throw new Error(orderData.message || "Order not found");
+      }
+
+      const fullOrder = orderData.data;
+
+      // 2️⃣ Create Razorpay order for existing order
+      const res = await fetch(`http://localhost:9000/api/orders/${order._id}/create_payment`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          userId
+        })
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to create payment order");
+      }
+
+      const data = await res.json();
+      if (!data.success || !data.data) {
+        throw new Error(data.message || "Failed to create payment order");
+      }
+
+      const { razorpayOrder, order: savedOrder, key } = data.data;
+
+      // 3️⃣ Ensure Razorpay script is loaded
+      const loadRzp = () => new Promise((resolve, reject) => {
+        if (window.Razorpay) return resolve();
+        const script = document.createElement('script');
+        script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+        script.onload = resolve;
+        script.onerror = () => reject(new Error("Failed to load Razorpay script"));
+        document.body.appendChild(script);
+      });
+
+      await loadRzp();
+
+      // 4️⃣ Open Razorpay checkout
       const options = {
-        key: "YOUR_RAZORPAY_KEY_ID",
-        amount: createOrder.order.amount,
+        key: key,
+        amount: razorpayOrder.amount,
         currency: "INR",
-        name: "Your Brand",
-        description: "Order Payment",
-        order_id: createOrder.order.id,
-
+        name: "Yo Computer Hub",
+        description: `Order Payment - Order #${order.id}`,
+        order_id: razorpayOrder.id,
+        prefill: {
+          name: profile.name || "",
+          email: profile.email || "",
+          contact: profile.phone || ""
+        },
         handler: async function (response) {
+          try {
+            // 5️⃣ Verify payment on backend
+            const verifyRes = await fetch("http://localhost:9000/api/orders/verify_payment", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+              },
+              body: JSON.stringify({
+                orderId: savedOrder._id,
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature
+              })
+            });
 
-          // 2. Verify payment on backend
-          const verifyRes = await fetch("http://localhost:5000/verify-payment", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-              userOrderId: orderId
-            })
-          }).then(res => res.json());
-
-          if (verifyRes.success) {
-            alert("Payment Successful!");
-
-            // Update front-end order status instantly
-            setOrders(prev =>
-              prev.map(o =>
-                o.id === orderId ? { ...o, status: "Paid" } : o
-              )
-            );
-          } else {
-            alert("Payment failed to verify!");
+            const verifyData = await verifyRes.json();
+            if (verifyData.success) {
+              alert("Payment Successful 🎉");
+              // Refresh orders after successful payment
+              await fetchUserData();
+            } else {
+              alert("Payment verification failed: " + (verifyData.message || "Unknown error"));
+            }
+          } catch (verifyErr) {
+            console.error("Payment verification error:", verifyErr);
+            alert("Payment verification error occurred. Please contact support.");
           }
         },
-
-        theme: {
-          color: "#3399cc"
-        }
+        modal: {
+          ondismiss: function () {
+            console.log("Payment cancelled by user");
+          }
+        },
+        theme: { color: "#5588c9" }
       };
 
       const rzp = new window.Razorpay(options);
       rzp.open();
 
-    } catch (error) {
-      console.error(error);
-      alert("Payment failed!");
+    } catch (err) {
+      console.error("Payment error:", err);
+      alert("Payment error: " + (err.message || "An error occurred. Please try again."));
     }
   };
+
 
   return (
     <section className="z_acc_section py-4">
@@ -410,7 +479,7 @@ function MyAccount() {
                               </button>
                             </div>
                             <h4 className="z_profile_name_heading">{profile.name}</h4>
-                            <p className="z_profile_email_heading">{profile.email}</p>
+                            {/* <p className="z_profile_email_heading">{profile.email}</p> */}
                           </div>
                         </div>
 
@@ -488,49 +557,53 @@ function MyAccount() {
                       ) : (
                         <div className="z_order_list">
                           {orders.map(order => (
-                            <div className="z_order_item_card" key={order.id}>
+                            <div className="z_order_item_card" key={order._id || order.id}>
                               <div className="z_order_header">
                                 <div className="z_order_id_date">
                                   <h5 className="z_order_id">Order #{order.id}</h5>
                                   <p className="z_order_date">{order.date}</p>
                                 </div>
-                                <div className={`z_order_status z_status_${order.status.toLowerCase()}`}>
-                                  {order.status}
+                                <div className={`z_order_status z_status_${(order.orderStatus || order.status || '').toLowerCase()}`}>
+                                  {order.status || order.orderStatus}
                                 </div>
                               </div>
 
                               <div className="z_order_products">
-                                {order.items.map((item, idx) => (
+                                {order.items && order.items.map((item, idx) => (
                                   <div className="z_product_item" key={idx}>
-                                    <img src={item.image} alt={item.name} className="z_product_image" />
+                                    <img src={item.image} alt={item.name || item.productName} className="z_product_image" />
                                     <div className="z_product_details">
-                                      <p className="z_product_name">{item.name}</p>
-                                      <p className="z_product_price">{item.price}</p>
+                                      <p className="z_product_name">{item.name || item.productName}</p>
+                                      <p className="z_product_price">{item.priceFormatted || item.price || `₹${item.price}`}</p>
+                                      {item.quantity && (
+                                        <p className="text-muted small">Qty: {item.quantity}</p>
+                                      )}
                                     </div>
                                   </div>
                                 ))}
                               </div>
 
                               <div className="z_order_footer">
-                                {/* 🆕 NEW: Pay button for pending orders */}
-                                {order.status.toLowerCase() === 'pending' && (
-                                  <button
-                                    className="btn btn-success z_pay_order_btn"
-                                    onClick={() => handlePayOrder(order.id)}
-                                    style={{
-                                      marginLeft: '15px',
-                                      padding: '8px 20px',
-                                      fontWeight: '600',
-                                      borderRadius: '5px'
-                                    }}
-                                  >
-                                    <i className="bi bi-credit-card"></i> Pay Now
-                                  </button>
-                                )}
+                                {/* Pay button for pending orders with pending payment */}
+                                {((order.orderStatus || order.status || '').toLowerCase() === 'pending' &&
+                                  (order.paymentStatus || 'pending') === 'pending') && (
+                                    <button
+                                      className="btn btn-success z_pay_order_btn"
+                                      onClick={() => handlePayOrder(order._id || order.id)}
+                                      style={{
+                                        marginLeft: '15px',
+                                        padding: '8px 20px',
+                                        fontWeight: '600',
+                                        borderRadius: '5px'
+                                      }}
+                                    >
+                                      <i className="bi bi-credit-card"></i> Pay Now
+                                    </button>
+                                  )}
 
                                 <div className="z_order_total">
                                   <span className="z_total_label">Total Amount:</span>
-                                  <span className="z_total_value">{order.total}</span>
+                                  <span className="z_total_value">{order.total || `₹${order.totalAmount || 0}`}</span>
                                 </div>
                               </div>
                             </div>
@@ -701,6 +774,8 @@ function MyAccount() {
                   <input
                     className="form-control z_edit_input"
                     name="email"
+                    disabled
+                    readOnly
                     value={editProfile.email}
                     onChange={handleEditChange}
                     placeholder="Email Address"

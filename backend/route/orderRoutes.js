@@ -125,7 +125,7 @@ router.get('/user/:userId', verifyToken, async (req, res) => {
   }
 });
 
-// Get order by ID (Protected route - requires login)
+// Get order by ID (Protected route - requires login) - MUST come before /:orderId/create_payment
 router.get('/:orderId', verifyToken, async (req, res) => {
   try {
     const order = await Order.findById(req.params.orderId);
@@ -133,6 +133,47 @@ router.get('/:orderId', verifyToken, async (req, res) => {
       return res.status(404).json({ success: false, message: 'Order not found' });
     }
     res.json({ success: true, data: order });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Create Razorpay order for existing order (Protected) - MUST come after GET /:orderId
+router.post('/:orderId/create_payment', verifyToken, async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const userId = req.body.userId;
+    
+    if (req.user.id !== userId) {
+      return res.status(403).json({ success: false, message: 'Unauthorized: User ID mismatch' });
+    }
+
+    // Find existing order
+    const order = await Order.findById(orderId);
+    if (!order) {
+      return res.status(404).json({ success: false, message: 'Order not found' });
+    }
+
+    // Verify order belongs to user
+    if (order.userId.toString() !== userId) {
+      return res.status(403).json({ success: false, message: 'Unauthorized: Order does not belong to user' });
+    }
+
+    // Check if order is already paid
+    if (order.paymentStatus === 'completed') {
+      return res.status(400).json({ success: false, message: 'Order is already paid' });
+    }
+
+    // Create Razorpay order (amount in paise)
+    const options = {
+      amount: Math.round(order.totalAmount * 100),
+      currency: 'INR',
+      receipt: order._id.toString(),
+      payment_capture: 1
+    };
+    const razorpayOrder = await rzpInstance.orders.create(options);
+
+    res.json({ success: true, data: { razorpayOrder, order, key: RZP_KEY_ID } });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }

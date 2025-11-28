@@ -5,6 +5,12 @@ const Category = require('../model/Category');
 const multer = require('multer');
 const path = require('path');
 
+// Helper function to get active category IDs
+const getActiveCategoryIds = async () => {
+  const activeCategories = await Category.find({ isActive: true }).select('_id');
+  return activeCategories.map(cat => cat._id);
+};
+
 // ================= MULTER CONFIG =================
 
 // create uploads folder if not exists
@@ -37,10 +43,49 @@ router.get('/', async (req, res) => {
   try {
     console.log('req.query', req.query);
     const { category, categoryId, search, sort, limit = 10, page = 1 } = req.query;
+    
+    // Get active category IDs to filter out products from inactive categories
+    const activeCategoryIds = await getActiveCategoryIds();
+    
     let filter = {};
 
+    // Only show products from active categories
+    if (activeCategoryIds.length > 0) {
+      filter.categoryId = { $in: activeCategoryIds };
+    } else {
+      // If no active categories, return empty result
+      return res.json({
+        success: true,
+        data: [],
+        pagination: {
+          total: 0,
+          page: parseInt(page),
+          limit: parseInt(limit),
+          pages: 0
+        }
+      });
+    }
+
     if (category) filter.category = category;
-    if (categoryId) filter.categoryId = categoryId;
+    if (categoryId) {
+      // Only allow filtering by categoryId if it's an active category
+      const requestedCategoryId = activeCategoryIds.find(id => id.toString() === categoryId);
+      if (requestedCategoryId) {
+        filter.categoryId = requestedCategoryId;
+      } else {
+        // If requested category is inactive, return empty result
+        return res.json({
+          success: true,
+          data: [],
+          pagination: {
+            total: 0,
+            page: parseInt(page),
+            limit: parseInt(limit),
+            pages: 0
+          }
+        });
+      }
+    }
 
     if (search) {
       filter.$or = [
@@ -81,7 +126,15 @@ router.get('/', async (req, res) => {
 // Get featured products
 router.get('/featured', async (req, res) => {
   try {
-    const products = await Product.find({ isFeatured: true })
+    // Get active category IDs to filter out products from inactive categories
+    const activeCategoryIds = await getActiveCategoryIds();
+    
+    const filter = { 
+      isFeatured: true,
+      categoryId: activeCategoryIds.length > 0 ? { $in: activeCategoryIds } : { $in: [] }
+    };
+    
+    const products = await Product.find(filter)
       .limit(6)
       .populate('categoryId');
     res.json({ success: true, data: products });
@@ -93,7 +146,15 @@ router.get('/featured', async (req, res) => {
 // Get best sellers
 router.get('/best-sellers', async (req, res) => {
   try {
-    const products = await Product.find({ isBestSeller: true })
+    // Get active category IDs to filter out products from inactive categories
+    const activeCategoryIds = await getActiveCategoryIds();
+    
+    const filter = { 
+      isBestSeller: true,
+      categoryId: activeCategoryIds.length > 0 ? { $in: activeCategoryIds } : { $in: [] }
+    };
+    
+    const products = await Product.find(filter)
       .limit(6)
       .populate('categoryId');
     res.json({ success: true, data: products });
@@ -109,6 +170,15 @@ router.get('/:id', async (req, res) => {
     if (!product) {
       return res.status(404).json({ success: false, message: 'Product not found' });
     }
+    
+    // Check if product's category is active
+    if (product.categoryId) {
+      const category = await Category.findById(product.categoryId);
+      if (category && category.isActive === false) {
+        return res.status(404).json({ success: false, message: 'Product not found' });
+      }
+    }
+    
     res.json({ success: true, data: product });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
@@ -425,10 +495,10 @@ router.delete('/:id', async (req, res) => {
 
 // ================= CATEGORY ROUTES =================
 
-// Get all categories
+// Get all categories (only active ones)
 router.get('/categories/all', async (req, res) => {
   try {
-    const categories = await Category.find().sort({ name: 1 });
+    const categories = await Category.find({ isActive: true }).sort({ name: 1 });
     res.json({ success: true, data: categories });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });

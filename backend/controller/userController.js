@@ -85,15 +85,24 @@ exports.getUserOrders = async (req, res) => {
     }
 
     const formattedOrders = orders.map(order => ({
+      _id: order._id.toString(), // Include original _id for API calls
       id: order._id.toString().toUpperCase().slice(0, 8),
       date: new Date(order.createdAt).toISOString().split('T')[0],
       status: order.orderStatus.charAt(0).toUpperCase() + order.orderStatus.slice(1),
+      orderStatus: order.orderStatus, // Include original orderStatus
+      paymentStatus: order.paymentStatus, // Include paymentStatus
+      totalAmount: order.totalAmount, // Include original totalAmount
       items: order.items.map(item => ({
+        productId: item.productId,
+        productName: item.productName,
         name: item.productName,
-        price: `₹${item.price}`,
-        image: item.image || 'https://via.placeholder.com/300x300?text=Product'
+        price: item.price,
+        priceFormatted: `₹${item.price}`,
+        image: item.image || 'https://via.placeholder.com/300x300?text=Product',
+        quantity: item.quantity
       })),
-      total: `₹${order.totalAmount}`
+      total: `₹${order.totalAmount}`,
+      shippingAddress: order.shippingAddress
     }));
 
     res.json({
@@ -235,15 +244,24 @@ exports.getCompleteAccountData = async (req, res) => {
     const orders = await Order.find({ userId }).sort({ createdAt: -1 });
 
     const formattedOrders = orders.map(order => ({
-      id: order._id.toString().toUpperCase().slice(0, 8),
+      _id: order._id.toString(), // Include original _id for API calls
+      id: order._id.toString().toUpperCase(),
       date: new Date(order.createdAt).toISOString().split('T')[0],
       status: order.orderStatus.charAt(0).toUpperCase() + order.orderStatus.slice(1),
+      orderStatus: order.orderStatus, // Include original orderStatus for checks
+      paymentStatus: order.paymentStatus, // Include paymentStatus
+      totalAmount: order.totalAmount, // Include original totalAmount for payment
       items: order.items.map(item => ({
+        productId: item.productId, // Include productId
+        productName: item.productName, // Include original productName
         name: item.productName,
-        price: `₹${item.price}`,
-        image: item.image || 'https://via.placeholder.com/300x300?text=Product'
+        price: item.price, // Include original price (number)
+        priceFormatted: `₹${item.price}`, // Formatted price for display
+        image: item.image || 'https://via.placeholder.com/300x300?text=Product',
+        quantity: item.quantity // Include quantity
       })),
-      total: `₹${order.totalAmount}`
+      total: `₹${order.totalAmount}`,
+      shippingAddress: order.shippingAddress // Include shipping address
     }));
 
     res.json({

@@ -6,17 +6,9 @@ const addressSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  fullname: {
-    type: String,
-    default: ''
-  },
   address: {
     type: String,
-    default: ''
-  },
-  fullAddress: {
-    type: String,
-    default: ''
+    required: true
   },
   phone: {
     type: String,

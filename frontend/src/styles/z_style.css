@@ -996,10 +996,11 @@
     margin-top: 82px;
   }
 }
+
 .shop-btn {
   background-color: #5588c9;
   border: none;
-  box-shadow: 0 0 15px rgba(85,136,201,0.7);
+  box-shadow: 0 0 15px rgba(85, 136, 201, 0.7);
   width: 100%;
   max-width: 220px;
 }
@@ -1009,6 +1010,7 @@
     max-width: 180px;
   }
 }
+
 @media (max-width: 425px) {
   .shop-btn {
     max-width: 160px;
@@ -1200,6 +1202,11 @@
   margin-left: 12px;
 }
 
+.z_status_confirmed {
+  color: white;
+  background: #76a576;
+}
+
 .z_acc_card_bookmark {
   font-size: 1.1rem;
   color: #00b6b6;
@@ -1333,7 +1340,7 @@
   align-items: center;
   text-align: center;
   padding: 20px;
-  background-color:#1e1e1e;
+  background-color: #1e1e1e;
   border-radius: 12px;
   height: 100%;
 }
@@ -2326,9 +2333,12 @@
   position: relative;
   animation: fadeIn 0.3s ease;
 }
-.z_logout_title,.z_logout_close_btn{
+
+.z_logout_title,
+.z_logout_close_btn {
   color: #e5e5e5;
 }
+
 /* Close Button */
 .z_logout_close_btn {
   position: absolute;

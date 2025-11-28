@@ -62,9 +62,11 @@ function Shop() {
             .map((c) => {
               const id = typeof c === "string" ? c : c._id;
               const name = typeof c === "string" ? c : c.name;
-              return [id?.toString(), name];
+              const isActive = typeof c === "string" ? true : (c.isActive !== false); // Default to true if not specified
+              return [id?.toString(), { name, isActive }];
             })
-            .filter(([id]) => id)
+            .filter(([id, data]) => id && data.isActive) // Filter out inactive categories
+            .map(([id, data]) => [id, data.name]) // Convert back to [id, name] format
         );
 
         const matchedIds = [...idToName.keys()].filter((id) =>
@@ -228,42 +230,57 @@ function Shop() {
       window.dispatchEvent(new Event("categoryChanged"));
     }
   };
+const filtered = useMemo(() => {
+  if (!products || products.length === 0) return [];
 
-  const filtered = useMemo(() => {
-    // If no products, return empty
-    if (!products || products.length === 0) return [];
+  let list = [...products];
 
-    let list = [...products];
+  // 🚫 Category inactive? Hide product
+  list = list.filter((p) => {
+    if (!p || !p.categoryId) return false;
 
-    // Apply category filter only if not 'All'
-    if (filters.category && filters.category !== "All") {
-      list = list.filter((p) => {
-        if (!p || !p.categoryId) return false;
-        const productCatId =
-          typeof p.categoryId === "object"
-            ? p.categoryId._id || p.categoryId.id
-            : p.categoryId;
-        return productCatId === filters.category;
-      });
+    const cat = p.categoryId;
+
+    // cat is object → check isActive
+    if (typeof cat === "object" && cat.isActive === false) {
+      return false; // ❌ Do not show
     }
 
-    // Apply price range filter
-    if (filters.priceMin !== undefined && filters.priceMax !== undefined) {
-      list = list.filter((p) => {
-        const price = p.price || 0;
-        return price >= filters.priceMin && price <= filters.priceMax;
-      });
-    }
+    return true; // 👍 keep
+  });
 
-    // Apply sorting
-    if (filters.sort === "price-asc") {
-      list = list.sort((a, b) => (a.price || 0) - (b.price || 0));
-    } else if (filters.sort === "price-desc") {
-      list = list.sort((a, b) => (b.price || 0) - (a.price || 0));
-    }
+  // Apply category filter
+  if (filters.category && filters.category !== "All") {
+    list = list.filter((p) => {
+      if (!p || !p.categoryId) return false;
 
-    return list;
-  }, [filters, products]);
+      const productCatId =
+        typeof p.categoryId === "object"
+          ? p.categoryId._id || p.categoryId.id
+          : p.categoryId;
+
+      return productCatId === filters.category;
+    });
+  }
+
+  // Apply price range
+  if (filters.priceMin !== undefined && filters.priceMax !== undefined) {
+    list = list.filter((p) => {
+      const price = p.price || 0;
+      return price >= filters.priceMin && price <= filters.priceMax;
+    });
+  }
+
+  // Sorting
+  if (filters.sort === "price-asc") {
+    list = list.sort((a, b) => (a.price || 0) - (b.price || 0));
+  } else if (filters.sort === "price-desc") {
+    list = list.sort((a, b) => (b.price || 0) - (a.price || 0));
+  }
+
+  return list;
+}, [filters, products]);
+
 
   return (
     <div style={{ backgroundColor: "#2b2d2e" }}>

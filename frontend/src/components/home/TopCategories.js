@@ -25,9 +25,14 @@ const TopCategories = () => {
       .then((res) => {
         if (!mounted) return;
         // Accept either { categories: [...] } or an array directly
-        const data = Array.isArray(res)
+        const allData = Array.isArray(res)
           ? res
           : res.categories || res.data || [];
+        // Filter out inactive categories (isActive: false)
+        const data = allData.filter(cat => {
+          if (typeof cat === "string") return true; // String categories are always active
+          return cat.isActive !== false; // Default to true if not specified
+        });
         setCategories(data);
       })
       .catch((err) => {

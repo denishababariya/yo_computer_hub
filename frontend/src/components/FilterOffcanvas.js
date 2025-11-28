@@ -27,9 +27,7 @@ function FilterOffcanvas({ show, onHide, categories, currentFilters, onFilterCha
   const handleCategoryChange = (category) => {
     const newFilters = { ...filters, category };
     setFilters(newFilters);
-    onFilterChange(newFilters);
-  // close offcanvas after selecting category
-  if (typeof onHide === 'function') onHide();
+    // Don't apply filter immediately - wait for Apply button
   };
 
   const handlePriceMinChange = (e) => {
@@ -50,9 +48,7 @@ function FilterOffcanvas({ show, onHide, categories, currentFilters, onFilterCha
   const handleSortChange = (sort) => {
     const newFilters = { ...filters, sort };
     setFilters(newFilters);
-    onFilterChange(newFilters);
-  // close offcanvas after selecting sort
-  if (typeof onHide === 'function') onHide();
+    // Don't apply filter immediately - wait for Apply button
   };
 
   const handleReset = () => {
@@ -179,7 +175,10 @@ function FilterOffcanvas({ show, onHide, categories, currentFilters, onFilterCha
           </Button>
           <Button
             className="flex-grow-1 fw-semibold"
-            onClick={onHide}
+            onClick={() => {
+              onFilterChange(filters);
+              if (typeof onHide === 'function') onHide();
+            }}
             style={{
               borderRadius: '8px',
               backgroundColor: '#5588c9',

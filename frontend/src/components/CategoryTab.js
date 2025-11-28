@@ -45,14 +45,17 @@ function CategoryTab() {
 
                 // categories from backend might be objects { _id, name, ... } or simple strings
                 // build map of id -> name and list of category ids from backend
+                // Filter out inactive categories (isActive: false)
                 const idToName = new Map(
                     catsList
                         .map(c => {
                             const id = (typeof c === "string" ? c : (c._id || c.id));
                             const name = (typeof c === "string" ? c : c.name);
-                            return [id && id.toString(), name];
+                            const isActive = typeof c === "string" ? true : (c.isActive !== false); // Default to true if not specified
+                            return [id && id.toString(), { name, isActive }];
                         })
-                        .filter(([id]) => id)
+                        .filter(([id, data]) => id && data.isActive) // Filter out inactive categories
+                        .map(([id, data]) => [id, data.name]) // Convert back to [id, name] format
                 );
 
                 const catIds = Array.from(idToName.keys());
