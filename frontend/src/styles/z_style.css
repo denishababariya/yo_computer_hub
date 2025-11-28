@@ -1574,7 +1574,7 @@
   padding: 32px 24px;
   min-width: 300px;
   text-align: center;
-  max-width: 775px;
+  max-width: 95%;
 }
 
 .z_logout_modal_title {
@@ -1861,18 +1861,27 @@
 
 .z_edit_input:focus {
   border: 1.5px solid #466bb3;
+  background-color: transparent;
+  color: #fff;
+}
+.z_edit_input option{
+  color: #000;
 }
 
 .z_edit_input {
+  background-color: transparent;
   padding: 10px 12px;
+  color: white;
   border-radius: 8px;
 }
-
+.z_edit_input::placeholder{
+  color: #fff;
+}
 .z_form_label {
   display: block;
   font-size: 0.95rem;
   font-weight: 600;
-  color: #bfbfbf;
+  color: #d8cfcf;
   margin-bottom: 8px;
 }
 
@@ -2023,7 +2032,7 @@
 }
 
 .z_product_item:hover {
-  background: #f0f7ff;
+  background: #040404;
   transform: translateY(-4px);
 }
 

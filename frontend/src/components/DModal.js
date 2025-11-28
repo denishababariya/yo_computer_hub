@@ -29,6 +29,7 @@ export default function DModal({ show, type = 'info', title, message, onClose, o
       btnClass = 'z_admin_btn';
       confirmText = 'OK';
   }
+  
 
   return (
     <div className="z_admin_modal_overlay" onClick={onClose}>

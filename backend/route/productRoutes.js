@@ -41,7 +41,6 @@ const upload = multer({ storage, fileFilter });
 // Get all products with filters
 router.get('/', async (req, res) => {
   try {
-    console.log('req.query', req.query);
     const { category, categoryId, search, sort, limit = 10, page = 1 } = req.query;
     
     // Get active category IDs to filter out products from inactive categories

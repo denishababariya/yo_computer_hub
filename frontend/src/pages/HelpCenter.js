@@ -17,6 +17,7 @@ import {
   FaUser,
   FaQuestionCircle,
 } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 // Internal CSS with d_ prefix
 const d_customStyles = `
@@ -184,6 +185,7 @@ hr {
 // Help Center Component
 export default function HelpCenter() {
   const [searchTerm, setSearchTerm] = useState("");
+    const navigate = useNavigate();
 
   // Sample FAQ data
   const faqData = [
@@ -358,15 +360,22 @@ export default function HelpCenter() {
             <Card className="d_contact-card shadow-sm">
               <Card.Body>
                 <Row>
-                  <Col md={6}>
-                    <div className="zy_main ">
-                      <h4 className="mb-3">Live Chat Support</h4>
-                      <p>
-                        For the fastest service, chat with a support agent now.
-                      </p>
-                    </div>
-                    <Button variant="primary">Start Chat</Button>
-                  </Col>
+                <Col md={6}>
+  <div className="zy_main">
+    <h4 className="mb-3">Contact Support</h4>
+    <p>
+      Need immediate assistance? Our support team is ready to help you with any
+      issues or questions you may have.
+    </p>
+  </div>
+ <Button
+      variant="secondary"
+      onClick={() => navigate("/contact")}
+    >
+      Call Support
+    </Button>
+</Col>
+
 
                   <Col md={6} className="mt-3 mt-md-0">
                     <div className="zy_main ">
