@@ -407,6 +407,32 @@
   color: #fff;
 }
 
+.z_admin_form_input {
+  background: transparent;
+  color: #fff;
+}
+
+.z_admin_form_input option {
+  background: #444; /* dark gray */
+  color: #fff;
+}
+
+.z_admin_form_input option:hover,
+.z_admin_form_input:focus option:checked {
+  background: #222 !important ; /* even darker gray on hover */
+  color: #fff;
+}
+
+.z_admin_form_textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.z_admin_form_select option {
+  background: #1a1a1a;
+  color: #fff;
+}
+
 /* Modal Styles */
 .z_admin_modal {
   display: none;
