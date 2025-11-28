@@ -29,12 +29,12 @@ function Cart() {
   }, []);
 
   return (
-    <section  style={{
+    <section className='h-100'  style={{
         backgroundColor: "#111",
         backgroundSize: "cover",
         backgroundAttachment: "fixed",
         color: "#f8f9fa",
-        minHeight: "85vh",
+      
         padding: isMobile ? "20px" : "30px",    
       }}
     >
@@ -155,7 +155,7 @@ function Cart() {
             <div className="mt-3 d-flex gap-2">
               <Button as={Link} to="/shop" variant="dark">Continue Shopping</Button>
               {userAuthenticated ? (
-                <Button as={Link} to="/checkout" variant="danger" className='text-dark'>Checkout</Button>
+                <Button as={Link} to="/checkout" variant="danger" className='text-light'>Checkout</Button>
               ) : (
                 <Button as={Link} to="/login" variant="danger">Login to Checkout</Button>
               )}

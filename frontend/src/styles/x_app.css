@@ -750,7 +750,7 @@
 /* checkout */
 
 .x_che {
-  background-color: #1e1f20;
+  background-color: #181818;
   color: #9f9f9f;
   width: 100%;
 }
@@ -764,7 +764,7 @@
   letter-spacing: 0.5px;
   padding: 10px 10px;
   border-bottom: 1px solid #dee2e6;
-  background-color: #343a40;
+  background-color: #141414;
   border-top: 1px solid #dee2e6;
 }
 
@@ -777,7 +777,7 @@
   letter-spacing: 0.2px;
   padding: 10px 10px;
   border-bottom: 1px solid #dee2e6;
-  background-color: #2c2f33;
+  background-color: #222324;
 }
 
 
@@ -808,15 +808,17 @@
 .total-box {
   font-size: 18px;
   padding: 8px 10px;
-  background: #2c2f33;
+  background: #222324;
   border: 1px solid #ddd;
   color: #ddd;
 }
-
-.x_che .form-control, 
 .x_sub .form-control {
+  background-color: #222324;
+}
+.x_che .form-control{
   color: #e3e3e3 !important;
-  background-color: #2c2f33 !important;
+  background-color: #222324 !important;
+  border-color: #686868;
 }
 
 .x_che .form-control::placeholder,
