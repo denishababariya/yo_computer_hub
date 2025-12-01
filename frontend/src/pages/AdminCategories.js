@@ -230,6 +230,8 @@ const AdminCategories = () => {
               <label className="z_admin_form_label">Description</label>
               <textarea
                 className="z_admin_form_textarea"
+                maxLength={70}
+                placeholder='Enter a brief description for the category (max 70 characters)'
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               />
@@ -262,7 +264,7 @@ const AdminCategories = () => {
                 <tr key={category._id}>
                   <td>{category.icon || '🏷️'}</td>
                   <td>{category.name}</td>
-                  <td>{category.description || 'N/A'}</td>
+                  <td className='text-nowrap'>{category.description || 'N/A'}</td>
                   <td>{category.isActive ? 'Active' : 'Inactive'}</td>
                   <td>
                     <div className="z_admin_actions">

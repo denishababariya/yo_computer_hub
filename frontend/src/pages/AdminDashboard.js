@@ -51,15 +51,10 @@ const AdminDashboard = () => {
         {/* Header */}
         <div className="z_admin_header">
           <h1 className="z_admin_title">Admin Dashboard</h1>
-          <div className="z_admin_breadcrumb">
-            <span>Home</span>
-            <span>/</span>
-            <span>Admin</span>
-          </div>
         </div>
 
         {/* Navigation Tabs */}
-        <div className="z_admin_nav_tabs">
+        <div className="z_admin_nav_tabs" style={{ overflowX: 'auto', whiteSpace: 'nowrap' }}>
           <button
             className={`z_admin_nav_tab ${activeTab === 'dashboard' ? 'active' : ''}`}
             onClick={() => setActiveTab('dashboard')}
@@ -214,13 +209,15 @@ const DashboardTab = ({ stats, loading }) => {
             </thead>
             <tbody>
               {stats.recentOrders.map((order) => (
+                console.log(order, "order"),
+                
                 <tr key={order._id}>
                   <td>{order._id.substring(0, 8)}</td>
                   <td>{order.userId}</td>
                   <td>₹{order.totalAmount}</td>
                   <td>
-                    <span className={`z_admin_status_badge z_admin_status_${order.status}`}>
-                      {order.status}
+                    <span className={`z_admin_status_badge z_admin_status_${order.orderStatus}`}>
+                      {order.orderStatus}
                     </span>
                   </td>
                   <td>{new Date(order.createdAt).toLocaleDateString()}</td>

@@ -1202,9 +1202,10 @@
   margin-left: 12px;
 }
 
+.z_admin_status_confirmed,
 .z_status_confirmed {
-  color: white;
-  background: #76a576;
+  color: #2ea324;
+  background: #09700040;
 }
 
 .z_acc_card_bookmark {
@@ -1864,7 +1865,8 @@
   background-color: transparent;
   color: #fff;
 }
-.z_edit_input option{
+
+.z_edit_input option {
   color: #000;
 }
 
@@ -1874,9 +1876,11 @@
   color: white;
   border-radius: 8px;
 }
-.z_edit_input::placeholder{
+
+.z_edit_input::placeholder {
   color: #fff;
 }
+
 .z_form_label {
   display: block;
   font-size: 0.95rem;
@@ -2005,11 +2009,11 @@
   border: 1px solid #f5c2c7;
 }
 
-.z_status_pending {
+/* .z_status_pending {
   background: #fff3cd;
   color: #664d03;
   border: 1px solid #ffecb5;
-}
+} */
 
 .z_order_products {
   display: grid;
