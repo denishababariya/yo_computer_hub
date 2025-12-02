@@ -296,7 +296,7 @@ const AdminProducts = () => {
       <div className="z_admin_table_wrapper">
         <div className="z_admin_table_header">
           <h3 className="z_admin_table_title">Products Management</h3>
-          <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: '10px', alignItems: 'center'}}>
             <input
               type="text"
               className="z_admin_search_box"
@@ -308,7 +308,7 @@ const AdminProducts = () => {
               }}
             />
             <button
-              className="z_admin_btn z_admin_btn_primary"
+              className="z_admin_btn z_admin_btn_primary text-nowrap"
               onClick={() => {
                 if (showForm) {
                   resetForm();
@@ -631,52 +631,54 @@ const AdminProducts = () => {
           </div>
         ) : products.length > 0 ? (
           <>
-            <table className="z_admin_table">
-              <thead>
-                <tr>
-                  <th>Image</th>
-                  <th>Product Name</th>
-                  <th>Category</th>
-                  <th>Price</th>
-                  <th>Stock</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {products.map((product) => (
-                  <tr key={product._id}>
-                    <td>
-                      <img
-                        src={product.image ? `http://localhost:9000${product.image}` : fallbackImage}
-                        alt={product.name}
-                        style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px' }}
-                        onError={(e) => {
-                          e.target.src = fallbackImage;
-                        }}
-                      />
-                    </td>
-                    <td>{product.name}</td>
-                    <td>{getCategoryName(product.categoryId)}</td>
-                    <td>₹{product.price}</td>
-                    <td>{product.stock}</td>
-                    <td>
-                      <div className="z_admin_actions">
-                        <button className="z_admin_btn z_admin_btn_secondary wrap-nowrap" onClick={() => handleEditProduct(product)}>
-                          <span style={{ color: "#fff", fontSize: "16px" }}><FaRegEdit /> Edit</span>
-
-                        </button>
-                        <button
-                          className="z_admin_btn z_admin_btn_danger"
-                          onClick={() => initiateDelete(product._id)}
-                        >
-                          <span style={{ color: "#fff", fontSize: "16px" }}> <RiDeleteBin6Line /> Delete</span>
-                        </button>
-                      </div>
-                    </td>
+            <div className="z_table_scroll">
+              <table className="z_admin_table">
+                <thead>
+                  <tr>
+                    <th>Image</th>
+                    <th>Product Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {products.map((product) => (
+                    <tr key={product._id}>
+                      <td>
+                        <img
+                          src={product.image ? `http://localhost:9000${product.image}` : fallbackImage}
+                          alt={product.name}
+                          style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px' }}
+                          onError={(e) => {
+                            e.target.src = fallbackImage;
+                          }}
+                        />
+                      </td>
+                      <td>{product.name}</td>
+                      <td>{getCategoryName(product.categoryId)}</td>
+                      <td>₹{product.price}</td>
+                      <td>{product.stock}</td>
+                      <td>
+                        <div className="z_admin_actions">
+                          <button className="z_admin_btn z_admin_btn_secondary wrap-nowrap" onClick={() => handleEditProduct(product)}>
+                            <span style={{ color: "#fff", fontSize: "16px" }}><FaRegEdit /> Edit</span>
+
+                          </button>
+                          <button
+                            className="z_admin_btn z_admin_btn_danger"
+                            onClick={() => initiateDelete(product._id)}
+                          >
+                            <span style={{ color: "#fff", fontSize: "16px" }}> <RiDeleteBin6Line /> Delete</span>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
             <div className="z_admin_pagination">
               <button
                 className="z_admin_pagination_btn"

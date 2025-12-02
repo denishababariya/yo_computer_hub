@@ -61,6 +61,15 @@
   display: flex;
   gap: 10px;
   margin-bottom: 30px;
+  padding-top: 2px;
+}
+
+.truncate-1line {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 70ch;
+  /* approximate width in characters; tweak as needed */
 }
 
 .z_admin_nav_tab {
@@ -99,13 +108,13 @@
   padding: 20px;
   background: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transition: 0.3s ease;
 }
 
 .z_admin_stat_card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
 }
 
 .z_admin_stat_top {
@@ -346,7 +355,7 @@
 .z_admin_form {
   background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
   padding: 30px;
-  border-radius: 12px;
+  border-radius: 0px;
   border: 1px solid #333;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   margin-bottom: 30px;
@@ -412,13 +421,15 @@
 }
 
 .z_admin_form_input option {
-  background: #444; /* dark gray */
+  background: #444;
+  /* dark gray */
   color: #fff;
 }
 
 .z_admin_form_input option:hover,
 .z_admin_form_input:focus option:checked {
-  background: #222 !important ; /* even darker gray on hover */
+  background: #222 !important;
+  /* even darker gray on hover */
   color: #fff;
 }
 
@@ -657,8 +668,9 @@
   }
 
   .z_admin_search_box {
-    width: 100%;
+    /* width: 100%; */
     max-width: 300px;
+    padding: 6px 13px;
   }
 
   .z_admin_header {
@@ -668,8 +680,8 @@
   }
 
   .z_admin_table_header {
-    flex-direction: column;
-    align-items: flex-start;
+    /* flex-direction: column; */
+    /* align-items: flex-start; */
   }
 }
 
@@ -699,8 +711,20 @@
     font-size: 0.85rem;
   }
 
-  .z_admin_table_wrapper {
+  /* .z_admin_table_wrapper {
     overflow-x: auto;
+  } */
+
+  .z_table_scroll {
+    max-height: 800px;
+    /* Table ni height limit */
+    overflow-y: auto;
+    /* Vertical scroll */
+    overflow-x: auto;
+    /* Horizontal scroll */
+    border: none;
+    border-radius: 0px;
+    margin-top: 10px;
   }
 
   .z_admin_table {
@@ -714,19 +738,19 @@
   }
 
   .z_admin_actions {
-    flex-direction: column;
+    /* flex-direction: column; */
     gap: 6px;
   }
 
   .z_admin_btn {
-    width: 100%;
+    /* width: 100%; */
     justify-content: center;
     padding: 6px 12px;
     font-size: 0.75rem;
   }
 
   .z_admin_search_box {
-    width: 100%;
+    /* width: 100%; */
     max-width: none;
   }
 
@@ -815,6 +839,20 @@
   }
 }
 
+
+@media (max-width: 439px) {
+  .z_admin_stat_card {
+    align-items: center;
+  }
+
+  .z_admin_stat_top {
+    justify-content: center;
+  }
+
+  .z_admin_stat_value {
+    text-align: center;
+  }
+}
 
 /* FULL SCREEN OVERLAY */
 .z_admin_modal_overlay {

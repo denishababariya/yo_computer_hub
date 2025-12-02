@@ -52,8 +52,8 @@ function AppFooter() {
                     placeholder="Enter your email..."
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="bg-white text-dark border-0"
-                    style={{ flex: 1, borderRadius: '4px' }}
+                    className="text-light"
+                    style={{ flex: 1, borderRadius: '4px' , border: '1px solid #65686a'}}
                   />
                   <Button
                     type="submit"

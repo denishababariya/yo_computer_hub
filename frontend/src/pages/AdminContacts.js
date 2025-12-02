@@ -134,53 +134,55 @@ const AdminContacts = () => {
         </div>
       ) : contacts.length > 0 ? (
         <>
-          <table className="z_admin_table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Company</th>
-                <th>Status</th>
-                <th>Date</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {contacts.map((contact) => (
-                <tr key={contact._id}>
-                  <td>{contact.name}</td>
-                  <td>{contact.email}</td>
-                  <td>{contact.company || 'N/A'}</td>
-                  <td>
-                    <span className={`z_admin_status_badge z_admin_status_${contact.status}`}>
-                      {contact.status}
-                    </span>
-                  </td>
-                  <td>{new Date(contact.createdAt).toLocaleDateString()}</td>
-                  <td>
-                    <div className="z_admin_actions">
-                      <select
-                        className="z_admin_form_select"
-                        style={{ width: '120px' }}
-                        value={contact.status}
-                        onChange={(e) => handleStatusChange(contact._id, e.target.value)}
-                      >
-                        <option value="new">New</option>
-                        <option value="read">Read</option>
-                        <option value="replied">Replied</option>
-                      </select>
-                      <button
-                        className="z_admin_btn z_admin_btn_danger"
-                        onClick={() => initiateDelete(contact._id)}
-                      >
-                        <span style={{color: "#fff", fontSize: "16px"}}> <RiDeleteBin6Line /> Delete</span>
-                      </button>
-                    </div>
-                  </td>
+          <div className="z_table_scroll">
+            <table className="z_admin_table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Company</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {contacts.map((contact) => (
+                  <tr key={contact._id}>
+                    <td>{contact.name}</td>
+                    <td>{contact.email}</td>
+                    <td>{contact.company || 'N/A'}</td>
+                    <td>
+                      <span className={`z_admin_status_badge z_admin_status_${contact.status}`}>
+                        {contact.status}
+                      </span>
+                    </td>
+                    <td>{new Date(contact.createdAt).toLocaleDateString()}</td>
+                    <td>
+                      <div className="z_admin_actions">
+                        <select
+                          className="z_admin_form_select"
+                          style={{ width: '120px' }}
+                          value={contact.status}
+                          onChange={(e) => handleStatusChange(contact._id, e.target.value)}
+                        >
+                          <option value="new">New</option>
+                          <option value="read">Read</option>
+                          <option value="replied">Replied</option>
+                        </select>
+                        <button
+                          className="z_admin_btn z_admin_btn_danger"
+                          onClick={() => initiateDelete(contact._id)}
+                        >
+                          <span style={{ color: "#fff", fontSize: "16px" }}> <RiDeleteBin6Line /> Delete</span>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
           <div className="z_admin_pagination">
             <button
               className="z_admin_pagination_btn"
@@ -214,7 +216,7 @@ const AdminContacts = () => {
       )}
 
       {/* --- Integration of DModal --- */}
-      <DModal 
+      <DModal
         show={modalConfig.show}
         type={modalConfig.type}
         title={modalConfig.title}

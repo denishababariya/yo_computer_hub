@@ -197,34 +197,36 @@ const DashboardTab = ({ stats, loading }) => {
           <h3 className="z_admin_table_title">Recent Orders</h3>
         </div>
         {stats.recentOrders && stats.recentOrders.length > 0 ? (
-          <table className="z_admin_table">
-            <thead>
-              <tr>
-                <th>Order ID</th>
-                <th>User</th>
-                <th>Amount</th>
-                <th>Status</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {stats.recentOrders.map((order) => (
-                console.log(order, "order"),
-                
-                <tr key={order._id}>
-                  <td>{order._id.substring(0, 8)}</td>
-                  <td>{order.userId}</td>
-                  <td>₹{order.totalAmount}</td>
-                  <td>
-                    <span className={`z_admin_status_badge z_admin_status_${order.orderStatus}`}>
-                      {order.orderStatus}
-                    </span>
-                  </td>
-                  <td>{new Date(order.createdAt).toLocaleDateString()}</td>
+          <div className="z_table_scroll">
+            <table className="z_admin_table">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>User</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Date</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {stats.recentOrders.map((order) => (
+                  console.log(order, "order"),
+
+                  <tr key={order._id}>
+                    <td>{order._id.substring(0, 8)}</td>
+                    <td>{order.userId}</td>
+                    <td>₹{order.totalAmount}</td>
+                    <td>
+                      <span className={`z_admin_status_badge z_admin_status_${order.orderStatus}`}>
+                        {order.orderStatus}
+                      </span>
+                    </td>
+                    <td>{new Date(order.createdAt).toLocaleDateString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         ) : (
           <div className="z_admin_empty_state">
             <p>No recent orders</p>

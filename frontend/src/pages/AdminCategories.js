@@ -73,22 +73,22 @@ const AdminCategories = () => {
         await adminAPI.updateCategory(editingCategoryId, formData);
         // Success Modal for Update
         setModalConfig({
-            show: true,
-            type: 'success',
-            title: 'Updated!',
-            message: 'Category updated successfully'
+          show: true,
+          type: 'success',
+          title: 'Updated!',
+          message: 'Category updated successfully'
         });
       } else {
         await adminAPI.createCategory(formData);
         // Success Modal for Create
         setModalConfig({
-            show: true,
-            type: 'success',
-            title: 'Created!',
-            message: 'Category created successfully'
+          show: true,
+          type: 'success',
+          title: 'Created!',
+          message: 'Category created successfully'
         });
       }
-      
+
       // Reset Form
       setFormData({
         name: '',
@@ -119,10 +119,10 @@ const AdminCategories = () => {
   const initiateDelete = (id) => {
     setDeleteId(id);
     setModalConfig({
-        show: true,
-        type: 'delete',
-        title: 'Delete Category',
-        message: 'Are you sure you want to delete this category? This action cannot be undone.'
+      show: true,
+      type: 'delete',
+      title: 'Delete Category',
+      message: 'Are you sure you want to delete this category? This action cannot be undone.'
     });
   };
 
@@ -130,28 +130,28 @@ const AdminCategories = () => {
   const handleModalConfirm = async () => {
     // If the modal is currently in 'delete' mode
     if (modalConfig.type === 'delete' && deleteId) {
-        try {
-            await adminAPI.deleteCategory(deleteId);
-            setModalConfig({
-                show: true,
-                type: 'success',
-                title: 'Deleted!',
-                message: 'Category deleted successfully'
-            });
-            fetchCategories();
-        } catch (error) {
-            console.error('Error deleting category:', error);
-            setModalConfig({
-                show: true,
-                type: 'info',
-                title: 'Error',
-                message: 'Failed to delete category'
-            });
-        }
-        setDeleteId(null); // Reset ID
+      try {
+        await adminAPI.deleteCategory(deleteId);
+        setModalConfig({
+          show: true,
+          type: 'success',
+          title: 'Deleted!',
+          message: 'Category deleted successfully'
+        });
+        fetchCategories();
+      } catch (error) {
+        console.error('Error deleting category:', error);
+        setModalConfig({
+          show: true,
+          type: 'info',
+          title: 'Error',
+          message: 'Failed to delete category'
+        });
+      }
+      setDeleteId(null); // Reset ID
     } else {
-        // For Success or Info types, clicking button just closes modal
-        handleModalClose();
+      // For Success or Info types, clicking button just closes modal
+      handleModalClose();
     }
   };
 
@@ -206,6 +206,7 @@ const AdminCategories = () => {
                 <input
                   type="text"
                   className="z_admin_form_input"
+                  required
                   value={formData.image}
                   onChange={(e) => setFormData({ ...formData, image: e.target.value })}
                 />
@@ -230,8 +231,7 @@ const AdminCategories = () => {
               <label className="z_admin_form_label">Description</label>
               <textarea
                 className="z_admin_form_textarea"
-                maxLength={70}
-                placeholder='Enter a brief description for the category (max 70 characters)'
+                required
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               />
@@ -249,40 +249,45 @@ const AdminCategories = () => {
             <p>Loading categories...</p>
           </div>
         ) : categories.length > 0 ? (
-          <table className="z_admin_table">
-            <thead>
-              <tr>
-                <th>Icon</th>
-                <th>Category Name</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {categories.map((category) => (
-                <tr key={category._id}>
-                  <td>{category.icon || '🏷️'}</td>
-                  <td>{category.name}</td>
-                  <td className='text-nowrap'>{category.description || 'N/A'}</td>
-                  <td>{category.isActive ? 'Active' : 'Inactive'}</td>
-                  <td>
-                    <div className="z_admin_actions">
-                      <button className="z_admin_btn z_admin_btn_secondary wrap-nowrap" onClick={() => handleEdit(category)}> 
-                        <span style={{color: "#fff", fontSize: "16px"}}><FaRegEdit /> Edit</span> 
-                      </button>
-                      <button
-                        className="z_admin_btn z_admin_btn_danger"
-                        onClick={() => initiateDelete(category._id)}
-                      >
-                       <span style={{color: "#fff", fontSize: "16px"}}> <RiDeleteBin6Line /> Delete</span>
-                      </button>
-                    </div>
-                  </td>
+          <div className="z_table_scroll">
+            <table className="z_admin_table">
+              <thead>
+                <tr>
+                  <th>Icon</th>
+                  <th>Category Name</th>
+                  <th>Description</th>
+                  <th>Status</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {categories.map((category) => (
+                  <tr key={category._id}>
+                    <td>{category.icon || '🏷️'}</td>
+                    <td>{category.name}</td>
+                    <td className="truncate-1line" title={category.description || 'N/A'}>
+                      {category.description || 'N/A'}
+                    </td>
+
+                    <td>{category.isActive ? 'Active' : 'Inactive'}</td>
+                    <td>
+                      <div className="z_admin_actions">
+                        <button className="z_admin_btn z_admin_btn_secondary wrap-nowrap" onClick={() => handleEdit(category)}>
+                          <span style={{ color: "#fff", fontSize: "16px" }}><FaRegEdit /> Edit</span>
+                        </button>
+                        <button
+                          className="z_admin_btn z_admin_btn_danger"
+                          onClick={() => initiateDelete(category._id)}
+                        >
+                          <span style={{ color: "#fff", fontSize: "16px" }}> <RiDeleteBin6Line /> Delete</span>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         ) : (
           <div className="z_admin_empty_state">
             <p>No categories found</p>
@@ -291,7 +296,7 @@ const AdminCategories = () => {
       </div>
 
       {/* --- Integration of DModal --- */}
-      <DModal 
+      <DModal
         show={modalConfig.show}
         type={modalConfig.type}
         title={modalConfig.title}

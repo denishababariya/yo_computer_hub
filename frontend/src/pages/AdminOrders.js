@@ -110,58 +110,59 @@ const AdminOrders = () => {
         </div>
       ) : paginatedOrders.length > 0 ? (
         <>
-          <table className="z_admin_table">
-            <thead>
-              <tr>
-                <th>Order ID</th>
-                <th>User</th>
-                <th>Amount</th>
-                <th>Status</th>
-                <th>Date</th>
-                <th>Change Status</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {paginatedOrders.map((order) => (
-                <tr key={order._id}>
-                  <td>{order._id.substring(0, 8)}</td>
-                  <td>{order.userId}</td>
-                  <td>₹{order.totalAmount}</td>
-
-                  <td>
-                    <span
-                      className={`z_admin_status_badge z_admin_status_${order.orderStatus}`}
-                    >
-                      {order.orderStatus}
-                    </span>
-                  </td>
-
-                  <td>
-                    {new Date(order.createdAt).toLocaleDateString()}
-                  </td>
-
-                  <td>
-                    <select
-                      className="z_admin_form_select"
-                      style={{ width: "150px" }}
-                      value={order.orderStatus}
-                      onChange={(e) =>
-                        handleStatusSelect(order._id, e.target.value)
-                      }
-                    >
-                      <option value="pending">Pending</option>
-                      <option value="confirmed">Confirmed</option>
-                      <option value="shipped">Shipped</option>
-                      <option value="delivered">Delivered</option>
-                      <option value="cancelled">Cancelled</option>
-                    </select>
-                  </td>
+          <div className="z_table_scroll">
+            <table className="z_admin_table">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>User</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                  <th>Change Status</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
 
+              <tbody>
+                {paginatedOrders.map((order) => (
+                  <tr key={order._id}>
+                    <td>{order._id.substring(0, 8)}</td>
+                    <td>{order.userId}</td>
+                    <td>₹{order.totalAmount}</td>
+
+                    <td>
+                      <span
+                        className={`z_admin_status_badge z_admin_status_${order.orderStatus}`}
+                      >
+                        {order.orderStatus}
+                      </span>
+                    </td>
+
+                    <td>
+                      {new Date(order.createdAt).toLocaleDateString()}
+                    </td>
+
+                    <td>
+                      <select
+                        className="z_admin_form_select"
+                        style={{ width: "150px" }}
+                        value={order.orderStatus}
+                        onChange={(e) =>
+                          handleStatusSelect(order._id, e.target.value)
+                        }
+                      >
+                        <option value="pending">Pending</option>
+                        <option value="confirmed">Confirmed</option>
+                        <option value="shipped">Shipped</option>
+                        <option value="delivered">Delivered</option>
+                        <option value="cancelled">Cancelled</option>
+                      </select>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
           <div className="z_admin_pagination">
             <button
               className="z_admin_pagination_btn"
@@ -174,9 +175,8 @@ const AdminOrders = () => {
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
               <button
                 key={p}
-                className={`z_admin_pagination_btn ${
-                  p === page ? "active" : ""
-                }`}
+                className={`z_admin_pagination_btn ${p === page ? "active" : ""
+                  }`}
                 onClick={() => setPage(p)}
               >
                 {p}

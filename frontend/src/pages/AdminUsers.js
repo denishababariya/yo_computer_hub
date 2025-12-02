@@ -88,65 +88,67 @@ const AdminUsers = () => {
         </div>
       ) : users.length > 0 ? (
         <>
-          <table className="z_admin_table">
-            <thead>
-              <tr>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Joined Date</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((user) => (
-                <tr key={user._id}>
-                  <td>
-                    {user.avatar ? (
-                      <img 
-                        src={user.avatar} 
-                        alt={user.name} 
-                        className="z_admin_user_avatar_display pb-0"
-                        style={{width:"50px", height:"50px"}}
-                        onError={(e) => {
-                          e.target.style.display = 'none';
-                          e.target.parentElement.innerHTML = `<div class="z_admin_user_avatar_placeholder"><span>${user.name?.charAt(0).toUpperCase() || 'U'}</span></div>`;
-                        }}
-                      />
-                    ) : (
-                      <div className="z_admin_user_avatar_placeholder">
-                        <span>{user.name?.charAt(0).toUpperCase() || 'U'}</span>
+          <div className="z_table_scroll">
+            <table className="z_admin_table">
+              <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Joined Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((user) => (
+                  <tr key={user._id}>
+                    <td>
+                      {user.avatar ? (
+                        <img
+                          src={user.avatar}
+                          alt={user.name}
+                          className="z_admin_user_avatar_display pb-0"
+                          style={{ width: "50px", height: "50px" }}
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                            e.target.parentElement.innerHTML = `<div class="z_admin_user_avatar_placeholder"><span>${user.name?.charAt(0).toUpperCase() || 'U'}</span></div>`;
+                          }}
+                        />
+                      ) : (
+                        <div className="z_admin_user_avatar_placeholder">
+                          <span>{user.name?.charAt(0).toUpperCase() || 'U'}</span>
                         </div>
-                    )
-                  }
-                  </td>
+                      )
+                      }
+                    </td>
 
 
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td>{user.phone || 'N/A'}</td>
-                  <td>{new Date(user.createdAt).toLocaleDateString()}</td>
-                  <td>
-                    <div className="z_admin_actions">
-                      <button
-                        className="z_admin_btn z_admin_btn_secondary"
-                        onClick={() => handleViewUser(user)}
-                      >
-                       <span style={{color: "#fff", fontSize: "16px"}}> <FaRegEye /> View</span>
-                      </button>
-                      {/* <button
+                    <td>{user.name}</td>
+                    <td>{user.email}</td>
+                    <td>{user.phone || 'N/A'}</td>
+                    <td>{new Date(user.createdAt).toLocaleDateString()}</td>
+                    <td>
+                      <div className="z_admin_actions">
+                        <button
+                          className="z_admin_btn z_admin_btn_secondary"
+                          onClick={() => handleViewUser(user)}
+                        >
+                          <span style={{ color: "#fff", fontSize: "16px" }}> <FaRegEye /> View</span>
+                        </button>
+                        {/* <button
                         className="z_admin_btn z_admin_btn_danger"
                         onClick={() => handleDelete(user._id)}
                       >
                         <span style={{color: "#fff", fontSize: "16px"}}> <RiDeleteBin6Line /> Delete</span>
                       </button> */}
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
           <div className="z_admin_pagination">
             <button
               className="z_admin_pagination_btn"
