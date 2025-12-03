@@ -278,7 +278,9 @@ exports.getCompleteAccountData = async (req, res) => {
           address: user.address,
           city: user.city,
           state: user.state,
-          zipCode: user.zipCode
+          zipCode: user.zipCode,
+          createdAt: user.createdAt,
+          updatedAt: user.updatedAt
         },
         orders: formattedOrders,
         addresses: user.addresses || []

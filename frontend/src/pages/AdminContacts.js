@@ -149,9 +149,9 @@ const AdminContacts = () => {
               <tbody>
                 {contacts.map((contact) => (
                   <tr key={contact._id}>
-                    <td>{contact.name}</td>
-                    <td>{contact.email}</td>
-                    <td>{contact.company || 'N/A'}</td>
+                    <td className='text-nowrap'>{contact.name}</td>
+                    <td className='text-nowrap'>{contact.email}</td>
+                    <td className='text-nowrap'>{contact.company || 'N/A'}</td>
                     <td>
                       <span className={`z_admin_status_badge z_admin_status_${contact.status}`}>
                         {contact.status}

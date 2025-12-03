@@ -240,6 +240,7 @@ const DashboardTab = ({ stats, loading }) => {
           <h3 className="z_admin_table_title">Recent Products</h3>
         </div>
         {stats.recentProducts && stats.recentProducts.length > 0 ? (
+          <div className="z_table_scroll">
           <table className="z_admin_table">
             <thead>
               <tr>
@@ -262,6 +263,7 @@ const DashboardTab = ({ stats, loading }) => {
               ))}
             </tbody>
           </table>
+          </div>
         ) : (
           <div className="z_admin_empty_state">
             <p>No recent products</p>

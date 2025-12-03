@@ -296,7 +296,7 @@ const AdminProducts = () => {
       <div className="z_admin_table_wrapper">
         <div className="z_admin_table_header">
           <h3 className="z_admin_table_title">Products Management</h3>
-          <div style={{ display: 'flex', gap: '10px', alignItems: 'center'}}>
+          <div style={{ display: 'flex', gap: '10px', alignItems: 'center'}} className='z_admin_fcol'>
             <input
               type="text"
               className="z_admin_search_box"
@@ -309,6 +309,7 @@ const AdminProducts = () => {
             />
             <button
               className="z_admin_btn z_admin_btn_primary text-nowrap"
+              style={{ width: 'fit-content' }}
               onClick={() => {
                 if (showForm) {
                   resetForm();
@@ -325,7 +326,7 @@ const AdminProducts = () => {
           <form className="z_admin_form" onSubmit={handleSubmit}>
             <h3 style={{ color: '#5588c9', marginTop: 0, marginBottom: '20px' }}>{formTitle}</h3>
             {/* Basic Info */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '15px' }}>
+            <div className='z_admin_gap' style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))' }}>
               <div className="z_admin_form_group">
                 <label className="z_admin_form_label">Product Name *</label>
                 <input
@@ -431,7 +432,7 @@ const AdminProducts = () => {
             </div>
 
             {/* Checkboxes */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '15px', marginBottom: '20px' }}>
+            {/* <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '15px', marginBottom: '20px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <input
                   type="checkbox"
@@ -450,7 +451,7 @@ const AdminProducts = () => {
                 />
                 <label htmlFor="isBestSeller" style={{ margin: 0, color: '#fff', cursor: 'pointer' }}>Is Best Seller</label>
               </div>
-            </div>
+            </div> */}
 
             {/* Images Upload */}
             <div className="z_admin_form_group">
@@ -679,7 +680,7 @@ const AdminProducts = () => {
                 </tbody>
               </table>
             </div>
-            <div className="z_admin_pagination">
+            <div className="z_admin_pagination mb-2">
               <button
                 className="z_admin_pagination_btn"
                 onClick={() => setPage(page - 1)}

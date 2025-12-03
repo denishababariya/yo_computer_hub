@@ -175,7 +175,7 @@ const AdminCategories = () => {
 
         {showForm && (
           <form className="z_admin_form" onSubmit={handleSubmit}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '15px' }}>
+            <div className='z_admin_gap' style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))' }}>
 
               {/* Name */}
               <div className="z_admin_form_group">

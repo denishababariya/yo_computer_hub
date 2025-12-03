@@ -127,7 +127,16 @@ const AdminUsers = () => {
                     <td>{user.name}</td>
                     <td>{user.email}</td>
                     <td>{user.phone || 'N/A'}</td>
-                    <td>{new Date(user.createdAt).toLocaleDateString()}</td>
+                    <td>
+                      {(() => {
+                        const d = new Date(user.createdAt);
+                        const year = d.getFullYear();
+                        const month = String(d.getMonth() + 1).padStart(2, "0");
+                        const date = String(d.getDate()).padStart(2, "0");
+                        return `${year}-${month}-${date}`;
+                      })()}
+                    </td>
+
                     <td>
                       <div className="z_admin_actions">
                         <button
@@ -183,6 +192,8 @@ const AdminUsers = () => {
 
       {/* User Detail Modal */}
       {showModal && selectedUser && (
+        console.log(selectedUser, "fyjughj"),
+
         <div className="z_admin_modal_overlay" onClick={closeModal}>
           <div className="z_admin_modal" onClick={(e) => e.stopPropagation()}>
             {/* Modal Header */}
@@ -236,7 +247,12 @@ const AdminUsers = () => {
                 </div>
                 <div className="z_admin_modal_field col-6">
                   <label>Joined Date:</label>
-                  <p>{selectedUser.createdAt ? new Date(selectedUser.createdAt).toLocaleDateString() : 'N/A'}</p>
+                  <p>
+                    {selectedUser?.createdAt
+                      ? new Date(selectedUser.createdAt).toLocaleDateString()
+                      : 'N/A'}
+                  </p>
+
                 </div>
               </div>
 

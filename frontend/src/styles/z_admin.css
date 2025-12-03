@@ -365,8 +365,12 @@
   margin-bottom: 20px;
 }
 
-.z_admin_form_group:last-child {
+/* .z_admin_form_group:last-child {
   margin-bottom: 0;
+} */
+
+.z_admin_gap{
+  gap: 15px;
 }
 
 .z_admin_form_label {
@@ -773,6 +777,12 @@
   }
 }
 
+@media (max-width: 573px) {
+.z_admin_gap{
+  gap: 0px;
+}
+}
+
 @media (max-width: 480px) {
   .z_admin_container {
     padding: 10px;
@@ -852,6 +862,12 @@
   .z_admin_stat_value {
     text-align: center;
   }
+}
+@media (max-width: 375px) {
+.z_admin_fcol{
+  flex-direction: column;
+  align-items: start !important;
+}
 }
 
 /* FULL SCREEN OVERLAY */
