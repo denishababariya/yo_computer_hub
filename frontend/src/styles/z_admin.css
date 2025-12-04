@@ -999,3 +999,9 @@
   padding-top: 15px;
   border-top: 1px solid #333;
 }
+
+@media (max-width: 1440px) {
+  .z_catTab_list{
+    justify-content: start;
+  }
+}
