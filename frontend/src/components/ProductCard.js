@@ -217,7 +217,7 @@ function ProductCard({ product }) {
                   <del className="small product-old-price">${product.originalPrice?.toFixed(2)}</del>
                 </>
               ) : (
-                <div className="fw-bold fs-5 text-dark">${product.price.toFixed(2)}</div>
+                <div className="fw-bold fs-5 text-theme">${product.price.toFixed(2)}</div>
               )}
             </div>
 
