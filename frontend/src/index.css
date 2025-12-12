@@ -137,7 +137,7 @@ footer a:hover { color: var(--color-white); }
 }
 
 .custom-tabs .nav-link.active {
-  color: #5588c9;
+  color: #5588c9 !important;
 }
 
 .custom-tabs .nav-link.active::after {

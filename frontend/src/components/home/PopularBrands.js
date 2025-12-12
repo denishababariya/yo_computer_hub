@@ -6,7 +6,10 @@ import Title from "../Title";
 
 function PopularBrands() {
   const brands = [
-    { name: "MSI", url: "https://placehold.co/100x40/FFFFFF/000000?text=MSI" },
+    {
+      name: "MSI",
+      url: "https://placehold.co/100x40/FFFFFF/000000?text=MSI",
+    },
     {
       name: "CORSAIR",
       url: "https://placehold.co/120x40/FFFFFF/000000?text=CORSAIR",
@@ -19,7 +22,10 @@ function PopularBrands() {
       name: "LOGITECH",
       url: "https://placehold.co/140x40/FFFFFF/000000?text=LOGITECH",
     },
-    { name: "AMD", url: "https://placehold.co/110x40/FFFFFF/000000?text=AMD" },
+    {
+      name: "AMD",
+      url: "https://placehold.co/110x40/FFFFFF/000000?text=AMD",
+    },
     {
       name: "INTEL",
       url: "https://placehold.co/110x40/FFFFFF/000000?text=INTEL",
@@ -28,10 +34,14 @@ function PopularBrands() {
       name: "SAMSUNG",
       url: "https://placehold.co/130x40/FFFFFF/000000?text=SAMSUNG",
     },
+    {
+      name: "ASUS",
+      url: "https://placehold.co/120x40/FFFFFF/000000?text=ASUS",
+    }
   ];
 
   // Duplicating the brands is the correct first step for an infinite loop
-  const scrollBrands = [...brands, ...brands]; 
+  const scrollBrands = [...brands, ...brands];
 
   return (
     <section className="x_main-popular-brands bg-dark py-md-5 py-4">
@@ -43,11 +53,11 @@ function PopularBrands() {
         {/* 1. brand-slider needs overflow: hidden;
           2. brand-track needs display: flex; and the animation.
         */}
-        <div className="brand-slider py-md-3 py-1"> 
+        <div className="brand-slider py-md-3 py-1">
           <div className="brand-track">
             {scrollBrands.map((brand, index) => (
               // Ensure brand-item has a fixed width or max-width for consistent sliding
-              <div 
+              <div
                 key={index} // Using index is okay here because the list is static within the map
                 className="brand-item m-2 d-flex align-items-center justify-content-center bg-white border rounded shadow-sm x_main-brand-card"
               >

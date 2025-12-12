@@ -31,13 +31,22 @@
 :root {
   --color-lblue: #355987;
   --color-blue: #5588c9;
-  --color-darkblue: #2b4f80; /* optional – adjust if needed */
+  --color-darkblue: #2b4f80;
+  /* optional – adjust if needed */
   --color-white: #ffffff;
-} 
+}
 
 /* Theme helpers */
-.btn-danger { background-color: var(--color-blue); border-color: var(--color-blue); }
-.btn-danger:hover { background-color: var(--color-blue); border-color: var(--color-blue); }
+.btn-danger {
+  background-color: var(--color-blue);
+  border-color: var(--color-blue);
+}
+
+.btn-danger:hover {
+  background-color: var(--color-blue);
+  border-color: var(--color-blue);
+}
+
 .btn-danger:disabled,
 .btn-danger.disabled {
   background-color: var(--color-lblue) !important;
@@ -45,6 +54,7 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
+
 .btn:active,
 .btn:focus-visible,
 .btn-danger:focus-visible {
@@ -54,10 +64,24 @@
   outline-offset: 2px;
   box-shadow: 0 0 0 3px rgba(85, 136, 201, 0.4);
 }
-.btn-primary { background-color: var(--color-darkblue); border-color: var(--color-darkblue); }
-.btn-primary:hover { filter: brightness(1.1); }
-.navbar-dark .navbar-brand, .navbar-dark .nav-link { color: var(--color-white); }
-.navbar-dark .nav-link.active { color: var(--color-blue); }
+
+.btn-primary {
+  background-color: var(--color-darkblue);
+  border-color: var(--color-darkblue);
+}
+
+.btn-primary:hover {
+  filter: brightness(1.1);
+}
+
+.navbar-dark .navbar-brand,
+.navbar-dark .nav-link {
+  color: var(--color-white);
+}
+
+.navbar-dark .nav-link.active {
+  color: var(--color-blue);
+}
 
 @keyframes App-logo-spin {
   from {
@@ -73,7 +97,7 @@
   font-family: Arial, sans-serif;
 }
 
-.z_admin_table th{
+.z_admin_table th {
   text-wrap: nowrap;
 }
 
@@ -91,4 +115,18 @@
   .a_header_container {
     padding: 0px 0% !important;
   }
+}
+
+
+.x_auth input:-webkit-autofill,
+.x_auth input:-webkit-autofill:hover,
+.x_auth input:-webkit-autofill:focus,
+.x_auth textarea:-webkit-autofill,
+.x_auth textarea:-webkit-autofill:hover,
+.x_auth textarea:-webkit-autofill:focus,
+.x_auth select:-webkit-autofill,
+.x_auth select:-webkit-autofill:hover,
+.x_auth select:-webkit-autofill:focus {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #212529 !important;
 }

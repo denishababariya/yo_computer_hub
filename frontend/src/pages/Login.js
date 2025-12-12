@@ -48,7 +48,7 @@ function Login() {
   };
 
   return (
-    <Container className="py-md-5 py-4">
+    <Container className="py-md-5 py-4 x_auth">
       <Row className="justify-content-center">
         <Col md={8} lg={6} xl={5}>
           <Card className="shadow-lg border-0" style={{ borderRadius: '12px' }}>
