@@ -22,7 +22,7 @@ const cartSlice = createSlice({
       } else {
         state.items[id] = {
           product,
-          qty: (existing?.qty || 0) + qty,
+          qty:  qty,
         };
       }
     },

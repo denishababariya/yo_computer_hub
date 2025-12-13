@@ -54,7 +54,7 @@ function PromoBanners() {
                 <Col xl={6} lg={9} className="text-white mb-3 mb-md-0">
                   <h3 className="fw-bold mb-2" style={{ fontSize: '1.8rem' }}>AORUS ELITE AX AM5</h3>
                   <p className="text-light mb-3">Next-gen motherboard for AMD processors</p>
-                  <Button as={Link} to="/shop" variant="danger" size="lg" className='py-1 fw-500'>
+                  <Button as={Link} to="/shop" variant="danger" size="md" className='py-1 fw-500'>
                     Shop Now <FaCaretRight />
                   </Button>
                 </Col>

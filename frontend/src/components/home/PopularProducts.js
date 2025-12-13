@@ -155,6 +155,20 @@ function PopularProducts() {
 
 }
 
+@media (max-width: 375px) {
+  .review-carousel .carousel-control-prev,
+  .review-carousel .carousel-control-next {
+    width: 35px !important;
+    height: 35px !important;
+  }
+
+  .review-carousel .carousel-control-prev-icon,
+  .review-carousel .carousel-control-next-icon {
+    width: 14px;
+    height: 14px;
+  }
+}
+
       `}</style>
 
       <Container>
@@ -165,8 +179,8 @@ function PopularProducts() {
           >
             POPULAR PRODUCTS
           </h2> */}
-           <Title  text="POPULAR PRODUCTS" theme="dark" align="center" />
-       
+          <Title text="POPULAR PRODUCTS" theme="dark" align="center" />
+
         </div>
 
         {loading ? (
@@ -197,13 +211,13 @@ function PopularProducts() {
           <Row xs={1} sm={2} md={3} className="g-3">
             {displayProducts.map((product) => (
               <Col key={product.id}>
-                <ProductCard  product={product} />
+                <ProductCard product={product} />
               </Col>
             ))}
           </Row>
         )}
 
-     
+
       </Container>
     </section>
   );

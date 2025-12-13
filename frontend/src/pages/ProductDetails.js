@@ -248,6 +248,7 @@ useEffect(() => {
                   <input
                     type="number"
                     value={quantity}
+                    max={50}
                     onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
                     className="z_prdD_qty_input"
                   />

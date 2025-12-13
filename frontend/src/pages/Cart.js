@@ -108,6 +108,7 @@ function Cart() {
                       <Form.Control
                         type="number"
                         min={0}
+                        max={50}
                         value={qty}
                         // Styled Form.Control for dark mode
                         style={{
