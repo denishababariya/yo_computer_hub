@@ -18,6 +18,36 @@ function Checkout() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(!!token);
+  const [phoneError, setPhoneError] = useState("");
+
+  const handleChangep = (e) => {
+    const { name, value } = e.target;
+
+    if (name === "phone") {
+      // Allow only digits
+      const phoneValue = value.replace(/\D/g, "");
+
+      if (phoneValue.length < 10) {
+        setPhoneError("Phone number must be 10 digits.");
+      } else if (phoneValue.length > 10) {
+        setPhoneError("Only 10 digits are allowed.");
+      } else {
+        setPhoneError("");
+      }
+
+      setShippingData({
+        ...shippingData,
+        phone: phoneValue,
+      });
+
+      return;
+    }
+
+    setShippingData({
+      ...shippingData,
+      [name]: value,
+    });
+  };
 
   // Check authentication and redirect if not logged in
   useEffect(() => {
@@ -102,6 +132,7 @@ function Checkout() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setSuccess('');
     setLoading(true);
 
     try {
@@ -125,8 +156,37 @@ function Checkout() {
         paymentMethod
       };
 
-      // Create DB order and Razorpay order
+      /* ==============================
+         🟢 CASH ON DELIVERY FLOW
+      =============================== */
+      if (paymentMethod === "cod") {
+
+        const resp = await orderAPI.createRazorpay({
+          ...orderData,
+          paymentMethod: "cod",
+        });
+
+        if (!resp.success) {
+          setError(resp.message || "Failed to place COD order");
+          setLoading(false);
+          return;
+        }
+
+        setSuccess("Your order has been placed with Cash on Delivery.");
+        dispatch(clearCart());
+
+        setTimeout(() => navigate("/orders"), 1500);
+        setLoading(false);
+        return; // ⛔ Razorpay open nahi thase
+      }
+
+
+      /* ==============================
+         🔵 ONLINE PAYMENT FLOW
+      =============================== */
+
       const resp = await orderAPI.createRazorpay(orderData);
+
       if (!resp.success) {
         setError(resp.message || 'Failed to initiate payment');
         setLoading(false);
@@ -135,20 +195,20 @@ function Checkout() {
 
       const { razorpayOrder, order, key } = resp.data;
 
-      // Ensure Razorpay script is loaded
-      const loadRzp = () => new Promise((resolve, reject) => {
-        if (window.Razorpay) return resolve();
-        const script = document.createElement('script');
-        script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-        script.onload = resolve;
-        script.onerror = reject;
-        document.body.appendChild(script);
-      });
+      const loadRzp = () =>
+        new Promise((resolve, reject) => {
+          if (window.Razorpay) return resolve();
+          const script = document.createElement('script');
+          script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+          script.onload = resolve;
+          script.onerror = reject;
+          document.body.appendChild(script);
+        });
 
       await loadRzp();
 
       const options = {
-        key: key || key, // Razorpay key from server
+        key,
         amount: razorpayOrder.amount,
         currency: razorpayOrder.currency,
         name: 'Yo Computer Hub',
@@ -159,9 +219,9 @@ function Checkout() {
           email: shippingData.email,
           contact: shippingData.phone
         },
+        theme: { color: "#5588c9" },
         handler: async function (response) {
           try {
-            // Verify payment on backend
             const verifyResp = await orderAPI.verifyPayment({
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
@@ -170,8 +230,7 @@ function Checkout() {
             });
 
             if (verifyResp.success) {
-              setSuccess('Payment successful and order placed!');
-              // Clear cart
+              setSuccess("Payment successful and order placed!");
               dispatch(clearCart());
               setTimeout(() => navigate('/orders'), 1500);
             } else {
@@ -190,12 +249,14 @@ function Checkout() {
 
       const rzp = new window.Razorpay(options);
       rzp.open();
+
     } catch (err) {
       setError(err.message || 'Failed to place order. Please try again.');
     } finally {
       setLoading(false);
     }
   };
+
 
   if (!isAuthenticated) {
     return (
@@ -259,14 +320,23 @@ function Checkout() {
                 />
               </Form.Group>
               <Form.Group className="mb-2">
-                <Form.Label>Phone</Form.Label>
-                <Form.Control
-                  name="phone"
-                  placeholder='Enter Your Phone'
-                  value={shippingData.phone}
-                  onChange={handleChange}
-                  required
-                />
+                <Form.Group className="mb-2">
+                  <Form.Label>Phone</Form.Label>
+
+                  <Form.Control
+                    name="phone"
+                    placeholder="Enter your phone number"
+                    value={shippingData.phone}
+                    onChange={handleChangep}
+                    isInvalid={!!phoneError}
+                    maxLength={10}
+                  />
+
+                  <Form.Control.Feedback type="invalid">
+                    {phoneError}
+                  </Form.Control.Feedback>
+                </Form.Group>
+
               </Form.Group>
               <Form.Group className="mb-2">
                 <Form.Label>Address</Form.Label>
@@ -300,7 +370,7 @@ function Checkout() {
               </Form.Group>
 
               <h5 className="mt-4">Payment Method</h5>
-              <Form.Group className="mb-3">
+              <Form.Group className="mb-3 fg_radio">
                 <Form.Check
                   type="radio"
                   label="Cash on Delivery"
@@ -325,6 +395,7 @@ function Checkout() {
                   checked={paymentMethod === 'card'}
                   onChange={(e) => setPaymentMethod(e.target.value)}
                 />
+
               </Form.Group>
 
               <Button
@@ -336,6 +407,7 @@ function Checkout() {
                 {loading ? <Spinner animation="border" size="sm" className="me-2" /> : null}
                 {loading ? 'Processing...' : 'Place Order'}
               </Button>
+
             </Form>
           </Col>
 

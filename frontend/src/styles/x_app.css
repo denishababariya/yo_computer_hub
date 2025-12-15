@@ -782,6 +782,15 @@
 
 
 /* Outer wrapper */
+.fg_radio .form-check-input:checked {
+  background-color: #5588c9;
+  border-color: #5588c9;
+}
+
+.fg_radio .form-check-input:focus {
+  box-shadow: 0 0 0 0.15rem rgba(85, 136, 201, 0.4);
+}
+
 
 .custom-table {
   table-layout: auto !important;
