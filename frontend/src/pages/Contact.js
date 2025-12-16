@@ -14,9 +14,31 @@ function Contact() {
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [phoneError, setPhoneError] = useState('');
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+
+    if (name === 'phone') {
+      // allow only digits
+      const digitsOnly = value.replace(/\D/g, '');
+
+      if (digitsOnly.length > 10) return;
+
+      setFormData(prev => ({
+        ...prev,
+        phone: digitsOnly
+      }));
+
+      if (digitsOnly.length !== 10) {
+        setPhoneError('Phone number must be exactly 10 digits');
+      } else {
+        setPhoneError('');
+      }
+
+      return;
+    }
     setFormData(prevState => ({
       ...prevState,
       [name]: value
@@ -148,9 +170,14 @@ function Contact() {
                   className="z_contact_input"
                   value={formData.phone}
                   onChange={handleInputChange}
+                  maxLength={10}
                   required
                 />
+                {phoneError && (
+                  <small style={{ color: 'red' }}>{phoneError}</small>
+                )}
               </div>
+
             </div>
             <div className="z_contact_field_full">
               <label>Want to know more? Drop us a line!</label>

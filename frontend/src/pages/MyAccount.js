@@ -4,7 +4,7 @@ import { FiEdit2 } from 'react-icons/fi';
 import { FaCamera } from 'react-icons/fa';
 // Note: Assuming these services/utils are correctly implemented elsewhere
 import { userAPI } from '../services/userAPI';
-import { authAPI } from '../services/api';
+import { authAPI, orderAPI } from '../services/api';
 import { logout as logoutAuth } from '../utils/auth';
 import emptyAdd from '../img/no_add.png';
 import emptyOrd from '../img/em_ord.png';
@@ -45,6 +45,7 @@ function MyAccount() {
   const [profile, setProfile] = useState(initialProfile);
   const [editProfile, setEditProfile] = useState(initialProfile);
   const [orders, setOrders] = useState([]);
+
   console.log(orders, "ppppppp");
 
   const [addresses, setAddresses] = useState([]);
@@ -54,6 +55,11 @@ function MyAccount() {
     address: "",
     phone: ""
   });
+  const [showRatingModal, setShowRatingModal] = useState(false);
+  const [ratingValue, setRatingValue] = useState(5);
+  const [ratingComment, setRatingComment] = useState('');
+  const [ratingOrderId, setRatingOrderId] = useState(null);
+  const [ratingProductId, setRatingProductId] = useState(null);
   const [phoneError, setPhoneError] = useState("");
   const [loading, setLoading] = useState(false);
   const [validationErrors, setValidationErrors] = useState({});
@@ -84,6 +90,7 @@ function MyAccount() {
       setLoading(false);
     }
   };
+
 
   const handleEditChange = e => {
     const { name, value } = e.target;
@@ -178,6 +185,13 @@ function MyAccount() {
       alert('Failed to update profile');
     }
   };
+  
+  const today = new Date();
+  const maxDobDate = new Date(
+    today.getFullYear() - 5,
+    today.getMonth(),
+    today.getDate()
+  ).toISOString().split("T")[0];
 
   const handleCameraClick = () => {
     const input = document.createElement('input');
@@ -432,6 +446,69 @@ function MyAccount() {
     }
   };
 
+  const openRatingModal = (orderId, productId) => {
+    setRatingOrderId(orderId);
+    setRatingProductId(productId);
+    setRatingValue(5);
+    setRatingComment('');
+    setShowRatingModal(true);
+  };
+
+  const submitRating = async () => {
+    try {
+      const token = localStorage.getItem('token');
+
+      const res = await fetch(
+        `http://localhost:9000/api/orders/${ratingOrderId}/rate-item`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            productId: ratingProductId,
+            rating: ratingValue,
+            comment: ratingComment
+          })
+        }
+      );
+
+      const data = await res.json();
+
+      if (data.success) {
+        alert('Thanks for rating!');
+        setShowRatingModal(false);
+        setRatingOrderId(null);
+        setRatingProductId(null);
+        fetchUserData();
+      } else {
+        alert(data.message);
+      }
+    } catch (err) {
+      alert('Rating failed');
+    }
+  };
+
+  const renderStars = (rating = 0) => {
+    return (
+      <div>
+        {[1, 2, 3, 4, 5].map(num => (
+          <span
+            key={num}
+            style={{
+              color: num <= rating ? '#f5b301' : '#ccc',
+              fontSize: '1.2rem',
+              marginRight: '2px'
+            }}
+          >
+            ★
+          </span>
+        ))}
+      </div>
+    );
+  };
+
 
   return (
     <section className="z_acc_section py-4">
@@ -557,6 +634,8 @@ function MyAccount() {
                       ) : (
                         <div className="z_order_list">
                           {orders.map(order => (
+                            console.log(order, "ord"),
+
                             <div className="z_order_item_card" key={order._id || order.id}>
                               <div className="z_order_header">
                                 <div className="z_order_id_date">
@@ -570,18 +649,44 @@ function MyAccount() {
 
                               <div className="z_order_products">
                                 {order.items && order.items.map((item, idx) => (
-                                  <div className="z_product_item" key={idx}>
-                                    <img src={item.image} alt={item.name || item.productName} className="z_product_image" />
+                                  console.log(item.review, "iii"),
+
+                                  <div key={item.productId || idx} className="z_product_item">
+                                    <img
+                                      src={item.image}
+                                      alt={item.productName}
+                                      className="z_product_image"
+                                    />
+
                                     <div className="z_product_details">
-                                      <p className="z_product_name">{item.name || item.productName}</p>
-                                      <p className="z_product_price">{item.priceFormatted || item.price || `₹${item.price}`}</p>
-                                      {item.quantity && (
-                                        <p className="text-muted small">Qty: {item.quantity}</p>
+                                      <p className="z_product_name">
+                                        {item.productName}
+                                      </p>
+
+                                      {item.rating && (
+                                        <div className="mt-1">
+                                          {renderStars(item.rating)}
+                                        </div>
                                       )}
+                                      {/* ⭐ RATE BUTTON */}
+                                      {!item.rating &&
+                                        (order.orderStatus || '').toLowerCase() === 'delivered' && (
+                                          <button
+                                            className="btn btn-outline-primary btn-sm mt-1"
+                                            onClick={() =>
+                                              openRatingModal(order._id || order.id, item.productId)
+                                            }
+                                          >
+                                            Rate Product
+                                          </button>
+                                        )}
+
                                     </div>
                                   </div>
                                 ))}
                               </div>
+
+
 
                               <div className="z_order_footer">
                                 {/* Pay button for pending orders with pending payment */}
@@ -605,6 +710,17 @@ function MyAccount() {
                                   <span className="z_total_label">Total Amount:</span>
                                   <span className="z_total_value">{order.total || `₹${order.totalAmount || 0}`}</span>
                                 </div>
+
+                                {/* Rate button for delivered & not-rated orders */}
+                                {/* {((order.orderStatus || order.status || '').toLowerCase() === 'delivered' && !order.rated) && (
+                                  <button
+                                    className="btn btn-outline-primary z_rate_order_btn"
+                                    onClick={() => openRatingModal(order._id, order.items.productId || order.id, order.items.productId)}
+                                    style={{ marginLeft: '10px' }}
+                                  >
+                                    Rate Order
+                                  </button>
+                                )} */}
                               </div>
                             </div>
                           ))}
@@ -802,7 +918,7 @@ function MyAccount() {
                   )}
                 </div>
 
-                <div className="col-12 col-md-6">
+                {/* <div className="col-12 col-md-6">
                   <input
                     className="form-control z_edit_input"
                     name="dob"
@@ -816,7 +932,25 @@ function MyAccount() {
                       {validationErrors.dob}
                     </p>
                   )}
+                </div> */}
+                <div className="col-12 col-md-6">
+                  <input
+                    className="form-control z_edit_input"
+                    name="dob"
+                    value={editProfile.dob}
+                    onChange={handleEditChange}
+                    type="date"
+                    max={maxDobDate}   // ✅ ONLY 5 years pehla ni date allow
+                    placeholder="Date of Birth"
+                  />
+
+                  {validationErrors.dob && (
+                    <p className="text-danger small mt-1" style={{ fontSize: '0.8rem' }}>
+                      {validationErrors.dob}
+                    </p>
+                  )}
                 </div>
+
 
                 {/* 🆕 Gender Dropdown Selection */}
                 <div className="col-12 col-md-6">
@@ -942,6 +1076,56 @@ function MyAccount() {
               <button className="z_logout_btn z_logout_cancel" onClick={() => setShowAddressForm(false)}>
                 Cancel
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Rating Modal */}
+      {showRatingModal && (
+        <div className="z_logout_modal_bg">
+          <div className="z_logout_modal">
+            <div className="z_logout_modal_title">Rate Your Order</div>
+
+            <div className="container">
+              <div className="row mt-3">
+                <div className="col-12 text-center">
+                  <div style={{ fontSize: '1.4rem', marginBottom: '10px' }}>How was your experience?</div>
+                  <div>
+                    {[1, 2, 3, 4, 5].map((s) => (
+                      <button
+                        key={s}
+                        onClick={() => setRatingValue(s)}
+                        style={{
+                          background: 'transparent',
+                          border: 'none',
+                          fontSize: '1.6rem',
+                          color: s <= ratingValue ? '#f5b301' : '#ccc',
+                          cursor: 'pointer'
+                        }}
+                      >
+                        ★
+                      </button>
+                    ))}
+                  </div>
+
+                </div>
+
+                <div className="col-12 mt-3">
+                  <textarea
+                    className="form-control"
+                    rows={4}
+                    placeholder="Write a review (optional)"
+                    value={ratingComment}
+                    onChange={(e) => setRatingComment(e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="z_logout_modal_actions mt-4">
+              <button className="z_logout_btn z_logout_confirm" onClick={submitRating}>Submit Rating</button>
+              <button className="z_logout_btn z_logout_cancel" onClick={() => setShowRatingModal(false)}>Cancel</button>
             </div>
           </div>
         </div>

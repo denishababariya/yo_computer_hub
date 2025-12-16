@@ -792,6 +792,11 @@
 }
 
 
+.form-control:disabled {
+    background-color: #282828 !important;
+    opacity: none !important;
+}
+
 .custom-table {
   table-layout: auto !important;
 }

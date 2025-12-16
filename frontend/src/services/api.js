@@ -112,6 +112,8 @@ export const orderAPI = {
   getUserOrders: (userId) => api.get(`/orders/user/${userId}`),
   getById: (orderId) => api.get(`/orders/${orderId}`),
   update: (orderId, data) => api.put(`/orders/${orderId}`, data),
+  // Rate all products in an order
+  rateOrder: (orderId, data) => api.post(`/orders/${orderId}/rate`, data),
   delete: (orderId) => api.delete(`/orders/${orderId}`)
 };
 

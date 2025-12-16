@@ -258,12 +258,15 @@ exports.getCompleteAccountData = async (req, res) => {
         price: item.price, // Include original price (number)
         priceFormatted: `₹${item.price}`, // Formatted price for display
         image: item.image || 'https://via.placeholder.com/300x300?text=Product',
-        quantity: item.quantity // Include quantity
+        quantity: item.quantity, // Include quantity
+        rating: item.rating, // Include rating if any
+        review: item.review // Include review if any
       })),
       total: `₹${order.totalAmount}`,
       shippingAddress: order.shippingAddress // Include shipping address
     }));
 
+    console.log(formattedOrders,'hfgfgv')
     res.json({
       success: true,
       data: {

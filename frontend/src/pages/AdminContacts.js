@@ -141,7 +141,7 @@ const AdminContacts = () => {
                   <th>Name</th>
                   <th>Email</th>
                   <th>Company</th>
-                  <th>Status</th>
+                  <th>Massage</th>
                   <th>Date</th>
                   <th>Actions</th>
                 </tr>
@@ -153,23 +153,14 @@ const AdminContacts = () => {
                     <td className='text-nowrap'>{contact.email}</td>
                     <td className='text-nowrap'>{contact.company || 'N/A'}</td>
                     <td>
-                      <span className={`z_admin_status_badge z_admin_status_${contact.status}`}>
-                        {contact.status}
+                       {/* z_admin_status_${contact.status}` */}
+                      <span className={`z_admin_status_badge`}>
+                        {contact.message}
                       </span>
                     </td>
                     <td>{new Date(contact.createdAt).toLocaleDateString()}</td>
                     <td>
-                      <div className="z_admin_actions">
-                        <select
-                          className="z_admin_form_select"
-                          style={{ width: '120px' }}
-                          value={contact.status}
-                          onChange={(e) => handleStatusChange(contact._id, e.target.value)}
-                        >
-                          <option value="new">New</option>
-                          <option value="read">Read</option>
-                          <option value="replied">Replied</option>
-                        </select>
+                      <div className="z_admin_actions">                        
                         <button
                           className="z_admin_btn z_admin_btn_danger"
                           onClick={() => initiateDelete(contact._id)}

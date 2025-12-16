@@ -326,7 +326,7 @@ const AdminProducts = () => {
           <form className="z_admin_form" onSubmit={handleSubmit}>
             <h3 style={{ color: '#5588c9', marginTop: 0, marginBottom: '20px' }}>{formTitle}</h3>
             {/* Basic Info */}
-            <div className='z_admin_gap' style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))' }}>
+            <div className='z_admin_gap' style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))' }}>
               <div className="z_admin_form_group">
                 <label className="z_admin_form_label">Product Name *</label>
                 <input
@@ -340,7 +340,7 @@ const AdminProducts = () => {
               <div className="z_admin_form_group">
                 <label className="z_admin_form_label">Category *</label>
                 <select
-                  className="z_admin_form_select"
+                  className="z_admin_form_select z_admin_form_input"
                   value={formData.categoryId}
                   onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
                   required
@@ -382,7 +382,7 @@ const AdminProducts = () => {
                   required
                 />
               </div>
-              <div className="z_admin_form_group">
+              {/* <div className="z_admin_form_group">
                 <label className="z_admin_form_label">Rating</label>
                 <input
                   type="number"
@@ -393,14 +393,14 @@ const AdminProducts = () => {
                   value={formData.rating}
                   onChange={(e) => setFormData({ ...formData, rating: e.target.value })}
                 />
-              </div>
+              </div> */}
             </div>
 
             {/* Description */}
             <div className="z_admin_form_group">
               <label className="z_admin_form_label">Description *</label>
               <textarea
-                className="z_admin_form_textarea"
+                className="z_admin_form_textarea z_admin_form_input"
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 required

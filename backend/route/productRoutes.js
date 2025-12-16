@@ -210,7 +210,7 @@ router.post(
       } = req.body;
 
       // ====== REQUIRED FIELDS ======
-      if (!name || !description || !price || !categoryId || !rating) {
+      if (!name || !description || !price || !categoryId ) {
         return res.status(400).json({
           success: false,
           message: 'Name, description, price, and categoryId are required'
